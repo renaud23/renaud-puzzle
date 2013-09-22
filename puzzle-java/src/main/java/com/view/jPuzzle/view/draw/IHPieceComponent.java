@@ -38,7 +38,7 @@ public class IHPieceComponent<U extends ComponentPiece> implements InvocationHan
 	
 	
 	
-	public static <U extends ComponentPiece> ComponentPiece createPiece(U piece,IDrawer drawer){
+	public static <U extends ComponentPiece> ComponentPiece createComponent(U piece,IDrawer drawer){
 		ComponentPiece p = (ComponentPiece) Proxy.newProxyInstance(
 				ComponentPiece.class.getClassLoader(),
 				new Class[] {ComponentPiece.class, IDrawer.class },

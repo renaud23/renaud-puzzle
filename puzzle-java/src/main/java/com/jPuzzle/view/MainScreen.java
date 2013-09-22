@@ -70,7 +70,7 @@ public class MainScreen implements Observer{
 		
 		
 		Piece p = new Piece(1,100, 100, 100, 86);
-		ComponentPiece c = IHPieceComponent.<Piece>createPiece(p,new PieceDrawer(p,m.getOffPuzzle()));
+		ComponentPiece c = IHPieceComponent.<Piece>createComponent(p,new PieceDrawer(p,m.getOffPuzzle()));
 		tapis.poserPiece(c);
 		((IDrawer)c).draw();
 		
