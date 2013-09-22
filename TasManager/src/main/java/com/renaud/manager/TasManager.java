@@ -2,6 +2,7 @@ package com.renaud.manager;
 
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +38,11 @@ public class TasManager<U extends IRectable> {
 	 * rempli la liste fournie.
 	 * @param e
 	 */
-	public void getAll(List<U> e){
-		this.root.getAll(e);
+	public List<U> getAll(){
+		List<U> liste = new ArrayList<U>();
+		this.root.getAll(liste);
+		
+		return liste;
 	}
 	
 	

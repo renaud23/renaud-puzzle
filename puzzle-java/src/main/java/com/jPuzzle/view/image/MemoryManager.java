@@ -71,12 +71,9 @@ public class MemoryManager extends Thread implements ImageProvider{
 	
 	public VolatileImage loadFromFile(String filename) throws IOException {
 		try{
-		// Loads the image from a file using ImageIO.
+
 		BufferedImage bimage = ImageIO.read(new File(filename) );
-		
-		// From Code Example 2.
 		VolatileImage vimage = createVolatileImage(bimage.getWidth(), bimage.getHeight(), Transparency.TRANSLUCENT);
-		
 		Graphics2D g = null;
 		
 		try {

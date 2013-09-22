@@ -11,11 +11,15 @@ import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Tapis;
 import com.renaud.manager.Rect;
+import com.view.jPuzzle.view.draw.IHPieceComponent;
+import com.view.jPuzzle.view.draw.PieceDrawer;
+import com.view.jPuzzle.view.draw.TapisBasicDrawer;
+import com.view.jPuzzle.view.draw.IDrawer;
 
 public class MainScreen implements Observer{
 	private JFrame fenetre;
 	private Offscreen offPuzzle;
-	
+	private IDrawer drawer;
 	
 	
 	public MainScreen(){
@@ -32,6 +36,14 @@ public class MainScreen implements Observer{
 		this.fenetre.setVisible(true);
 	}
 
+	
+
+	public void draw(){
+		if(this.drawer != null) this.drawer.draw();
+		this.fenetre.repaint();
+	}
+
+
 
 
 	@Override
@@ -44,17 +56,51 @@ public class MainScreen implements Observer{
 	public static void main(String[] args){
 		MainScreen m = new MainScreen();
 		
+		
 		Tapis tapis = new Tapis(800,600);
-		tapis.poserPiece(new Piece(1,100, 100, 100, 86));
-		tapis.poserPiece(new Piece(2,-50, 50, 100, 86));
-		tapis.poserPiece(new Piece(3, 80, -80, 86, 100));
-		tapis.poserPiece(new Piece(4, 30, 0, 100, 100));
+		
+//		tapis.poserPiece(new Piece(1,100, 100, 100, 86));
+//		tapis.poserPiece(new Piece(2,-50, 50, 100, 86));
+//		tapis.poserPiece(new Piece(3, 80, -80, 86, 100));
+//		tapis.poserPiece(new Piece(4, 30, 0, 100, 100));
 		
 		
-		Set<ComponentPiece> set = tapis.chercherPiece(new Rect(50,-40,1,1));
+		m.setDrawer(new TapisBasicDrawer(tapis, m.getOffPuzzle()));
 		
-	
-		System.out.println(set.toString());
+		
+		
+		Piece p = new Piece(1,100, 100, 100, 86);
+		ComponentPiece c = IHPieceComponent.<Piece>createPiece(p,new PieceDrawer(p,m.getOffPuzzle()));
+		tapis.poserPiece(c);
+		((IDrawer)c).draw();
+		
+		m.draw();
+		
+		
+//		
+//		Set<ComponentPiece> set = tapis.chercherPiece(new Rect(50,-40,1,1));
+//		System.out.println(set.toString());
 	}
 
+	
+	
+	
+	
+	
+
+	public Offscreen getOffPuzzle() {
+		return offPuzzle;
+	}
+
+	public void setOffPuzzle(Offscreen offPuzzle) {
+		this.offPuzzle = offPuzzle;
+	}
+
+	public IDrawer getDrawer() {
+		return drawer;
+	}
+
+	public void setDrawer(IDrawer drawer) {
+		this.drawer = drawer;
+	}
 }

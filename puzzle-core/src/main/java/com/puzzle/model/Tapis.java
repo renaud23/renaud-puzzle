@@ -1,13 +1,15 @@
 package com.puzzle.model;
 
+import java.util.Iterator;
 import java.util.Set;
+
 import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
 
 
 
 
-public class Tapis {
+public class Tapis implements Iterable<ComponentPiece>{
 	private TasManager<ComponentPiece> memoire;
 	
 	private double largeur;
@@ -54,6 +56,10 @@ public class Tapis {
 	
 	
 	
+	@Override
+	public Iterator<ComponentPiece> iterator() {
+		return this.memoire.getAll().iterator();
+	}
 	
 	
 	
@@ -72,7 +78,11 @@ public class Tapis {
 	public void setHauteur(double hauteur) {
 		this.hauteur = hauteur;
 	}
-	
+
+
+
+
+
 	
 	
 }
