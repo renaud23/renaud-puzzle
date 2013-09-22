@@ -3,14 +3,12 @@ package com.jPuzzle.view;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 
 import javax.swing.JFrame;
 
-import com.puzzle.model.ComponentPiece;
+import com.jPuzzle.view.image.MemoryManager;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Tapis;
-import com.renaud.manager.Rect;
 import com.view.jPuzzle.view.draw.IHPieceComponent;
 import com.view.jPuzzle.view.draw.PieceDrawer;
 import com.view.jPuzzle.view.draw.TapisBasicDrawer;
@@ -26,7 +24,7 @@ public class MainScreen implements Observer{
 		this.fenetre = new JFrame("JPuzzle");
 		this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.offPuzzle = new Offscreen(800, 600);
+		this.offPuzzle = new Offscreen(800, 800);
 		this.offPuzzle.setPreferredSize(new Dimension(800,600));
 		
 		this.fenetre.add(this.offPuzzle);
@@ -55,24 +53,24 @@ public class MainScreen implements Observer{
 	
 	public static void main(String[] args){
 		MainScreen m = new MainScreen();
+		MemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
 		
 		
-		Tapis tapis = new Tapis(800,600);
-		
-//		tapis.poserPiece(new Piece(1,100, 100, 100, 86));
-//		tapis.poserPiece(new Piece(2,-50, 50, 100, 86));
-//		tapis.poserPiece(new Piece(3, 80, -80, 86, 100));
-//		tapis.poserPiece(new Piece(4, 30, 0, 100, 100));
+		Tapis tapis = new Tapis(1500,1500);
 		
 		
 		m.setDrawer(new TapisBasicDrawer(tapis, m.getOffPuzzle()));
 		
 		
+		Piece p1 = new Piece(1,100, 100, 100, 86);
+		Piece p2 = new Piece(2,-50, 50, 100, 86);
+		Piece p3 = new Piece(3, 80, -80, 86, 100);
+		Piece p4 = new Piece(4, 0, 0, 100, 100);
+		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p1,new PieceDrawer(p1,m.getOffPuzzle())));
+		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p2,new PieceDrawer(p2,m.getOffPuzzle())));
+		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p3,new PieceDrawer(p3,m.getOffPuzzle())));
+		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p4,new PieceDrawer(p4,m.getOffPuzzle())));
 		
-		Piece p = new Piece(1,100, 100, 100, 86);
-		ComponentPiece c = IHPieceComponent.<Piece>createComponent(p,new PieceDrawer(p,m.getOffPuzzle()));
-		tapis.poserPiece(c);
-		((IDrawer)c).draw();
 		
 		m.draw();
 		

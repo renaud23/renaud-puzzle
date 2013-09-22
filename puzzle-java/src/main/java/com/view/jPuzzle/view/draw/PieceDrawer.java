@@ -1,12 +1,17 @@
 package com.view.jPuzzle.view.draw;
 
+import java.awt.Image;
+
 import com.jPuzzle.view.Offscreen;
+import com.jPuzzle.view.image.MemoryManager;
 import com.puzzle.model.Piece;
+import com.renaud.manager.IRect;
 
 public class PieceDrawer implements IDrawer{
 	
 	private Piece piece;
 	private Offscreen offscreen;
+	private Transformation transformation;
 	
 	
 
@@ -19,8 +24,42 @@ public class PieceDrawer implements IDrawer{
 
 	@Override
 	public void draw() {
-		System.out.println("***");
+		Image img = MemoryManager.getInstance().getImage(this.piece.getId());
 		
+		
+//		double x = this.piece.getCentre().getX();
+//		x += transformation.getTx();
+//		x -= this.piece.getLargeur() / 2.0;
+//		x *= transformation.getSx();
+//
+//		double y = this.piece.getCentre().getY();
+//		y *= -1.0;
+//		y += transformation.getTy();
+//		y -= this.piece.getHauteur() / 2.0;
+//		y *= transformation.getSy();
+		
+		double x = transformation.getTx();
+		x -= this.piece.getLargeur() / 2.0;
+		
+		double y = transformation.getTy();
+		y -= this.piece.getHauteur() / 2.0;
+		
+		this.offscreen.drawImage(img, (int)x, (int)y, 0, 0, 0, 
+				transformation.getSx(),
+				transformation.getSy(), 1.0f);
+		
+	
 	}
 
+
+
+	public void setTransformation(Transformation transformation) {
+		this.transformation = transformation;
+	}
+
+	
+	
+	
+	
+	
 }

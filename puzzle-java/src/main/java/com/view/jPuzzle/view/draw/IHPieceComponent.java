@@ -29,6 +29,8 @@ public class IHPieceComponent<U extends ComponentPiece> implements InvocationHan
 		Object rtn = null;
 		if("draw".equals(method.getName())){
 			this.drawer.draw();
+		}else if("setTransformation".equals(method.getName())){
+			this.drawer.setTransformation((Transformation)args[0]);
 		}else{
 			rtn =  method.invoke(this.component,args);
 		}
