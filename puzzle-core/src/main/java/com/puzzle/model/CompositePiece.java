@@ -68,5 +68,23 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	public List<ComponentPiece> getChild(){
 		return this.pieces;// attention à l'usage.
 	}
+
+
+
+
+	@Override
+	public int getZIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+
+	@Override
+	public void setZIndex(int index) {
+		// TODO Auto-generated method stub
+	
+	}
 	
 }

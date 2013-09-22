@@ -25,8 +25,7 @@ public class TapisBasicDrawer implements IDrawer {
 		scaleHauteur /= this.tapis.getHauteur();
 		
 		for(ComponentPiece cmp : this.tapis){
-			
-			
+			// calcul le centre d'affichage à l'écran de la piéce en se basant sur le centre de IRect
 			Transformation t = new Transformation();
 			
 			IRect r = cmp.getRect();

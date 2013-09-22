@@ -39,6 +39,15 @@ public class Tapis implements Iterable<ComponentPiece>{
 	 * @param piece
 	 */
 	public void poserPiece(ComponentPiece piece){
+		Set<ComponentPiece> set = this.memoire.get(piece.getRect());
+		int index = 0;
+		for(ComponentPiece c : set){
+			if(c.getZIndex() > index)
+				index = c.getZIndex();
+		}
+		index++;
+		piece.setZIndex(index);
+		
 		this.memoire.put(piece);
 	}
 	

@@ -26,18 +26,6 @@ public class PieceDrawer implements IDrawer{
 	public void draw() {
 		Image img = MemoryManager.getInstance().getImage(this.piece.getId());
 		
-		
-//		double x = this.piece.getCentre().getX();
-//		x += transformation.getTx();
-//		x -= this.piece.getLargeur() / 2.0;
-//		x *= transformation.getSx();
-//
-//		double y = this.piece.getCentre().getY();
-//		y *= -1.0;
-//		y += transformation.getTy();
-//		y -= this.piece.getHauteur() / 2.0;
-//		y *= transformation.getSy();
-		
 		double x = transformation.getTx();
 		x -= this.piece.getLargeur() / 2.0;
 		

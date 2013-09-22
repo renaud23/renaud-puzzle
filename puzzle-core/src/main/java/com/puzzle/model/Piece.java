@@ -15,6 +15,8 @@ public class Piece implements ComponentPiece{
 	
 	private IRect rect;
 	
+	private int zIndex;
+	
 	
 	public Piece(){
 		this.centre = new Point();
@@ -75,6 +77,18 @@ public class Piece implements ComponentPiece{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	@Override
+	public int getZIndex() {
+		return this.zIndex;
+	}
+
+
+	@Override
+	public void setZIndex(int index) {
+		this.zIndex = index;
 	}
 
 

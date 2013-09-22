@@ -4,6 +4,7 @@ import com.renaud.manager.IRectable;
 
 public interface ComponentPiece extends IRectable{
 
-	
+	public int getZIndex();
+	public void setZIndex(int index);
 
 }
