@@ -35,10 +35,9 @@ public class TapisBasicDrawer implements IDrawer {
 			x *= scaleLargeur;
 			
 			double y = r.getY();
-			y -= r.getHauteur() / 2.0;
-			y *= -1.0;
+			y *= -1.0;// inversion du repère
+			y += r.getHauteur() / 2.0;
 			y += tapis.getHauteur() / 2.0;
-			
 			y *= scaleHauteur;
 			
 			t.setTx(x);

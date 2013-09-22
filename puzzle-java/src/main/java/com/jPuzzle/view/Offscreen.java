@@ -151,7 +151,7 @@ public void drawImage(Image image,double x,double y,double xRotation,double yRot
 
 		t.translate(x, y);
 		t.scale(scaleX, scaleY);
-		gr.rotate(theta, xRotation*scaleX, yRotation*scaleY);
+		gr.rotate(theta, xRotation*1.0, yRotation*1.0);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();

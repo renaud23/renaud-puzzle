@@ -17,6 +17,7 @@ public class Piece implements ComponentPiece{
 	
 	private int zIndex;
 	
+	private double angle;
 	
 	public Piece(){
 		this.centre = new Point();
@@ -40,7 +41,14 @@ public class Piece implements ComponentPiece{
 		this.centre.translate(xi, yi);
 	}
 	
-	
+	public void addAngle(double a){
+		this.angle += a;
+		double pisur2 =  Math.PI * 2.0;
+		if(a<0) angle += pisur2;
+		else if(angle > ( pisur2)) angle -= pisur2;
+		
+		((RectPiece)this.rect).checkAngle();
+	}
 
 	@Override
 	public IRect getRect() {
@@ -77,6 +85,15 @@ public class Piece implements ComponentPiece{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public double getAngle() {
+		return angle;
+	}
+
+	public void setAngle(double angle) {
+		this.angle = angle;
+		((RectPiece)this.rect).checkAngle();
 	}
 
 

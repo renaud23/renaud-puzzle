@@ -25,14 +25,15 @@ public class PieceDrawer implements IDrawer{
 	@Override
 	public void draw() {
 		Image img = MemoryManager.getInstance().getImage(this.piece.getId());
-		
+	
 		double x = transformation.getTx();
-		x -= this.piece.getLargeur() / 2.0;
+		x -= this.piece.getLargeur() / 2.0 * transformation.getSx();
 		
 		double y = transformation.getTy();
-		y -= this.piece.getHauteur() / 2.0;
+		y -= this.piece.getHauteur() / 2.0 * transformation.getSy();
 		
-		this.offscreen.drawImage(img, (int)x, (int)y, 0, 0, 0, 
+		this.offscreen.drawImage(img, (int)x, (int)y, 
+				transformation.getTx() , transformation.getTy(), -piece.getAngle(), 
 				transformation.getSx(),
 				transformation.getSy(), 1.0f);
 		

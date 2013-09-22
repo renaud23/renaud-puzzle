@@ -5,6 +5,10 @@ import com.renaud.manager.Rect;
 
 public class RectPiece implements IRect{
 	private Piece piece;
+	private double x;
+	private double y;
+	private double largeur;
+	private double hauteur;
 	
 
 	public RectPiece(){
@@ -13,6 +17,10 @@ public class RectPiece implements IRect{
 	
 	public RectPiece(Piece piece) {
 		this.piece = piece;
+		this.x = this.piece.getCentre().getX() - this.piece.getLargeur() / 2.0;
+		this.y = this.piece.getCentre().getY() + this.piece.getHauteur() / 2.0;
+		this.largeur = this.piece.getLargeur();
+		this.hauteur = this.piece.getHauteur();
 	}
 	
 	public boolean isIn(double x,double y,double largeur,double hauteur){
@@ -49,6 +57,45 @@ public class RectPiece implements IRect{
 		return state;
 	}
 	
+	public void checkAngle(){
+		
+		double[] x = new double[4];
+		double[] y = new double[4];
+		double refl = this.piece.getLargeur() / 2.0;
+		double refh = this.piece.getHauteur() / 2.0;
+	
+		x[0] = refl * Math.cos(this.piece.getAngle()) - refh * Math.sin(this.piece.getAngle());
+		y[0] = refl * Math.sin(this.piece.getAngle()) + refh * Math.cos(this.piece.getAngle());
+		
+		x[1] = -refl * Math.cos(this.piece.getAngle()) - refh * Math.sin(this.piece.getAngle());
+		y[1] =- refl * Math.sin(this.piece.getAngle()) + refh * Math.cos(this.piece.getAngle());
+		
+		x[2] = -refl * Math.cos(this.piece.getAngle()) + refh * Math.sin(this.piece.getAngle());
+		y[2] = -refl * Math.sin(this.piece.getAngle()) - refh * Math.cos(this.piece.getAngle());
+		
+		x[3] = refl * Math.cos(this.piece.getAngle()) + refh * Math.sin(this.piece.getAngle());
+		y[3] = refl * Math.sin(this.piece.getAngle()) - refh * Math.cos(this.piece.getAngle());
+		
+		double ymin = Double.MAX_VALUE, ymax = Double.MIN_VALUE, xmin = Double.MAX_VALUE, xmax = Double.MIN_VALUE;
+		for(int i=0;i<4;i++){
+			x[i] += this.piece.getCentre().getX();
+			y[i] += this.piece.getCentre().getY();
+			
+			if(x[i] < xmin) xmin = x[i];
+			if(x[i] > xmax) xmax = x[i];
+			if(y[i] < ymin) ymin = y[i];
+			if(y[i] > ymax) ymax = y[i];
+		}
+		
+		this.x = xmin;
+		this.y = ymax;
+		this.largeur = xmax - xmin;
+		this.hauteur = ymax - ymin;
+	}
+	
+
+	
+	
 	public RectPiece clone(){ 
 		return new RectPiece(this.piece);
 	}
@@ -58,18 +105,18 @@ public class RectPiece implements IRect{
 	}
 	
 	public double getX() {
-		return this.piece.getCentre().getX()- this.piece.getLargeur() / 2.0;
+		return this.x;
 	}
 
 	public double getY() {
-		return this.piece.getCentre().getY()+ this.piece.getHauteur() / 2.0;
+		return this.y;
 	}
 	
 	public double getHauteur() {
-		return this.piece.getHauteur();
+		return this.hauteur;
 	}
 	
 	public double getLargeur() {
-		return this.piece.getLargeur();
+		return this.largeur;
 	}
 }
