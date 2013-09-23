@@ -10,6 +10,7 @@ import com.jPuzzle.view.controler.ITapisControler;
 import com.jPuzzle.view.controler.TapisConverter;
 import com.puzzle.command.AttrapperUnePiece;
 import com.puzzle.command.ICommand;
+import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 
@@ -38,15 +39,12 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	
 	@Override
 	public void attraperUnePiece(double x, double y) {
-		
-		
-		
-		
-		
 		attraper.setX(x);
 		attraper.setY(y);
 		attraper.execute();
+	
 		
+		System.out.println(MainDroite.getInstance().getPiece());
 	}
 	
 	
@@ -72,11 +70,11 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Point p = new Point(e.getX(), e.getY());
-		System.out.println(p.toString());
-		
-		TapisBasicConverter.getInstance().convertScreenToModel(p);
-		System.out.println(p.toString());
+		if(this.mainDroiteVide){
+			Point p = new Point(e.getX(), e.getY());
+			TapisBasicConverter.getInstance().convertScreenToModel(p);
+			this.attraperUnePiece(p.getX(), p.getY());
+		}
 		
 	}
 

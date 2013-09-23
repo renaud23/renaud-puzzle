@@ -58,7 +58,6 @@ public class RectPiece implements IRect{
 	}
 	
 	public void checkAngle(){
-		
 		double[] x = new double[4];
 		double[] y = new double[4];
 		double refl = this.piece.getLargeur() / 2.0;
@@ -94,7 +93,13 @@ public class RectPiece implements IRect{
 	}
 	
 
-	
+	@Override
+	public boolean contains(double x, double y) {
+		boolean state = false;
+		if(x >= this.x && x <= (this.x+this.largeur) && y <= this.y && y >= (this.y-this.hauteur))
+			state = true;
+		return state;
+	}
 	
 	public RectPiece clone(){ 
 		return new RectPiece(this.piece);

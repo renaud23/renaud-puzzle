@@ -1,6 +1,7 @@
 package com.puzzle.model;
 
 import com.renaud.manager.IRect;
+import com.renaud.manager.Rect;
 
 
 public class Piece implements ComponentPiece{
@@ -56,7 +57,7 @@ public class Piece implements ComponentPiece{
 	}
 	
 	public String toString(){
-		return "[Piece id="+this.id+" centre="+this.centre.toString()+" largeur="+this.largeur+" hauteur="+this.hauteur+" rect="+this.rect.toString()+"]";
+		return "[Piece id="+this.id+" centre="+this.centre.toString()+" largeur="+this.largeur+" hauteur="+this.hauteur+" rect="+this.rect.toString()+" zIndex="+this.zIndex+"]";
 	}
 	
 	public Point getCentre() {

@@ -1,5 +1,6 @@
 package com.puzzle.command;
 
+import java.util.List;
 import java.util.Set;
 
 import com.puzzle.model.ComponentPiece;
@@ -21,15 +22,23 @@ public class AttrapperUnePiece implements ICommand{
 	@Override
 	public void execute() {
 		if(MainDroite.getInstance().isEmpty()){
-			Set<ComponentPiece> candidats = this.tapis.chercherPiece(this.x, this.y);
+			List<ComponentPiece> candidats = this.tapis.chercherPiece(this.x, this.y);
 			int ref = -1;
 			ComponentPiece candidat = null;
+			
 			for(ComponentPiece cmp : candidats){
-				if(cmp.getZIndex() > ref)
+				
+				if(cmp.getZIndex() > ref){
 					candidat = cmp;
+					ref = cmp.getZIndex();
+				}
 			}
 			
-			if(candidat != null) MainDroite.getInstance().setPiece(candidat);
+			if(candidat != null){
+				MainDroite.getInstance().setPiece(candidat);
+				MainDroite.getInstance().setX(this.x - candidat.getCentre().getX());
+				MainDroite.getInstance().setY(this.y - candidat.getCentre().getY());
+			}
 		}
 		
 	}

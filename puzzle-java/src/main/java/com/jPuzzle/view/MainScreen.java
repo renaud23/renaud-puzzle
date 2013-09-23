@@ -59,7 +59,7 @@ public class MainScreen implements Observer{
 		MemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
 		
 		
-		Tapis tapis = new Tapis(2000,2000);
+		Tapis tapis = new Tapis(800,800);
 		
 		Piece p1 = new Piece(1,100, 100, 100, 86);
 		Piece p2 = new Piece(2,-50, 50, 100, 86);
@@ -83,6 +83,11 @@ public class MainScreen implements Observer{
 		
 		/* ** */
 		m.draw();
+		
+		
+//		System.out.println(tapis.chercherPiece(0, 0));
+//		System.out.println(p3.getRect());
+//		System.out.println(p4.getRect());
 		
 	}
 

@@ -15,6 +15,8 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	
 	private Rect rect;
 	
+	private Point centre;
+	
 	private int zIndex;
 	
 	public CompositePiece(){
@@ -85,6 +87,14 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	public void setZIndex(int index) {
 		// TODO Auto-generated method stub
 	
+	}
+
+
+
+
+	@Override
+	public Point getCentre() {
+		return this.centre;
 	}
 	
 }

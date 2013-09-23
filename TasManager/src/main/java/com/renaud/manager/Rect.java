@@ -27,7 +27,13 @@ public class Rect implements Cloneable,IRect{
 	}
 	
 	
-	
+	@Override
+	public boolean contains(double x, double y) {
+		boolean state = false;
+		if(x >= this.x && x <= (this.x+this.largeur) && y <= this.y && y >= (this.y-this.hauteur))
+			state = true;
+		return state;
+	}
 	
 	public boolean isIn(IRect r){
 		boolean state = false;
@@ -85,6 +91,8 @@ public class Rect implements Cloneable,IRect{
 	public void setLargeur(double largeur) {
 		this.largeur = largeur;
 	}
+
+	
 	
 	
 }

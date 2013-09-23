@@ -1,7 +1,11 @@
 package com.puzzle.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
@@ -57,12 +61,24 @@ public class Tapis implements Iterable<ComponentPiece>{
 		this.memoire.remove(piece);
 	}
 	
-	public Set<ComponentPiece> chercherPiece(IRect r){
+	public Set<ComponentPiece> chercherPiece(IRect r){// TODO
 		 return this.memoire.get(r);
 	}
 	
-	public Set<ComponentPiece> chercherPiece(double x,double y){
-		 return this.memoire.get(x,y);
+	public List<ComponentPiece> chercherPiece(double x,double y){
+		
+		Set<ComponentPiece> set = this.memoire.get(x,y);
+		List<ComponentPiece> tmp = new ArrayList<ComponentPiece>();
+		
+		for(ComponentPiece cmp : set){
+			
+			if(cmp.getRect().contains(x, y)) {
+				tmp.add(cmp);
+			}
+			
+		}
+		
+		return tmp;
 	}
 	
 	
