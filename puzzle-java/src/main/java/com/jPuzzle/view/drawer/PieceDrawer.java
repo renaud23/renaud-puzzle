@@ -1,9 +1,9 @@
-package com.view.jPuzzle.view.draw;
+package com.jPuzzle.view.drawer;
 
 import java.awt.Image;
 
-import com.jPuzzle.view.Offscreen;
 import com.jPuzzle.view.image.MemoryManager;
+import com.jPuzzle.view.image.Offscreen;
 import com.puzzle.model.Piece;
 import com.renaud.manager.IRect;
 

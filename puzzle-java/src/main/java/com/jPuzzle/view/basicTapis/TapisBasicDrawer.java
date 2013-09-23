@@ -1,7 +1,10 @@
-package com.view.jPuzzle.view.draw;
+package com.jPuzzle.view.basicTapis;
 
-import com.jPuzzle.view.Offscreen;
+import com.jPuzzle.view.drawer.IDrawer;
+import com.jPuzzle.view.drawer.Transformation;
+import com.jPuzzle.view.image.Offscreen;
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.renaud.manager.IRect;
 
@@ -18,33 +21,29 @@ public class TapisBasicDrawer implements IDrawer {
 
 
 	@Override
-	public void draw() {
-		double scaleLargeur = this.offscreen.getLargeur();
-		scaleLargeur /= this.tapis.getLargeur();
-		double scaleHauteur = this.offscreen.getHauteur();
-		scaleHauteur /= this.tapis.getHauteur();
-		
+	public void draw() {	
 		for(ComponentPiece cmp : this.tapis){
 			// calcul le centre d'affichage à l'écran de la piéce en se basant sur le centre de IRect
 			Transformation t = new Transformation();
 			
 			IRect r = cmp.getRect();
+			
+			
+			// centre de la piece
 			double x = r.getX();
-			x += tapis.getLargeur() / 2.0;
 			x += r.getLargeur() / 2.0;
-			x *= scaleLargeur;
-			
 			double y = r.getY();
-			y *= -1.0;// inversion du repère
-			y += r.getHauteur() / 2.0;
-			y += tapis.getHauteur() / 2.0;
-			y *= scaleHauteur;
+			y -= r.getHauteur() / 2.0;
 			
-			t.setTx(x);
-			t.setTy(y);
 			
-			t.setSx(scaleLargeur);
-			t.setSy(scaleHauteur);
+			Point p = new Point(x,y);
+			TapisBasicConverter.getInstance().convertModelToScreen(p);
+			
+			t.setTx(p.getX());
+			t.setTy(p.getY());
+			
+			t.setSx(TapisBasicConverter.getInstance().getScaleX());
+			t.setSy(TapisBasicConverter.getInstance().getScaleY());
 			
 			((IDrawer) cmp).setTransformation(t);
 			((IDrawer) cmp).draw();

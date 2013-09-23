@@ -1,4 +1,4 @@
-package com.jPuzzle.view;
+package com.jPuzzle.view.image;
 
 
 
@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.VolatileImage;
+
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 

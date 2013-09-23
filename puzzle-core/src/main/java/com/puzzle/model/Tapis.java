@@ -51,6 +51,8 @@ public class Tapis implements Iterable<ComponentPiece>{
 		this.memoire.put(piece);
 	}
 	
+	
+	
 	public void retirerPiece(ComponentPiece piece){
 		this.memoire.remove(piece);
 	}

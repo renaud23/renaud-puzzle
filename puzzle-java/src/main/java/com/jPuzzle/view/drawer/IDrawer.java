@@ -1,4 +1,6 @@
-package com.view.jPuzzle.view.draw;
+package com.jPuzzle.view.drawer;
+
+
 
 public interface IDrawer {
 	public void draw();

@@ -1,8 +1,11 @@
-package com.view.jPuzzle.view.draw;
+package com.jPuzzle.view.image;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+
+import com.jPuzzle.view.drawer.IDrawer;
+import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.model.ComponentPiece;
 
 /**

@@ -1,4 +1,4 @@
-package com.jPuzzle.view;
+package com.jPuzzle.view.image;
 
 import java.awt.Color;
 import java.awt.CompositeContext;

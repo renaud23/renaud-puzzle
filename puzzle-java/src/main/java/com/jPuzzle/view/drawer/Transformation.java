@@ -1,4 +1,4 @@
-package com.view.jPuzzle.view.draw;
+package com.jPuzzle.view.drawer;
 
 public class Transformation {
 	/**
