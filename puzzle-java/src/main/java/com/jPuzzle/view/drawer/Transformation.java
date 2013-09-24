@@ -17,8 +17,14 @@ public class Transformation {
 	 * 
 	 */
 	private double sy;
-	
-	
+	/**
+	 * centre de rotation.
+	 */
+	private double rx;
+	/**
+	 * centre de rotation.
+	 */
+	private double ry;
 	
 	
 	
@@ -47,6 +53,18 @@ public class Transformation {
 	}
 	public void setSy(double sy) {
 		this.sy = sy;
+	}
+	public double getRx() {
+		return rx;
+	}
+	public void setRx(double rx) {
+		this.rx = rx;
+	}
+	public double getRy() {
+		return ry;
+	}
+	public void setRy(double ry) {
+		this.ry = ry;
 	}
 	
 	

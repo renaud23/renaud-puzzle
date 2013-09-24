@@ -1,11 +1,13 @@
 package com.jPuzzle.view.drawer;
 
+import java.awt.Color;
 import java.awt.Image;
-
+import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.image.ImageBuffer;
 import com.jPuzzle.view.image.ImageMemoryManager;
-import com.jPuzzle.view.image.Offscreen;
 import com.puzzle.model.Piece;
+import com.puzzle.model.Point;
+import com.puzzle.model.RectPiece;
 
 public class PieceDrawer implements IDrawerParametrable<Transformation>{
 	
@@ -32,10 +34,21 @@ public class PieceDrawer implements IDrawerParametrable<Transformation>{
 		double y = transformation.getTy();
 		y -= this.piece.getHauteur() / 2.0 * transformation.getSy();
 		
-		this.offscreen.drawImage(img, (int)x, (int)y, 
-				transformation.getTx() , transformation.getTy(), -piece.getAngle(), 
+		this.offscreen.drawImage(img, (int) x, (int) y, 
+				transformation.getRx() , transformation.getRy(), -piece.getAngle(), 
 				transformation.getSx(),
 				transformation.getSy(), 1.0f);
+		
+		for(Point p : ((RectPiece) piece.getRect()).getCoins()){
+				Point o = new Point(p.getX(),p.getY());
+				TapisBasicConverter.getInstance().convertModelToScreen(o);
+				
+				this.offscreen.drawRect(Color.red,(int) o.getX(), (int) o.getY(), 2, 2);
+			
+		}
+		Point o = new Point(piece.getCentre().getX(),piece.getCentre().getY());
+		TapisBasicConverter.getInstance().convertModelToScreen(o);
+		this.offscreen.drawRect(Color.yellow,(int) o.getX(), (int) o.getY(), 2, 2);
 	}
 
 

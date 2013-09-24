@@ -85,6 +85,11 @@ public class ImageBuffer {
 
 	}
 
+	public void drawRect(Color color,int x,int y,int width,int height){
+		Graphics2D g = this.image.createGraphics();
+		g.setColor(color);
+		g.drawRect(x, y, width, height);
+	}
 
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
 		

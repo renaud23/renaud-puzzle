@@ -14,11 +14,11 @@ import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.drawer.IDrawable;
 import com.jPuzzle.view.drawer.IDrawer;
 import com.jPuzzle.view.drawer.IDrawerParametrable;
+import com.jPuzzle.view.drawer.Transformation;
 import com.jPuzzle.view.image.ImageBuffer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.jPuzzle.view.image.Offscreen;
 import com.puzzle.model.Piece;
-import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 
 public class MainScreen implements IDrawable{
@@ -27,21 +27,21 @@ public class MainScreen implements IDrawable{
 	private ImageBuffer tapisOffscreen;
 	private ImageBuffer hudOffscreen;
 	private IDrawer tapisDrawer;
-	private IDrawerParametrable<Point> hudDrawer;
+	private IDrawerParametrable<Transformation> hudDrawer;
 	
 	
-	private Point point;
+	private Transformation point;
 	
 	
-	public MainScreen(){
+	public MainScreen(int largeur,int hauteur){
 		this.fenetre = new JFrame("JPuzzle");
 		this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.tapisOffscreen = new ImageBuffer(new Color(100,150,50,255), 800, 800);
-		this.hudOffscreen = new ImageBuffer(new Color(0,0,0,0), 800, 800);
+		this.tapisOffscreen = new ImageBuffer(new Color(255,150,150,255), largeur, hauteur);
+		this.hudOffscreen = new ImageBuffer(new Color(0,0,0,0), largeur, hauteur);
 		
-		this.offscreen = new Offscreen(800, 800);
-		this.offscreen.setPreferredSize(new Dimension(800,800));
+		this.offscreen = new Offscreen(largeur, hauteur);
+		this.offscreen.setPreferredSize(new Dimension(largeur,hauteur));
 		
 		this.fenetre.add(this.offscreen);
 		
@@ -69,8 +69,8 @@ public class MainScreen implements IDrawable{
 	
 	
 	public <U> void setParam(U param){
-		if(param instanceof Point){
-			this.point = (Point) param;
+		if(param instanceof Transformation){
+			this.point = (Transformation) param;
 		}
 	}
 	
@@ -90,7 +90,7 @@ public class MainScreen implements IDrawable{
 	
 	
 	public static void main(String[] args){
-		MainScreen m = new MainScreen();
+		MainScreen m = new MainScreen(800,800);
 		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
 		
 		
@@ -175,11 +175,11 @@ public class MainScreen implements IDrawable{
 		this.tapisDrawer = tapisDrawer;
 	}
 	
-	public IDrawer getHudDrawer() {
+	public IDrawerParametrable<Transformation> getHudDrawer() {
 		return hudDrawer;
 	}
 	
-	public void setHudDrawer(IDrawerParametrable<Point> hudDrawer) {
+	public void setHudDrawer(IDrawerParametrable<Transformation> hudDrawer) {
 		this.hudDrawer = hudDrawer;
 	}
 

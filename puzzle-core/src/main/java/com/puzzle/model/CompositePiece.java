@@ -96,5 +96,14 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	public Point getCentre() {
 		return this.centre;
 	}
+
+
+
+
+	@Override
+	public double getAngle() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

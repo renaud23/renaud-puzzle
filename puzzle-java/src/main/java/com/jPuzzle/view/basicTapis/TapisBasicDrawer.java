@@ -44,6 +44,9 @@ public class TapisBasicDrawer implements IDrawer {
 			t.setTx(p.getX());
 			t.setTy(p.getY());
 			
+			t.setRx(p.getX());
+			t.setRy(p.getY());
+			
 			t.setSx(TapisBasicConverter.getInstance().getScaleX());
 			t.setSy(TapisBasicConverter.getInstance().getScaleY());
 			

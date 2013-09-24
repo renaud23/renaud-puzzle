@@ -10,8 +10,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.jPuzzle.view.controler.ITapisControler;
-import com.jPuzzle.view.controler.TapisConverter;
 import com.jPuzzle.view.drawer.IDrawable;
+import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.PoserMainDroite;
@@ -58,7 +58,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		
 		if(!this.mainDroiteVide){
 			
-			this.drawable.setParam(this.checkPointSaisi());
+			this.drawable.setParam(checkPointSaisi());
+			
 			this.drawable.drawTapis();
 			this.drawable.drawHud();
 			this.drawable.repaint();
@@ -78,13 +79,29 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void tournerMainDroite(double sens) {
-		double angle = Math.PI /4.0;
+		double angle = Math.PI /8.0;
 		angle *= sens;
 		this.tourner.setArgument(angle);
 		this.tourner.execute();
 		
 		this.drawable.drawHud();
 		this.drawable.repaint();
+	}
+	
+	
+	private Transformation checkPointSaisi(){
+		double x = MainDroite.getInstance().getX() * TapisBasicConverter.getInstance().getScaleX();
+		double y = MainDroite.getInstance().getY() * TapisBasicConverter.getInstance().getScaleY();
+		Point p =new Point(this.mousePosition.getX()-x,this.mousePosition.getY()+y);
+		Transformation t = new Transformation();
+		t.setTx(p.getX());
+		t.setTy(p.getY());
+		t.setRx(this.mousePosition.getX());
+		t.setRy(this.mousePosition.getY());
+		t.setSx(TapisBasicConverter.getInstance().getScaleX());
+		t.setSy(TapisBasicConverter.getInstance().getScaleY());
+		
+		return t;
 	}
 	
 	
@@ -105,38 +122,24 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.mousePosition.setY(e.getY());
 		
 		if(!this.mainDroiteVide){
-			this.drawable.setParam(this.checkPointSaisi());
+			this.drawable.setParam(checkPointSaisi());
 			this.drawable.drawHud();
 			this.drawable.repaint();
 		}
 	}
 	
 	
-	private Point checkPointSaisi(){
-		double x = MainDroite.getInstance().getX() * TapisBasicConverter.getInstance().getScaleX();
-		double y = MainDroite.getInstance().getY() * TapisBasicConverter.getInstance().getScaleY();
-		return new Point(this.mousePosition.getX()-x,this.mousePosition.getY()+y);
-	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		this.mousePosition.setX(e.getX());
-		this.mousePosition.setY(e.getY());
-		Point p = new Point(e.getX(), e.getY());
-		TapisBasicConverter.getInstance().convertScreenToModel(p);
 		
-		if(this.mainDroiteVide){
-			this.attraperMainDroite(p);	
-		}else{
-			this.poserMainDroite(p);
-		}
 		
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -148,8 +151,16 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		this.mousePosition.setX(e.getX());
+		this.mousePosition.setY(e.getY());
+		Point p = new Point(e.getX(), e.getY());
+		TapisBasicConverter.getInstance().convertScreenToModel(p);
 		
+		if(this.mainDroiteVide){
+			this.attraperMainDroite(p);	
+		}else{
+			this.poserMainDroite(p);
+		}
 	}
 
 	@Override
@@ -163,6 +174,10 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.mousePosition.setX(e.getX());
 		this.mousePosition.setY(e.getY());
 		double rotation = e.getPreciseWheelRotation();
+		
+		if(!this.mainDroiteVide){
+			this.tournerMainDroite(rotation);
+		}
 		
 		
 	}

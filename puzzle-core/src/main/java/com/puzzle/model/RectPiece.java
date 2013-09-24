@@ -1,5 +1,8 @@
 package com.puzzle.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
@@ -9,6 +12,7 @@ public class RectPiece implements MyRect{
 	private double y;
 	private double largeur;
 	private double hauteur;
+	private List<Point> coins = new ArrayList<Point>();
 	
 
 	public RectPiece(){
@@ -17,10 +21,9 @@ public class RectPiece implements MyRect{
 	
 	public RectPiece(Piece piece) {
 		this.piece = piece;
-		this.x = this.piece.getCentre().getX() - this.piece.getLargeur() / 2.0;
-		this.y = this.piece.getCentre().getY() + this.piece.getHauteur() / 2.0;
-		this.largeur = this.piece.getLargeur();
-		this.hauteur = this.piece.getHauteur();
+		
+		this.update();
+		this.checkAngle();
 	}
 	
 	public boolean isIn(double x,double y,double largeur,double hauteur){
@@ -76,6 +79,8 @@ public class RectPiece implements MyRect{
 		y[3] = refl * Math.sin(this.piece.getAngle()) - refh * Math.cos(this.piece.getAngle());
 		
 		double ymin = Double.MAX_VALUE, ymax = Double.MIN_VALUE, xmin = Double.MAX_VALUE, xmax = Double.MIN_VALUE;
+		
+		
 		for(int i=0;i<4;i++){
 			x[i] += this.piece.getCentre().getX();
 			y[i] += this.piece.getCentre().getY();
@@ -84,15 +89,21 @@ public class RectPiece implements MyRect{
 			if(x[i] > xmax) xmax = x[i];
 			if(y[i] < ymin) ymin = y[i];
 			if(y[i] > ymax) ymax = y[i];
+			
+			this.coins.add(i, new Point(x[i],y[i]));
 		}
 		
 		this.x = xmin;
 		this.y = ymax;
 		this.largeur = xmax - xmin;
 		this.hauteur = ymax - ymin;
+		
+		
+		
+		
 	}
-	
 
+	
 	@Override
 	public boolean contains(double x, double y) {
 		boolean state = false;
@@ -102,7 +113,10 @@ public class RectPiece implements MyRect{
 	}
 	
 	public RectPiece clone(){ 
-		return new RectPiece(this.piece);
+		RectPiece p = new RectPiece(this.piece);
+		p.update();
+		p.checkAngle();
+		return p;
 	}
 	
 	public String toString(){
@@ -132,4 +146,12 @@ public class RectPiece implements MyRect{
 		this.largeur = this.piece.getLargeur();
 		this.hauteur = this.piece.getHauteur();
 	}
+
+	
+	
+	public List<Point> getCoins() {
+		return coins;
+	}
+
+
 }
