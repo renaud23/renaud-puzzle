@@ -1,35 +1,35 @@
 package com.puzzle.command;
 
 import java.util.List;
+
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
+import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 
-public class AttrapperUnePiece implements ICommand{
+public class AttrapperMainDroite implements CommandeLocalisee{
 	
 	private Tapis tapis;
-	private double x;
-	private double y;
+	private Point position;
 
-	public AttrapperUnePiece(Tapis tapis) {
+	public AttrapperMainDroite(Tapis tapis) {
 		this.tapis = tapis;
-		this.x = Double.MAX_VALUE;
-		this.y = Double.MAX_VALUE;
+		this.position = new Point(Double.MAX_VALUE,Double.MAX_VALUE);
 	}
 
 	@Override
 	public void execute() {
 		if(MainDroite.getInstance().isEmpty()){
-			List<Piece> candidats = this.tapis.chercherPiece(this.x, this.y);
+			List<Piece> candidats = this.tapis.chercherPiece(this.position.getX(), this.position.getY());
 			int ref = -1;
 			Piece candidat = null;
 			
 			for(Piece cmp : candidats){
 				// TODO : invoqué test précis
 				
-				if(cmp.getRect().contains(x, y)){
+				if(cmp.getRect().contains(this.position.getX(), this.position.getY())){
 					if(cmp.getZIndex() > ref){
 						candidat = cmp;
 						ref = cmp.getZIndex();
@@ -46,8 +46,8 @@ public class AttrapperUnePiece implements ICommand{
 					this.tapis.retirerPiece(candidat);
 				}
 					
-				MainDroite.getInstance().setX(this.x - candidatfinal.getCentre().getX());
-				MainDroite.getInstance().setY(this.y - candidatfinal.getCentre().getY());
+				MainDroite.getInstance().setX(this.position.getX() - candidatfinal.getCentre().getX());
+				MainDroite.getInstance().setY(this.position.getY() - candidatfinal.getCentre().getY());
 				MainDroite.getInstance().setPiece(candidatfinal);
 				
 				this.tapis.change();
@@ -57,23 +57,10 @@ public class AttrapperUnePiece implements ICommand{
 		
 	}
 
-	
 
 
-
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
+	@Override
+	public void setPosition(Point point) {
+		this.position = point;
 	}
 }

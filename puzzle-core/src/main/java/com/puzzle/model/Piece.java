@@ -1,7 +1,6 @@
 package com.puzzle.model;
 
 import com.renaud.manager.IRect;
-import com.renaud.manager.Rect;
 
 
 public class Piece implements ComponentPiece{

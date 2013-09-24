@@ -1,5 +1,5 @@
 package com.puzzle.command;
 
-public interface ICommand {
+public interface Commande {
 	public void execute();
 }
