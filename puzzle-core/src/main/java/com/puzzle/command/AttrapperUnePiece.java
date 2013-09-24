@@ -1,10 +1,10 @@
 package com.puzzle.command;
 
 import java.util.List;
-import java.util.Set;
-
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.MainDroite;
+import com.puzzle.model.Piece;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 
 public class AttrapperUnePiece implements ICommand{
@@ -22,22 +22,36 @@ public class AttrapperUnePiece implements ICommand{
 	@Override
 	public void execute() {
 		if(MainDroite.getInstance().isEmpty()){
-			List<ComponentPiece> candidats = this.tapis.chercherPiece(this.x, this.y);
+			List<Piece> candidats = this.tapis.chercherPiece(this.x, this.y);
 			int ref = -1;
-			ComponentPiece candidat = null;
+			Piece candidat = null;
 			
-			for(ComponentPiece cmp : candidats){
+			for(Piece cmp : candidats){
+				// TODO : invoqué test précis
 				
-				if(cmp.getZIndex() > ref){
-					candidat = cmp;
-					ref = cmp.getZIndex();
+				if(cmp.getRect().contains(x, y)){
+					if(cmp.getZIndex() > ref){
+						candidat = cmp;
+						ref = cmp.getZIndex();
+					}
 				}
 			}
 			
 			if(candidat != null){
-				MainDroite.getInstance().setPiece(candidat);
-				MainDroite.getInstance().setX(this.x - candidat.getCentre().getX());
-				MainDroite.getInstance().setY(this.y - candidat.getCentre().getY());
+				ComponentPiece candidatfinal = candidat;
+				if(candidat.getComposite() != null) {
+					candidatfinal = candidat.getComposite();
+					// TODO retirer le groupe de pièces
+				}else{
+					this.tapis.retirerPiece(candidat);
+				}
+					
+				MainDroite.getInstance().setX(this.x - candidatfinal.getCentre().getX());
+				MainDroite.getInstance().setY(this.y - candidatfinal.getCentre().getY());
+				MainDroite.getInstance().setPiece(candidatfinal);
+				
+				this.tapis.change();
+				this.tapis.notifyObservers(State.MainDroitePleine);
 			}
 		}
 		

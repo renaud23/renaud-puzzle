@@ -1,20 +1,18 @@
 package com.puzzle.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 import java.util.Set;
-import java.util.TreeSet;
-
 import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
 
 
 
 
-public class Tapis implements Iterable<ComponentPiece>{
-	private TasManager<ComponentPiece> memoire;
+public class Tapis extends Observable implements Iterable<Piece>{
+	private TasManager<Piece> memoire;
 	
 	private double largeur;
 	
@@ -32,7 +30,7 @@ public class Tapis implements Iterable<ComponentPiece>{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-		this.memoire = new TasManager<ComponentPiece>(7, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
+		this.memoire = new TasManager<Piece>(7, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
 	}
 
 
@@ -42,8 +40,8 @@ public class Tapis implements Iterable<ComponentPiece>{
 	 * 
 	 * @param piece
 	 */
-	public void poserPiece(ComponentPiece piece){
-		Set<ComponentPiece> set = this.memoire.get(piece.getRect());
+	public void poserPiece(Piece piece){
+		Set<Piece> set = this.memoire.get(piece.getRect());
 		int index = 0;
 		for(ComponentPiece c : set){
 			if(c.getZIndex() > index)
@@ -57,20 +55,20 @@ public class Tapis implements Iterable<ComponentPiece>{
 	
 	
 	
-	public void retirerPiece(ComponentPiece piece){
+	public void retirerPiece(Piece piece){
 		this.memoire.remove(piece);
 	}
 	
-	public Set<ComponentPiece> chercherPiece(IRect r){// TODO
+	public Set<Piece> chercherPiece(IRect r){// TODO
 		 return this.memoire.get(r);
 	}
 	
-	public List<ComponentPiece> chercherPiece(double x,double y){
+	public List<Piece> chercherPiece(double x,double y){
 		
-		Set<ComponentPiece> set = this.memoire.get(x,y);
-		List<ComponentPiece> tmp = new ArrayList<ComponentPiece>();
+		Set<Piece> set = this.memoire.get(x,y);
+		List<Piece> tmp = new ArrayList<Piece>();
 		
-		for(ComponentPiece cmp : set){
+		for(Piece cmp : set){
 			
 			if(cmp.getRect().contains(x, y)) {
 				tmp.add(cmp);
@@ -84,7 +82,7 @@ public class Tapis implements Iterable<ComponentPiece>{
 	
 	
 	@Override
-	public Iterator<ComponentPiece> iterator() {
+	public Iterator<Piece> iterator() {
 		return this.memoire.getAll().iterator();
 	}
 	
@@ -108,8 +106,9 @@ public class Tapis implements Iterable<ComponentPiece>{
 
 
 
-
-
+	public void change(){
+		this.setChanged();
+	}
 	
 	
 }

@@ -7,6 +7,7 @@ import java.lang.reflect.Proxy;
 import com.jPuzzle.view.drawer.IDrawer;
 import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.Piece;
 
 /**
  * proxy dynamique permettant d'ajouter la fonction de dessin
@@ -42,7 +43,6 @@ public class IHPieceComponent<U extends ComponentPiece> implements InvocationHan
 	}
 	
 	
-	
 	public static <U extends ComponentPiece> ComponentPiece createComponent(U piece,IDrawer drawer){
 		ComponentPiece p = (ComponentPiece) Proxy.newProxyInstance(
 				ComponentPiece.class.getClassLoader(),
@@ -51,5 +51,7 @@ public class IHPieceComponent<U extends ComponentPiece> implements InvocationHan
 		
 		return p;
 	}
+	
+	
 
 }

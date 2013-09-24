@@ -20,6 +20,8 @@ public class Piece implements ComponentPiece{
 	
 	private double angle;
 	
+	private CompositePiece composite;
+	
 	public Piece(){
 		this.centre = new Point();
 	}
@@ -97,16 +99,22 @@ public class Piece implements ComponentPiece{
 		((RectPiece)this.rect).checkAngle();
 	}
 
-
 	@Override
 	public int getZIndex() {
 		return this.zIndex;
 	}
 
-
 	@Override
 	public void setZIndex(int index) {
 		this.zIndex = index;
+	}
+
+	public CompositePiece getComposite() {
+		return composite;
+	}
+
+	public void setComposite(CompositePiece composite) {
+		this.composite = composite;
 	}
 
 

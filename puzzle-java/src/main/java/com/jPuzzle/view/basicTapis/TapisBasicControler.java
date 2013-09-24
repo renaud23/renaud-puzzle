@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.jPuzzle.view.controler.ITapisControler;
 import com.jPuzzle.view.controler.TapisConverter;
@@ -12,13 +14,14 @@ import com.puzzle.command.AttrapperUnePiece;
 import com.puzzle.command.ICommand;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 
 
 
 
 
-public class TapisBasicControler implements ITapisControler,MouseListener,MouseMotionListener,KeyListener{
+public class TapisBasicControler implements ITapisControler,MouseListener,MouseMotionListener,Observer{
 	
 	private boolean mainDroiteVide;
 	private Tapis tapis;
@@ -102,21 +105,14 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		
 	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void update(Observable o, Object a) {
+		if(a instanceof State){
+			State s = (State) a;
+			if(s.equals(State.MainDroitePleine)) this.mainDroiteVide = false;
+			else if(s.equals(State.MainDroiteVide)) this.mainDroiteVide = true;
+		}
 		
 	}
 

@@ -10,8 +10,6 @@ import com.jPuzzle.view.basicTapis.TapisBasicControler;
 import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
 import com.jPuzzle.view.drawer.IDrawer;
-import com.jPuzzle.view.drawer.PieceDrawer;
-import com.jPuzzle.view.image.IHPieceComponent;
 import com.jPuzzle.view.image.MemoryManager;
 import com.jPuzzle.view.image.Offscreen;
 import com.puzzle.model.Piece;
@@ -40,6 +38,7 @@ public class MainScreen implements Observer{
 	
 
 	public void draw(){
+		this.tapisOffscreen.clean();
 		if(this.drawer != null) this.drawer.draw();
 		this.fenetre.repaint();
 	}
@@ -49,8 +48,7 @@ public class MainScreen implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		this.draw();
 	}
 	
 	
@@ -66,16 +64,18 @@ public class MainScreen implements Observer{
 		Piece p3 = new Piece(3, 80, -80, 86, 100);
 		Piece p4 = new Piece(4, 0, 0, 100, 100);
 		
-		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p1,new PieceDrawer(p1,m.getTapisOffscreen())));
-		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p2,new PieceDrawer(p2,m.getTapisOffscreen())));
-		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p3,new PieceDrawer(p3,m.getTapisOffscreen())));
-		tapis.poserPiece(IHPieceComponent.<Piece>createComponent(p4,new PieceDrawer(p4,m.getTapisOffscreen())));
+		tapis.poserPiece(p1);
+		tapis.poserPiece(p2);
+		tapis.poserPiece(p3);
+		tapis.poserPiece(p4);
+		
 		
 		TapisBasicControler tc = new TapisBasicControler(tapis);
 		m.getTapisOffscreen().addMouseListener(tc);
 		m.getTapisOffscreen().addMouseMotionListener(tc);
 		m.setDrawer(new TapisBasicDrawer(tapis, m.getTapisOffscreen()));
-		
+		tapis.addObserver(tc);
+		tapis.addObserver(m);
 		
 		TapisBasicConverter.getInstance().setTapis(tapis);
 		TapisBasicConverter.getInstance().setOffscreen(m.getTapisOffscreen());
