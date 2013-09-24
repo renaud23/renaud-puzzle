@@ -7,7 +7,7 @@ import com.jPuzzle.view.image.ImageMemoryManager;
 import com.jPuzzle.view.image.Offscreen;
 import com.puzzle.model.Piece;
 
-public class PieceDrawer implements IDrawer{
+public class PieceDrawer implements IDrawerParametrable<Transformation>{
 	
 	private Piece piece;
 	private ImageBuffer offscreen;
@@ -42,5 +42,13 @@ public class PieceDrawer implements IDrawer{
 
 	public void setTransformation(Transformation transformation) {
 		this.transformation = transformation;
+	}
+
+
+
+	@Override
+	public void setParameter(Transformation param) {
+		this.transformation = param;
+		
 	}
 }

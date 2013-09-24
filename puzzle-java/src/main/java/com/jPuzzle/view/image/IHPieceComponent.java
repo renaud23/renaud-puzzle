@@ -3,11 +3,9 @@ package com.jPuzzle.view.image;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-
 import com.jPuzzle.view.drawer.IDrawer;
-import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.model.ComponentPiece;
-import com.puzzle.model.Piece;
+
 
 /**
  * proxy dynamique permettant d'ajouter la fonction de dessin
@@ -34,7 +32,7 @@ public class IHPieceComponent<U extends ComponentPiece> implements InvocationHan
 		if("draw".equals(method.getName())){
 			this.drawer.draw();
 		}else if("setTransformation".equals(method.getName())){
-			this.drawer.setTransformation((Transformation)args[0]);
+			
 		}else{
 			rtn =  method.invoke(this.component,args);
 		}

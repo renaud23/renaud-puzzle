@@ -1,6 +1,7 @@
 package com.jPuzzle.view.basicTapis;
 
 import com.jPuzzle.view.drawer.IDrawer;
+import com.jPuzzle.view.drawer.IDrawerParametrable;
 import com.jPuzzle.view.drawer.PieceDrawer;
 import com.jPuzzle.view.drawer.Transformation;
 import com.jPuzzle.view.image.ImageBuffer;
@@ -32,7 +33,7 @@ public class TapisBasicDrawer implements IDrawer {
 		
 		//	 dessin tapis
 		for(Piece cmp : this.tapis){
-			IDrawer pd = new PieceDrawer(cmp, this.tapisBuffer);
+			IDrawerParametrable<Transformation> pd = new PieceDrawer(cmp, this.tapisBuffer);
 			
 			// calcul le centre d'affichage à l'écran de la piéce en se basant sur le centre de IRect
 			Transformation t = new Transformation();
@@ -46,18 +47,12 @@ public class TapisBasicDrawer implements IDrawer {
 			t.setSx(TapisBasicConverter.getInstance().getScaleX());
 			t.setSy(TapisBasicConverter.getInstance().getScaleY());
 			
-			pd.setTransformation(t);
+			pd.setParameter(t);
 			pd.draw();
 		}
 	}
 	
 
 
-
-	@Override
-	public void setTransformation(Transformation transformation) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
