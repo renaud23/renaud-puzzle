@@ -1,6 +1,19 @@
 package com.puzzle.command;
 
+import com.puzzle.model.Tapis;
+
 public class tournerMainDroite implements CommandeArgument<Double>{
+	
+	private Tapis tapis;
+	private double angle;
+
+	
+	
+	
+	public tournerMainDroite(Tapis tapis) {
+		super();
+		this.tapis = tapis;
+	}
 
 	@Override
 	public void execute() {
@@ -10,8 +23,7 @@ public class tournerMainDroite implements CommandeArgument<Double>{
 
 	@Override
 	public void setArgument(Double arg) {
-		// TODO Auto-generated method stub
-		
+		this.angle = arg;
 	}
 
 }

@@ -3,7 +3,7 @@ package com.puzzle.model;
 import com.renaud.manager.IRect;
 
 
-public class Piece implements ComponentPiece{
+public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	private int id;
 	
@@ -13,7 +13,7 @@ public class Piece implements ComponentPiece{
 	
 	private Point centre;
 	
-	private IRect rect;
+	private MyRect rect;
 	
 	private int zIndex;
 	
@@ -114,6 +114,19 @@ public class Piece implements ComponentPiece{
 
 	public void setComposite(CompositePiece composite) {
 		this.composite = composite;
+	}
+
+
+	@Override
+	public int compareTo(Piece p) {
+		int value = 0;
+		if(this.zIndex > p.zIndex){
+			value = 1;
+		}else if(this.zIndex < p.zIndex){
+			value = -1;
+		}
+		
+		return value;
 	}
 
 

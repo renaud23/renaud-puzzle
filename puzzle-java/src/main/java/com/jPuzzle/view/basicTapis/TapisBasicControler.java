@@ -24,8 +24,11 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	
 	private boolean mainDroiteVide;
 	private Tapis tapis;
+	
+	
 	private CommandeArgument<Point> attraper;
 	private CommandeArgument<Point> poser;
+	private CommandeArgument<Double> tourner;
 	
 	
 	
@@ -55,6 +58,14 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.poser.execute();
 	}
 
+	@Override
+	public void tournerMainDroite(double sens) {
+		double angle = Math.PI /4.0;
+		angle *= sens;
+		this.tourner.setArgument(angle);
+		this.tourner.execute();
+		
+	}
 	
 	
 	/* **** */
@@ -114,7 +125,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
+		double rotation = e.getPreciseWheelRotation();
+
 		
 	}
 
@@ -127,6 +139,9 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		}
 		
 	}
+
+
+	
 
 
 	

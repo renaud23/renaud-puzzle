@@ -1,10 +1,12 @@
 package com.puzzle.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Set;
+
 import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
 
@@ -44,8 +46,10 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		Set<Piece> set = this.memoire.get(piece.getRect());
 		int index = 0;
 		for(ComponentPiece c : set){
-			if(c.getZIndex() > index)
+			if(c.getZIndex() > index){
 				index = c.getZIndex();
+			}
+				
 		}
 		index++;
 		piece.setZIndex(index);
@@ -81,9 +85,13 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	
 	
 	
+	
 	@Override
 	public Iterator<Piece> iterator() {
-		return this.memoire.getAll().iterator();
+		List<Piece> l =  this.memoire.getAll();
+		Collections.sort(l);
+		
+		return l.iterator();
 	}
 	
 	

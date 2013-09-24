@@ -4,6 +4,7 @@ package com.puzzle.command;
 
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.MainDroite;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
@@ -28,6 +29,7 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 				x -= MainDroite.getInstance().getX();
 				double y = this.position.getY();
 				y -= MainDroite.getInstance().getY();
+				((MyRect)piece.getRect()).update();
 				
 				piece.getCentre().setX(x);
 				piece.getCentre().setY(y);

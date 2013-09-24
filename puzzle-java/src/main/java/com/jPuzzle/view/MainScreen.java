@@ -73,6 +73,7 @@ public class MainScreen implements Observer{
 		TapisBasicControler tc = new TapisBasicControler(tapis);
 		m.getTapisOffscreen().addMouseListener(tc);
 		m.getTapisOffscreen().addMouseMotionListener(tc);
+		m.getTapisOffscreen().addMouseWheelListener(tc);
 		m.setDrawer(new TapisBasicDrawer(tapis, m.getTapisOffscreen()));
 		tapis.addObserver(tc);
 		tapis.addObserver(m);

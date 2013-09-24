@@ -3,7 +3,7 @@ package com.puzzle.model;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
-public class RectPiece implements IRect{
+public class RectPiece implements MyRect{
 	private Piece piece;
 	private double x;
 	private double y;
@@ -123,5 +123,13 @@ public class RectPiece implements IRect{
 	
 	public double getLargeur() {
 		return this.largeur;
+	}
+
+	@Override
+	public void update() {
+		this.x = this.piece.getCentre().getX() - this.piece.getLargeur() / 2.0;
+		this.y = this.piece.getCentre().getY() + this.piece.getHauteur() / 2.0;
+		this.largeur = this.piece.getLargeur();
+		this.hauteur = this.piece.getHauteur();
 	}
 }
