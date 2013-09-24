@@ -59,9 +59,9 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.memoire.remove(piece);
 	}
 	
-	public Set<Piece> chercherPiece(IRect r){// TODO
-		 return this.memoire.get(r);
-	}
+//	public Set<Piece> chercherPiece(IRect r){// TODO
+//		 return this.memoire.get(r);
+//	}
 	
 	public List<Piece> chercherPiece(double x,double y){
 		

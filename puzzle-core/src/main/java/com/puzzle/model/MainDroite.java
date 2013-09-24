@@ -37,6 +37,11 @@ public class MainDroite {
 	public boolean isEmpty() {
 		return empty;
 	}
+	
+	public void libere(){
+		this.empty = true;
+		this.piece = null;
+	}
 
 
 	public void setPiece(ComponentPiece piece) {

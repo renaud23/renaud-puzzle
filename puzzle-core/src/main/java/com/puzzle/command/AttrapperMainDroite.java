@@ -9,7 +9,7 @@ import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 
-public class AttrapperMainDroite implements CommandeLocalisee{
+public class AttrapperMainDroite implements CommandeArgument<Point>{
 	
 	private Tapis tapis;
 	private Point position;
@@ -26,9 +26,7 @@ public class AttrapperMainDroite implements CommandeLocalisee{
 			int ref = -1;
 			Piece candidat = null;
 			
-			for(Piece cmp : candidats){
-				// TODO : invoqué test précis
-				
+			for(Piece cmp : candidats){		
 				if(cmp.getRect().contains(this.position.getX(), this.position.getY())){
 					if(cmp.getZIndex() > ref){
 						candidat = cmp;
@@ -57,10 +55,12 @@ public class AttrapperMainDroite implements CommandeLocalisee{
 		
 	}
 
-
-
 	@Override
-	public void setPosition(Point point) {
-		this.position = point;
+	public void setArgument(Point arg) {
+		this.position = arg;
 	}
+
+
+
+	
 }
