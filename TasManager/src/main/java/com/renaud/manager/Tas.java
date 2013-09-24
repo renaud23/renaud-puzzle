@@ -3,6 +3,7 @@ package com.renaud.manager;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -101,7 +102,7 @@ public class Tas<U extends IRectable> {
 	
 
 
-	public void getAll(List<U> e){
+	public void getAll(Set<U> e){
 		if(this.elements != null){
 			e.addAll(this.elements);
 		}else{

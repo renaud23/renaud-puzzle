@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Set;
+import java.util.SortedSet;
+
 import com.renaud.manager.TasManager;
 
 
@@ -34,7 +36,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-		this.memoire = new TasManager<Piece>(7, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
+		this.memoire = new TasManager<Piece>(10, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
 	}
 
 
@@ -45,9 +47,9 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	 * @param piece
 	 */
 	public void poserPiece(Piece piece){
-		Set<Piece> set = this.memoire.get(piece.getRect());
+		Set<Piece> set = this.memoire.get(piece.getRect());System.out.println(memoire.getAll());
 		int index = 0;
-		for(ComponentPiece c : set){
+		for(Piece c : set){
 			if(c.getZIndex() > index){
 				index = c.getZIndex();
 			}
@@ -55,7 +57,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		}
 		index++;
 		piece.setZIndex(index);
-		
+	
 		this.memoire.put(piece);
 	}
 	
@@ -91,8 +93,8 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	
 	@Override
 	public Iterator<Piece> iterator() {
-		List<Piece> l =  this.memoire.getAll();
-		Collections.sort(l);
+		Set<Piece> l =  this.memoire.getAll();
+//		Collections.sort(l);
 		
 		return l.iterator();
 	}

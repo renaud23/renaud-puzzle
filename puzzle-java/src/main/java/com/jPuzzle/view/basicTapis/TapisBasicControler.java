@@ -57,9 +57,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.attraper.execute();
 		
 		if(!this.mainDroiteVide){
-			
-			this.drawable.setParam(checkPointSaisi());
-			
+			this.drawable.setParam(this.checkselection());
 			this.drawable.drawTapis();
 			this.drawable.drawHud();
 			this.drawable.repaint();
@@ -89,20 +87,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	}
 	
 	
-	private Transformation checkPointSaisi(){
-		double x = MainDroite.getInstance().getX() * TapisBasicConverter.getInstance().getScaleX();
-		double y = MainDroite.getInstance().getY() * TapisBasicConverter.getInstance().getScaleY();
-		Point p =new Point(this.mousePosition.getX()-x,this.mousePosition.getY()+y);
-		Transformation t = new Transformation();
-		t.setTx(p.getX());
-		t.setTy(p.getY());
-		t.setRx(this.mousePosition.getX());
-		t.setRy(this.mousePosition.getY());
-		t.setSx(TapisBasicConverter.getInstance().getScaleX());
-		t.setSy(TapisBasicConverter.getInstance().getScaleY());
-		
-		return t;
-	}
+	
 	
 	
 	/* **** */
@@ -122,14 +107,24 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.mousePosition.setY(e.getY());
 		
 		if(!this.mainDroiteVide){
-			this.drawable.setParam(checkPointSaisi());
+			this.drawable.setParam(this.checkselection());
 			this.drawable.drawHud();
 			this.drawable.repaint();
 		}
 	}
 	
 	
-	
+	private Transformation checkselection(){
+		Transformation t = new Transformation();
+		t.setSx(TapisBasicConverter.getInstance().getScaleX());
+		t.setSy(TapisBasicConverter.getInstance().getScaleY());
+		t.setRx(this.mousePosition.getX());
+		t.setRy(this.mousePosition.getY());
+		t.setTx(this.mousePosition.getX());
+		t.setTy(this.mousePosition.getY());
+		
+		return t;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -153,6 +148,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	public void mousePressed(MouseEvent e) {
 		this.mousePosition.setX(e.getX());
 		this.mousePosition.setY(e.getY());
+		
 		Point p = new Point(e.getX(), e.getY());
 		TapisBasicConverter.getInstance().convertScreenToModel(p);
 		

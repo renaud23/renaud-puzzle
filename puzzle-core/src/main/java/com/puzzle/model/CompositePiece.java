@@ -8,10 +8,10 @@ import com.renaud.manager.Rect;
 
 
 
-public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
+public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	
-	private List<ComponentPiece> pieces;
+	private List<Piece> pieces;
 	
 	private Rect rect;
 	
@@ -19,9 +19,10 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	
 	private int zIndex;
 	
-	public CompositePiece(){
-		this.pieces = new ArrayList<ComponentPiece>();
+	public CompositePiece(double x,double y){
+		this.pieces = new ArrayList<Piece>();
 		this.rect = new Rect();
+		this.centre = new Point(x,y);
 	}
 	
 
@@ -33,7 +34,7 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	}
 
 	@Override
-	public Iterator<ComponentPiece> iterator() {
+	public Iterator<Piece> iterator() {
 		return this.pieces.iterator();
 	}
 
@@ -50,9 +51,45 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	
 	/* gestion du composite */
 
-	public void add(ComponentPiece cmp){
+	public void addPiece(Piece cmp){
+		
+		if(this.pieces.isEmpty()) {
+			cmp.getCentre().setX(this.centre.getX());
+			cmp.getCentre().setY(this.centre.getY());
+		}else{
+			Piece r = this.pieces.get(0);
+			double x = r.getPuzzleX() - cmp.getPuzzleX();
+			double y = r.getPuzzleY() - cmp.getPuzzleY();
+			
+			cmp.getCentre().setX(r.getCentre().getX() - x);
+			cmp.getCentre().setY(r.getCentre().getY() - y);
+			
+			cmp.setZIndex(r.getZIndex());
+		}
+		
+		
 		this.pieces.add(cmp);
+		cmp.setComposite(this);
+		((RectPiece)cmp.getRect()).update();
+		((RectPiece)cmp.getRect()).checkAngle();
+		
+//		double minx = Double.MAX_VALUE;
+//		double maxx = Double.MIN_VALUE;
+//		double miny = Double.MAX_VALUE;
+//		double maxy = Double.MIN_VALUE;
+		
+//		for(Piece p : this.pieces){
+//			if( (p.getPuzzleX()) < minx) minx=p.getPuzzleX();
+//			else if( (p.getPuzzleX() + p.getLargeur()) > maxx) minx=p.getPuzzleX()+p.getLargeur();
+//			if( (p.getPuzzleY() ) < miny) miny=p.getPuzzleY();
+//			else if( (p.getPuzzleY() + p.getHauteur()) > maxy) miny=p.getPuzzleY()+ p.getHauteur();
+//		}
+		
+		
 	}
+	
+	
+	
 	
 	public void remove(ComponentPiece cmp){
 		if(this.pieces.contains(cmp)){
@@ -67,7 +104,7 @@ public class CompositePiece implements ComponentPiece,Iterable<ComponentPiece>{
 	}
 	
 	
-	public List<ComponentPiece> getChild(){
+	public List<Piece> getChild(){
 		return this.pieces;// attention à l'usage.
 	}
 

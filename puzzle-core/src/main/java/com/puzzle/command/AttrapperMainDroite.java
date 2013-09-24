@@ -44,13 +44,7 @@ public class AttrapperMainDroite implements CommandeArgument<Point>{
 					this.tapis.retirerPiece(candidat);
 				}
 					
-				
-				double xi = this.position.getX() - candidatfinal.getCentre().getX();
-				double yi = this.position.getY() - candidatfinal.getCentre().getY();
-				double x = xi * Math.cos(-candidatfinal.getAngle()) - yi * Math.sin(-candidatfinal.getAngle());
-				double y = xi * Math.sin(-candidatfinal.getAngle()) + yi * Math.cos(-candidatfinal.getAngle());
-				MainDroite.getInstance().setX(x);
-				MainDroite.getInstance().setY(y);
+			
 				MainDroite.getInstance().setPiece(candidatfinal);
 				
 				this.tapis.change();

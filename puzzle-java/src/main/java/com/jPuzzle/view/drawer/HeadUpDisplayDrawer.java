@@ -31,13 +31,7 @@ public class HeadUpDisplayDrawer implements IDrawerParametrable<Transformation>{
 			if(cmp instanceof Piece){
 				PieceDrawer dr = new PieceDrawer((Piece)cmp, this.offscreen);
 				
-//				Transformation t = new Transformation();
-//				t.setSx(TapisBasicConverter.getInstance().getScaleX());
-//				t.setSy(TapisBasicConverter.getInstance().getScaleY());
-//				t.setRx(this.point.getX());
-//				t.setRy(this.point.getY());
-//				t.setTx(this.point.getX());
-//				t.setTy(this.point.getY());
+				
 				
 				dr.setParameter(this.point);
 				dr.draw();

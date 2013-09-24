@@ -2,8 +2,7 @@ package com.jPuzzle.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -18,8 +17,11 @@ import com.jPuzzle.view.drawer.Transformation;
 import com.jPuzzle.view.image.ImageBuffer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.jPuzzle.view.image.Offscreen;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Tapis;
+
+
 
 public class MainScreen implements IDrawable{
 	private JFrame fenetre;
@@ -93,18 +95,34 @@ public class MainScreen implements IDrawable{
 		MainScreen m = new MainScreen(800,800);
 		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
 		
+		int taille = 1200;
+		Tapis tapis = new Tapis(taille,taille);
 		
-		Tapis tapis = new Tapis(1500,1500);
+		Random rnd = new Random();
+//		for(int i=0;i<8;i++){
+			Piece p1 = new Piece(1,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,50,43, 100, 86);
+			Piece p2 = new Piece(2,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,117,43, 100, 86);
+			Piece p3 = new Piece(3,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,43,110, 86, 100);
+			Piece p4 = new Piece(4,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500, 100,110,110, 100);
+			
+			tapis.poserPiece(p1);
+			tapis.poserPiece(p2);
+			tapis.poserPiece(p3);
+			tapis.poserPiece(p4);
+			
+			
+//			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+			
+			tapis.poserPiece(p1);
+//		}
 		
-		Piece p1 = new Piece(1,100, 100, 100, 86);
-		Piece p2 = new Piece(2,-50, 50, 100, 86);
-		Piece p3 = new Piece(3, 80, -80, 86, 100);
-		Piece p4 = new Piece(4, 0, 0, 100, 100);
 		
-		tapis.poserPiece(p1);
-		tapis.poserPiece(p2);
-		tapis.poserPiece(p3);
-		tapis.poserPiece(p4);
+		CompositePiece cp = new CompositePiece(300.0,300.0);
+		cp.addPiece(p1);
+		cp.addPiece(p2); 
 		
 		
 		TapisBasicControler tc = new TapisBasicControler(tapis);

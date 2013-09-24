@@ -19,6 +19,10 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	private double angle;
 	
+	private double puzzleX;
+	
+	private double puzzleY;
+	
 	private CompositePiece composite;
 	
 	public Piece(){
@@ -26,7 +30,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	}
 	
 	
-	public Piece(int id,double x,double y,double largeur,double hauteur){
+	public Piece(int id,double x,double y,double puzzleX,double puzzleY,double largeur,double hauteur){
 		this.id = id;
 		this.centre = new Point();
 		this.centre.setX(x);
@@ -34,7 +38,8 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.rect = new RectPiece(this);
-		
+		this.puzzleX = puzzleX;
+		this.puzzleY = puzzleY;
 	}
 	
 	
@@ -54,11 +59,11 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 
 	@Override
 	public IRect getRect() {
-		return ((RectPiece)this.rect).clone();
+		return this.rect;//((RectPiece)this.rect).clone();
 	}
 	
 	public String toString(){
-		return "[Piece id="+this.id+" centre="+this.centre.toString()+" largeur="+this.largeur+" hauteur="+this.hauteur+" rect="+this.rect.toString()+" zIndex="+this.zIndex+"]";
+		return "[Piece id="+this.id+" centre="+this.centre.toString()+" largeur="+this.largeur+" hauteur="+this.hauteur+" rect="+this.rect.toString()+" zIndex="+this.zIndex+" angle="+this.angle+"]";
 	}
 	
 	public Point getCentre() {
@@ -95,6 +100,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 
 	public void setAngle(double angle) {
 		this.angle = angle;
+		((RectPiece)this.rect).update();
 		((RectPiece)this.rect).checkAngle();
 	}
 
@@ -114,6 +120,25 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 
 	public void setComposite(CompositePiece composite) {
 		this.composite = composite;
+	}
+
+	public double getPuzzleX() {
+		return puzzleX;
+	}
+
+
+	public void setPuzzleX(double puzzleX) {
+		this.puzzleX = puzzleX;
+	}
+
+
+	public double getPuzzleY() {
+		return puzzleY;
+	}
+
+
+	public void setPuzzleY(double puzzleY) {
+		this.puzzleY = puzzleY;
 	}
 
 

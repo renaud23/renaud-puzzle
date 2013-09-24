@@ -23,7 +23,7 @@ public class RectPiece implements MyRect{
 		this.piece = piece;
 		
 		this.update();
-		this.checkAngle();
+//		this.checkAngle();
 	}
 	
 	public boolean isIn(double x,double y,double largeur,double hauteur){
@@ -80,7 +80,7 @@ public class RectPiece implements MyRect{
 		
 		double ymin = Double.MAX_VALUE, ymax = Double.MIN_VALUE, xmin = Double.MAX_VALUE, xmax = Double.MIN_VALUE;
 		
-		
+		this.coins.clear();
 		for(int i=0;i<4;i++){
 			x[i] += this.piece.getCentre().getX();
 			y[i] += this.piece.getCentre().getY();

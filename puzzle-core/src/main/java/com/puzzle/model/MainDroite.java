@@ -6,15 +6,7 @@ public class MainDroite {
 	
 	private ComponentPiece piece;
 	
-	/**
-	 * abscise du point de saisie dans le plan de la pièce.
-	 */
-	private double x;
 	
-	/**
-	 * ordonnée de saisie dans le plan de la pièce.
-	 */
-	private double y;
 	
 	private boolean empty;
 	
@@ -55,24 +47,5 @@ public class MainDroite {
 	}
 
 
-	public double getX() {
-		return x;
-	}
-
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-
-	public double getY() {
-		return y;
-	}
-
-
-	public void setY(double y) {
-		this.y = y;
-	}
-	
 	
 }
