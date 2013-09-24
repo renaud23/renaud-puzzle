@@ -3,31 +3,36 @@ package com.jPuzzle.view.basicTapis;
 import com.jPuzzle.view.drawer.IDrawer;
 import com.jPuzzle.view.drawer.PieceDrawer;
 import com.jPuzzle.view.drawer.Transformation;
+import com.jPuzzle.view.image.ImageBuffer;
 import com.jPuzzle.view.image.Offscreen;
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.CompositePiece;
+import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
-import com.renaud.manager.IRect;
+
 
 public class TapisBasicDrawer implements IDrawer {
 	
 	private Tapis tapis;
-	private Offscreen offscreen;
-	
+	private ImageBuffer tapisBuffer;
 
-	public TapisBasicDrawer(Tapis tapis, Offscreen offscreen) {
+
+	public TapisBasicDrawer(Tapis tapis, ImageBuffer tapisBuffer) {
 		this.tapis = tapis;
-		this.offscreen = offscreen;
+		this.tapisBuffer = tapisBuffer;
+	
 	}
 
 
 	@Override
 	public void draw() {
+		this.tapisBuffer.clean();
 		
-		
+		//	 dessin tapis
 		for(Piece cmp : this.tapis){
-			IDrawer pd = new PieceDrawer(cmp, this.offscreen);
+			IDrawer pd = new PieceDrawer(cmp, this.tapisBuffer);
 			
 			// calcul le centre d'affichage à l'écran de la piéce en se basant sur le centre de IRect
 			Transformation t = new Transformation();
@@ -44,8 +49,9 @@ public class TapisBasicDrawer implements IDrawer {
 			pd.setTransformation(t);
 			pd.draw();
 		}
-		
 	}
+	
+
 
 
 	@Override

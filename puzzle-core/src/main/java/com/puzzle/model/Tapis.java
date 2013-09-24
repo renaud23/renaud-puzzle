@@ -1,13 +1,15 @@
 package com.puzzle.model;
 
+
+
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Set;
-
-import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
 
 
@@ -79,6 +81,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 			}
 			
 		}
+		
 		
 		return tmp;
 	}

@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 
 
 
-public class MemoryManager extends Thread implements ImageProvider{
+public class ImageMemoryManager extends Thread implements ImageProvider{
 	
 //	private static String PATH_IMAGES = "data/images/";
 	
@@ -30,20 +30,20 @@ public class MemoryManager extends Thread implements ImageProvider{
 
 
 
-	private static MemoryManager instance;
+	private static ImageMemoryManager instance;
 	
 	private Map<Integer, SoftReference<VolatileImage>> images;
 
 
 	
-	public static MemoryManager getInstance(){
-		if(MemoryManager.instance == null){
-			MemoryManager.instance = new MemoryManager();
+	public static ImageMemoryManager getInstance(){
+		if(ImageMemoryManager.instance == null){
+			ImageMemoryManager.instance = new ImageMemoryManager();
 		}
-		return MemoryManager.instance;
+		return ImageMemoryManager.instance;
 	}
 
-	private MemoryManager(){
+	private ImageMemoryManager(){
 		this.images = new HashMap<Integer, SoftReference<VolatileImage>>();
 	}
 

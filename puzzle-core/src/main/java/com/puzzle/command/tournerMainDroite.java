@@ -4,15 +4,15 @@ import com.puzzle.model.Tapis;
 
 public class tournerMainDroite implements CommandeArgument<Double>{
 	
-	private Tapis tapis;
+	
 	private double angle;
 
 	
 	
 	
-	public tournerMainDroite(Tapis tapis) {
-		super();
-		this.tapis = tapis;
+	public tournerMainDroite() {
+		
+	
 	}
 
 	@Override

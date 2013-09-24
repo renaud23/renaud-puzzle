@@ -1,5 +1,6 @@
 package com.jPuzzle.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,26 +10,35 @@ import javax.swing.JFrame;
 import com.jPuzzle.view.basicTapis.TapisBasicControler;
 import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
+import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.drawer.IDrawer;
-import com.jPuzzle.view.image.MemoryManager;
+import com.jPuzzle.view.image.ImageBuffer;
+import com.jPuzzle.view.image.ImageMemoryManager;
 import com.jPuzzle.view.image.Offscreen;
+import com.jPuzzle.view.image.OtherComposite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Tapis;
 
 public class MainScreen implements Observer{
 	private JFrame fenetre;
-	private Offscreen tapisOffscreen;
-	private IDrawer drawer;
+	private Offscreen offscreen;
+	private ImageBuffer tapisOffscreen;
+	private ImageBuffer hudOffscreen;
+	private IDrawer tapisDrawer;
+	private IDrawer hudDrawer;
 	
 	
 	public MainScreen(){
 		this.fenetre = new JFrame("JPuzzle");
 		this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.tapisOffscreen = new Offscreen(800, 800);
-		this.tapisOffscreen.setPreferredSize(new Dimension(800,600));
+		this.tapisOffscreen = new ImageBuffer(new Color(100,150,50,255), 800, 800);
+		this.hudOffscreen = new ImageBuffer(new Color(0,0,0,0), 400, 400);
 		
-		this.fenetre.add(this.tapisOffscreen);
+		this.offscreen = new Offscreen(800, 800);
+		this.offscreen.setPreferredSize(new Dimension(800,800));
+		
+		this.fenetre.add(this.offscreen);
 		
 		this.fenetre.pack();
 		this.fenetre.repaint();
@@ -38,12 +48,21 @@ public class MainScreen implements Observer{
 	
 
 	public void draw(){
-		this.tapisOffscreen.clean();
-		if(this.drawer != null) this.drawer.draw();
+	
+		// redessine les image
+		if(this.tapisDrawer != null) this.tapisDrawer.draw();
+		if(this.hudDrawer != null) this.hudDrawer.draw();
+		
+		// reaffiche
+		this.offscreen.drawImage(this.tapisOffscreen.getImage(), 0, 0);
+		this.offscreen.drawImage(this.hudOffscreen.getImage(), 0, 0);
+		
+		
 		this.fenetre.repaint();
 	}
 
 
+	
 
 
 	@Override
@@ -54,7 +73,7 @@ public class MainScreen implements Observer{
 	
 	public static void main(String[] args){
 		MainScreen m = new MainScreen();
-		MemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
+		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
 		
 		
 		Tapis tapis = new Tapis(800,800);
@@ -71,15 +90,16 @@ public class MainScreen implements Observer{
 		
 		
 		TapisBasicControler tc = new TapisBasicControler(tapis);
-		m.getTapisOffscreen().addMouseListener(tc);
-		m.getTapisOffscreen().addMouseMotionListener(tc);
-		m.getTapisOffscreen().addMouseWheelListener(tc);
-		m.setDrawer(new TapisBasicDrawer(tapis, m.getTapisOffscreen()));
+		m.getOffscreen().addMouseListener(tc);
+		m.getOffscreen().addMouseMotionListener(tc);
+		m.getOffscreen().addMouseWheelListener(tc);
+		m.setTapisDrawer(new TapisBasicDrawer(tapis, m.getTapisOffscreen()));
+		m.setHudDrawer(new HeadUpDisplayDrawer( m.getHudOffscreen() ));
 		tapis.addObserver(tc);
 		tapis.addObserver(m);
 		
 		TapisBasicConverter.getInstance().setTapis(tapis);
-		TapisBasicConverter.getInstance().setOffscreen(m.getTapisOffscreen());
+		TapisBasicConverter.getInstance().setOffscreen(m.getOffscreen());
 		TapisBasicConverter.getInstance().update();
 		
 		/* ** */
@@ -98,16 +118,50 @@ public class MainScreen implements Observer{
 	
 	
 
-	public Offscreen getTapisOffscreen() {
+
+
+	
+
+	public Offscreen getOffscreen() {
+		return offscreen;
+	}
+
+	public void setOffscreen(Offscreen offscreen) {
+		this.offscreen = offscreen;
+	}
+
+	public ImageBuffer getHudOffscreen() {
+		return hudOffscreen;
+	}
+
+	public void setHudOffscreen(ImageBuffer hudOffscreen) {
+		this.hudOffscreen = hudOffscreen;
+	}
+
+	public ImageBuffer getTapisOffscreen() {
 		return tapisOffscreen;
 	}
 
-
-	public IDrawer getDrawer() {
-		return drawer;
+	public void setTapisOffscreen(ImageBuffer tapisOffscreen) {
+		this.tapisOffscreen = tapisOffscreen;
 	}
 
-	public void setDrawer(IDrawer drawer) {
-		this.drawer = drawer;
+	public IDrawer getTapisDrawer() {
+		return tapisDrawer;
 	}
+
+	public void setTapisDrawer(IDrawer tapisDrawer) {
+		this.tapisDrawer = tapisDrawer;
+	}
+	
+	public IDrawer getHudDrawer() {
+		return hudDrawer;
+	}
+
+	public void setHudDrawer(IDrawer hudDrawer) {
+		this.hudDrawer = hudDrawer;
+	}
+
+
+	
 }

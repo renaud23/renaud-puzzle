@@ -8,10 +8,12 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.jPuzzle.view.controler.ITapisControler;
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.PoserMainDroite;
+import com.puzzle.command.tournerMainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
@@ -42,6 +44,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		// TODO IOC
 		this.attraper = new AttrapperMainDroite(tapis);
 		this.poser = new PoserMainDroite(tapis);
+		this.tourner = new tournerMainDroite();
 	}
 	
 	

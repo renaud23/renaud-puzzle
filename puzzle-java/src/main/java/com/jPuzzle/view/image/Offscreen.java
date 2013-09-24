@@ -4,6 +4,7 @@ package com.jPuzzle.view.image;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -49,9 +50,10 @@ public class Offscreen extends JPanel implements Scrollable {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsConfiguration gc = ge.getDefaultScreenDevice().getDefaultConfiguration();
 		this.image = gc.createCompatibleVolatileImage(this.largeur, this.hauteur);
+		this.image.validate(gc);
 
 		Graphics2D graphics = this.image.createGraphics();
-		graphics.setPaint(new Color(0,0,0));
+		graphics.setPaint(new Color(0,0,0,0));
 		graphics.fillRect(0, 0, largeur, hauteur);
 
 		this.backgroundColor = color;
@@ -71,7 +73,7 @@ public class Offscreen extends JPanel implements Scrollable {
 		this.image = gc.createCompatibleVolatileImage(this.largeur, this.hauteur);
 
 		Graphics2D graphics = this.image.createGraphics();
-		graphics.setPaint(new Color(0,0,0));
+		graphics.setPaint(new Color(0,0,0,0));
 		graphics.fillRect(0, 0, largeur, hauteur);
 
 		this.backgroundColor = new Color(56,203,163);
@@ -81,123 +83,32 @@ public class Offscreen extends JPanel implements Scrollable {
 	
 
 
-	/**
-	 *
-	 * @param image
-	 * @param x
-	 * @param y
-	 * @param xi
-	 * @param yi
-	 * @param theta
-	 * @param scale
-	 * @param alpha
-	 */
-	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
-		
-		Graphics2D gr = this.image.createGraphics();
-
-		/** Désactivation de l'anti-aliasing */
-		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-		/** Demande de rendu rapide */
-		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
-
-
-		 gr.setComposite(AlphaComposite.getInstance(
-	                AlphaComposite.SRC_OVER,alpha )) ;
-		 
-		 if(this.image.contentsLost())
-			 this.image.validate(gc);
-
-		//
-		AffineTransform t = new AffineTransform();
-		t.setToIdentity();
-
-		t.translate(x, y);
-		t.scale(scale, scale);
-		gr.rotate(theta, xRotation*scale, yRotation*scale);
-
-		gr.drawImage(image,t,null);
-		gr.dispose();
-
-	}
-
-
-public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
-		
-		Graphics2D gr = this.image.createGraphics();
-
-		/** Désactivation de l'anti-aliasing */
-		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-		/** Demande de rendu rapide */
-		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
-
-
-		 gr.setComposite(AlphaComposite.getInstance(
-	                AlphaComposite.SRC_OVER,alpha )) ;
-		 
-		 if(this.image.contentsLost())
-			 this.image.validate(gc);
-
-		//
-		AffineTransform t = new AffineTransform();
-		t.setToIdentity();
-
-		t.translate(x, y);
-		t.scale(scaleX, scaleY);
-		gr.rotate(theta, xRotation*1.0, yRotation*1.0);
-
-		gr.drawImage(image,t,null);
-		gr.dispose();
-
-	}
 	
-	/**
-	 * 
-	 * @param image
-	 * @param x
-	 * @param y
-	 * @param xi
-	 * @param yi
-	 * @param theta
-	 * @param scale
-	 * @param color
-	 */
-	public void drawImageMask(Image image,int x,int y,double xi,double yi,double theta,double scale,Color color){
+	
+	
+	public void drawImage(Image image,int x,int y){
 		Graphics2D gr = this.image.createGraphics();
-
+//
 		/** Désactivation de l'anti-aliasing */
-//		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-//		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-//		/** Demande de rendu rapide */
-//		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-//		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
-//		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-//		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
-	 
-//		gr.setComposite(AlphaComposite.getInstance(
-//                AlphaComposite.SRC_OVER,1.0f )) ;
-		gr.setComposite(new MonComposite(color)) ;
-		//
-		AffineTransform t = new AffineTransform();
-		t.setToIdentity();
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+		/** Demande de rendu rapide */
+		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+		
+		
+		gr.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER,1.0f )) ;
+		 if(this.image.contentsLost())
+			 this.image.validate(gc);
 
-		t.translate(x, y);
-		t.scale(scale, scale);
-		gr.rotate(theta, xi*scale, yi*scale);
 
-		gr.drawImage(image,t,null);
+		gr.drawImage(image, x, y, null);
 		gr.dispose();
 
 	}
-
 	
 
 	
@@ -276,8 +187,6 @@ public void drawImage(Image image,double x,double y,double xRotation,double yRot
 	 * 
 	 */
 	protected void paintComponent(Graphics g){
-		g.setColor(Color.gray);
-		g.fillRect(0, 0, this.image.getWidth(), this.image.getHeight());
 		g.drawImage(this.image,0,0,null);
 	}
 
