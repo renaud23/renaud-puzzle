@@ -54,7 +54,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		if(a<0) angle += pisur2;
 		else if(angle > ( pisur2)) angle -= pisur2;
 		
-		((RectPiece)this.rect).checkAngle();
+		((RectPiece)this.rect).update();
 	}
 
 	@Override
@@ -101,7 +101,6 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	public void setAngle(double angle) {
 		this.angle = angle;
 		((RectPiece)this.rect).update();
-		((RectPiece)this.rect).checkAngle();
 	}
 
 	@Override

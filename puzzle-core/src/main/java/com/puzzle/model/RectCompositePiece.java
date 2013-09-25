@@ -6,6 +6,10 @@ public class RectCompositePiece implements MyRect{
 	
 	private CompositePiece composite;
 
+	public RectCompositePiece(CompositePiece composite) {
+		this.composite = composite;
+	}
+
 	@Override
 	public boolean isIn(double x, double y, double largeur, double hauteur) {
 		// TODO Auto-generated method stub

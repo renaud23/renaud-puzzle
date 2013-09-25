@@ -48,8 +48,8 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	 */
 	public void poserPiece(Piece piece){
 		Set<Piece> set = this.memoire.get(piece.getRect());
-		
 		int index = 0;
+		
 		for(Piece c : set){
 			if(c.getZIndex() > index){
 				index = c.getZIndex();

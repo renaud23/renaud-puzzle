@@ -101,7 +101,7 @@ public class MainScreen implements IDrawable{
 		Random rnd = new Random();
 //		for(int i=0;i<8;i++){
 			Piece p1 = new Piece(1,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,50,43, 100, 86);
-			Piece p2 = new Piece(2,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,117,43, 100, 86);
+			Piece p2 = new Piece(2,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,117,43, 86, 86);
 			Piece p3 = new Piece(3,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,43,110, 86, 100);
 			Piece p4 = new Piece(4,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500, 110,110,100, 100);
 			
@@ -111,7 +111,7 @@ public class MainScreen implements IDrawable{
 			tapis.poserPiece(p4);
 			
 			
-			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
 //			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
 //			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
 //			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
@@ -121,10 +121,10 @@ public class MainScreen implements IDrawable{
 		
 		
 		CompositePiece cmp = new CompositePiece(300.0,300.0); 
-		tapis.ajouterAComposite(cmp, p1);
-		tapis.ajouterAComposite(cmp, p2);
-		tapis.ajouterAComposite(cmp, p3);
-		
+//		tapis.ajouterAComposite(cmp, p1);
+//		tapis.ajouterAComposite(cmp, p2);
+//		tapis.ajouterAComposite(cmp, p3);
+//		tapis.ajouterAComposite(cmp, p4);
 		
 		TapisBasicControler tc = new TapisBasicControler(tapis);
 		tc.setDrawable(m);

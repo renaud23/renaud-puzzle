@@ -30,7 +30,7 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 				piece.getCentre().setY(this.position.getY());
 				
 				((RectPiece)piece.getRect()).update();
-				((RectPiece)piece.getRect()).checkAngle();
+
 				
 				this.tapis.poserPiece(piece);
 			}else if(cmp instanceof ComponentPiece){

@@ -75,7 +75,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		this.pieces.add(cmp);
 		cmp.setComposite(this);
 		((RectPiece)cmp.getRect()).update();
-		((RectPiece)cmp.getRect()).checkAngle();
+
 		
 	}
 	

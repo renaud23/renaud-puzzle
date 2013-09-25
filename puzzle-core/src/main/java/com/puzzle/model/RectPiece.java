@@ -12,7 +12,7 @@ public class RectPiece implements MyRect{
 	private double y;
 	private double largeur;
 	private double hauteur;
-	private List<Point> coins = new ArrayList<Point>();
+	private Point[] coins = new Point[4];
 	
 
 	public RectPiece(){
@@ -22,8 +22,13 @@ public class RectPiece implements MyRect{
 	public RectPiece(Piece piece) {
 		this.piece = piece;
 		
+		this.coins[0] = new Point();
+		this.coins[1] = new Point();
+		this.coins[2] = new Point();
+		this.coins[3] = new Point();
+		
 		this.update();
-//		this.checkAngle();
+//		System.out.println(this.toString());
 	}
 	
 	public boolean isIn(double x,double y,double largeur,double hauteur){
@@ -60,48 +65,7 @@ public class RectPiece implements MyRect{
 		return state;
 	}
 	
-	public void checkAngle(){
-		double[] x = new double[4];
-		double[] y = new double[4];
-		double refl = this.piece.getLargeur() / 2.0;
-		double refh = this.piece.getHauteur() / 2.0;
 	
-		x[0] = refl * Math.cos(this.piece.getAngle()) - refh * Math.sin(this.piece.getAngle());
-		y[0] = refl * Math.sin(this.piece.getAngle()) + refh * Math.cos(this.piece.getAngle());
-		
-		x[1] = -refl * Math.cos(this.piece.getAngle()) - refh * Math.sin(this.piece.getAngle());
-		y[1] =- refl * Math.sin(this.piece.getAngle()) + refh * Math.cos(this.piece.getAngle());
-		
-		x[2] = -refl * Math.cos(this.piece.getAngle()) + refh * Math.sin(this.piece.getAngle());
-		y[2] = -refl * Math.sin(this.piece.getAngle()) - refh * Math.cos(this.piece.getAngle());
-		
-		x[3] = refl * Math.cos(this.piece.getAngle()) + refh * Math.sin(this.piece.getAngle());
-		y[3] = refl * Math.sin(this.piece.getAngle()) - refh * Math.cos(this.piece.getAngle());
-		
-		double ymin = Double.MAX_VALUE, ymax = Double.MIN_VALUE, xmin = Double.MAX_VALUE, xmax = Double.MIN_VALUE;
-		
-		this.coins.clear();
-		for(int i=0;i<4;i++){
-			x[i] += this.piece.getCentre().getX();
-			y[i] += this.piece.getCentre().getY();
-			
-			if(x[i] < xmin) xmin = x[i];
-			if(x[i] > xmax) xmax = x[i];
-			if(y[i] < ymin) ymin = y[i];
-			if(y[i] > ymax) ymax = y[i];
-			
-			this.coins.add(i, new Point(x[i],y[i]));
-		}
-		
-		this.x = xmin;
-		this.y = ymax;
-		this.largeur = xmax - xmin;
-		this.hauteur = ymax - ymin;
-		
-		
-		
-		
-	}
 
 	
 	@Override
@@ -115,7 +79,7 @@ public class RectPiece implements MyRect{
 	public RectPiece clone(){ 
 		RectPiece p = new RectPiece(this.piece);
 		p.update();
-		p.checkAngle();
+
 		return p;
 	}
 	
@@ -141,17 +105,47 @@ public class RectPiece implements MyRect{
 
 	@Override
 	public void update() {
-		this.x = this.piece.getCentre().getX() - this.piece.getLargeur() / 2.0;
-		this.y = this.piece.getCentre().getY() + this.piece.getHauteur() / 2.0;
-		this.largeur = this.piece.getLargeur();
-		this.hauteur = this.piece.getHauteur();
+		double ml = this.piece.getLargeur() / 2.0;
+		double mh = this.piece.getHauteur() / 2.0;
+		this.coins[0].setX(this.piece.getCentre().getX() - ml);
+		this.coins[0].setY(this.piece.getCentre().getY() + mh);
+		this.coins[1].setX(this.piece.getCentre().getX() + ml);
+		this.coins[1].setY(this.piece.getCentre().getY() + mh);
+		this.coins[2].setX(this.piece.getCentre().getX() - ml);
+		this.coins[2].setY(this.piece.getCentre().getY() - mh);
+		this.coins[3].setX(this.piece.getCentre().getX() + ml);
+		this.coins[3].setY(this.piece.getCentre().getY() - mh);
+		
+		this.coins[0].tourner(this.piece.getAngle(), this.piece.getCentre());
+		this.coins[1].tourner(this.piece.getAngle(), this.piece.getCentre());
+		this.coins[2].tourner(this.piece.getAngle(), this.piece.getCentre());
+		this.coins[3].tourner(this.piece.getAngle(), this.piece.getCentre());
+		
+		double minx = Double.MAX_VALUE;
+		double maxx = -Double.MAX_VALUE;
+		double miny = Double.MAX_VALUE;
+		double maxy = -Double.MAX_VALUE;
+		
+		for(Point p : this.coins){
+			if(p.getX() < minx) minx = p.getX();
+			if(p.getX() > maxx) maxx = p.getX();
+			if(p.getY()>maxy){ maxy = p.getY();}
+			if(p.getY()<miny) miny=p.getY();
+		}
+		
+		this.x = minx;
+		this.y = maxy;
+		this.largeur = maxx - minx;
+		this.hauteur = maxy - miny;
+	}
+
+	public Point[] getCoins() {
+		return coins;
 	}
 
 	
 	
-	public List<Point> getCoins() {
-		return coins;
-	}
+	
 
 
 }
