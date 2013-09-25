@@ -36,18 +36,19 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-		this.memoire = new TasManager<Piece>(10, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
+		this.memoire = new TasManager<Piece>(3, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
 	}
 
 
 	
 	/**
-	 * Ajoute une nouvelle pièce au tapis.
+	 * Pose une pièce sur le tapis.
 	 * 
 	 * @param piece
 	 */
 	public void poserPiece(Piece piece){
-		Set<Piece> set = this.memoire.get(piece.getRect());System.out.println(memoire.getAll());
+		Set<Piece> set = this.memoire.get(piece.getRect());
+		
 		int index = 0;
 		for(Piece c : set){
 			if(c.getZIndex() > index){
@@ -62,9 +63,23 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	}
 	
 	
+	public void ajouterAComposite(CompositePiece cmp,Piece p){
+		this.memoire.remove(p);
+		cmp.addPiece(p);
+		this.memoire.put(p);
+	}
+	
 	
 	public void retirerPiece(Piece piece){
 		this.memoire.remove(piece);
+	}
+	
+	public void retirerComposite(CompositePiece piece){
+		
+	}
+	
+	public void posercomposite(CompositePiece cmp){
+		
 	}
 	
 //	public Set<Piece> chercherPiece(IRect r){// TODO

@@ -32,11 +32,11 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 				((RectPiece)piece.getRect()).update();
 				((RectPiece)piece.getRect()).checkAngle();
 				
-				
-				
 				this.tapis.poserPiece(piece);
 			}else if(cmp instanceof ComponentPiece){
 				// TODO
+				
+			
 			}
 			
 			MainDroite.getInstance().libere();
