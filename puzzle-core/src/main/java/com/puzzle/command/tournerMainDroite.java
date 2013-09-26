@@ -10,13 +10,6 @@ public class tournerMainDroite implements CommandeArgument<Double>{
 	
 	private double angle;
 
-	
-	
-	
-	public tournerMainDroite() {
-		
-	
-	}
 
 	@Override
 	public void execute() {

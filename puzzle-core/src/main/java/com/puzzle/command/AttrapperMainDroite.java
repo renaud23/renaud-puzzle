@@ -3,6 +3,7 @@ package com.puzzle.command;
 import java.util.List;
 
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -39,7 +40,10 @@ public class AttrapperMainDroite implements CommandeArgument<Point>{
 				ComponentPiece candidatfinal = candidat;
 				if(candidat.getComposite() != null) {
 					candidatfinal = candidat.getComposite();
-					// TODO retirer le groupe de pièces
+					
+					for(Piece p : (CompositePiece)candidatfinal){
+						this.tapis.retirerPiece(p);
+					}
 				}else{
 					this.tapis.retirerPiece(candidat);
 				}

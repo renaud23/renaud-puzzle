@@ -36,7 +36,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-		this.memoire = new TasManager<Piece>(3, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
+		this.memoire = new TasManager<Piece>(4, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
 	}
 
 
@@ -58,8 +58,8 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		}
 		index++;
 		piece.setZIndex(index);
-	
 		this.memoire.put(piece);
+		
 	}
 	
 	
@@ -87,10 +87,9 @@ public class Tapis extends Observable implements Iterable<Piece>{
 //	}
 	
 	public List<Piece> chercherPiece(double x,double y){
-		
 		Set<Piece> set = this.memoire.get(x,y);
 		List<Piece> tmp = new ArrayList<Piece>();
-		
+
 		for(Piece cmp : set){
 			
 			if(cmp.getRect().contains(x, y)) {

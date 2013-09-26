@@ -3,6 +3,8 @@ package com.puzzle.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
 
@@ -13,7 +15,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	private List<Piece> pieces;
 	
-	private Rect rect;
+	private MyRect rect;
 	
 	private Point centre;
 	
@@ -21,7 +23,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	public CompositePiece(double x,double y){
 		this.pieces = new ArrayList<Piece>();
-		this.rect = new Rect();
+		this.rect = new RectCompositePiece(this);
 		this.centre = new Point(x,y);
 	}
 	
@@ -29,8 +31,8 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	
 	@Override
-	public Rect getRect() {
-		return this.rect.clone();
+	public IRect getRect() {
+		return this.rect;//this.rect.clone();
 	}
 
 	@Override

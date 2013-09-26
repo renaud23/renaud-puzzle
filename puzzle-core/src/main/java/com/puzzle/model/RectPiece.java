@@ -71,8 +71,14 @@ public class RectPiece implements MyRect{
 	@Override
 	public boolean contains(double x, double y) {
 		boolean state = false;
-		if(x >= this.x && x <= (this.x+this.largeur) && y <= this.y && y >= (this.y-this.hauteur))
+		Point p = new Point(x,y);
+		
+		if(p.IsInsideTriangle(this.coins[0],this.coins[1],this.coins[3])){
 			state = true;
+		}else if(p.IsInsideTriangle(this.coins[1],this.coins[2],this.coins[3])){
+			state = true;
+		}
+		
 		return state;
 	}
 	
@@ -111,9 +117,9 @@ public class RectPiece implements MyRect{
 		this.coins[0].setY(this.piece.getCentre().getY() + mh);
 		this.coins[1].setX(this.piece.getCentre().getX() + ml);
 		this.coins[1].setY(this.piece.getCentre().getY() + mh);
-		this.coins[2].setX(this.piece.getCentre().getX() - ml);
+		this.coins[2].setX(this.piece.getCentre().getX() + ml);
 		this.coins[2].setY(this.piece.getCentre().getY() - mh);
-		this.coins[3].setX(this.piece.getCentre().getX() + ml);
+		this.coins[3].setX(this.piece.getCentre().getX() - ml);
 		this.coins[3].setY(this.piece.getCentre().getY() - mh);
 		
 		this.coins[0].tourner(this.piece.getAngle(), this.piece.getCentre());
@@ -129,8 +135,8 @@ public class RectPiece implements MyRect{
 		for(Point p : this.coins){
 			if(p.getX() < minx) minx = p.getX();
 			if(p.getX() > maxx) maxx = p.getX();
-			if(p.getY()>maxy){ maxy = p.getY();}
-			if(p.getY()<miny) miny=p.getY();
+			if(p.getY() > maxy) maxy = p.getY();
+			if(p.getY() < miny) miny = p.getY();
 		}
 		
 		this.x = minx;

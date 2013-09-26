@@ -54,7 +54,40 @@ public class RectCompositePiece implements MyRect{
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		// centre dans le puzzle.
+		double maxx = -Double.MAX_VALUE;
+		double minx = Double.MAX_VALUE;
+		double maxy = -Double.MAX_VALUE;
+		double miny = Double.MAX_VALUE;
+		
+		for(Piece p : this.composite){
+			maxx = Math.max(maxx, p.getPuzzleX() + p.getLargeur() / 2.0);
+			minx = Math.min(minx, p.getPuzzleX() - p.getLargeur() / 2.0);
+			maxy = Math.max(maxy, p.getPuzzleY() + p.getHauteur() / 2.0);
+			miny = Math.min(miny, p.getPuzzleY() - p.getHauteur() / 2.0);
+		}
+		
+		double cl = maxx - minx;
+		double ch = maxy - miny;
+		double cx = minx + cl / 2.0;
+		double cy = miny + ch / 2.0; 
+		
+		for(Piece p : this.composite){
+			double x = p.getPuzzleX();
+			x -= cx;
+			double y = p.getPuzzleY();
+			y -= cy; 
+			
+			y*= -1.0;// symétrie horizontale
+			x += this.composite.getCentre().getX();
+			y += this.composite.getCentre().getY();
+			
+			p.getCentre().setX(x);
+			p.getCentre().setY(y);
+			p.getCentre().tourner(p.getAngle(),this.composite.getCentre());
+			
+			((MyRect)p.getRect()).update();
+		}
 		
 	}
 

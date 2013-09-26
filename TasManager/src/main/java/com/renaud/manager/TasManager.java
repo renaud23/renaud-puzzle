@@ -6,6 +6,7 @@ package com.renaud.manager;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 
@@ -53,7 +54,7 @@ public class TasManager<U extends IRectable> {
 	
 	
 	public Set<U> get(IRect r){
-		Set<U> set = new HashSet<>();
+		Set<U> set = new HashSet<U>();
 		this.root.get(set, r);
 		
 		return set;

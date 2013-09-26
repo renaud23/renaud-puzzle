@@ -8,7 +8,6 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
-
 import com.jPuzzle.view.controler.ITapisControler;
 import com.jPuzzle.view.drawer.IDrawable;
 import com.jPuzzle.view.drawer.Transformation;
@@ -16,7 +15,6 @@ import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
-import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;

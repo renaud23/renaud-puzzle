@@ -3,7 +3,9 @@ package com.puzzle.command;
 
 
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectPiece;
@@ -29,14 +31,18 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 				piece.getCentre().setX(this.position.getX());
 				piece.getCentre().setY(this.position.getY());
 				
-				((RectPiece)piece.getRect()).update();
+				((MyRect)piece.getRect()).update();
 
-				
 				this.tapis.poserPiece(piece);
 			}else if(cmp instanceof ComponentPiece){
-				// TODO
+				CompositePiece composite = (CompositePiece) cmp;
 				
-			
+				composite.getCentre().setX(this.position.getX());
+				composite.getCentre().setY(this.position.getY());
+				
+				((MyRect)composite.getRect()).update();
+				
+				for(Piece p : composite) this.tapis.poserPiece(p);
 			}
 			
 			MainDroite.getInstance().libere();

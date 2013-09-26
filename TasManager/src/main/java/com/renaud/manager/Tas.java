@@ -90,7 +90,6 @@ public class Tas<U extends IRectable> {
 		if(this.elements != null){
 			elmts.addAll(this.elements);
 		}else{
-			
 			if(rect.isIn(this.gauche.r))
 					this.gauche.get(elmts,rect);
 

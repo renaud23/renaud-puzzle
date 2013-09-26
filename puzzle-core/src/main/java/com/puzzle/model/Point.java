@@ -1,5 +1,7 @@
 package com.puzzle.model;
 
+
+
 public class Point {
 	private double x;
 	private double y;
@@ -38,6 +40,20 @@ public class Point {
 		this.x = xi;
 		this.y = yi;
 	}
+	
+	
+	private static double ComputeZCoordinate(Point p1, Point p2, Point p3) {
+	    return p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
+	}
+	
+	
+	 public boolean IsInsideTriangle(Point a, Point b, Point c) {
+	    double z1 = ComputeZCoordinate(a, b, this);
+	    double z2 = ComputeZCoordinate(b, c, this);
+	    double z3 = ComputeZCoordinate(c, a, this);
+	    
+	    return (z1 > 0 && z2 > 0 && z3 > 0) || (z1 < 0 && z2 < 0 && z3 < 0);
+	  }
 	
 	public void tourner(double angle,Point c){
 		this.tourner(angle, c.x, c.y);
