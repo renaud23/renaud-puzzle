@@ -99,7 +99,7 @@ public class MainScreen implements IDrawable{
 		Tapis tapis = new Tapis(taille,taille);
 		
 		Random rnd = new Random();
-		for(int i=0;i<2;i++){
+		for(int i=0;i<1;i++){
 			Piece p1 = new Piece(1,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,50,43, 100, 86);
 			Piece p2 = new Piece(2,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,117,43, 86, 86);
 			Piece p3 = new Piece(3,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,43,110, 86, 100);
