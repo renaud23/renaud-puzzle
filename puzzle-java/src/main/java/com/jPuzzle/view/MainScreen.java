@@ -111,10 +111,10 @@ public class MainScreen implements IDrawable{
 			tapis.poserPiece(p4);
 			
 			
-			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
 			
 			CompositePiece cmp = new CompositePiece(300.0,300.0); 
 			tapis.ajouterAComposite(cmp, p1);

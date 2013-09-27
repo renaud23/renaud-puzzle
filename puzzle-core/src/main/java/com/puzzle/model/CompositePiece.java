@@ -81,7 +81,13 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		
 	}
 	
-	
+	@Override
+	public void setAngle(double angle) {
+		for(Piece p : this){
+			p.setAngle(angle);
+		}
+		this.rect.update();
+	}
 	
 	
 	public void remove(ComponentPiece cmp){
@@ -106,8 +112,11 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	@Override
 	public int getZIndex() {
-		// TODO Auto-generated method stub
-		return 0;
+		int z = 0;
+		if(!this.pieces.isEmpty()){
+			z = this.pieces.get(0).getZIndex();
+		}
+		return z;
 	}
 
 
@@ -132,8 +141,16 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	@Override
 	public double getAngle() {
-		// TODO Auto-generated method stub
-		return 0;
+		double angle = 0.0;
+		if(!this.pieces.isEmpty()){
+			angle = this.pieces.get(0).getAngle();
+		}
+		return angle;
 	}
+
+
+
+
+
 	
 }

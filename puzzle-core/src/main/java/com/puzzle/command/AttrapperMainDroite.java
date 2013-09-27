@@ -5,6 +5,7 @@ import java.util.List;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
@@ -44,6 +45,9 @@ public class AttrapperMainDroite implements CommandeArgument<Point>{
 					for(Piece p : (CompositePiece)candidatfinal){
 						this.tapis.retirerPiece(p);
 					}
+					candidatfinal.getCentre().setX(0.0);
+					candidatfinal.getCentre().setY(0.0);
+					((MyRect)candidatfinal.getRect()).update();
 				}else{
 					this.tapis.retirerPiece(candidat);
 				}

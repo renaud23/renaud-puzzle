@@ -8,5 +8,6 @@ public interface ComponentPiece extends IRectable{
 	public void setZIndex(int index);
 	public Point getCentre();
 	public double getAngle();
+	public void setAngle(double angle);
 
 }

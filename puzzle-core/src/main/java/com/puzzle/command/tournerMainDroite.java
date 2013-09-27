@@ -15,10 +15,12 @@ public class tournerMainDroite implements CommandeArgument<Double>{
 	public void execute() {
 		ComponentPiece cmp = MainDroite.getInstance().getPiece();
 		
-		if(cmp instanceof Piece){
-			Piece p = (Piece) cmp;
-			p.addAngle(this.angle);
-		}
+//		if(cmp instanceof Piece){
+//			Piece p = (Piece) cmp;
+		double newAngle = cmp.getAngle();
+		newAngle += this.angle;
+		cmp.setAngle(newAngle);
+//		}
 		
 	}
 
