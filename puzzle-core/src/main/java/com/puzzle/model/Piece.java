@@ -23,6 +23,8 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	private double puzzleY;
 	
+	private Puzzle puzzle;
+	
 	private CompositePiece composite;
 	
 	public Piece(){
@@ -130,11 +132,9 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		return puzzleX;
 	}
 
-
 	public void setPuzzleX(double puzzleX) {
 		this.puzzleX = puzzleX;
 	}
-
 
 	public double getPuzzleY() {
 		return puzzleY;
@@ -144,6 +144,17 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	public void setPuzzleY(double puzzleY) {
 		this.puzzleY = puzzleY;
 	}
+
+	public Puzzle getPuzzle() {
+		return puzzle;
+	}
+
+	public void setPuzzle(Puzzle puzzle) {
+		this.puzzle = puzzle;
+//		puzzle.put(this.getId(), new Point(this.getPuzzleX(), this.getPuzzleY()));
+	}
+
+
 
 
 	@Override
@@ -164,5 +175,22 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	public void setX(double x){
 		this.centre.setX(x);
+	}
+
+
+
+
+	@Override
+	public boolean verifierClips(Piece piece) {
+		boolean state = false;
+		
+		if(piece.getAngle() == this.angle){
+			
+			
+			
+			
+		}
+		
+		return state;
 	}
 }

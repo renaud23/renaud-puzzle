@@ -21,7 +21,10 @@ public class IsMainDroiteClipsable implements CommandeArgument<ClipsParam>{
 		ComponentPiece cdt = MainDroite.getInstance().getPiece();
 		
 		for(Piece p : this.tapis){
-			
+			if(cdt.verifierClips(p)){
+				this.param.getCandidats().add(p);
+				this.param.setClipsable(true);
+			}
 		}
 		
 	}
@@ -30,5 +33,4 @@ public class IsMainDroiteClipsable implements CommandeArgument<ClipsParam>{
 	public void setArgument(ClipsParam arg) {
 		this.param = arg;
 	}
-
 }

@@ -74,8 +74,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		ClipsParam param = new ClipsParam();
 		this.iSclips.execute();
 		
-		System.out.println(param.isClipsable());
-		System.out.println(param.getCandidats());
+//		System.out.println(param.isClipsable());
+//		System.out.println(param.getCandidats());
 		
 		//
 		this.poser.setArgument(position);

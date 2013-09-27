@@ -7,8 +7,7 @@ import com.renaud.manager.IRect;
 
 
 public class CompositePiece implements ComponentPiece,Iterable<Piece>{
-
-	
+ 
 	private List<Piece> pieces;
 	
 	private MyRect rect;
@@ -126,5 +125,12 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 			angle = this.pieces.get(0).getAngle();
 		}
 		return angle;
+	}
+
+
+	@Override
+	public boolean verifierClips(Piece piece) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -82,7 +82,6 @@ public class MainScreen implements IDrawable{
 		this.offscreen.drawImage(this.tapisOffscreen.getImage(), 0, 0);
 		this.offscreen.drawImage(this.hudOffscreen.getImage(), 0, 0);
 		
-		
 		this.fenetre.repaint();
 	}
 

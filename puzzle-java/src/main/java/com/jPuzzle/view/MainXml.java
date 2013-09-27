@@ -11,6 +11,8 @@ import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.loader.XmlLoader;
 import com.puzzle.model.Piece;
+import com.puzzle.model.Point;
+import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
 
 public class MainXml {
@@ -27,12 +29,16 @@ public class MainXml {
 		
 		Tapis tapis = new Tapis(taille,taille);
 		List<Piece> pieces = ld.getPieces();
+		Puzzle puzzle = ld.getPuzzle();
 		
 		Random rnd = new Random();
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(te)-te/2);
 			p.setY(rnd.nextInt(te)-te/2);
 			p.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+			
+			p.setPuzzle(puzzle);
+			puzzle.put(p.getId(), new Point(p.getPuzzleX(), p.getPuzzleY()));
 			
 			tapis.poserPiece(p);
 		}

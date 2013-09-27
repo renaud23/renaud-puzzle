@@ -41,10 +41,18 @@ public class XmlLoader implements PuzzleLoader{
 			this.root = this.document.getRootElement();	
 			
 			List<Element> rootPieces = this.root.getChildren(XmlTag.pieces.toString());
+			int puzzl = Integer.valueOf(this.root.getChild(XmlTag.largeur.toString()).getText());
+			int puzzh = Integer.valueOf(this.root.getChild(XmlTag.hauteur.toString()).getText());
+			String nom = this.root.getChild(XmlTag.nom.toString()).getText();
+			this.puzzle = new Puzzle(nom, puzzl, puzzh);
+			
 			
 			for(Element eps : rootPieces){
-				List<Element> pieces = eps.getChildren(XmlTag.piece.toString());
 				
+				
+				
+				
+				List<Element> pieces = eps.getChildren(XmlTag.piece.toString());
 				for(Element ep : pieces){
 					int id = Integer.valueOf(ep.getChild(XmlTag.id.toString()).getText());
 					double puzzleX = Double.valueOf(ep.getChild(XmlTag.cx.toString()).getText());
@@ -71,8 +79,7 @@ public class XmlLoader implements PuzzleLoader{
 
 	@Override
 	public Puzzle getPuzzle() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.puzzle;
 	}
 
 }

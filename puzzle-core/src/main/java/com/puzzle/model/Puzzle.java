@@ -1,19 +1,27 @@
 package com.puzzle.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Puzzle {
+	
+	private static int nb = 0;
+	
 	private int largeur;
 	private int hauteur;
+	private int taille;
 	private int id;
 	private String nom;
-	
-	
-	
-	
+	private Map<Integer, Point> pieces;
+
 	
 	public Puzzle(String nom, int largeur, int hauteur) {
+		this.pieces = new HashMap<Integer,Point>();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.nom = nom;
+		this.taille = this.largeur * this.hauteur;
+		this.id = nb++;
 	}
 	
 	
@@ -42,8 +50,32 @@ public class Puzzle {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+	public int getTaille() {
+		return taille;
+	}
+	
+	public boolean equals(Object o){
+		boolean state = false;
+		if(o instanceof Puzzle){
+			Puzzle pz = (Puzzle) o;
+			if(this.id == pz.id) state = true;
+		}
+		
+		return state;
+	}
 	
 	
+	public void put(int index,Point centre){
+		this.pieces.put(index, centre);
+	}
 	
 	
+	public Point get(int index){
+		Point p = null;
+		if(this.pieces.containsKey(index)){
+			p = this.pieces.get(index);
+		}
+		return p;
+	}
 }
