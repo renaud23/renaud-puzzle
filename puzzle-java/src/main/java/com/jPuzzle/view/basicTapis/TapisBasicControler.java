@@ -15,7 +15,7 @@ import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipsParam;
 import com.puzzle.command.CommandeArgument;
-import com.puzzle.command.IsClipsable;
+import com.puzzle.command.IsMainDroiteClipsable;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
 import com.puzzle.model.Point;
@@ -50,7 +50,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.attraper = new AttrapperMainDroite(tapis);
 		this.poser = new PoserMainDroite(tapis);
 		this.tourner = new tournerMainDroite();
-		this.iSclips = new IsClipsable(tapis);
+		this.iSclips = new IsMainDroiteClipsable(tapis);
 	}
 	
 	
@@ -70,6 +70,14 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	
 	@Override
 	public void poserMainDroite(Point position) {
+		
+		ClipsParam param = new ClipsParam();
+		this.iSclips.execute();
+		
+		System.out.println(param.isClipsable());
+		System.out.println(param.getCandidats());
+		
+		//
 		this.poser.setArgument(position);
 		this.poser.execute();
 		

@@ -30,6 +30,20 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	}
 	
 	
+	
+	
+	public Piece(int id,double puzzleX,double puzzleY,double largeur,double hauteur){
+		this.id = id;
+		this.centre = new Point();
+		this.centre.setX(0.0);
+		this.centre.setY(0.0);
+		this.largeur = largeur;
+		this.hauteur = hauteur;
+		this.rect = new RectPiece(this);
+		this.puzzleX = puzzleX;
+		this.puzzleY = puzzleY;
+	}
+	
 	public Piece(int id,double x,double y,double puzzleX,double puzzleY,double largeur,double hauteur){
 		this.id = id;
 		this.centre = new Point();
@@ -44,18 +58,9 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	
 	
-	public void translate(double xi,double yi){
-		this.centre.translate(xi, yi);
-	}
+
 	
-	public void addAngle(double a){
-		this.angle += a;
-		double pisur2 =  Math.PI * 2.0;
-		if(a<0) angle += pisur2;
-		else if(angle > ( pisur2)) angle -= pisur2;
-		
-		((RectPiece)this.rect).update();
-	}
+	
 
 	@Override
 	public IRect getRect() {
@@ -153,6 +158,11 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		return value;
 	}
 
-
+	public void setY(double y){
+		this.centre.setY(y);
+	}
 	
+	public void setX(double x){
+		this.centre.setX(x);
+	}
 }
