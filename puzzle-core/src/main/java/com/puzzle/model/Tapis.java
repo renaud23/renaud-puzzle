@@ -12,6 +12,7 @@ import java.util.Observable;
 import java.util.Set;
 import java.util.SortedSet;
 
+import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
 
 
@@ -36,7 +37,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-		this.memoire = new TasManager<Piece>(4, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
+		this.memoire = new TasManager<Piece>(7, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
 	}
 
 
@@ -82,9 +83,9 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		
 	}
 	
-//	public Set<Piece> chercherPiece(IRect r){// TODO
-//		 return this.memoire.get(r);
-//	}
+	public Set<Piece> chercherPiece(IRect r){// TODO
+		 return this.memoire.get(r);
+	}
 	
 	public List<Piece> chercherPiece(double x,double y){
 		Set<Piece> set = this.memoire.get(x,y);

@@ -184,7 +184,10 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	public boolean verifierClips(Piece piece) {
 		boolean state = false;
 		
-		if(piece.getAngle() == this.angle){
+		//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
+		
+		
+		if(piece.getAngle() == this.angle && this.id != piece.getId()){
 			
 			
 			

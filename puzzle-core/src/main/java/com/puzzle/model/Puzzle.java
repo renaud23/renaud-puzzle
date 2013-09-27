@@ -5,6 +5,10 @@ import java.util.Map;
 
 public class Puzzle {
 	
+	public enum Position{
+		nord,sud,est,ouest;
+	}
+	
 	private static int nb = 0;
 	
 	private int largeur;
@@ -76,6 +80,39 @@ public class Puzzle {
 		if(this.pieces.containsKey(index)){
 			p = this.pieces.get(index);
 		}
+		return p;
+	}
+	
+	public Point get(Position position,int index){
+		Point p = null;
+		int pasy = 0;
+		int pasx = 0;
+		
+		int y = index / (largeur+1);
+		int x = index % (largeur+1);
+		
+		if(Position.nord.equals(position)){
+			pasy = -this.largeur;
+		}else if(Position.sud.equals(position)){
+			pasy = this.largeur;
+		}else if(Position.est.equals(position)){
+			pasy = 1;
+		}else if(Position.ouest.equals(position)){
+			pasy = -1;
+		}
+		
+		y += pasy;
+		x += pasx;
+		
+		if(y>=0 && x>=0 && x<this.largeur && y<this.hauteur){
+			int ref = index;
+			ref += x;
+			ref += y;
+			
+			p = this.get(ref);
+		}
+		
+		
 		return p;
 	}
 }
