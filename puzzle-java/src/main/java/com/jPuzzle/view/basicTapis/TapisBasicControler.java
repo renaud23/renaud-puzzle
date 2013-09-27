@@ -8,11 +8,14 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.jPuzzle.view.controler.ITapisControler;
 import com.jPuzzle.view.drawer.IDrawable;
 import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.command.AttrapperMainDroite;
+import com.puzzle.command.ClipsParam;
 import com.puzzle.command.CommandeArgument;
+import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
 import com.puzzle.model.Point;
@@ -32,6 +35,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	private CommandeArgument<Point> attraper;
 	private CommandeArgument<Point> poser;
 	private CommandeArgument<Double> tourner;
+	private CommandeArgument<ClipsParam> iSclips;
 	
 	
 	private IDrawable drawable;
@@ -46,6 +50,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.attraper = new AttrapperMainDroite(tapis);
 		this.poser = new PoserMainDroite(tapis);
 		this.tourner = new tournerMainDroite();
+		this.iSclips = new IsClipsable(tapis);
 	}
 	
 	

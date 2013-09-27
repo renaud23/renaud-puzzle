@@ -8,7 +8,6 @@ import com.puzzle.model.MainDroite;
 import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
-import com.puzzle.model.RectPiece;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 

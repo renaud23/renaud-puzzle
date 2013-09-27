@@ -95,15 +95,16 @@ public class MainScreen implements IDrawable{
 		MainScreen m = new MainScreen(800,800);
 		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
 		
-		int taille = 1200;
+		int taille = 2000;
 		Tapis tapis = new Tapis(taille,taille);
 		
 		Random rnd = new Random();
-		for(int i=0;i<1;i++){
-			Piece p1 = new Piece(1,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,50,43, 100, 86);
-			Piece p2 = new Piece(2,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,117,43, 86, 86);
-			Piece p3 = new Piece(3,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500,43,110, 86, 100);
-			Piece p4 = new Piece(4,rnd.nextInt(1000)-500, rnd.nextInt(1000)-500, 110,110,100, 100);
+		for(int i=0;i<2;i++){
+			int te = taille - 200;
+			Piece p1 = new Piece(1,rnd.nextInt(te)-te/2, rnd.nextInt(te)-te/2,50,43, 100, 86);
+			Piece p2 = new Piece(2,rnd.nextInt(te)-(te)/2, rnd.nextInt(te)-te/2,117,43, 86, 86);
+			Piece p3 = new Piece(3,rnd.nextInt(te)-(te)/2, rnd.nextInt(te)-te/2,43,110, 86, 100);
+			Piece p4 = new Piece(4,rnd.nextInt(te)-(te)/2, rnd.nextInt(te)-te/2, 110,110,100, 100);
 			
 			tapis.poserPiece(p1);
 			tapis.poserPiece(p2);
@@ -111,12 +112,12 @@ public class MainScreen implements IDrawable{
 			tapis.poserPiece(p4);
 			
 			
-//			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-//			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-//			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-//			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
 			
-			CompositePiece cmp = new CompositePiece(300.0,300.0); 
+			CompositePiece cmp = new CompositePiece(rnd.nextInt(te)-(te)/2, rnd.nextInt(te)-te/2); 
 			tapis.ajouterAComposite(cmp, p1);
 			tapis.ajouterAComposite(cmp, p2);
 			tapis.ajouterAComposite(cmp, p3);

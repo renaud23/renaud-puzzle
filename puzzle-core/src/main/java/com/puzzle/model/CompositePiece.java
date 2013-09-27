@@ -3,11 +3,7 @@ package com.puzzle.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import com.renaud.manager.IRect;
-import com.renaud.manager.Rect;
-
-
 
 
 public class CompositePiece implements ComponentPiece,Iterable<Piece>{
@@ -26,9 +22,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		this.rect = new RectCompositePiece(this);
 		this.centre = new Point(x,y);
 	}
-	
-
-	
+		
 	
 	@Override
 	public IRect getRect() {
@@ -43,13 +37,10 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	public int getzIndex() {
 		return zIndex;
 	}
-
 	
 	public void setzIndex(int zIndex) {
 		this.zIndex = zIndex;
 	}
-
-	
 	
 	/* gestion du composite */
 
@@ -107,9 +98,6 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		return this.pieces;// attention à l'usage.
 	}
 
-
-
-
 	@Override
 	public int getZIndex() {
 		int z = 0;
@@ -119,25 +107,17 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		return z;
 	}
 
-
-
-
 	@Override
 	public void setZIndex(int index) {
-		// TODO Auto-generated method stub
-	
+		if(!this.pieces.isEmpty()){
+			for(Piece p : this) p.setZIndex(index);
+		}
 	}
-
-
-
 
 	@Override
 	public Point getCentre() {
 		return this.centre;
 	}
-
-
-
 
 	@Override
 	public double getAngle() {
@@ -147,10 +127,4 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		}
 		return angle;
 	}
-
-
-
-
-
-	
 }

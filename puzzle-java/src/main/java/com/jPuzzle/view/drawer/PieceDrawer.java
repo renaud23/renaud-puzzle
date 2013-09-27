@@ -2,15 +2,14 @@ package com.jPuzzle.view.drawer;
 
 import java.awt.Color;
 import java.awt.Image;
-
 import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.image.ImageBuffer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
-import com.puzzle.model.RectPiece;
 import com.renaud.manager.IRect;
-import com.renaud.manager.Rect;
+
+
 
 public class PieceDrawer implements IDrawerParametrable<Transformation>{
 	

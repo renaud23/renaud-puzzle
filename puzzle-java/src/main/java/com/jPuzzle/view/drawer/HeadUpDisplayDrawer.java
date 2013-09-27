@@ -1,18 +1,19 @@
 package com.jPuzzle.view.drawer;
 
-import com.jPuzzle.view.basicTapis.TapisBasicConverter;
+
+
 import com.jPuzzle.view.image.ImageBuffer;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
-import com.puzzle.model.Point;
-import com.renaud.manager.IRect;
+
+
+
 
 public class HeadUpDisplayDrawer implements IDrawerParametrable<Transformation>{
 	
 	private ImageBuffer offscreen;
-//	private ComponentPiece mainDroite;
 	private Transformation transformation;
 
 	public HeadUpDisplayDrawer(ImageBuffer offscreen) {
@@ -75,7 +76,5 @@ public class HeadUpDisplayDrawer implements IDrawerParametrable<Transformation>{
 		this.transformation = param;
 	}
 
-	
-	
 	
 }
