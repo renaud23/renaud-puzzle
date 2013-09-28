@@ -45,10 +45,10 @@ public class MainXml {
 		}
 		
 		
-//		CompositePiece cmp = new CompositePiece(100, 100);
-//		tapis.ajouterAComposite(cmp,pieces.get(15));
-//		tapis.ajouterAComposite(cmp,pieces.get(16));
-//		tapis.ajouterAComposite(cmp,pieces.get(10));
+		CompositePiece cmp = new CompositePiece(100, 100);
+		tapis.ajouterAComposite(cmp,pieces.get(15));
+		tapis.ajouterAComposite(cmp,pieces.get(16));
+		tapis.ajouterAComposite(cmp,pieces.get(10));
 		
 		// la vue
 		MainScreen m = new MainScreen(800,800);
@@ -59,6 +59,7 @@ public class MainXml {
 		m.getOffscreen().addMouseListener(tc);
 		m.getOffscreen().addMouseMotionListener(tc);
 		m.getOffscreen().addMouseWheelListener(tc);
+		m.getFenetre().addKeyListener(tc);
 		m.setTapisDrawer(new TapisBasicDrawer(tapis, m.getTapisOffscreen()));
 		m.setHudDrawer(new HeadUpDisplayDrawer( m.getHudOffscreen() ));
 		tapis.addObserver(tc);

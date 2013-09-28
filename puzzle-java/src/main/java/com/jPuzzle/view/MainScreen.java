@@ -59,6 +59,14 @@ public class MainScreen implements IDrawable<ScreenParam>{
 
 	
 	
+	public JFrame getFenetre() {
+		return fenetre;
+	}
+
+
+
+
+
 	public void drawTapis(){
 		if(this.tapisDrawer != null) this.tapisDrawer.draw();
 	}

@@ -3,9 +3,9 @@ package com.puzzle.command;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.Tapis;
 
-public class Clipser implements CommandeArgument<ComponentPiece>{
+public class Clipser implements CommandeArgument<ClipsParam>{
 	private Tapis tapis;
-	private ComponentPiece cmp;
+	private ClipsParam param;
 	
 	
 	public Clipser(Tapis tapis) {
@@ -15,13 +15,13 @@ public class Clipser implements CommandeArgument<ComponentPiece>{
 	
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 		
+		System.out.println("p");
 	}
 
 	@Override
-	public void setArgument(ComponentPiece arg) {
-		this.cmp = arg;
+	public void setArgument(ClipsParam arg) {
+		this.param = arg;
 	}
 
 }

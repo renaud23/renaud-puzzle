@@ -30,19 +30,7 @@ public class IsClipsable implements CommandeArgument<ClipsParam>{
 
 	@Override
 	public void execute() {
-		ComponentPiece cdt = param.getComponent();// la piece candidate
-		Set<Piece> pieces = this.tapis.chercherPiece(cdt.getRect());// les pieces voisines sur le tableau
-		List<Piece> candidats = new ArrayList<Piece>();
 		
-		for(Piece p : pieces){
-			if(cdt.verifierClips(p)){
-				candidats.add(p);
-				this.param.setClipsable(true);
-			}
-		}// for
-	
-		this.param.setCandidats(candidats);
-//		System.out.println(this.param.getCandidats());
 		
 	}
 

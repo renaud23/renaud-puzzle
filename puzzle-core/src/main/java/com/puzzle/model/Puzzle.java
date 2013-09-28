@@ -88,8 +88,8 @@ public class Puzzle {
 		int pasy = 0;
 		int pasx = 0;
 		
-		int y = index / (largeur+1);
-		int x = index % (largeur+1);
+		int y = (index-1) / (largeur);
+		int x = (index-1) % (largeur);
 		
 		if(Position.nord.equals(position)){
 			pasy = -1;
@@ -103,7 +103,7 @@ public class Puzzle {
 		
 		y += pasy;
 		x += pasx;
-		
+
 		if(y>=0 && x>=0 && x<this.largeur && y<this.hauteur){
 			int ref = index;
 			ref += pasx;

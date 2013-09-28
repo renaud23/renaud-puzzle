@@ -1,6 +1,8 @@
 package com.jPuzzle.view.basicTapis;
 
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,6 +17,7 @@ import com.jPuzzle.view.drawer.IDrawable;
 import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipsParam;
+import com.puzzle.command.Clipser;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PoserMainDroite;
@@ -28,8 +31,10 @@ import com.puzzle.model.Tapis;
 
 
 
-public class TapisBasicControler implements ITapisControler,MouseListener,MouseMotionListener,MouseWheelListener,Observer{
+public class TapisBasicControler implements ITapisControler,MouseListener,MouseMotionListener,MouseWheelListener,KeyListener,Observer{
 	
+	
+	private boolean shift = false;
 	private boolean mainDroiteVide;
 	private ScreenParam screenParam;
 	private Tapis tapis;
@@ -38,7 +43,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	private CommandeArgument<Point> attraper;
 	private CommandeArgument<Point> poser;
 	private CommandeArgument<Double> tourner;
-	private CommandeArgument<ClipsParam> iSclips;
+//	private CommandeArgument<ClipsParam> iSclips;
+	private CommandeArgument<ClipsParam> clips;
 	
 	
 	private IDrawable<ScreenParam> drawable;
@@ -55,7 +61,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.attraper = new AttrapperMainDroite(tapis);
 		this.poser = new PoserMainDroite(tapis);
 		this.tourner = new tournerMainDroite();
-		this.iSclips = new IsClipsable(tapis);
+//		this.iSclips = new IsClipsable(tapis);
+		this.clips = new Clipser(tapis);
 	}
 	
 	
@@ -78,17 +85,10 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	
 	@Override
 	public void poserMainDroite(Point position) {
-		
-		ClipsParam param = new ClipsParam();
-		param.setComponent(MainDroite.getInstance().getPiece());
-		
-		
+
 		//
 		this.poser.setArgument(position);
 		this.poser.execute();
-		
-		this.iSclips.setArgument(param);
-		this.iSclips.execute();
 		
 		this.drawable.drawTapis();
 		this.drawable.drawHud();
@@ -118,22 +118,12 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		this.screenParam.setMouseX(e.getX());
-		this.screenParam.setMouseY(e.getY());
-		
-		if(!this.mainDroiteVide){
-			
-			this.drawable.drawHud();
-			this.drawable.repaint();
-		}
-	}
+	
 	
 	
 
@@ -163,19 +153,43 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		Point p = new Point(e.getX(), e.getY());
 		TapisBasicConverter.getInstance().convertScreenToModel(p);
 	
-		if(this.mainDroiteVide){
-			this.attraperMainDroite(p);	
-		}else{
-			this.poserMainDroite(p);
-		}
+		if(e.getButton() == MouseEvent.BUTTON1){
+			if(this.mainDroiteVide){
+				this.attraperMainDroite(p);	
+			}else{
+				this.poserMainDroite(p);
+			}
+			
+		}// if button gauche
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		
 		
+		
 	}
 
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		this.screenParam.setMouseX(e.getX());
+		this.screenParam.setMouseY(e.getY());
+		
+		if(!this.mainDroiteVide){
+			
+			if(e.isShiftDown()){
+				this.clips.execute();
+			}
+			
+			this.drawable.drawHud();
+			this.drawable.repaint();
+		}
+		
+		
+	}
+	
+	
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		this.screenParam.setMouseX(e.getX());
@@ -210,6 +224,33 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	public void setDrawable(IDrawable<ScreenParam> drawable) {
 		this.drawable = drawable;
 		this.drawable.setParam(this.screenParam);
+	}
+
+
+	
+	// key
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT){
+			shift = true;
+		}
+		
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT){
+			shift = false;
+		}
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	
+		
 	}
 
 
