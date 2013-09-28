@@ -10,6 +10,7 @@ import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
 import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.loader.XmlLoader;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Puzzle;
@@ -24,7 +25,7 @@ public class MainXml {
 		
 		
 		// le métier
-		int taille = 3000;
+		int taille = 4000;
 		int te = taille - 200;
 		
 		Tapis tapis = new Tapis(taille,taille);
@@ -35,7 +36,7 @@ public class MainXml {
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(te)-te/2);
 			p.setY(rnd.nextInt(te)-te/2);
-			p.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+			p.setAngle(Math.PI /8.0 *(rnd.nextInt(16)));
 			
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), new Point(p.getPuzzleX(), p.getPuzzleY()));
@@ -43,6 +44,11 @@ public class MainXml {
 			tapis.poserPiece(p);
 		}
 		
+		
+		CompositePiece cmp = new CompositePiece(100, 100);
+		tapis.ajouterAComposite(cmp,pieces.get(15));
+		tapis.ajouterAComposite(cmp,pieces.get(16));
+		tapis.ajouterAComposite(cmp,pieces.get(10));
 		
 		// la vue
 		MainScreen m = new MainScreen(800,800);

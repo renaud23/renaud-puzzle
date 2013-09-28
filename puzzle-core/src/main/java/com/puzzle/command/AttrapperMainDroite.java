@@ -54,7 +54,6 @@ public class AttrapperMainDroite implements CommandeArgument<Point>{
 					
 			
 				MainDroite.getInstance().setPiece(candidatfinal);
-				
 				this.tapis.change();
 				this.tapis.notifyObservers(State.MainDroitePleine);
 			}

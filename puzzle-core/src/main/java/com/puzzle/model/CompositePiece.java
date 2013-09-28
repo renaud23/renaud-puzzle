@@ -16,6 +16,10 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	private int zIndex;
 	
+	private double largeur;
+	
+	private double hauteur;
+	
 	public CompositePiece(double x,double y){
 		this.pieces = new ArrayList<Piece>();
 		this.rect = new RectCompositePiece(this);
@@ -133,4 +137,27 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	public double getLargeur() {
+		return largeur;
+	}
+
+
+	public void setLargeur(double largeur) {
+		this.largeur = largeur;
+	}
+
+
+	public double getHauteur() {
+		return hauteur;
+	}
+
+
+	public void setHauteur(double hauteur) {
+		this.hauteur = hauteur;
+	}
+	
+	
+	
 }

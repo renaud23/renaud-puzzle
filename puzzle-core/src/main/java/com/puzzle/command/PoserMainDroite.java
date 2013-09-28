@@ -41,7 +41,9 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 				
 				((MyRect)composite.getRect()).update();
 				
-				for(Piece p : composite) this.tapis.poserPiece(p);
+				for(Piece p : composite) {
+					this.tapis.poserPiece(p);
+				}
 			}
 			
 			MainDroite.getInstance().libere();

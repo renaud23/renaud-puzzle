@@ -113,6 +113,7 @@ public class RectPiece implements MyRect{
 	public void update() {
 		double ml = this.piece.getLargeur() / 2.0;
 		double mh = this.piece.getHauteur() / 2.0;
+		
 		this.coins[0].setX(this.piece.getCentre().getX() - ml);
 		this.coins[0].setY(this.piece.getCentre().getY() + mh);
 		this.coins[1].setX(this.piece.getCentre().getX() + ml);

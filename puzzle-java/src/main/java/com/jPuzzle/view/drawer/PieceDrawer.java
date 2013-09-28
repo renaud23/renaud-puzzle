@@ -30,13 +30,13 @@ public class PieceDrawer implements IDrawerParametrable<Transformation>{
 	public void draw() {
 		Image img = ImageMemoryManager.getInstance().getImage(this.piece.getId());
 	
-		double x = transformation.getTx();
+		double x = this.transformation.getTx();
 		x -= this.piece.getLargeur() / 2.0 * transformation.getSx();
 		
 		double y = transformation.getTy();
 		y -= this.piece.getHauteur() / 2.0 * transformation.getSy();
-		
-		this.offscreen.drawImage(img, (int) x, (int) y, 
+	
+		this.offscreen.drawImage(img, x,  y, 
 				transformation.getRx() , transformation.getRy(), -piece.getAngle(), 
 				transformation.getSx(),
 				transformation.getSy(), 1.0f);
@@ -54,11 +54,11 @@ public class PieceDrawer implements IDrawerParametrable<Transformation>{
 		IRect r = piece.getRect();
 		Point a = new Point(r.getX(),r.getY());
 		TapisBasicConverter.getInstance().convertModelToScreen(a);
-		this.offscreen.drawRect(Color.red,(int) a.getX(), (int) a.getY(), 2, 2);
+		this.offscreen.drawRect(Color.red,(int) Math.round(a.getX()), (int) Math.round(a.getY()), 2, 2);
 		
 		Point o = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 		TapisBasicConverter.getInstance().convertModelToScreen(o);
-		this.offscreen.drawRect(Color.yellow,(int) o.getX(), (int) o.getY(), 2, 2);
+		this.offscreen.drawRect(Color.yellow,(int) Math.round(o.getX()), (int) Math.round(o.getY()), 2, 2);
 	}
 
 

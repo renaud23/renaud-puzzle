@@ -107,6 +107,11 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 
 	public void setAngle(double angle) {
 		this.angle = angle;
+		
+		
+		if(this.angle > (Math.PI * 2.0)) angle -= Math.PI * 2.0;
+		else if(this.angle <0) angle += Math.PI * 2.0;
+		
 		((RectPiece)this.rect).update();
 	}
 

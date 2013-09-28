@@ -10,5 +10,7 @@ public interface ComponentPiece extends IRectable{
 	public double getAngle();
 	public void setAngle(double angle);
 	public boolean verifierClips(Piece piece);
+	public double getLargeur();
+	public double getHauteur();
 
 }

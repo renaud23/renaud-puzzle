@@ -18,6 +18,7 @@ public class TapisBasicDrawer implements IDrawer {
 	
 	private Tapis tapis;
 	private ImageBuffer tapisBuffer;
+	
 
 
 	public TapisBasicDrawer(Tapis tapis, ImageBuffer tapisBuffer) {

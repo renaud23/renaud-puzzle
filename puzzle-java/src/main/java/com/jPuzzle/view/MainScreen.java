@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import com.jPuzzle.view.basicTapis.TapisBasicControler;
 import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
+import com.jPuzzle.view.drawer.DrawSelection;
 import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
+import com.jPuzzle.view.drawer.HudParam;
 import com.jPuzzle.view.drawer.IDrawable;
 import com.jPuzzle.view.drawer.IDrawer;
 import com.jPuzzle.view.drawer.IDrawerParametrable;
@@ -23,16 +25,17 @@ import com.puzzle.model.Tapis;
 
 
 
-public class MainScreen implements IDrawable{
+public class MainScreen implements IDrawable<ScreenParam>{
 	private JFrame fenetre;
 	private Offscreen offscreen;
 	private ImageBuffer tapisOffscreen;
 	private ImageBuffer hudOffscreen;
+	private ImageBuffer selectionBuffer;
+	private ScreenParam param;
 	private IDrawer tapisDrawer;
-	private IDrawerParametrable<Transformation> hudDrawer;
+	private IDrawerParametrable<HudParam> hudDrawer;
 	
 	
-	private Transformation point;
 	
 	
 	public MainScreen(int largeur,int hauteur){
@@ -62,31 +65,53 @@ public class MainScreen implements IDrawable{
 
 	public void drawHud(){
 		if(this.hudDrawer != null){
-			this.hudDrawer.setParameter(this.point);
+//			this.hudDrawer.setParameter(this.point);
 			this.hudDrawer.draw();
 		}
 	}
 
+	@Override
+	public void drawSelection() {
+		DrawSelection drw = new DrawSelection();
+		drw.draw();
+		this.selectionBuffer = drw.getBuffer();
+	}
 	
 	
-	
-	public <U> void setParam(U param){
-		if(param instanceof Transformation){
-			this.point = (Transformation) param;
-		}
+	public void setParam(ScreenParam param){
+		this.param = param;
 	}
 	
 	
 	public void repaint(){
 		// reaffiche
 		this.offscreen.drawImage(this.tapisOffscreen.getImage(), 0, 0);
+		
+		if(!this.param.isMainDroiteVide()){
+			this.painSelection();
+		}
 		this.offscreen.drawImage(this.hudOffscreen.getImage(), 0, 0);
 		
 		this.fenetre.repaint();
 	}
 
 	
-
+	private void painSelection(){
+		double x = this.param.getMouseX();
+		double ml =  this.selectionBuffer.getLargeur() / 2.0;
+	
+		x -= ml;
+		double y = this.param.getMouseY();
+		double mh =  this.selectionBuffer.getHauteur() / 2.0;
+	
+		y -= mh;
+		
+		this.offscreen.drawImage(
+				this.selectionBuffer.getImage(), 
+				x, y, 
+				this.param.getMouseX(), this.param.getMouseY(), -this.param.getAngleSelection(), 
+				1.0, 1.0, 1.0f);
+	}
 	
 	
 	
@@ -94,7 +119,7 @@ public class MainScreen implements IDrawable{
 		MainScreen m = new MainScreen(800,800);
 		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/mini_mimie/images/");
 		
-		int taille = 2000;
+		int taille = 800;
 		Tapis tapis = new Tapis(taille,taille);
 		
 		Random rnd = new Random();
@@ -110,11 +135,11 @@ public class MainScreen implements IDrawable{
 			tapis.poserPiece(p3);
 			tapis.poserPiece(p4);
 			
-			
-			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
-			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			
+//			p1.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p2.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p3.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
+//			p4.setAngle(Math.PI /8.0 *(1+rnd.nextInt(16)));
 			
 			CompositePiece cmp = new CompositePiece(rnd.nextInt(te)-(te)/2, rnd.nextInt(te)-te/2); 
 			tapis.ajouterAComposite(cmp, p1);
@@ -196,13 +221,19 @@ public class MainScreen implements IDrawable{
 		this.tapisDrawer = tapisDrawer;
 	}
 	
-	public IDrawerParametrable<Transformation> getHudDrawer() {
+	public IDrawerParametrable<HudParam> getHudDrawer() {
 		return hudDrawer;
 	}
 	
-	public void setHudDrawer(IDrawerParametrable<Transformation> hudDrawer) {
+	public void setHudDrawer(IDrawerParametrable<HudParam> hudDrawer) {
 		this.hudDrawer = hudDrawer;
 	}
+
+
+
+
+
+	
 
 	
 

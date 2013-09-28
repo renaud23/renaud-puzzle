@@ -57,7 +57,7 @@ public class ImageBuffer {
 		Graphics2D gr = this.image.createGraphics();
 
 		/** Désactivation de l'anti-aliasing */
-		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
 		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
@@ -122,6 +122,15 @@ public class ImageBuffer {
 		gr.drawImage(image,t,null);
 		gr.dispose();
 
+	}
+	
+	
+	public int getHauteur(){
+		return this.image.getHeight();
+	}
+	
+	public int getLargeur(){
+		return this.image.getWidth();
 	}
 	
 	public Image getImage(){

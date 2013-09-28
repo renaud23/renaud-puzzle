@@ -38,8 +38,9 @@ public class TapisBasicConverter implements TapisConverter {
 		x /= this.scaleX;
 		x -= this.miLargeur;
 		
-		y *= -1;
+		
 		y /= this.scaleY;
+		y *= -1;
 		y += this.miHauteur;
 		
 		p.setX(x);

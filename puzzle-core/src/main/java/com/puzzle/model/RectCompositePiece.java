@@ -5,6 +5,9 @@ import com.renaud.manager.IRect;
 public class RectCompositePiece implements MyRect{
 	
 	private CompositePiece composite;
+	private double puzzX;
+	private double puzzY;
+	
 
 	public RectCompositePiece(CompositePiece composite) {
 		this.composite = composite;
@@ -69,6 +72,10 @@ public class RectCompositePiece implements MyRect{
 		
 		double cl = maxx - minx;
 		double ch = maxy - miny;
+		this.composite.setLargeur(cl);
+		this.composite.setHauteur(ch);
+		this.puzzX = minx;
+		this.puzzY = miny;
 		double cx = minx + cl / 2.0;
 		double cy = miny + ch / 2.0; 
 		
@@ -90,5 +97,16 @@ public class RectCompositePiece implements MyRect{
 		}
 		
 	}
+
+	public double getPuzzX() {
+		return puzzX;
+	}
+
+	public double getPuzzY() {
+		return puzzY;
+	}
+	
+	
+	
 
 }

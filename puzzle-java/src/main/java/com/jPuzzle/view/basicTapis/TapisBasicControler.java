@@ -9,6 +9,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.jPuzzle.view.ScreenParam;
 import com.jPuzzle.view.controler.ITapisControler;
 import com.jPuzzle.view.drawer.IDrawable;
 import com.jPuzzle.view.drawer.Transformation;
@@ -30,6 +31,7 @@ import com.puzzle.model.Tapis;
 public class TapisBasicControler implements ITapisControler,MouseListener,MouseMotionListener,MouseWheelListener,Observer{
 	
 	private boolean mainDroiteVide;
+	private ScreenParam screenParam;
 	private Tapis tapis;
 	
 	
@@ -39,13 +41,15 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	private CommandeArgument<ClipsParam> iSclips;
 	
 	
-	private IDrawable drawable;
-	private Point mousePosition = new Point();
+	private IDrawable<ScreenParam> drawable;
+
 
 
 	public TapisBasicControler(Tapis tapis){
 		this.tapis = tapis;
 		this.mainDroiteVide = true;
+		this.screenParam = new ScreenParam();
+		
 		
 		// TODO IOC
 		this.attraper = new AttrapperMainDroite(tapis);
@@ -61,7 +65,10 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.attraper.execute();
 		
 		if(!this.mainDroiteVide){
-			this.drawable.setParam(this.checkselection());
+			this.screenParam.setMainDroiteVide(this.mainDroiteVide);
+			this.screenParam.setAngleSelection(MainDroite.getInstance().getPiece().getAngle());
+			
+			this.drawable.drawSelection();
 			this.drawable.drawTapis();
 			this.drawable.drawHud();
 			this.drawable.repaint();
@@ -72,19 +79,16 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	@Override
 	public void poserMainDroite(Point position) {
 		
-		ClipsParam param = new ClipsParam();
-		param.setComponent(MainDroite.getInstance().getPiece());
+//		ClipsParam param = new ClipsParam();
+//		param.setComponent(MainDroite.getInstance().getPiece());
 		
 		
 		//
 		this.poser.setArgument(position);
 		this.poser.execute();
 		
-		
-		
-		
-		this.iSclips.setArgument(param);
-		this.iSclips.execute();
+//		this.iSclips.setArgument(param);
+//		this.iSclips.execute();
 		
 		this.drawable.drawTapis();
 		this.drawable.drawHud();
@@ -97,6 +101,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		angle *= sens;
 		this.tourner.setArgument(angle);
 		this.tourner.execute();
+		
+		this.screenParam.setAngleSelection(MainDroite.getInstance().getPiece().getAngle());
 		
 		this.drawable.drawHud();
 		this.drawable.repaint();
@@ -119,28 +125,17 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		this.mousePosition.setX(e.getX());
-		this.mousePosition.setY(e.getY());
+		this.screenParam.setMouseX(e.getX());
+		this.screenParam.setMouseY(e.getY());
 		
 		if(!this.mainDroiteVide){
-			this.drawable.setParam(this.checkselection());
+			
 			this.drawable.drawHud();
 			this.drawable.repaint();
 		}
 	}
 	
 	
-	private Transformation checkselection(){
-		Transformation t = new Transformation();
-		t.setSx(TapisBasicConverter.getInstance().getScaleX());
-		t.setSy(TapisBasicConverter.getInstance().getScaleY());
-		t.setRx(this.mousePosition.getX());
-		t.setRy(this.mousePosition.getY());
-		t.setTx(this.mousePosition.getX());
-		t.setTy(this.mousePosition.getY());
-		
-		return t;
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -162,12 +157,12 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.mousePosition.setX(e.getX());
-		this.mousePosition.setY(e.getY());
+		this.screenParam.setMouseX(e.getX());
+		this.screenParam.setMouseY(e.getY());
 		
 		Point p = new Point(e.getX(), e.getY());
 		TapisBasicConverter.getInstance().convertScreenToModel(p);
-		
+	
 		if(this.mainDroiteVide){
 			this.attraperMainDroite(p);	
 		}else{
@@ -183,8 +178,9 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		this.mousePosition.setX(e.getX());
-		this.mousePosition.setY(e.getY());
+		this.screenParam.setMouseX(e.getX());
+		this.screenParam.setMouseY(e.getY());
+		
 		double rotation = e.getPreciseWheelRotation();
 		
 		if(!this.mainDroiteVide){
@@ -202,16 +198,18 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 			else if(s.equals(State.MainDroiteVide)) this.mainDroiteVide = true;
 		}
 		
+		
+		this.screenParam.setMainDroiteVide(this.mainDroiteVide);
+		
 	}
 
 
-	public IDrawable getDrawable() {
-		return drawable;
-	}
 
 
-	public void setDrawable(IDrawable drawable) {
+
+	public void setDrawable(IDrawable<ScreenParam> drawable) {
 		this.drawable = drawable;
+		this.drawable.setParam(this.screenParam);
 	}
 
 
