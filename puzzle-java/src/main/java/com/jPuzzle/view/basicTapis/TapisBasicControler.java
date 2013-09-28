@@ -119,7 +119,18 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		
-		
+//		this.screenParam.setMouseX(e.getX());
+//		this.screenParam.setMouseY(e.getY());
+//		
+//		if(!this.mainDroiteVide){
+//			
+//			if(e.isShiftDown()){
+//				this.clips.execute();
+//			}
+//			
+//			this.drawable.drawHud();
+//			this.drawable.repaint();
+//		}
 	}
 
 
@@ -147,6 +158,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
 		this.screenParam.setMouseX(e.getX());
 		this.screenParam.setMouseY(e.getY());
 		
@@ -154,11 +166,15 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		TapisBasicConverter.getInstance().convertScreenToModel(p);
 	
 		if(e.getButton() == MouseEvent.BUTTON1){
+			
 			if(this.mainDroiteVide){
 				this.attraperMainDroite(p);	
 			}else{
 				this.poserMainDroite(p);
 			}
+		
+				
+			
 			
 		}// if button gauche
 	}
@@ -173,12 +189,31 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		double prevx = this.screenParam.getMouseX();
+		double prevy = this.screenParam.getMouseY();
 		this.screenParam.setMouseX(e.getX());
 		this.screenParam.setMouseY(e.getY());
 		
 		if(!this.mainDroiteVide){
 			
 			if(e.isShiftDown()){
+				double dirx = e.getX() - prevx;
+				double diry = e.getY() - prevy;
+				
+				ClipsParam param = new ClipsParam();
+				if(dirx < 0) param.setEst(true);
+				else if(dirx > 0) param.setOuest(true);
+				
+				if(diry < 0) param.setNord(true);
+				else if(diry > 0) param.setSud(true);
+				
+				
+				
+				
+				
+				
+				this.clips.setArgument(param);
+				
 				this.clips.execute();
 			}
 			

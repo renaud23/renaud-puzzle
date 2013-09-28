@@ -31,7 +31,7 @@ public class IsClipsable implements CommandeArgument<ClipsParam>{
 	@Override
 	public void execute() {
 		
-		
+		System.out.println("r");
 	}
 
 	@Override
