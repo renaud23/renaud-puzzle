@@ -1,5 +1,6 @@
 package com.puzzle.model;
 
+import com.puzzle.model.Puzzle.Position;
 import com.renaud.manager.IRect;
 
 
@@ -27,13 +28,14 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	private CompositePiece composite;
 	
+	
+	
+	
+	
 	public Piece(){
 		this.centre = new Point();
 	}
-	
-	
-	
-	
+
 	public Piece(int id,double puzzleX,double puzzleY,double largeur,double hauteur){
 		this.id = id;
 		this.centre = new Point();
@@ -108,10 +110,9 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	public void setAngle(double angle) {
 		this.angle = angle;
 		
-		
-		if(this.angle > (Math.PI * 2.0)) angle -= Math.PI * 2.0;
-		else if(this.angle <0) angle += Math.PI * 2.0;
-		
+		if(this.angle >= (Math.PI * 2.0)) this.angle -= Math.PI * 2.0;
+		else if(this.angle <= 0) this.angle += Math.PI * 2.0;
+
 		((RectPiece)this.rect).update();
 	}
 
@@ -189,15 +190,54 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	public boolean verifierClips(Piece piece) {
 		boolean state = false;
 		
-		//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
+		if(piece.id != this.id){
+			
+			
+			double ref = piece.getAngle() - this.angle;
+			System.out.println("ref "+angle+" "+piece.angle);
+			if(Math.abs(ref) < 0.0001){
+				System.out.println(this.id+" "+piece.id);
+				//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
+				Piece nord = this.puzzle.get(Position.nord, this.id);
+				Piece sud = this.puzzle.get(Position.sud, this.id);
+				Piece est = this.puzzle.get(Position.est, this.id);
+				Piece ouest = this.puzzle.get(Position.ouest, this.id);
+				System.out.println("e "+est);
+				System.out.println("o "+ouest);
+				if(nord!=null && piece.id == nord.id && this.isNear(nord,piece)) state = true;
+				else if(sud!=null && piece.id == sud.id  && this.isNear(sud,piece)) state = true;
+				else if(est!=null && piece.id == est.id  && this.isNear(est,piece)) state = true;
+				else if(ouest!=null && piece.id == ouest.id  && this.isNear(ouest,piece)) state = true;
+			}
+		}// id
+		
+		return state;
+	}
+	
+	
+	private boolean isNear(Piece reference,Piece concurrent){
 		
 		
-		if(piece.getAngle() == this.angle && this.id != piece.getId()){
-			
-			
-			
-			
-		}
+		boolean state = false;
+		
+		double vx = this.puzzleX - reference.puzzleX;
+		double vy = this.puzzleY - reference.puzzleY;
+	
+		
+		double tx = this.getCentre().getX() + vx; 
+		double ty = this.getCentre().getY() + vy; 
+		
+		Point p = new Point(tx,ty);
+		p.tourner(this.angle, this.centre);
+
+
+		double ex = concurrent.getCentre().getX() - p.getX();
+		double ey = concurrent.getCentre().getY() - p.getY();
+		
+		double teta = Math.sqrt(ex * ex + ey * ey);
+
+
+		if(teta < 20.0) state = true;
 		
 		return state;
 	}

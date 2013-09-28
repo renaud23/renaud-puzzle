@@ -36,10 +36,11 @@ public class PieceDrawer implements IDrawerParametrable<Transformation>{
 		double y = transformation.getTy();
 		y -= this.piece.getHauteur() / 2.0 * transformation.getSy();
 	
-		this.offscreen.drawImage(img, x,  y, 
+		this.offscreen.drawImage(img,
+				x,  y, 
 				transformation.getRx() , transformation.getRy(), -piece.getAngle(), 
-				transformation.getSx(),
-				transformation.getSy(), 1.0f);
+				transformation.getSx(), transformation.getSy(), 
+				1.0f);
 		
 		
 		// dev

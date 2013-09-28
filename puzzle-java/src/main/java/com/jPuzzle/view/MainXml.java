@@ -25,7 +25,7 @@ public class MainXml {
 		
 		
 		// le métier
-		int taille = 4000;
+		int taille = 3000;
 		int te = taille - 200;
 		
 		Tapis tapis = new Tapis(taille,taille);
@@ -39,16 +39,16 @@ public class MainXml {
 			p.setAngle(Math.PI /8.0 *(rnd.nextInt(16)));
 			
 			p.setPuzzle(puzzle);
-			puzzle.put(p.getId(), new Point(p.getPuzzleX(), p.getPuzzleY()));
+			puzzle.put(p.getId(), p);
 			
 			tapis.poserPiece(p);
 		}
 		
 		
-		CompositePiece cmp = new CompositePiece(100, 100);
-		tapis.ajouterAComposite(cmp,pieces.get(15));
-		tapis.ajouterAComposite(cmp,pieces.get(16));
-		tapis.ajouterAComposite(cmp,pieces.get(10));
+//		CompositePiece cmp = new CompositePiece(100, 100);
+//		tapis.ajouterAComposite(cmp,pieces.get(15));
+//		tapis.ajouterAComposite(cmp,pieces.get(16));
+//		tapis.ajouterAComposite(cmp,pieces.get(10));
 		
 		// la vue
 		MainScreen m = new MainScreen(800,800);

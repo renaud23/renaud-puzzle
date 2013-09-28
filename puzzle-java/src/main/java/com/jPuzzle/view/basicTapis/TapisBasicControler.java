@@ -79,16 +79,16 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	@Override
 	public void poserMainDroite(Point position) {
 		
-//		ClipsParam param = new ClipsParam();
-//		param.setComponent(MainDroite.getInstance().getPiece());
+		ClipsParam param = new ClipsParam();
+		param.setComponent(MainDroite.getInstance().getPiece());
 		
 		
 		//
 		this.poser.setArgument(position);
 		this.poser.execute();
 		
-//		this.iSclips.setArgument(param);
-//		this.iSclips.execute();
+		this.iSclips.setArgument(param);
+		this.iSclips.execute();
 		
 		this.drawable.drawTapis();
 		this.drawable.drawHud();

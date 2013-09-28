@@ -16,11 +16,11 @@ public class Puzzle {
 	private int taille;
 	private int id;
 	private String nom;
-	private Map<Integer, Point> pieces;
+	private Map<Integer, Piece> pieces;
 
 	
 	public Puzzle(String nom, int largeur, int hauteur) {
-		this.pieces = new HashMap<Integer,Point>();
+		this.pieces = new HashMap<Integer,Piece>();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.nom = nom;
@@ -70,21 +70,21 @@ public class Puzzle {
 	}
 	
 	
-	public void put(int index,Point centre){
-		this.pieces.put(index, centre);
+	public void put(int index,Piece piece){
+		this.pieces.put(index, piece);
 	}
 	
 	
-	public Point get(int index){
-		Point p = null;
+	public Piece get(int index){
+		Piece p = null;
 		if(this.pieces.containsKey(index)){
 			p = this.pieces.get(index);
 		}
 		return p;
 	}
 	
-	public Point get(Position position,int index){
-		Point p = null;
+	public Piece get(Position position,int index){
+		Piece p = null;
 		int pasy = 0;
 		int pasx = 0;
 		
@@ -92,13 +92,13 @@ public class Puzzle {
 		int x = index % (largeur+1);
 		
 		if(Position.nord.equals(position)){
-			pasy = -this.largeur;
-		}else if(Position.sud.equals(position)){
-			pasy = this.largeur;
-		}else if(Position.est.equals(position)){
-			pasy = 1;
-		}else if(Position.ouest.equals(position)){
 			pasy = -1;
+		}else if(Position.sud.equals(position)){
+			pasy = 1;
+		}else if(Position.est.equals(position)){
+			pasx = 1;
+		}else if(Position.ouest.equals(position)){
+			pasx = -1;
 		}
 		
 		y += pasy;
@@ -106,8 +106,8 @@ public class Puzzle {
 		
 		if(y>=0 && x>=0 && x<this.largeur && y<this.hauteur){
 			int ref = index;
-			ref += x;
-			ref += y;
+			ref += pasx;
+			ref += pasy * this.largeur;
 			
 			p = this.get(ref);
 		}
