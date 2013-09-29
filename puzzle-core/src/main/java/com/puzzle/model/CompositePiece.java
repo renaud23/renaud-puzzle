@@ -46,9 +46,21 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	}
 	
 	/* gestion du composite */
+	
+	
+	public void addComponent(ComponentPiece cmp){
+		if(cmp instanceof CompositePiece) this.addComposite((CompositePiece) cmp);
+		else if(cmp instanceof Piece) this.addPiece((Piece) cmp);
+	}
+	
+	private void addComposite(CompositePiece cmp){
+		for(Piece p : cmp){
+			this.addPiece(p);
+		}
+	}
+	
 
-	public void addPiece(Piece cmp){
-		
+	private void addPiece(Piece cmp){
 		if(this.pieces.isEmpty()) {
 			cmp.getCentre().setX(this.centre.getX());
 			cmp.getCentre().setY(this.centre.getY());
@@ -70,9 +82,9 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		
 		this.pieces.add(cmp);
 		cmp.setComposite(this);
-		((RectPiece)cmp.getRect()).update();
-
 		
+		((MyRect)cmp.getRect()).update();
+		((MyRect)this.rect).update();
 	}
 	
 	@Override
@@ -156,6 +168,12 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	public void setHauteur(double hauteur) {
 		this.hauteur = hauteur;
+	}
+
+
+	@Override
+	public void poser(Tapis tapis) {
+		tapis.poserComposite(this);
 	}
 	
 	

@@ -1,14 +1,10 @@
 package com.jPuzzle.view.basicTapis;
 
+
+import java.awt.Image;
 import com.jPuzzle.view.drawer.IDrawer;
-import com.jPuzzle.view.drawer.IDrawerParametrable;
-import com.jPuzzle.view.drawer.PieceDrawer;
-import com.jPuzzle.view.drawer.Transformation;
 import com.jPuzzle.view.image.ImageBuffer;
-import com.jPuzzle.view.image.Offscreen;
-import com.puzzle.model.ComponentPiece;
-import com.puzzle.model.CompositePiece;
-import com.puzzle.model.MainDroite;
+import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
@@ -18,13 +14,13 @@ public class TapisBasicDrawer implements IDrawer {
 	
 	private Tapis tapis;
 	private ImageBuffer tapisBuffer;
+
 	
 
 
 	public TapisBasicDrawer(Tapis tapis, ImageBuffer tapisBuffer) {
 		this.tapis = tapis;
 		this.tapisBuffer = tapisBuffer;
-	
 	}
 
 
@@ -33,30 +29,32 @@ public class TapisBasicDrawer implements IDrawer {
 		this.tapisBuffer.clean();
 		
 		//	 dessin tapis
-		for(Piece cmp : this.tapis){
-			IDrawerParametrable<Transformation> pd = new PieceDrawer(cmp, this.tapisBuffer);
-			
-			// calcul le centre d'affichage à l'écran de la piéce en se basant sur le centre de IRect
-			Transformation t = new Transformation();
-			
-			Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
+		for(Piece piece : this.tapis){
+			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			TapisBasicConverter.getInstance().convertModelToScreen(p);
 			
-			t.setTx(p.getX());
-			t.setTy(p.getY());
+			double x = p.getX();
+			x -= piece.getLargeur() / 2.0 * TapisBasicConverter.getInstance().getScaleX();
 			
-			t.setRx(p.getX());
-			t.setRy(p.getY());
+			double y = p.getY();
+			y -= piece.getHauteur() / 2.0 * TapisBasicConverter.getInstance().getScaleY();
+		
+			this.tapisBuffer.drawImage(img,
+					x,  y, 
+					p.getX() , p.getY(), -piece.getAngle(), 
+					TapisBasicConverter.getInstance().getScaleX(), TapisBasicConverter.getInstance().getScaleY(), 
+					1.0f);
 			
-			t.setSx(TapisBasicConverter.getInstance().getScaleX());
-			t.setSy(TapisBasicConverter.getInstance().getScaleY());
-			
-			pd.setParameter(t);
-			pd.draw();
+//			if(this.idPiecesBlink.contains(piece.getId())){
+//				this.tapisBuffer.drawImageMask(img,
+//						x,  y, 
+//						p.getX() , p.getY(), -piece.getAngle(), 
+//						TapisBasicConverter.getInstance().getScaleX(), TapisBasicConverter.getInstance().getScaleY(), 
+//						Color.yellow);
+//			}
 		}
+		
 	}
 	
-
-
-
 }

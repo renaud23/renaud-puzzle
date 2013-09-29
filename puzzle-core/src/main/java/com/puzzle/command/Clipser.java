@@ -1,15 +1,13 @@
 package com.puzzle.command;
 
-import java.util.Set;
-
 import com.puzzle.model.ComponentPiece;
-import com.puzzle.model.MainDroite;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Tapis;
 
-public class Clipser implements CommandeArgument<ClipsParam>{
+public class Clipser implements CommandeArgument<ClipserParam>{
 	private Tapis tapis;
-	private ClipsParam param;
+	private ClipserParam param;
 	
 	
 	public Clipser(Tapis tapis) {
@@ -19,29 +17,46 @@ public class Clipser implements CommandeArgument<ClipsParam>{
 	
 	@Override
 	public void execute() {
-		ComponentPiece cmp = MainDroite.getInstance().getPiece();
-		
-		Set<Piece> candidats = this.tapis.chercherPiece(cmp.getRect());
-		
-		
-		for(Piece p : candidats){
-			boolean nord;
-			boolean sud;
-			boolean est;
-			boolean ouest;
+		ComponentPiece cmp = this.param.getComponent();
+		Piece p = this.param.getCandidat();
 			
-			double xi = cmp.getCentre().getX();
-			xi -= p.getCentre().getX();
-			double yi = cmp.getCentre().getY();
-			yi -= p.getCentre().getY();
+		if(p.getComposite() != null){
+			p.getComposite().addComponent(cmp);
+			cmp = p.getComposite();
+		}else{
+			// nouveau composite
+			CompositePiece composite = new CompositePiece(p.getCentre().getX(),p.getCentre().getY());
+			composite.addComponent(p);
+			composite.addComponent(cmp);
 			
-			if(xi < 0) ouest = true;
-			else if(xi > 0) est = true;
+			cmp = composite;
 		}
+		
+		
+		
+//		for(Piece p : this.param.getCandidats()){
+//			CompositePiece nouveau = new CompositePiece(p.getCentre().getX(),p.getCentre().getY());
+//			
+//			if(p.getComposite() != null){
+//				nouveau.getCentre().setX(p.getComposite().getCentre().getX());
+//				nouveau.getCentre().setY(p.getComposite().getCentre().getY());
+//				for(Piece p2 : p.getComposite()){
+//					nouveau.addComponent(p2);
+//				}
+//			}else{
+//				nouveau.addComponent(p);
+//			}
+//			
+//			nouveau.addComponent(cmp);
+//			cmp = nouveau;
+//		}
+		
+		
+		cmp.poser(this.tapis);
 	}
 
 	@Override
-	public void setArgument(ClipsParam arg) {
+	public void setArgument(ClipserParam arg) {
 		this.param = arg;
 	}
 

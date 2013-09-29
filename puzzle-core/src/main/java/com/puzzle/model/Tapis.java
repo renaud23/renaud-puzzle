@@ -40,7 +40,6 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.memoire = new TasManager<Piece>(7, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
 	}
 
-
 	
 	/**
 	 * Pose une pièce sur le tapis.
@@ -54,19 +53,35 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		for(Piece c : set){
 			if(c.getZIndex() > index){
 				index = c.getZIndex();
-			}
-				
+			}	
 		}
 		index++;
 		piece.setZIndex(index);
 		this.memoire.put(piece);
-		
 	}
+	
+	
+	public void poserComposite(CompositePiece composite){
+		int z = 0;
+		for(Piece p : composite){
+			this.memoire.remove(p);
+			this.poserPiece(p);
+			if(p.getZIndex() > z) z = p.getZIndex();
+			p.setZIndex(0);
+		}
+		
+		for(Piece p : composite){
+			p.setZIndex(z);
+		}
+	}
+	
+	
+	
 	
 	
 	public void ajouterAComposite(CompositePiece cmp,Piece p){
 		this.memoire.remove(p);
-		cmp.addPiece(p);
+		cmp.addComponent(p);
 		this.memoire.put(p);
 	}
 	
@@ -79,9 +94,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		
 	}
 	
-	public void posercomposite(CompositePiece cmp){
-		
-	}
+	
 	
 	public Set<Piece> chercherPiece(IRect r){// TODO
 		 return this.memoire.get(r);

@@ -11,6 +11,8 @@ import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.VolatileImage;
 
+
+
 public class ImageBuffer {
 	
 	private static GraphicsConfiguration gc = 
@@ -50,6 +52,7 @@ public class ImageBuffer {
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(this.backgroundColor);
 		graphics.fillRect(0, 0, largeur, hauteur);
+		graphics.dispose();
 	}
 	
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
@@ -89,6 +92,7 @@ public class ImageBuffer {
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
 		g.drawRect(x, y, width, height);
+		g.dispose();
 	}
 
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
@@ -124,6 +128,30 @@ public class ImageBuffer {
 
 	}
 	
+	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
+		Graphics2D gr = this.image.createGraphics();
+
+		/** Désactivation de l'anti-aliasing */
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+		/** Demande de rendu rapide */
+		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+	 
+		 gr.setComposite(new MonComposite(color)) ;
+		//
+		 AffineTransform t = new AffineTransform();
+		t.setToIdentity();
+
+		t.translate(x, y);
+		t.scale(scaleX, scaleY);
+		gr.rotate(theta, xRotation*1.0, yRotation*1.0);
+
+		gr.drawImage(image,t,null);
+		gr.dispose();
+	}
 	
 	public int getHauteur(){
 		return this.image.getHeight();

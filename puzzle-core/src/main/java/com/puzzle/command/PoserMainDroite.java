@@ -32,7 +32,7 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 				
 				((MyRect)piece.getRect()).update();
 
-				this.tapis.poserPiece(piece);
+				piece.poser(this.tapis);
 			}else if(cmp instanceof ComponentPiece){
 				CompositePiece composite = (CompositePiece) cmp;
 				
@@ -42,7 +42,7 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 				((MyRect)composite.getRect()).update();
 				
 				for(Piece p : composite) {
-					this.tapis.poserPiece(p);
+					p.poser(this.tapis);
 				}
 			}
 			

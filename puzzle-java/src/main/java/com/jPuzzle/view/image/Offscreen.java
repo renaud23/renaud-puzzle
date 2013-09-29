@@ -13,6 +13,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.VolatileImage;
 
@@ -49,12 +50,11 @@ public class Offscreen extends JPanel implements Scrollable {
 
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsConfiguration gc = ge.getDefaultScreenDevice().getDefaultConfiguration();
-		this.image = gc.createCompatibleVolatileImage(this.largeur, this.hauteur);
+		this.image = gc.createCompatibleVolatileImage(this.largeur, this.hauteur,Transparency.TRANSLUCENT);
 		this.image.validate(gc);
 
 		Graphics2D graphics = this.image.createGraphics();
-		graphics.setPaint(new Color(0,0,0,0));
-		graphics.fillRect(0, 0, largeur, hauteur);
+		
 
 		this.backgroundColor = color;
 		this.clean();
@@ -152,6 +152,7 @@ public class Offscreen extends JPanel implements Scrollable {
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(this.backgroundColor);//System.out.println(this.color);
 		graphics.fillRect(0, 0, largeur, hauteur);
+		graphics.dispose();
 	}
 	
 	/**
@@ -162,6 +163,7 @@ public class Offscreen extends JPanel implements Scrollable {
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(this.backgroundColor);
 		graphics.fillRect(r.x, r.y, r.width, r.height);
+		graphics.dispose();
 	}
 	
 	/**
@@ -175,12 +177,14 @@ public class Offscreen extends JPanel implements Scrollable {
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(color);
 		graphics.fillRect(x, y, width, height);
+		graphics.dispose();
 	}
 	
 	public void fill(Color color,Rectangle r){
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(color);
 		graphics.fillRect(r.x, r.y, r.width, r.height);
+		graphics.dispose();
 	}
 	
 	/**
@@ -195,6 +199,7 @@ public class Offscreen extends JPanel implements Scrollable {
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
 		g.drawRect(x, y, width, height);
+		g.dispose();
 	}
 	
 	/**
@@ -213,6 +218,7 @@ public class Offscreen extends JPanel implements Scrollable {
 		g.drawRect(x, y, width, height);
 		g.setColor(Color.gray);
 		g.fillRect(x+1, y+1, width-1, height-1);
+		g.dispose();
 	}
 
 	/**
@@ -220,6 +226,7 @@ public class Offscreen extends JPanel implements Scrollable {
 	 */
 	protected void paintComponent(Graphics g){
 		g.drawImage(this.image,0,0,null);
+		g.dispose();
 	}
 
 

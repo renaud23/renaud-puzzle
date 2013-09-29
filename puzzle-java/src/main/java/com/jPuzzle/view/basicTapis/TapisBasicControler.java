@@ -14,9 +14,10 @@ import java.util.Observer;
 import com.jPuzzle.view.ScreenParam;
 import com.jPuzzle.view.controler.ITapisControler;
 import com.jPuzzle.view.drawer.IDrawable;
-import com.jPuzzle.view.drawer.Transformation;
 import com.puzzle.command.AttrapperMainDroite;
-import com.puzzle.command.ClipsParam;
+import com.puzzle.command.ClipserMainDroite;
+import com.puzzle.command.ClipserParam;
+import com.puzzle.command.IsClipsParam;
 import com.puzzle.command.Clipser;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
@@ -38,13 +39,12 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	private boolean mainDroiteVide;
 	private ScreenParam screenParam;
 	private Tapis tapis;
-	
-	
+	private TapisBasicDrawer tapisDrawer;
 	private CommandeArgument<Point> attraper;
 	private CommandeArgument<Point> poser;
 	private CommandeArgument<Double> tourner;
-	private CommandeArgument<ClipsParam> iSclips;
-	private CommandeArgument<ClipsParam> clips;
+	private CommandeArgument<IsClipsParam> iSclips;
+	private CommandeArgument<ClipserParam> clips;
 	
 	
 	private IDrawable<ScreenParam> drawable;
@@ -62,7 +62,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.poser = new PoserMainDroite(tapis);
 		this.tourner = new tournerMainDroite();
 		this.iSclips = new IsClipsable(tapis);
-		this.clips = new Clipser(tapis);
+		this.clips = new ClipserMainDroite(tapis);
 	}
 	
 	
@@ -108,7 +108,31 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.drawable.repaint();
 	}
 	
-	
+	public void clipser(){
+		if(!this.mainDroiteVide){
+			Point p = new Point(this.screenParam.getMouseX(),this.screenParam.getMouseY());
+			TapisBasicConverter.getInstance().convertScreenToModel(p);
+			
+			IsClipsParam param = new IsClipsParam();
+			param.setCentre(p);
+			
+			this.iSclips.setArgument(param);
+			this.iSclips.execute();
+			
+			if(!param.getCandidats().isEmpty()){
+				ClipserParam cp = new ClipserParam();
+				cp.setCandidat(param.getCandidats().get(0));
+				cp.setComponent(param.getComponent());
+				
+				this.clips.setArgument(cp);
+				this.clips.execute();
+				
+				this.drawable.drawTapis();
+				this.drawable.drawHud();
+				this.drawable.repaint();
+			}
+		}
+	}
 	
 	
 	
@@ -119,18 +143,6 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		
-//		this.screenParam.setMouseX(e.getX());
-//		this.screenParam.setMouseY(e.getY());
-//		
-//		if(!this.mainDroiteVide){
-//			
-//			if(e.isShiftDown()){
-//				this.clips.execute();
-//			}
-//			
-//			this.drawable.drawHud();
-//			this.drawable.repaint();
-//		}
 	}
 
 
@@ -254,15 +266,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SHIFT){
 			shift = true;
-			Point p = new Point(this.screenParam.getMouseX(),this.screenParam.getMouseY());
-			TapisBasicConverter.getInstance().convertScreenToModel(p);
+			this.clipser();
 			
-			ClipsParam param = new ClipsParam();
-			param.setCentre(p);
-			
-			this.iSclips.setArgument(param);
-			
-			this.iSclips.execute();
 		}
 		
 	}
@@ -272,6 +277,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SHIFT){
 			shift = false;
+			
 		}
 		
 	}
@@ -281,6 +287,16 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	public void keyTyped(KeyEvent e) {
 	
 		
+	}
+
+
+	public TapisBasicDrawer getTapisDrawer() {
+		return tapisDrawer;
+	}
+
+
+	public void setTapisDrawer(TapisBasicDrawer tapisDrawer) {
+		this.tapisDrawer = tapisDrawer;
 	}
 
 

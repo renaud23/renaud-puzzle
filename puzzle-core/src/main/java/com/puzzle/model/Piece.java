@@ -183,34 +183,6 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.centre.setX(x);
 	}
 
-//	@Override
-//	public boolean verifierClips(Piece piece) {
-//		boolean state = false;
-//		
-//		if(piece.id != this.id){
-//			
-////			double ref = piece.getAngle() - this.angle;// calcul de l'angle d'eccart
-////			
-////			if(Math.abs(ref) < 0.0001){
-//				
-//				//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
-//				Piece nord = this.puzzle.get(Position.nord, this.id);
-//				Piece sud = this.puzzle.get(Position.sud, this.id);
-//				Piece est = this.puzzle.get(Position.est, this.id);
-//				Piece ouest = this.puzzle.get(Position.ouest, this.id);	
-//				
-//				if(piece == nord) state = true;
-//				else if(piece == sud) state = true;
-//				else if(piece == est) state = true;
-//				else if(piece == ouest) state = true;
-//			}
-////		}// id
-//		
-//		return state;
-//	}
-
-
-
 
 	@Override
 	public boolean verifierClips(Piece piece) {
@@ -219,7 +191,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		if(piece.id != this.id){
 			
 			double ref = piece.getAngle() - this.angle;// calcul de l'angle d'eccart
-			
+		
 			if(Math.abs(ref) < 0.0001){
 				
 				//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
@@ -231,7 +203,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 				if(nord != null && piece.id == nord.id && this.isNear(nord,piece)) state = true;
 				else if(sud != null && piece.id == sud.id  && this.isNear(sud,piece)) state = true;
 				else if(est != null && piece.id == est.id  && this.isNear(est,piece)) state = true;
-				else if(ouest != null & piece.id == ouest.id  && this.isNear(ouest,piece)) state = true;
+				else if(ouest != null && piece.id == ouest.id  && this.isNear(ouest,piece)) state = true;
 			}
 		}// id
 		
@@ -266,5 +238,10 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		if(ref < 50.0) state = true;
 		
 		return state;
+	}
+
+	@Override
+	public void poser(Tapis tapis) {
+		tapis.poserPiece(this);
 	}
 }

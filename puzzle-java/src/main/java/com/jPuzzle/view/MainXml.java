@@ -3,12 +3,14 @@ package com.jPuzzle.view;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
+
 import com.jPuzzle.view.basicTapis.TapisBasicControler;
 import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
 import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.loader.XmlLoader;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -30,6 +32,8 @@ public class MainXml {
 		Puzzle puzzle = ld.getPuzzle();
 		
 		Random rnd = new Random();
+		CompositePiece cmp = new CompositePiece(100, 100);
+		
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(te)-te/2);
 			p.setY(rnd.nextInt(te)-te/2);
@@ -38,11 +42,10 @@ public class MainXml {
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 			
-			tapis.poserPiece(p);
+			p.poser(tapis);
+			
 		}
 		
-		
-//		CompositePiece cmp = new CompositePiece(100, 100);
 //		tapis.ajouterAComposite(cmp,pieces.get(15));
 //		tapis.ajouterAComposite(cmp,pieces.get(16));
 //		tapis.ajouterAComposite(cmp,pieces.get(10));
@@ -52,12 +55,14 @@ public class MainXml {
 		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/images/");
 		
 		TapisBasicControler tc = new TapisBasicControler(tapis);
+		TapisBasicDrawer td = new TapisBasicDrawer(tapis, m.getTapisOffscreen());
 		tc.setDrawable(m);
+		tc.setTapisDrawer(td);
 		m.getOffscreen().addMouseListener(tc);
 		m.getOffscreen().addMouseMotionListener(tc);
 		m.getOffscreen().addMouseWheelListener(tc);
 		m.getFenetre().addKeyListener(tc);
-		m.setTapisDrawer(new TapisBasicDrawer(tapis, m.getTapisOffscreen()));
+		m.setTapisDrawer(td);
 		m.setHudDrawer(new HeadUpDisplayDrawer( m.getHudOffscreen() ));
 		tapis.addObserver(tc);
 		
