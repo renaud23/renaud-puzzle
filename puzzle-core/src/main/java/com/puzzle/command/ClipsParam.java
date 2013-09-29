@@ -8,44 +8,27 @@ import com.puzzle.model.Point;
 
 public class ClipsParam {
 	
-	private boolean sud;
-	private boolean nord;
-	private boolean ouest;
-	private boolean est;
+	private Point centre;
+	private List<Piece> candidats;
 	
 	
 	
 	
 	
 	
-	
-	public boolean isSud() {
-		return sud;
+	public List<Piece> getCandidats() {
+		return candidats;
 	}
-	public void setSud(boolean sud) {
-		this.sud = sud;
-	}
-	public boolean isNord() {
-		return nord;
-	}
-	public void setNord(boolean nord) {
-		this.nord = nord;
-	}
-	public boolean isOuest() {
-		return ouest;
-	}
-	public void setOuest(boolean ouest) {
-		this.ouest = ouest;
-	}
-	public boolean isEst() {
-		return est;
-	}
-	public void setEst(boolean est) {
-		this.est = est;
+	public void setCandidats(List<Piece> candidats) {
+		this.candidats = candidats;
 	}
 	
-	
-	
+	public Point getCentre() {
+		return centre;
+	}
+	public void setCentre(Point centre) {
+		this.centre = centre;
+	}
 	
 	
 }

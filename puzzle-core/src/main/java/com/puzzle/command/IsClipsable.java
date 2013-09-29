@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.CompositePiece;
+import com.puzzle.model.MainDroite;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Tapis;
 
@@ -22,7 +25,6 @@ public class IsClipsable implements CommandeArgument<ClipsParam>{
 	private Tapis tapis;
 	private ClipsParam param;
 	
-	
 
 	public IsClipsable(Tapis tapis) {
 		this.tapis = tapis;
@@ -30,9 +32,28 @@ public class IsClipsable implements CommandeArgument<ClipsParam>{
 
 	@Override
 	public void execute() {
+		if(!MainDroite.getInstance().isEmpty()){
+			ComponentPiece cmp = MainDroite.getInstance().getPiece();
+			cmp.getCentre().setX(this.param.getCentre().getX());
+			cmp.getCentre().setY(this.param.getCentre().getY());
+			((MyRect)cmp.getRect()).update();
 		
-		System.out.println("r");
+			Set<Piece> cdt = this.tapis.chercherPiece(cmp.getRect());
+			List<Piece> elus = new ArrayList<Piece>();
+			
+			for(Piece p : cdt){
+				boolean state = cmp.verifierClips(p);
+				if(state) elus.add(p);
+			}// for
+		
+			this.param.setCandidats(elus);
+		}// if
+		
 	}
+	
+	
+	
+	
 
 	@Override
 	public void setArgument(ClipsParam arg) {

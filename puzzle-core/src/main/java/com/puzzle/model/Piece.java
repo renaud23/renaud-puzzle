@@ -183,44 +183,15 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.centre.setX(x);
 	}
 
-	@Override
-	public boolean verifierClips(Piece piece) {
-		boolean state = false;
-		
-		if(piece.id != this.id){
-			
-//			double ref = piece.getAngle() - this.angle;// calcul de l'angle d'eccart
-//			
-//			if(Math.abs(ref) < 0.0001){
-				
-				//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
-				Piece nord = this.puzzle.get(Position.nord, this.id);
-				Piece sud = this.puzzle.get(Position.sud, this.id);
-				Piece est = this.puzzle.get(Position.est, this.id);
-				Piece ouest = this.puzzle.get(Position.ouest, this.id);	
-				
-				if(piece == nord) state = true;
-				else if(piece == sud) state = true;
-				else if(piece == est) state = true;
-				else if(piece == ouest) state = true;
-			}
-//		}// id
-		
-		return state;
-	}
-
-
-
-
 //	@Override
 //	public boolean verifierClips(Piece piece) {
 //		boolean state = false;
 //		
 //		if(piece.id != this.id){
 //			
-//			double ref = piece.getAngle() - this.angle;// calcul de l'angle d'eccart
-//			
-//			if(Math.abs(ref) < 0.0001){System.out.println("In");
+////			double ref = piece.getAngle() - this.angle;// calcul de l'angle d'eccart
+////			
+////			if(Math.abs(ref) < 0.0001){
 //				
 //				//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
 //				Piece nord = this.puzzle.get(Position.nord, this.id);
@@ -228,48 +199,72 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 //				Piece est = this.puzzle.get(Position.est, this.id);
 //				Piece ouest = this.puzzle.get(Position.ouest, this.id);	
 //				
-//				if(piece == nord && this.isNear(nord)) state = true;
-//				else if(piece == sud  && this.isNear(sud)) state = true;
-//				else if(piece == est  && this.isNear(est)) state = true;
-//				else if(piece == ouest  && this.isNear(ouest)) state = true;
+//				if(piece == nord) state = true;
+//				else if(piece == sud) state = true;
+//				else if(piece == est) state = true;
+//				else if(piece == ouest) state = true;
 //			}
-//		}// id
+////		}// id
 //		
 //		return state;
 //	}
-//	
-//	
-//	private boolean isNear(Piece reference){
-//		boolean state = false;
-//		
-//		double x = this.puzzleX - reference.puzzleX;
-//		double y = this.puzzleY - reference.puzzleY;
+
+
+
+
+	@Override
+	public boolean verifierClips(Piece piece) {
+		boolean state = false;
+		
+		if(piece.id != this.id){
+			
+			double ref = piece.getAngle() - this.angle;// calcul de l'angle d'eccart
+			
+			if(Math.abs(ref) < 0.0001){
+				
+				//TODO a optimiser pour limiter les recherches en memorisant une bonne fois pour toute (apres la creation complete du puzz par ex)
+				Piece nord = this.puzzle.get(Position.nord, this.id);
+				Piece sud = this.puzzle.get(Position.sud, this.id);
+				Piece est = this.puzzle.get(Position.est, this.id);
+				Piece ouest = this.puzzle.get(Position.ouest, this.id);	
+				
+				if(nord != null && piece.id == nord.id && this.isNear(nord,piece)) state = true;
+				else if(sud != null && piece.id == sud.id  && this.isNear(sud,piece)) state = true;
+				else if(est != null && piece.id == est.id  && this.isNear(est,piece)) state = true;
+				else if(ouest != null & piece.id == ouest.id  && this.isNear(ouest,piece)) state = true;
+			}
+		}// id
+		
+		return state;
+	}
+	
+	
+	private boolean isNear(Piece reference,Piece candidat){
+		boolean state = false;
+		
+		double x = this.puzzleX - reference.puzzleX;
+		double y = this.puzzleY - reference.puzzleY;
 //		double r = Math.sqrt(x*x+y*y);
-//		
+		
 //		double xi = this.centre.getX() - reference.centre.getX();
 //		double yi = this.centre.getY() - reference.centre.getY();
 //		double h = Math.sqrt(xi*xi+yi*yi);
-//		
-//
-//		
-//		
-//		
-//		// calc 
-//		double tx = this.centre.getX() - x;
-//		double ty = this.centre.getY() + y;
-//		
-//		Point o = new Point(tx,ty);
-//		o.tourner(this.angle, this.centre);
-//		
-//		System.out.println(o+" "+reference.getCentre());
-//		
-//		double ex = o.getX() - reference.getCentre().getX();
-//		double ey = o.getY() - reference.getCentre().getY();
-//		
-//		double ref = Math.sqrt(ex*ex+ey*ey);
-//		System.out.println("ref "+ref);
-//		
-//		
-//		return state;
-//	}
+	
+		// calc 
+		double tx = this.centre.getX() - x;
+		double ty = this.centre.getY() + y;
+		
+		Point o = new Point(tx,ty);
+		o.tourner(this.angle, this.centre);
+		
+
+		double ex = o.getX() - candidat.getCentre().getX();
+		double ey = o.getY() - candidat.getCentre().getY();
+		
+		double ref = Math.sqrt(ex*ex+ey*ey);
+
+		if(ref < 50.0) state = true;
+		
+		return state;
+	}
 }

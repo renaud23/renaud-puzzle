@@ -3,16 +3,13 @@ package com.jPuzzle.view;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
-
 import com.jPuzzle.view.basicTapis.TapisBasicControler;
 import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
 import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.loader.XmlLoader;
-import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
-import com.puzzle.model.Point;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
 
@@ -45,10 +42,10 @@ public class MainXml {
 		}
 		
 		
-		CompositePiece cmp = new CompositePiece(100, 100);
-		tapis.ajouterAComposite(cmp,pieces.get(15));
-		tapis.ajouterAComposite(cmp,pieces.get(16));
-		tapis.ajouterAComposite(cmp,pieces.get(10));
+//		CompositePiece cmp = new CompositePiece(100, 100);
+//		tapis.ajouterAComposite(cmp,pieces.get(15));
+//		tapis.ajouterAComposite(cmp,pieces.get(16));
+//		tapis.ajouterAComposite(cmp,pieces.get(10));
 		
 		// la vue
 		MainScreen m = new MainScreen(800,800);

@@ -43,7 +43,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	private CommandeArgument<Point> attraper;
 	private CommandeArgument<Point> poser;
 	private CommandeArgument<Double> tourner;
-//	private CommandeArgument<ClipsParam> iSclips;
+	private CommandeArgument<ClipsParam> iSclips;
 	private CommandeArgument<ClipsParam> clips;
 	
 	
@@ -61,7 +61,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.attraper = new AttrapperMainDroite(tapis);
 		this.poser = new PoserMainDroite(tapis);
 		this.tourner = new tournerMainDroite();
-//		this.iSclips = new IsClipsable(tapis);
+		this.iSclips = new IsClipsable(tapis);
 		this.clips = new Clipser(tapis);
 	}
 	
@@ -200,21 +200,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 				double dirx = e.getX() - prevx;
 				double diry = e.getY() - prevy;
 				
-				ClipsParam param = new ClipsParam();
-				if(dirx < 0) param.setEst(true);
-				else if(dirx > 0) param.setOuest(true);
 				
-				if(diry < 0) param.setNord(true);
-				else if(diry > 0) param.setSud(true);
-				
-				
-				
-				
-				
-				
-				this.clips.setArgument(param);
-				
-				this.clips.execute();
 			}
 			
 			this.drawable.drawHud();
@@ -268,6 +254,15 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SHIFT){
 			shift = true;
+			Point p = new Point(this.screenParam.getMouseX(),this.screenParam.getMouseY());
+			TapisBasicConverter.getInstance().convertScreenToModel(p);
+			
+			ClipsParam param = new ClipsParam();
+			param.setCentre(p);
+			
+			this.iSclips.setArgument(param);
+			
+			this.iSclips.execute();
 		}
 		
 	}
