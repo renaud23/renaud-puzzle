@@ -8,8 +8,8 @@ public class RectCompositePiece implements MyRect{
 	private double puzzX;
 	private double puzzY;
 	private Point[] coins = new Point[4];
-//	private double largeur;
-//	private double hauteur;
+	private double largeur;
+	private double hauteur;
 //	private double x;
 //	private double y;
 	
@@ -64,13 +64,13 @@ public class RectCompositePiece implements MyRect{
 	@Override
 	public double getLargeur() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.largeur;
 	}
 
 	@Override
 	public double getHauteur() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.hauteur;
 	}
 
 	@Override
@@ -97,6 +97,8 @@ public class RectCompositePiece implements MyRect{
 		double cx = minx + cl / 2.0;
 		double cy = miny + ch / 2.0; 
 		
+		
+		
 		// mise à jour des piéces
 		for(Piece p : this.composite){
 			double x = p.getPuzzleX();
@@ -115,11 +117,110 @@ public class RectCompositePiece implements MyRect{
 			((MyRect)p.getRect()).update();
 		}
 		
+		
+		
 		// calcul du rect
 		// inutile pour l'heure
 		
 	}
+	
+//	@Override
+//	public void update() {
+//		// recalcul le nouveau centre de la pièce
+//		// centre dans le puzzle.
+//		double maxx = -Double.MAX_VALUE;
+//		double minx = Double.MAX_VALUE;
+//		double maxy = -Double.MAX_VALUE;
+//		double miny = Double.MAX_VALUE;
+//		
+//		for(Piece p : this.composite){
+//			maxx = Math.max(maxx, p.getCentre().getX() + p.getLargeur() / 2.0);
+//			minx = Math.min(minx, p.getCentre().getX() - p.getLargeur() / 2.0);
+//			maxy = Math.max(maxy, p.getCentre().getY() + p.getHauteur() / 2.0);
+//			miny = Math.min(miny, p.getCentre().getY() - p.getHauteur() / 2.0);
+//		}
+//		
+//		this.largeur = maxx - minx;
+//		this.hauteur = maxy - miny;
+//		Point nc = new Point();
+//		nc.setX(minx + this.largeur/ 2.0);
+//		nc.setY(miny + this.hauteur/ 2.0);
+//		
+//		nc.tourner(this.composite.getAngle(), this.composite.getCentre());
+//		
+//		this.composite.getCentre().setX(nc.getX());
+//		this.composite.getCentre().setY(nc.getY());
+//	}
 
+	// ne met à jour que la piece transmise
+	public void update(Piece plus) {
+		// centre dans le puzzle.
+		double maxx = -Double.MAX_VALUE;
+		double minx = Double.MAX_VALUE;
+		double maxy = -Double.MAX_VALUE;
+		double miny = Double.MAX_VALUE;
+		
+		for(Piece p : this.composite){
+			maxx = Math.max(maxx, p.getPuzzleX() + p.getLargeur() / 2.0);
+			minx = Math.min(minx, p.getPuzzleX() - p.getLargeur() / 2.0);
+			maxy = Math.max(maxy, p.getPuzzleY() + p.getHauteur() / 2.0);
+			miny = Math.min(miny, p.getPuzzleY() - p.getHauteur() / 2.0);
+		}
+		
+		double cl = maxx - minx;
+		double ch = maxy - miny;
+		this.composite.setLargeur(cl);
+		this.composite.setHauteur(ch);
+		this.puzzX = minx;
+		this.puzzY = miny;
+		double cx = minx + cl / 2.0;
+		double cy = miny + ch / 2.0; 
+		
+		
+		
+		
+		// mise à jour de la piéce
+		double x = plus.getPuzzleX();
+		x -= cx;
+		double y = plus.getPuzzleY();
+		y -= cy; 
+		
+		y*= -1.0;// symétrie horizontale
+		x += this.composite.getCentre().getX();
+		y += this.composite.getCentre().getY();
+		
+		plus.getCentre().setX(x);
+		plus.getCentre().setY(y);
+		
+		
+		// centre sur le tapis
+		maxx = -Double.MAX_VALUE;
+		minx = Double.MAX_VALUE;
+		maxy = -Double.MAX_VALUE;
+		miny = Double.MAX_VALUE;
+		for(Piece p : this.composite){
+			maxx = Math.max(maxx, p.getCentre().getX() + p.getLargeur() / 2.0);
+			minx = Math.min(minx, p.getCentre().getX()  - p.getLargeur() / 2.0);
+			maxy = Math.max(maxy, p.getCentre().getY()  + p.getHauteur() / 2.0);
+			miny = Math.min(miny, p.getCentre().getY()  - p.getHauteur() / 2.0);
+		}
+		cx = minx + cl / 2.0;
+		cy = miny + ch / 2.0;
+		this.composite.getCentre().setX(cx);
+		this.composite.getCentre().setY(cy);
+		
+		// rotation de la piéce
+		plus.getCentre().tourner(plus.getAngle(),this.composite.getCentre());
+		
+		((MyRect)plus.getRect()).update();
+		
+		
+		// calcul du rect
+		// inutile pour l'heure
+		
+	}
+	
+	
 	public double getPuzzX() {
 		return puzzX;
 	}

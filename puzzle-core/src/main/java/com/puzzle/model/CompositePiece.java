@@ -76,7 +76,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 			cmp.getCentre().setX(r.getCentre().getX() - x);
 			cmp.getCentre().setY(r.getCentre().getY() + y);
 			
-			cmp.getCentre().tourner(cmp.getAngle(), this.centre);
+//			cmp.getCentre().tourner(r.getAngle(), this.centre);
 			
 		}
 		
@@ -84,7 +84,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		cmp.setComposite(this);
 		
 		((MyRect)cmp.getRect()).update();
-		((MyRect)this.rect).update();
+		((RectCompositePiece)this.rect).update();
 	}
 	
 	@Override
@@ -92,7 +92,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		for(Piece p : this){
 			p.setAngle(angle);
 		}
-		this.rect.update();
+//		this.rect.update();
 	}
 	
 	
