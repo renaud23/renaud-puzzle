@@ -38,7 +38,7 @@ public class IsClipsable implements CommandeArgument<IsClipsParam>{
 		
 			Set<Piece> cdt = this.tapis.chercherPiece(cmp.getRect());
 			List<Piece> elus = new ArrayList<Piece>();
-			
+		System.out.println(cdt+" "+cmp.getRect().getX()+" "+cmp.getRect().getY()+" "+cmp.getRect().getLargeur()+" "+cmp.getRect().getHauteur());	
 			for(Piece p : cdt){
 				boolean state = cmp.verifierClips(p);
 				if(state) elus.add(p);

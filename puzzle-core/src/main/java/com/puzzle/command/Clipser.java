@@ -32,26 +32,6 @@ public class Clipser implements CommandeArgument<ClipserParam>{
 			cmp = composite;
 		}
 		
-		
-		
-//		for(Piece p : this.param.getCandidats()){
-//			CompositePiece nouveau = new CompositePiece(p.getCentre().getX(),p.getCentre().getY());
-//			
-//			if(p.getComposite() != null){
-//				nouveau.getCentre().setX(p.getComposite().getCentre().getX());
-//				nouveau.getCentre().setY(p.getComposite().getCentre().getY());
-//				for(Piece p2 : p.getComposite()){
-//					nouveau.addComponent(p2);
-//				}
-//			}else{
-//				nouveau.addComponent(p);
-//			}
-//			
-//			nouveau.addComponent(cmp);
-//			cmp = nouveau;
-//		}
-		
-		
 		cmp.poser(this.tapis);
 	}
 

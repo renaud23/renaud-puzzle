@@ -7,28 +7,46 @@ public class RectCompositePiece implements MyRect{
 	private CompositePiece composite;
 	private double puzzX;
 	private double puzzY;
+	private Point[] coins = new Point[4];
+//	private double largeur;
+//	private double hauteur;
+//	private double x;
+//	private double y;
 	
 
 	public RectCompositePiece(CompositePiece composite) {
 		this.composite = composite;
+		this.coins[0] = new Point();
+		this.coins[1] = new Point();
+		this.coins[2] = new Point();
+		this.coins[3] = new Point();
 	}
 
 	@Override
 	public boolean isIn(double x, double y, double largeur, double hauteur) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean state = false;
+		for(Piece p : this.composite){
+			if(p.getRect().isIn(x,y,largeur,hauteur)) state = true;
+		}
+		return state;
 	}
 
 	@Override
 	public boolean isIn(IRect r) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean state = false;
+		for(Piece p : this.composite){
+			if(p.getRect().isIn(r)) state = true;
+		}
+		return state;
 	}
 
 	@Override
 	public boolean contains(double x, double y) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean state = false;
+		for(Piece p : this.composite){
+			if(p.getRect().contains(x,y)) state = true;
+		}
+		return state;
 	}
 
 	@Override
@@ -79,6 +97,7 @@ public class RectCompositePiece implements MyRect{
 		double cx = minx + cl / 2.0;
 		double cy = miny + ch / 2.0; 
 		
+		// mise à jour des piéces
 		for(Piece p : this.composite){
 			double x = p.getPuzzleX();
 			x -= cx;
@@ -95,6 +114,9 @@ public class RectCompositePiece implements MyRect{
 			
 			((MyRect)p.getRect()).update();
 		}
+		
+		// calcul du rect
+		// inutile pour l'heure
 		
 	}
 

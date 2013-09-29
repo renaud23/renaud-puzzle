@@ -146,8 +146,12 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	@Override
 	public boolean verifierClips(Piece piece) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean state = false;
+		for(Piece p : this){
+			if(p.verifierClips(piece)) state=true;
+		}
+	
+		return state;
 	}
 
 
