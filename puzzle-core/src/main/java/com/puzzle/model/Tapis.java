@@ -122,9 +122,10 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	@Override
 	public Iterator<Piece> iterator() {
 		Set<Piece> l =  this.memoire.getAll();
-//		Collections.sort(l);
+		List<Piece> o = new ArrayList<Piece>(l);
+		Collections.sort(o);
 		
-		return l.iterator();
+		return o.iterator();
 	}
 	
 	
