@@ -84,16 +84,15 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		cmp.setComposite(this);
 		
 		((MyRect)cmp.getRect()).update();
-		((RectCompositePiece)this.rect).update();
 	}
 	
-	@Override
-	public void setAngle(double angle) {
-		for(Piece p : this){
-			p.setAngle(angle);
-		}
-//		this.rect.update();
-	}
+//	@Override
+//	public void setAngle(double angle) {
+//		for(Piece p : this){
+//			p.setAngle(angle);
+//		}
+////		this.rect.update();
+//	}
 	
 	
 	public void remove(ComponentPiece cmp){
@@ -134,14 +133,14 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		return this.centre;
 	}
 
-	@Override
-	public double getAngle() {
-		double angle = 0.0;
-		if(!this.pieces.isEmpty()){
-			angle = this.pieces.get(0).getAngle();
-		}
-		return angle;
-	}
+//	@Override
+//	public double getAngle() {
+//		double angle = 0.0;
+//		if(!this.pieces.isEmpty()){
+//			angle = this.pieces.get(0).getAngle();
+//		}
+//		return angle;
+//	}
 
 
 	@Override
@@ -179,7 +178,29 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	public void poser(Tapis tapis) {
 		tapis.poserComposite(this);
 	}
+
+
+	@Override
+	public void tournerGauche() {
+		for(Piece p : this) p.tournerGauche();
+	}
+
+
+	@Override
+	public void tournerDroite() {
+		for(Piece p : this) p.tournerDroite();
+	}
 	
+	@Override
+	public double getAngle() {
+		double angle = 0.0;
+		if(!this.pieces.isEmpty()){
+			angle = this.pieces.get(0).getAngle();
+		}
+		return angle;
+	}
 	
-	
+	public void updateRect(){
+		this.rect.update();
+	}
 }

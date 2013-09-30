@@ -3,24 +3,25 @@ package com.puzzle.command;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.MainDroite;
 
-public class tournerMainDroite implements CommandeArgument<Double>{
+public class tournerMainDroite implements CommandeArgument<Boolean>{
 	
 	
-	private double angle;
+	private boolean gauche;
 
 
 	@Override
 	public void execute() {
 		ComponentPiece cmp = MainDroite.getInstance().getPiece();
-
-		double newAngle = cmp.getAngle();
-		newAngle += this.angle;
-		cmp.setAngle(newAngle);
+		
+		if(this.gauche)
+			cmp.tournerGauche();
+		else
+			cmp.tournerDroite();
 	}
 
 	@Override
-	public void setArgument(Double arg) {
-		this.angle = arg;
+	public void setArgument(Boolean arg) {
+		this.gauche = arg;
 	}
 
 }

@@ -8,7 +8,9 @@ public interface ComponentPiece extends IRectable{
 	public void setZIndex(int index);
 	public Point getCentre();
 	public double getAngle();
-	public void setAngle(double angle);
+	public void updateRect();
+	public void tournerGauche();
+	public void tournerDroite();
 	public boolean verifierClips(Piece piece);
 	public double getLargeur();
 	public double getHauteur();

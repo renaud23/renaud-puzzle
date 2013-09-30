@@ -11,6 +11,7 @@ import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.loader.XmlLoader;
 import com.puzzle.model.CompositePiece;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -32,23 +33,21 @@ public class MainXml {
 		Puzzle puzzle = ld.getPuzzle();
 		
 		Random rnd = new Random();
-		CompositePiece cmp = new CompositePiece(100, 100);
 		
+//		CompositePiece cmp = new CompositePiece(0,0);
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(te)-te/2);
 			p.setY(rnd.nextInt(te)-te/2);
-			p.setAngle(Math.PI /8.0 *(rnd.nextInt(16)));
+//			p.setAngle(Math.PI /8.0 *(rnd.nextInt(16)));
 			
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 			
 			p.poser(tapis);
-			
+			p.updateRect();
+//			cmp.addComponent(p);
 		}
-		
-//		tapis.ajouterAComposite(cmp,pieces.get(15));
-//		tapis.ajouterAComposite(cmp,pieces.get(16));
-//		tapis.ajouterAComposite(cmp,pieces.get(10));
+//		tapis.poserComposite(cmp);
 		
 		// la vue
 		MainScreen m = new MainScreen(800,800);

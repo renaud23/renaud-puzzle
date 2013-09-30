@@ -18,8 +18,6 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	private int zIndex;
 	
-	private double angle;
-	
 	private double puzzleX;
 	
 	private double puzzleY;
@@ -28,7 +26,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	private CompositePiece composite;
 	
-	
+	private Angle angle;
 	
 	
 	
@@ -37,6 +35,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	}
 
 	public Piece(int id,double puzzleX,double puzzleY,double largeur,double hauteur){
+		this.angle = new Angle(16);
 		this.id = id;
 		this.centre = new Point();
 		this.centre.setX(0.0);
@@ -46,19 +45,22 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.rect = new RectPiece(this);
 		this.puzzleX = puzzleX;
 		this.puzzleY = puzzleY;
+		
 	}
 	
-	public Piece(int id,double x,double y,double puzzleX,double puzzleY,double largeur,double hauteur){
-		this.id = id;
-		this.centre = new Point();
-		this.centre.setX(x);
-		this.centre.setY(y);
-		this.largeur = largeur;
-		this.hauteur = hauteur;
-		this.rect = new RectPiece(this);
-		this.puzzleX = puzzleX;
-		this.puzzleY = puzzleY;
-	}
+//	public Piece(int id,double x,double y,double puzzleX,double puzzleY,double largeur,double hauteur){
+//		this.id = id;
+//		this.centre = new Point();
+//		this.centre.setX(x);
+//		this.centre.setY(y);
+//		this.largeur = largeur;
+//		this.hauteur = hauteur;
+//		this.rect = new RectPiece(this);
+//		this.puzzleX = puzzleX;
+//		this.puzzleY = puzzleY;
+//		
+//		((MyRect)this.rect).update();
+//	}
 	
 	
 	
@@ -103,18 +105,18 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.id = id;
 	}
 
-	public double getAngle() {
-		return angle;
-	}
-
-	public void setAngle(double angle) {
-		this.angle = angle;
-		
-		if(this.angle >= (Math.PI * 2.0)) this.angle = 0.0;
-		else if(this.angle < 0) this.angle = Math.PI * 2.0;
-
-		((RectPiece)this.rect).update();
-	}
+//	public double getAngle() {
+//		return angle;
+//	}
+//
+//	public void setAngle(double angle) {
+//		this.angle = angle;
+//		
+//		if(this.angle >= (Math.PI * 2.0)) this.angle = 0.0;
+//		else if(this.angle < 0) this.angle = Math.PI * 2.0;
+//
+//		((RectPiece)this.rect).update();
+//	}
 
 	@Override
 	public int getZIndex() {
@@ -190,7 +192,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		
 		if(piece.id != this.id){
 			
-			double ref = piece.getAngle() - this.angle;// calcul de l'angle d'eccart
+			double ref = piece.getAngle() - this.angle.getAngle();// calcul de l'angle d'eccart
 		
 			if(Math.abs(ref) < 0.0001){
 				
@@ -227,7 +229,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		double ty = this.centre.getY() + y;
 		
 		Point o = new Point(tx,ty);
-		o.tourner(this.angle, this.centre);
+		o.tourner(this.angle.getAngle(), this.centre);
 		
 
 		double ex = o.getX() - candidat.getCentre().getX();
@@ -243,5 +245,28 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	@Override
 	public void poser(Tapis tapis) {
 		tapis.poserPiece(this);
+	}
+
+	@Override
+	public double getAngle() {
+		return this.angle.getAngle();
+	}
+
+	@Override
+	public void tournerGauche() {
+		this.angle.tournerGauche();
+	}
+
+	@Override
+	public void tournerDroite() {
+		this.angle.tournerDroite();
+	}
+	
+	public void setAngle(double angle){
+		this.angle.regler(angle);
+	}
+	
+	public void updateRect(){
+		this.rect.update();
 	}
 }

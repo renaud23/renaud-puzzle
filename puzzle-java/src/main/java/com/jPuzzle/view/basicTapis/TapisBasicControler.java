@@ -42,7 +42,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	private TapisBasicDrawer tapisDrawer;
 	private CommandeArgument<Point> attraper;
 	private CommandeArgument<Point> poser;
-	private CommandeArgument<Double> tourner;
+	private CommandeArgument<Boolean> tourner;
 	private CommandeArgument<IsClipsParam> iSclips;
 	private CommandeArgument<ClipserParam> clips;
 	
@@ -97,9 +97,10 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 
 	@Override
 	public void tournerMainDroite(double sens) {
-		double angle = Math.PI /8.0;
-		angle *= sens;
-		this.tourner.setArgument(angle);
+		if(sens > 0)
+			this.tourner.setArgument(true);
+		else
+			this.tourner.setArgument(false);
 		this.tourner.execute();
 		
 		this.screenParam.setAngleSelection(MainDroite.getInstance().getPiece().getAngle());
