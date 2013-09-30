@@ -32,9 +32,9 @@ public class MyWindowListner implements ComponentListener{
 		int w = this.fenetre.getOffscreen().getWidth();
 		int h = this.fenetre.getOffscreen().getHeight();
 	
-//		if(w>0 && h>0)
-//			this.fenetre.resize(w, h);
-		
+		if(w>0 && h>0)
+			this.fenetre.resize(w, h);
+//		
 	}
 
 	@Override

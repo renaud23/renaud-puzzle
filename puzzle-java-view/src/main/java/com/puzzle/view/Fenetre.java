@@ -30,7 +30,7 @@ public class Fenetre extends Thread{
 	
 	public Fenetre(){
 		this.backBuffers = new ArrayList<ImageBuffer>();
-		this.backBuffers.add(0, new ImageBuffer(new Color(0,0,0,0), 800, 800));
+		this.backBuffers.add(0, new ImageBuffer(new Color(255,0,0,255), 800, 800));
 		this.backBuffers.get(0).transparentClean();
 		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), 800, 800));
 		this.backBuffers.get(1).transparentClean();
@@ -64,11 +64,11 @@ public class Fenetre extends Thread{
 		
 		this.offscreen.setPreferredSize(new Dimension(largeur,hauteur));
 		
-		this.backBuffers.clear();
-		this.backBuffers.add(0, new ImageBuffer(new Color(0,0,0,0), 800, 800));
-		this.backBuffers.get(0).transparentClean();
-		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), 800, 800));
-		this.backBuffers.get(1).transparentClean();
+//		this.backBuffers.clear();
+//		this.backBuffers.add(0, new ImageBuffer(new Color(255,0,0,255), 800, 800));
+//		this.backBuffers.get(0).transparentClean();
+//		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), 800, 800));
+//		this.backBuffers.get(1).transparentClean();
 		this.offscreen = new Offscreen(this.frontBuffer,this.backBuffers);
 		
 		this.frame.add(this.offscreen);
