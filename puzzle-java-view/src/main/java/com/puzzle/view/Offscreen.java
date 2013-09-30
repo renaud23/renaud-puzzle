@@ -2,9 +2,7 @@ package com.puzzle.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.List;
-
 import javax.swing.JPanel;
 
 public class Offscreen extends JPanel{

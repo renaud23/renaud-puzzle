@@ -1,0 +1,5 @@
+<template id="template_small" path="40_soft">
+	<cote>40</cote>
+	<varMin>3</varMin>
+	<varMax>10</varMax>
+</template>

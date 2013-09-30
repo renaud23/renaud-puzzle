@@ -1,0 +1,5 @@
+<template id="hight_light" path="80_modern">
+	<cote>80</cote>
+	<varMin>6</varMin>
+	<varMax>16</varMax>
+</template>
