@@ -55,38 +55,38 @@ public class ImageBuffer {
 		graphics.dispose();
 	}
 	
-	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
-		
-		Graphics2D gr = this.image.createGraphics();
-
-		/** Désactivation de l'anti-aliasing */
-		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-		/** Demande de rendu rapide */
-		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
-
-
-		 gr.setComposite(AlphaComposite.getInstance(
-	                AlphaComposite.SRC_OVER,alpha )) ;
-		 
-		 if(this.image.contentsLost())
-			 this.image.validate(gc);
-
-		//
-		AffineTransform t = new AffineTransform();
-		t.setToIdentity();
-
-		t.translate(x, y);
-		t.scale(scale, scale);
-		gr.rotate(theta, xRotation*scale, yRotation*scale);
-
-		gr.drawImage(image,t,null);
-		gr.dispose();
-
-	}
+//	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
+//		
+//		Graphics2D gr = this.image.createGraphics();
+//
+//		/** Dï¿½sactivation de l'anti-aliasing */
+//		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+//		/** Demande de rendu rapide */
+//		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+//		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+//		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+//		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+//
+//
+//		 gr.setComposite(AlphaComposite.getInstance(
+//	                AlphaComposite.SRC_OVER,alpha )) ;
+//		 
+//		 if(this.image.contentsLost())
+//			 this.image.validate(gc);
+//
+//		//
+//		AffineTransform t = new AffineTransform();
+//		t.setToIdentity();
+//
+//		t.translate(x, y);
+//		t.scale(scale, scale);
+//		gr.rotate(theta, xRotation*scale, yRotation*scale);
+//
+//		gr.drawImage(image,t,null);
+//		gr.dispose();
+//
+//	}
 
 	public void drawRect(Color color,int x,int y,int width,int height){
 		Graphics2D g = this.image.createGraphics();
@@ -99,7 +99,7 @@ public class ImageBuffer {
 		
 		Graphics2D gr = this.image.createGraphics();
 
-		/** Désactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -121,7 +121,7 @@ public class ImageBuffer {
 
 		t.translate(x, y);
 		t.scale(scaleX, scaleY);
-		gr.rotate(theta, xRotation*1.0, yRotation*1.0);
+		gr.rotate(theta, xRotation, yRotation);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();
@@ -131,7 +131,7 @@ public class ImageBuffer {
 	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
 		Graphics2D gr = this.image.createGraphics();
 
-		/** Désactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -147,7 +147,7 @@ public class ImageBuffer {
 
 		t.translate(x, y);
 		t.scale(scaleX, scaleY);
-		gr.rotate(theta, xRotation*1.0, yRotation*1.0);
+		gr.rotate(theta, xRotation*scaleX, yRotation*scaleY);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();

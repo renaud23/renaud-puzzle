@@ -17,13 +17,13 @@ public class TapisBasicConverter implements TapisConverter {
 	private double miLargeur;
 	private double miHauteur;
 	
-	private static TapisBasicConverter instance;
-	public static TapisBasicConverter getInstance(){
-		if(instance == null) instance = new TapisBasicConverter();
-		return instance;
-	}
+//	private static TapisBasicConverter instance;
+//	public static TapisBasicConverter getInstance(){
+//		if(instance == null) instance = new TapisBasicConverter();
+//		return instance;
+//	}
 	
-	private TapisBasicConverter() {
+	public TapisBasicConverter() {
 		
 	}
 

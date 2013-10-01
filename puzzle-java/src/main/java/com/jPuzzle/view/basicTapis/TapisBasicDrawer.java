@@ -35,10 +35,10 @@ public class TapisBasicDrawer implements IDrawer {
 			TapisBasicConverter.getInstance().convertModelToScreen(p);
 			
 			double x = p.getX();
-			x -= piece.getLargeur() / 2.0 * TapisBasicConverter.getInstance().getScaleX();
+			x -= img.getWidth(null) / 2.0 * TapisBasicConverter.getInstance().getScaleX();
 			
 			double y = p.getY();
-			y -= piece.getHauteur() / 2.0 * TapisBasicConverter.getInstance().getScaleY();
+			y -= img.getHeight(null) / 2.0 * TapisBasicConverter.getInstance().getScaleY();
 		
 			this.tapisBuffer.drawImage(img,
 					x,  y, 

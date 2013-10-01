@@ -10,6 +10,7 @@ import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
 import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.image.ImageMemoryManager;
 import com.puzzle.loader.XmlLoader;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -17,12 +18,12 @@ import com.puzzle.model.Tapis;
 public class MainXml {
 
 	public static void main(String[] args) {
-		File file = new File("E:/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/puzzle.xml");
-		
+		File file = new File("/home/renaud/puzzle/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/puzzle/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		// le métier
+		// le mï¿½tier
 		int taille = 3000;
 		int te = taille - 200;
 		
@@ -32,11 +33,10 @@ public class MainXml {
 		
 		Random rnd = new Random();
 		
-//		CompositePiece cmp = new CompositePiece(0,0);
+		CompositePiece cmp = new CompositePiece(0,0);
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(te)-te/2);
 			p.setY(rnd.nextInt(te)-te/2);
-//			p.setAngle(Math.PI /8.0 *(rnd.nextInt(16)));
 			
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
@@ -48,8 +48,8 @@ public class MainXml {
 //		tapis.poserComposite(cmp);
 		
 		// la vue
-		MainScreen m = new MainScreen(800,800);
-		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/images/");
+		MainScreen m = new MainScreen(600,600);
+		
 		
 		TapisBasicControler tc = new TapisBasicControler(tapis);
 		TapisBasicDrawer td = new TapisBasicDrawer(tapis, m.getTapisOffscreen());

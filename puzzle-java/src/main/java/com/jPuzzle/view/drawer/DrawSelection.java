@@ -36,11 +36,11 @@ public class DrawSelection implements IDrawer{
 					double x = p.getPuzzleX();
 					x -= r.getPuzzX();
 					x -= p.getLargeur() / 2.0;
-					x *= TapisBasicConverter.getInstance().getScaleY();
+					x *= TapisBasicConverter.getInstance().getScaleX();
 					double y = p.getPuzzleY();
 					y -= r.getPuzzY();
 					y -= p.getHauteur() / 2.0;
-					y *= TapisBasicConverter.getInstance().getScaleX();
+					y *= TapisBasicConverter.getInstance().getScaleY();
 					this.drawPiece(p, x, y);
 				}
 				

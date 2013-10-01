@@ -10,7 +10,6 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import com.jPuzzle.view.basicTapis.TapisBasicController;
-import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.puzzle.loader.XmlLoader;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
@@ -26,18 +25,21 @@ public class Fenetre extends Thread{
 	private ImageBuffer frontBuffer;
 	private Offscreen offscreen;
 	private List<ImageBuffer> backBuffers;
-	
+	private int largeur;
+	private int hauteur;
 	
 	public Fenetre(){
+		this.largeur = 600;
+		this.hauteur = 600;
 		this.backBuffers = new ArrayList<ImageBuffer>();
-		this.backBuffers.add(0, new ImageBuffer(new Color(255,0,0,255), 800, 800));
+		this.backBuffers.add(0, new ImageBuffer(new Color(255,0,0,255), this.largeur,this.hauteur));
 		this.backBuffers.get(0).transparentClean();
-		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), 800, 800));
+		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), this.largeur,this.hauteur));
 		this.backBuffers.get(1).transparentClean();
-		this.frontBuffer = new ImageBuffer(Color.yellow, 800, 800);
+		this.frontBuffer = new ImageBuffer(Color.yellow, this.largeur,this.hauteur);
 		this.frontBuffer.clean();
 		this.offscreen = new Offscreen(this.frontBuffer,this.backBuffers);
-		this.offscreen.setPreferredSize(new Dimension(800,800));
+		this.offscreen.setPreferredSize(new Dimension(this.largeur,this.hauteur));
 		
 		this.frame = new JFrame("JPuzzle");
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,21 +61,21 @@ public class Fenetre extends Thread{
 	
 	
 	public void resize(int largeur,int hauteur){
-		this.frontBuffer = new ImageBuffer(Color.yellow,largeur,hauteur);
-		this.frontBuffer.clean();
-		
-		this.offscreen.setPreferredSize(new Dimension(largeur,hauteur));
-		
+//		this.frontBuffer = new ImageBuffer(Color.yellow,largeur,hauteur);
+//		this.frontBuffer.clean();
+//		
+//		this.offscreen.setPreferredSize(new Dimension(largeur,hauteur));
+//		
 //		this.backBuffers.clear();
 //		this.backBuffers.add(0, new ImageBuffer(new Color(255,0,0,255), 800, 800));
 //		this.backBuffers.get(0).transparentClean();
 //		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), 800, 800));
 //		this.backBuffers.get(1).transparentClean();
-		this.offscreen = new Offscreen(this.frontBuffer,this.backBuffers);
-		
-		this.frame.add(this.offscreen);
-		this.frame.pack();
-		this.frame.repaint();
+//		this.offscreen = new Offscreen(this.frontBuffer,this.backBuffers);
+//		
+//		this.frame.add(this.offscreen);
+//		this.frame.pack();
+//		this.frame.repaint();
 	}
 
 	
@@ -108,8 +110,8 @@ public class Fenetre extends Thread{
 
 
 	public static void main(String[] args){
-		File file = new File("E:/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/images/");
+		File file = new File("/home/renaud/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		Fenetre f = new Fenetre();
 		f.start();
@@ -132,7 +134,6 @@ public class Fenetre extends Thread{
 			puzzle.put(p.getId(), p);
 			
 			p.poser(tapis);
-			
 		}
 		
 	
