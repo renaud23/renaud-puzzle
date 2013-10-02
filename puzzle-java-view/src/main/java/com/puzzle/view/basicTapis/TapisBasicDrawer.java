@@ -1,6 +1,7 @@
 package com.puzzle.view.basicTapis;
 
 
+import java.awt.Color;
 import java.awt.Image;
 
 import com.puzzle.controller.TapisConverter;
@@ -39,17 +40,28 @@ public class TapisBasicDrawer implements IDrawer {
 			this.converteur.convertModelToScreen(p);
 			
 			double x = p.getX();
-			x -= piece.getLargeur() / 2.0 * this.converteur.getScaleX();
+			x -= img.getWidth(null) / 2.0 * this.converteur.getScaleX();
 			
 			double y = p.getY();
-			y -= piece.getHauteur() / 2.0 * this.converteur.getScaleY();
+			y -= img.getHeight(null) / 2.0 * this.converteur.getScaleY();
 		
 			this.tapisBuffer.drawImage(img,
 					x,  y, 
 					p.getX() , p.getY(), -piece.getAngle(), 
 					this.converteur.getScaleX(), this.converteur.getScaleY(), 
 					1.0f);
+			
+			// pour dev
+			Point c = new Point(piece.getCentre().getX(), piece.getCentre().getY());
+			this.converteur.convertModelToScreen(c);
+			this.tapisBuffer.drawRect(Color.white, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
+			
+			
 		}
+		
+		
+		
+		
 		
 	}
 

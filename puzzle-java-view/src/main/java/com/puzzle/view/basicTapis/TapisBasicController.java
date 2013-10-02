@@ -6,6 +6,7 @@ import java.util.Observer;
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.PoserMainDroite;
+import com.puzzle.command.tournerMainDroite;
 import com.puzzle.controller.IController;
 import com.puzzle.controller.TapisConverter;
 import com.puzzle.model.MainDroite;
@@ -106,6 +107,20 @@ public class TapisBasicController implements IController,Observer{
 		if(!this.mainVide){
 			this.selectionDrawer.draw();
 			this.selectionDrawer.setParam(new Point(x,y));
+			this.fenetre.repaint();
+		}
+		
+	}
+
+
+	@Override
+	public void mouseWheel(boolean up) {
+		if(!this.mainVide){
+			CommandeArgument<Boolean> cmd = new tournerMainDroite();
+			cmd.setArgument(!up);
+			cmd.execute();
+			
+			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		}
 		

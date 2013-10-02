@@ -9,8 +9,9 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import com.puzzle.controller.MyMouseControler;
+import com.puzzle.controller.MyMouseListener;
 import com.puzzle.controller.MyMouseMotionListener;
+import com.puzzle.controller.MyMouseWheelListener;
 import com.puzzle.loader.XmlLoader;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
@@ -18,7 +19,6 @@ import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.basicTapis.TapisBasicController;
 import com.puzzle.view.drawer.ImageMemoryManager;
-import com.puzzle.view.listener.MyWindowListner;
 
 
 
@@ -144,8 +144,9 @@ public class Fenetre extends Thread {
 		Fenetre f = new Fenetre();
 		f.start();
 		TapisBasicController c = new TapisBasicController(f, tapis);
-		f.getOffscreen().addMouseListener(new MyMouseControler(c));
+		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
+		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
 		
 		
 	}

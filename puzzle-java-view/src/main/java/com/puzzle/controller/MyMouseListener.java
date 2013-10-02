@@ -3,12 +3,11 @@ package com.puzzle.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class MyMouseControler extends  MouseAdapter{
+public class MyMouseListener extends  MouseAdapter{
 	private IController controller;
 
-	public MyMouseControler(IController controller) {
+	public MyMouseListener(IController controller) {
 		this.controller = controller;
 	}
 
