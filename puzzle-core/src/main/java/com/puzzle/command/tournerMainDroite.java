@@ -20,8 +20,8 @@ public class tournerMainDroite implements CommandeArgument<Boolean>{
 	}
 
 	@Override
-	public void setArgument(Boolean arg) {
-		this.gauche = arg;
+	public void setArgument(Boolean gauche) {
+		this.gauche = gauche;
 	}
 
 }
