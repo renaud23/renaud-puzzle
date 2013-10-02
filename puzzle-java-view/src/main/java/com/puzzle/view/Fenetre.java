@@ -118,7 +118,7 @@ public class Fenetre extends Thread {
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int taille = 3000;
+		int taille = 2000;
 		int te = taille - 200;
 		
 		Tapis tapis = new Tapis(taille,taille);

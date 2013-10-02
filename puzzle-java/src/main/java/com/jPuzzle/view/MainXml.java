@@ -18,13 +18,13 @@ import com.puzzle.model.Tapis;
 public class MainXml {
 
 	public static void main(String[] args) {
-		File file = new File("/home/renaud/puzzle/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/puzzle/floflo/images/");
+		File file = new File("/home/renaud/puzzle/paris_84/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/puzzle/paris_84/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
 		// le m�tier
-		int taille = 3000;
+		int taille = 4000;
 		int te = taille - 200;
 		
 		Tapis tapis = new Tapis(taille,taille);

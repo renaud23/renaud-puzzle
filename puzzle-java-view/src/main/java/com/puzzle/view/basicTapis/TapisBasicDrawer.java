@@ -22,7 +22,6 @@ public class TapisBasicDrawer implements IDrawer {
 
 	public TapisBasicDrawer(Tapis tapis, ImageBuffer tapisBuffer,
 			TapisConverter converteur) {
-		super();
 		this.tapis = tapis;
 		this.tapisBuffer = tapisBuffer;
 		this.converteur = converteur;

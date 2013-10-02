@@ -12,12 +12,12 @@ import com.puzzle.view.ImageBuffer;
 
 
 
-public class DrawSelection implements IDrawerParametrable<Point>{
+public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 	private ImageBuffer buffer;
 	private ImageBuffer selection;
 	private ComponentPiece component;
 	private TapisConverter converter;
-	private Point mousePosition;
+	private DrawSelectionParam param;
 
 
 	public DrawSelection(ImageBuffer buffer, ComponentPiece component,
@@ -32,16 +32,37 @@ public class DrawSelection implements IDrawerParametrable<Point>{
 	@Override
 	public void draw() {
 		this.buffer.transparentClean();
+		
 		double cx = (double)this.selection.getLargeur() / 2.0;
 		double cy = (double)this.selection.getHauteur() / 2.0;
-		double x = this.mousePosition.getX() - cx;
-		double y = this.mousePosition.getY() - cy;
+		double x = this.param.getPosition().getX() - cx;
+		double y = this.param.getPosition().getY() - cy;
+		
 	
 		this.buffer.drawImage(
 				this.selection.getImage(), 
 				x, y, 
-				this.mousePosition.getX(), this.mousePosition.getY(), -this.component.getAngle(), 
+				this.param.getPosition().getX(), this.param.getPosition().getY(), -this.component.getAngle(), 
 				1.0, 1.0, 1.0f);
+		
+		
+		for(Piece piece : this.param.getCandidats()){
+			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
+			this.converter.convertModelToScreen(p);
+			
+			double xi = p.getX();
+			xi -= img.getWidth(null) / 2.0 * this.converter.getScaleX();
+			
+			double yi = p.getY();
+			yi -= img.getHeight(null) / 2.0 * this.converter.getScaleY();
+		
+			this.buffer.drawImageMask(img,
+					xi,  yi, 
+					p.getX() , p.getY(), -piece.getAngle(), 
+					this.converter.getScaleX(), this.converter.getScaleY(), 
+					Color.yellow);
+		}
 		
 	}
 
@@ -59,7 +80,8 @@ public class DrawSelection implements IDrawerParametrable<Point>{
 		l *= this.converter.getScaleX();
 		double h = this.component.getHauteur();
 		h *= this.converter.getScaleY();
-		this.selection = new ImageBuffer(new Color(0, 0, 0,0),(int) Math.round(l), (int) Math.round(h));
+		
+		this.selection = new ImageBuffer(new Color(0, 0,0,0),(int) Math.round(l), (int) Math.round(h));
 		this.selection.transparentClean();
 		
 		if(this.component instanceof Piece){
@@ -90,8 +112,8 @@ public class DrawSelection implements IDrawerParametrable<Point>{
 
 
 	@Override
-	public void setParam(Point mousePosition) {
-		this.mousePosition = mousePosition;
+	public void setParam(DrawSelectionParam param) {
+		this.param = param;
 	}
 
 	@Override

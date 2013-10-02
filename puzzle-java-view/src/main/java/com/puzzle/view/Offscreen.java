@@ -22,7 +22,6 @@ public class Offscreen extends JPanel{
 		this.frontBuffer = buffer;
 		this.backBuffer = backBuffer;
 		this.setPreferredSize(new Dimension(this.frontBuffer.getLargeur(), this.frontBuffer.getHauteur()));
-		
 	}
 
 
@@ -30,8 +29,11 @@ public class Offscreen extends JPanel{
 
 	protected void paintComponent(Graphics g){
 		Graphics g1 = this.frontBuffer.getImage().getGraphics();
-		for(ImageBuffer buff : this.backBuffer)
+		
+		for(ImageBuffer buff : this.backBuffer){
 			g1.drawImage(buff.getImage(), 0, 0, null);
+			
+		}
 		g1.dispose();
 		
 		g.drawImage(this.frontBuffer.getImage(),0,0,null);
