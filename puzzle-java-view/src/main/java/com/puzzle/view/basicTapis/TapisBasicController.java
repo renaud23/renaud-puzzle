@@ -1,4 +1,4 @@
-package com.jPuzzle.view.basicTapis;
+package com.puzzle.view.basicTapis;
 
 import java.util.Observable;
 import java.util.Observer;

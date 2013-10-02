@@ -9,7 +9,6 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import com.jPuzzle.view.basicTapis.TapisBasicController;
 import com.puzzle.controller.MyMouseControler;
 import com.puzzle.controller.MyMouseMotionListener;
 import com.puzzle.loader.XmlLoader;
@@ -17,6 +16,7 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.basicTapis.TapisBasicController;
 import com.puzzle.view.drawer.ImageMemoryManager;
 import com.puzzle.view.listener.MyWindowListner;
 

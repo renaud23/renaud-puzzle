@@ -1,4 +1,4 @@
-package com.jPuzzle.view.basicTapis;
+package com.puzzle.view.basicTapis;
 
 
 import com.puzzle.controller.TapisConverter;
