@@ -1,9 +1,14 @@
 package com.puzzle.view.basicTapis;
 
 import java.awt.Component;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.command.AttrapperMainDroite;
+import com.puzzle.command.Clipser;
+import com.puzzle.command.ClipserMainDroite;
+import com.puzzle.command.ClipserParam;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsParam;
 import com.puzzle.command.IsClipsable;
@@ -31,16 +36,23 @@ public class TapisBasicController implements IController,Observer{
 	private IDrawer tapisDrawer;
 	private IDrawerParametrable<DrawSelectionParam> selectionDrawer;
 	private DrawSelectionParam selectionParam;
+	private IsClipsParam isClipsParam;
 	private Tapis tapis;
+	private int mouseX;
+	private int mouseY;
+
 
 	
 	private boolean mainVide;
+	private boolean clips;
+	private boolean shift;
 	
 	
 	public TapisBasicController(Fenetre fenetre,Tapis tapis){
 		this.fenetre = fenetre;
 		this.tapis = tapis;
 		this.selectionParam = new DrawSelectionParam();
+		this.isClipsParam = new IsClipsParam();
 		
 		// IOC
 		this.converter = new TapisBasicConverter();
@@ -57,8 +69,66 @@ public class TapisBasicController implements IController,Observer{
 		
 		
 		this.mainVide = true;
+		this.clips = false;
+		this.shift = false;
 	}
 
+	
+	private void isClipsable(double x,double y){
+		this.selectionParam.clearCandidats();
+		Point p = new Point(x,y);
+		this.converter.convertScreenToModel(p);
+		
+		
+		this.isClipsParam.setCentre(p);
+		CommandeArgument<IsClipsParam> cmd = new IsClipsable(this.tapis);
+		cmd.setArgument(this.isClipsParam);
+		cmd.execute();
+		
+		if(!this.isClipsParam.getCandidats().isEmpty()){
+			this.selectionParam.addCandidats(this.isClipsParam.getCandidats());
+			this.clips = true;
+		} else{
+			this.clips = false;
+		}
+	}
+	
+	
+	private void attraper(int x,int y){
+		Point p = new Point(x, y);
+		this.converter.convertScreenToModel(p);
+		CommandeArgument<Point> cmd = new AttrapperMainDroite(this.tapis);
+		cmd.setArgument(p);
+		
+		cmd.execute();
+		
+		if(!this.mainVide){
+			this.selectionDrawer = new DrawSelection(
+					this.fenetre.getBuffer(1), 
+					MainDroite.getInstance().getPiece(), 
+					this.converter);
+			this.selectionParam.setPosition(new Point(x,y));
+			this.selectionDrawer.setParam(this.selectionParam);
+			
+			this.tapisDrawer.draw();
+			this.selectionDrawer.draw();
+			this.fenetre.repaint();
+		}
+	}
+	
+	private void poser(int x,int y){
+		Point p = new Point(x, y);
+		
+		this.converter.convertScreenToModel(p);
+		CommandeArgument<Point> cmd = new PoserMainDroite(this.tapis);
+		cmd.setArgument(p);
+		
+		cmd.execute();	
+		
+		this.selectionDrawer.clean();
+		this.tapisDrawer.draw();
+		this.fenetre.repaint();
+	}
 
 	@Override
 	public void update(Observable obs, Object arg) {
@@ -72,66 +142,50 @@ public class TapisBasicController implements IController,Observer{
 		
 	}
 
+	
+	@Override
+	public void mouseLeftReleased(int x, int y) {
+		
+		
+	}
 
 	@Override
-	public void mousePressed(int x, int y) {
+	public void mouseLeftPressed(int x, int y) {
+		this.mouseX = x;
+		this.mouseY = y;
+		
 		if(this.mainVide){
-			Point p = new Point(x, y);
-			this.converter.convertScreenToModel(p);
-			CommandeArgument<Point> cmd = new AttrapperMainDroite(this.tapis);
-			cmd.setArgument(p);
-			
-			cmd.execute();
-			
-			if(!this.mainVide){
-				this.selectionDrawer = new DrawSelection(
-						this.fenetre.getBuffer(1), 
-						MainDroite.getInstance().getPiece(), 
-						this.converter);
-				this.selectionParam.setPosition(new Point(x,y));
-				this.selectionDrawer.setParam(this.selectionParam);
-				
-				this.tapisDrawer.draw();
-				this.selectionDrawer.draw();
-				this.fenetre.repaint();
-			}
+			this.attraper(x, y);
 		}else{
-			Point p = new Point(x, y);
-			
-			this.converter.convertScreenToModel(p);
-			CommandeArgument<Point> cmd = new PoserMainDroite(this.tapis);
-			cmd.setArgument(p);
-			
-			cmd.execute();	
-			
-			this.selectionDrawer.clean();
-			this.tapisDrawer.draw();
-			this.fenetre.repaint();
-			
-		}
+			if(this.clips){
+				ClipserParam param = new ClipserParam();
+				CommandeArgument<ClipserParam> cmd = new ClipserMainDroite(this.tapis);
+				cmd.setArgument(param);
+				
+				param.setCandidat(this.isClipsParam.getCandidats().get(0));
+				cmd.execute();
+				
+				this.clips = false;
+
+				
+				this.selectionParam.clearCandidats();
+				this.selectionDrawer.clean();
+				this.tapisDrawer.draw();
+				this.fenetre.repaint();
+			}else this.poser(x, y);
+		}// else
 		
 	}
 
 
 	@Override
 	public void mouseMove(int x, int y,boolean isShiftDown) {
+		this.mouseX = x;
+		this.mouseY = y;
 		if(!this.mainVide){
-			this.fenetre.getBuffer(1).transparentClean();
+			this.selectionDrawer.clean();
 			if(isShiftDown){
-				this.selectionParam.clearCandidats();
-				Point p = new Point(x,y);
-				this.converter.convertScreenToModel(p);
-				
-				IsClipsParam param = new IsClipsParam();
-				param.setCentre(p);
-				CommandeArgument<IsClipsParam> cmd = new IsClipsable(this.tapis);
-				cmd.setArgument(param);
-				cmd.execute();
-				
-				if(!param.getCandidats().isEmpty()){
-					this.selectionParam.addCandidats(param.getCandidats());
-				} 
-				
+				this.isClipsable(x, y);
 			}
 			
 			this.selectionDrawer.draw();
@@ -154,4 +208,32 @@ public class TapisBasicController implements IController,Observer{
 		}
 		
 	}
+
+
+	@Override
+	public void keyShiftPressed() {
+		this.shift = true;
+		if(!this.mainVide) {
+			this.isClipsable(this.mouseX, this.mouseY);
+			this.selectionDrawer.draw();
+			this.selectionParam.setPosition(new Point(this.mouseX, this.mouseY));
+			this.fenetre.repaint();
+		}
+		
+	}
+
+
+	@Override
+	public void keyShiftReleased() {
+		this.shift = false;
+		if(!this.mainVide){
+			this.selectionParam.clearCandidats();
+			this.selectionDrawer.draw();
+			this.fenetre.repaint();
+		}
+		
+	}
+
+
+	
 }

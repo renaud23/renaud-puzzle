@@ -9,6 +9,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.puzzle.controller.MyKeyListener;
 import com.puzzle.controller.MyMouseListener;
 import com.puzzle.controller.MyMouseMotionListener;
 import com.puzzle.controller.MyMouseWheelListener;
@@ -30,6 +31,7 @@ public class Fenetre extends Thread {
 	private List<ImageBuffer> backBuffers;
 	private int largeur;
 	private int hauteur;
+	
 	
 	public Fenetre(){
 		this.largeur = 600;
@@ -113,8 +115,8 @@ public class Fenetre extends Thread {
 
 
 	public static void main(String[] args){
-		File file = new File("/home/renaud/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/images/");
+		File file = new File("E:/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -147,7 +149,7 @@ public class Fenetre extends Thread {
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
-		
+		f.getFrame().addKeyListener(new MyKeyListener(c));
 		
 	}
 }

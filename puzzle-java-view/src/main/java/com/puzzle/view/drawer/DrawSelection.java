@@ -2,6 +2,8 @@ package com.puzzle.view.drawer;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.util.List;
+
 import com.puzzle.controller.TapisConverter;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
@@ -18,6 +20,7 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 	private ComponentPiece component;
 	private TapisConverter converter;
 	private DrawSelectionParam param;
+	
 
 
 	public DrawSelection(ImageBuffer buffer, ComponentPiece component,
@@ -32,20 +35,7 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 	@Override
 	public void draw() {
 		this.buffer.transparentClean();
-		
-		double cx = (double)this.selection.getLargeur() / 2.0;
-		double cy = (double)this.selection.getHauteur() / 2.0;
-		double x = this.param.getPosition().getX() - cx;
-		double y = this.param.getPosition().getY() - cy;
-		
-	
-		this.buffer.drawImage(
-				this.selection.getImage(), 
-				x, y, 
-				this.param.getPosition().getX(), this.param.getPosition().getY(), -this.component.getAngle(), 
-				1.0, 1.0, 1.0f);
-		
-		
+		// les candidats
 		for(Piece piece : this.param.getCandidats()){
 			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
@@ -63,6 +53,21 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 					this.converter.getScaleX(), this.converter.getScaleY(), 
 					Color.yellow);
 		}
+		// la selection
+		double cx = (double)this.selection.getLargeur() / 2.0;
+		double cy = (double)this.selection.getHauteur() / 2.0;
+		double x = this.param.getPosition().getX() - cx;
+		double y = this.param.getPosition().getY() - cy;
+		
+	
+		this.buffer.drawImage(
+				this.selection.getImage(), 
+				x, y, 
+				this.param.getPosition().getX(), this.param.getPosition().getY(), -this.component.getAngle(), 
+				1.0, 1.0, 1.0f);
+		
+		
+		
 		
 	}
 
