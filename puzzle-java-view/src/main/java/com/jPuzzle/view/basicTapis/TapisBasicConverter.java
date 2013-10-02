@@ -10,18 +10,12 @@ public class TapisBasicConverter implements TapisConverter {
 	
 	private Offscreen offscreen;
 	private Tapis tapis;
-	
-	
 	private double scaleX;
 	private double scaleY;
 	private double miLargeur;
 	private double miHauteur;
 	
-//	private static TapisBasicConverter instance;
-//	public static TapisBasicConverter getInstance(){
-//		if(instance == null) instance = new TapisBasicConverter();
-//		return instance;
-//	}
+
 	
 	public TapisBasicConverter() {
 		
@@ -39,7 +33,6 @@ public class TapisBasicConverter implements TapisConverter {
 		x /= this.scaleX;
 		x -= this.miLargeur;
 		
-		
 		y /= this.scaleY;
 		y *= -1;
 		y += this.miHauteur;
@@ -56,7 +49,7 @@ public class TapisBasicConverter implements TapisConverter {
 		x += this.miLargeur;
 		x *= this.scaleX;
 		
-		y *= -1;
+		y *= -1.0;
 		y += this.miHauteur;
 		y *= this.scaleY;
 		
@@ -66,11 +59,11 @@ public class TapisBasicConverter implements TapisConverter {
 
 
 	public double getScaleX() {
-		return scaleX;
+		return this.scaleX;
 	}
 
 	public double getScaleY() {
-		return scaleY;
+		return this.scaleY;
 	}
 
 	public void update(){

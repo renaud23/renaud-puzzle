@@ -59,7 +59,7 @@ public class ImageBuffer {
 		
 		Graphics2D gr = this.image.createGraphics();
 
-		/** Désactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -99,7 +99,7 @@ public class ImageBuffer {
 		
 		Graphics2D gr = this.image.createGraphics();
 
-		/** Désactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -121,7 +121,7 @@ public class ImageBuffer {
 
 		t.translate(x, y);
 		t.scale(scaleX, scaleY);
-		gr.rotate(theta, xRotation*1.0, yRotation*1.0);
+		gr.rotate(theta, xRotation, yRotation);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();
@@ -131,7 +131,7 @@ public class ImageBuffer {
 	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
 //		Graphics2D gr = this.image.createGraphics();
 //
-//		/** Désactivation de l'anti-aliasing */
+//		/** Dï¿½sactivation de l'anti-aliasing */
 //		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 //		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 //		/** Demande de rendu rapide */

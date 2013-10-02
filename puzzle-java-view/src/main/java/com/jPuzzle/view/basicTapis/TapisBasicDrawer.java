@@ -52,5 +52,11 @@ public class TapisBasicDrawer implements IDrawer {
 		}
 		
 	}
+
+
+	@Override
+	public void clean() {
+		this.tapisBuffer.clean();
+	}
 	
 }

@@ -10,7 +10,10 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import com.jPuzzle.view.basicTapis.TapisBasicController;
+import com.puzzle.controller.MyMouseControler;
+import com.puzzle.controller.MyMouseMotionListener;
 import com.puzzle.loader.XmlLoader;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -19,7 +22,7 @@ import com.puzzle.view.listener.MyWindowListner;
 
 
 
-public class Fenetre extends Thread{
+public class Fenetre extends Thread {
 	
 	private JFrame frame;
 	private ImageBuffer frontBuffer;
@@ -48,7 +51,7 @@ public class Fenetre extends Thread{
 		
 		
 		
-		this.frame.addComponentListener(new MyWindowListner(this));
+//		this.frame.addComponentListener(new MyWindowListner(this));
 		
 		
 		this.frame.pack();
@@ -88,7 +91,7 @@ public class Fenetre extends Thread{
 	}
 
 	public Offscreen getOffscreen() {
-		return offscreen;
+		return this.offscreen;
 	}
 	
 	public ImageBuffer getBuffer(int i){
@@ -113,8 +116,7 @@ public class Fenetre extends Thread{
 		File file = new File("/home/renaud/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/puzzle.xml");
 		ImageMemoryManager.getInstance().setPath("/home/renaud/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
-		Fenetre f = new Fenetre();
-		f.start();
+		
 		
 		int taille = 3000;
 		int te = taille - 200;
@@ -125,6 +127,7 @@ public class Fenetre extends Thread{
 		
 		Random rnd = new Random();
 
+		CompositePiece cmp = new CompositePiece(0, 0);
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(te)-te/2);
 			p.setY(rnd.nextInt(te)-te/2);
@@ -134,10 +137,16 @@ public class Fenetre extends Thread{
 			puzzle.put(p.getId(), p);
 			
 			p.poser(tapis);
+//			cmp.addComponent(p);
 		}
+//		cmp.poser(tapis);
 		
-	
+		Fenetre f = new Fenetre();
+		f.start();
 		TapisBasicController c = new TapisBasicController(f, tapis);
+		f.getOffscreen().addMouseListener(new MyMouseControler(c));
+		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
+		
 		
 	}
 }
