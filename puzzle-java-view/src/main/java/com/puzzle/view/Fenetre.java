@@ -33,9 +33,9 @@ public class Fenetre extends Thread {
 	private int hauteur;
 	
 	
-	public Fenetre(){
-		this.largeur = 600;
-		this.hauteur = 600;
+	public Fenetre(int largeur,int hauteur){
+		this.largeur = largeur;
+		this.hauteur = hauteur;
 		this.backBuffers = new ArrayList<ImageBuffer>();
 		this.backBuffers.add(0, new ImageBuffer(new Color(255,0,0,255), this.largeur,this.hauteur));
 		this.backBuffers.get(0).transparentClean();
@@ -115,15 +115,17 @@ public class Fenetre extends Thread {
 
 
 	public static void main(String[] args){
-		File file = new File("E:/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/");
+		File file = new File("/home/renaud/puzzle/paris_160/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/puzzle/paris_160/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int taille = 2000;
-		int te = taille - 200;
+		int largeur = 6000;
+		int hauteur = 3000;
+		int tx = largeur - 200;
+		int ty = hauteur - 200;
 		
-		Tapis tapis = new Tapis(taille,taille);
+		Tapis tapis = new Tapis(largeur,hauteur);
 		List<Piece> pieces = ld.getPieces();
 		Puzzle puzzle = ld.getPuzzle();
 		
@@ -131,8 +133,8 @@ public class Fenetre extends Thread {
 
 		CompositePiece cmp = new CompositePiece(0, 0);
 		for(Piece p : pieces){
-			p.setX(rnd.nextInt(te)-te/2);
-			p.setY(rnd.nextInt(te)-te/2);
+			p.setX(rnd.nextInt(tx)-tx/2);
+			p.setY(rnd.nextInt(ty)-ty/2);
 			p.updateRect();
 			
 			p.setPuzzle(puzzle);
@@ -143,7 +145,7 @@ public class Fenetre extends Thread {
 		}
 //		cmp.poser(tapis);
 		
-		Fenetre f = new Fenetre();
+		Fenetre f = new Fenetre(1200,600);
 		f.start();
 		TapisBasicController c = new TapisBasicController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
