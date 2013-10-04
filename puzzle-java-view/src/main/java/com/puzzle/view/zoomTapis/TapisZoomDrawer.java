@@ -1,4 +1,4 @@
-package com.puzzle.zoomTapis;
+package com.puzzle.view.zoomTapis;
 
 import com.puzzle.model.Point;
 import com.puzzle.view.drawer.IDrawerParametrable;

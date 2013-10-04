@@ -1,14 +1,14 @@
-package com.puzzle.zoomTapis;
+package com.puzzle.view.zoomTapis;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import com.puzzle.controller.IController;
-import com.puzzle.controller.TapisConverter;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
+import com.puzzle.view.controller.IController;
+import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
 

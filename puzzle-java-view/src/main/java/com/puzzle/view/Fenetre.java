@@ -9,16 +9,16 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import com.puzzle.controller.MyKeyListener;
-import com.puzzle.controller.MyMouseListener;
-import com.puzzle.controller.MyMouseMotionListener;
-import com.puzzle.controller.MyMouseWheelListener;
 import com.puzzle.loader.XmlLoader;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.basicTapis.TapisBasicController;
+import com.puzzle.view.controller.MyKeyListener;
+import com.puzzle.view.controller.MyMouseListener;
+import com.puzzle.view.controller.MyMouseMotionListener;
+import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.ImageMemoryManager;
 
 

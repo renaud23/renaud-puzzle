@@ -1,4 +1,4 @@
-package com.puzzle.controller;
+package com.puzzle.view.controller;
 
 import com.puzzle.model.Point;
 

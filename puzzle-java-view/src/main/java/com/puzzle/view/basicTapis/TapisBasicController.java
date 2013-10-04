@@ -3,6 +3,7 @@ package com.puzzle.view.basicTapis;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.ClipserParam;
@@ -11,13 +12,13 @@ import com.puzzle.command.IsClipsParam;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
-import com.puzzle.controller.IController;
-import com.puzzle.controller.TapisConverter;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
+import com.puzzle.view.controller.IController;
+import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;

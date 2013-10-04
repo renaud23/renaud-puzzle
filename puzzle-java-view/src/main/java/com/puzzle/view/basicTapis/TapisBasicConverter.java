@@ -1,10 +1,10 @@
 package com.puzzle.view.basicTapis;
 
 
-import com.puzzle.controller.TapisConverter;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Offscreen;
+import com.puzzle.view.controller.TapisConverter;
 
 public class TapisBasicConverter implements TapisConverter {
 	

@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Image;
 import java.util.List;
 
-import com.puzzle.controller.TapisConverter;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectCompositePiece;
 import com.puzzle.view.ImageBuffer;
+import com.puzzle.view.controller.TapisConverter;
 
 
 

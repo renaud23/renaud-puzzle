@@ -1,4 +1,4 @@
-package com.puzzle.controller;
+package com.puzzle.view.controller;
 
 public interface IController {
 	public void mouseLeftPressed(int x,int y);

@@ -1,4 +1,4 @@
-package com.puzzle.controller;
+package com.puzzle.view.controller;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

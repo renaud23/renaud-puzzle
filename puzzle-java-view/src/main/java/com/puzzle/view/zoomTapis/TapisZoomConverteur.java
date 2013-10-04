@@ -1,8 +1,8 @@
-package com.puzzle.zoomTapis;
+package com.puzzle.view.zoomTapis;
 
-import com.puzzle.controller.TapisConverter;
 import com.puzzle.model.Point;
 import com.puzzle.view.Offscreen;
+import com.puzzle.view.controller.TapisConverter;
 
 public class TapisZoomConverteur implements TapisConverter{
 
