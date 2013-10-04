@@ -45,7 +45,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.rect = new RectPiece(this);
 		this.puzzleX = puzzleX;
 		this.puzzleY = puzzleY;
-		
+
 	}
 	
 //	public Piece(int id,double x,double y,double puzzleX,double puzzleY,double largeur,double hauteur){
@@ -244,6 +244,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 
 	@Override
 	public void poser(Tapis tapis) {
+		this.rect.update();
 		tapis.poserPiece(this);
 	}
 

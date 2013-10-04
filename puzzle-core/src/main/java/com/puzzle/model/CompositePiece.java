@@ -176,6 +176,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	@Override
 	public void poser(Tapis tapis) {
+//		this.rect.update();
 		tapis.poserComposite(this);
 	}
 

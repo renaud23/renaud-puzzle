@@ -40,7 +40,7 @@ public class MyMouseListener extends  MouseAdapter{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1) this.controller.mouseLeftReleased(e.getX(), e.getY());
-		else if(e.getButton() == MouseEvent.BUTTON3) this.controller.mouseRightPressed(e.getX(), e.getY());
+		else if(e.getButton() == MouseEvent.BUTTON3) this.controller.mouseRightReleased(e.getX(), e.getY());
 		
 	}
 	

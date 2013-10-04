@@ -124,33 +124,6 @@ public class RectCompositePiece implements MyRect{
 		
 	}
 	
-//	@Override
-//	public void update() {
-//		// recalcul le nouveau centre de la pièce
-//		// centre dans le puzzle.
-//		double maxx = -Double.MAX_VALUE;
-//		double minx = Double.MAX_VALUE;
-//		double maxy = -Double.MAX_VALUE;
-//		double miny = Double.MAX_VALUE;
-//		
-//		for(Piece p : this.composite){
-//			maxx = Math.max(maxx, p.getCentre().getX() + p.getLargeur() / 2.0);
-//			minx = Math.min(minx, p.getCentre().getX() - p.getLargeur() / 2.0);
-//			maxy = Math.max(maxy, p.getCentre().getY() + p.getHauteur() / 2.0);
-//			miny = Math.min(miny, p.getCentre().getY() - p.getHauteur() / 2.0);
-//		}
-//		
-//		this.largeur = maxx - minx;
-//		this.hauteur = maxy - miny;
-//		Point nc = new Point();
-//		nc.setX(minx + this.largeur/ 2.0);
-//		nc.setY(miny + this.hauteur/ 2.0);
-//		
-//		nc.tourner(this.composite.getAngle(), this.composite.getCentre());
-//		
-//		this.composite.getCentre().setX(nc.getX());
-//		this.composite.getCentre().setY(nc.getY());
-//	}
 
 	// ne met à jour que la piece transmise
 	public void update(Piece plus) {

@@ -18,8 +18,8 @@ import com.puzzle.view.drawer.ImageMemoryManager;
 
 public class MainBasic {
 	public static void main(String[] args){
-		File file = new File("/home/renaud/puzzle/paris_160/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/puzzle/paris_160/images/");
+		File file = new File("E:/workspaceEclipse/puzzle-pieces/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		

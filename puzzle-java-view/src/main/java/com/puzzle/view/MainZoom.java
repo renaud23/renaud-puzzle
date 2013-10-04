@@ -20,8 +20,8 @@ import com.puzzle.view.zoomTapis.TapisZoomControler;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("E:/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/floflo/images/");
+		File file = new File("E:/workspaceEclipse/puzzle-pieces/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -45,6 +45,8 @@ public class MainZoom {
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 			
+			
+//			p.updateRect();
 			p.poser(tapis);
 //			cmp.addComponent(p);
 		}
