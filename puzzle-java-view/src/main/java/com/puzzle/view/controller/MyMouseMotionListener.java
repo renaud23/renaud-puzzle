@@ -15,6 +15,11 @@ public class MyMouseMotionListener extends MouseMotionAdapter{
 	
 		this.controler.mouseMove(e.getPoint().x, e.getPoint().y,e.isShiftDown());
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		this.controler.mouseDrag(e.getX(), e.getY());
+	}
 	
 	
 	

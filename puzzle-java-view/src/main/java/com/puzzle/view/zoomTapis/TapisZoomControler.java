@@ -10,7 +10,7 @@ import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.drawer.IDrawerParametrable;
+
 
 public class TapisZoomControler implements IController,Observer{
 	
@@ -27,14 +27,29 @@ public class TapisZoomControler implements IController,Observer{
 	public TapisZoomControler(Fenetre fenetre, Tapis tapis) {
 		this.tapis = tapis;
 		this.fenetre = fenetre;
-		this.converter = new TapisZoomConverteur(fenetre.getOffscreen());
+		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(),this.tapis);
 		this.tapisDrawer = new TapisZoomDrawer(this.tapis,this.fenetre.getBuffer(0),this.converter);
+		this.mainVide = true;
 		
 		this.mousePosition = new Point();
 		
 		this.tapisDrawer.draw();
 		this.fenetre.repaint();
 	}
+	
+	
+	
+	private void zoom(boolean up){
+	
+	}
+	
+	private void move(int x,int y){
+		Point p = new Point(x,y);
+		this.converter.convertScreenToModel(p);
+		
+		System.out.println(p);
+	}
+	
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -73,7 +88,9 @@ public class TapisZoomControler implements IController,Observer{
 
 	@Override
 	public void mouseWheel(boolean up) {
-		// TODO Auto-generated method stub
+		if(this.mainVide){
+			this.zoom(up);
+		}
 		
 	}
 
@@ -87,6 +104,16 @@ public class TapisZoomControler implements IController,Observer{
 	public void keyShiftReleased() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	@Override
+	public void mouseDrag(int x, int y) {
+		this.mousePosition.setX(x);
+		this.mousePosition.setY(y);
+		
+		this.move(x, y);
 	}
 
 }

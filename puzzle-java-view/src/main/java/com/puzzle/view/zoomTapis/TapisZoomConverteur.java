@@ -1,49 +1,64 @@
 package com.puzzle.view.zoomTapis;
 
 import com.puzzle.model.Point;
+import com.puzzle.model.Tapis;
 import com.puzzle.view.Offscreen;
 import com.puzzle.view.controller.TapisConverter;
 
 public class TapisZoomConverteur implements TapisConverter{
 
 	private Offscreen offscreen;
-	private double scaleX;
-	private double scaleY;
+	private double scale;
+
 	
+	private Tapis tapis;
 	private Point corner;
 	private double largeur;
 	private double hauteur;
+	private double rapportAngle;
 	private double zoom;
 	
 	
 	
 	
 	
-	public TapisZoomConverteur(Offscreen offscreen) {
+	public TapisZoomConverteur(Offscreen offscreen,Tapis tapis) {
 		this.offscreen = offscreen;
-		this.corner = new Point(-1500,1500);
-		this.largeur = 3000.0;
-		this.hauteur = 3000.0;
+		this.tapis = tapis;
+		this.rapportAngle = this.tapis.getLargeur() / this.tapis.getHauteur();
+
+		// TODO 
+		this.scale = 0.5;
+		this.largeur = this.offscreen.getLargeur() / this.scale;
+		this.hauteur = this.offscreen.getHauteur() / this.scale;
+		this.corner = new Point(-this.largeur / 2.0,this.hauteur / 2.0);
+	
+		
 		
 		this.update();
 	}
 
 	@Override
 	public void convertScreenToModel(Point p) {
-		// TODO Auto-generated method stub
+		double x = p.getX() / this.scale + this.corner.getX();
+		double y = this.corner.getY()  - p.getY() / this.scale;
 		
+		p.setX(x);
+		p.setY(y);
+	
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public void convertModelToScreen(Point p) {
-		double x = p.getX();
-		x -= this.corner.getX();
-		x *= this.scaleX;
-		
-		double y = p.getY();
-		y += this.corner.getY() - this.hauteur;
-		y *= -1.0;
-		y *= this.scaleY;
+		double x = p.getX()  - corner.getX();
+		x *= this.scale;
+		double y = corner.getY() - p.getY();
+		y *= this.scale;
 		
 		p.setX(x);
 		p.setY(y);
@@ -51,22 +66,24 @@ public class TapisZoomConverteur implements TapisConverter{
 
 	@Override
 	public double getScaleX() {
-		return this.scaleX;
+		return this.scale;
 	}
 
 	@Override
 	public double getScaleY() {
-		return this.scaleY;
+		return this.scale;
 	}
 
 	@Override
 	public void update() {
-		this.scaleX = this.offscreen.getLargeur();
-		this.scaleX /= this.largeur;
-		this.scaleY = this.offscreen.getHauteur();
-		this.scaleY /= this.hauteur;
+		
+
 	}
 
+	
+	public void move(Point position){
+		
+	}
 	
 	/* *** */
 	public Point getCentre() {

@@ -47,7 +47,7 @@ public class TapisBasicController implements IController,Observer{
 	
 	private boolean mainVide;
 	private boolean clips;
-	private boolean shift;
+
 	
 	
 	public TapisBasicController(Fenetre fenetre,Tapis tapis){
@@ -70,7 +70,6 @@ public class TapisBasicController implements IController,Observer{
 		
 		this.mainVide = true;
 		this.clips = false;
-		this.shift = false;
 	}
 
 	
@@ -212,7 +211,6 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void keyShiftPressed() {
-		this.shift = true;
 		if(!this.mainVide) {
 			this.isClipsable(this.mouseX, this.mouseY);
 			this.selectionDrawer.draw();
@@ -225,12 +223,18 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void keyShiftReleased() {
-		this.shift = false;
 		if(!this.mainVide){
 			this.selectionParam.clearCandidats();
 			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		}
+		
+	}
+
+
+	@Override
+	public void mouseDrag(int x, int y) {
+		// TODO Auto-generated method stub
 		
 	}
 
