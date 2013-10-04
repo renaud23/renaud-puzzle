@@ -16,7 +16,7 @@ public class TapisZoomControler implements IController,Observer{
 	
 	private Tapis tapis;
 	private Fenetre fenetre;
-	private IDrawerParametrable<Point> tapisDrawer;
+	private IDrawer tapisDrawer;
 	private TapisConverter converter;
 	private Point mousePosition;
 	
@@ -27,8 +27,9 @@ public class TapisZoomControler implements IController,Observer{
 	public TapisZoomControler(Fenetre fenetre, Tapis tapis) {
 		this.tapis = tapis;
 		this.fenetre = fenetre;
-		this.tapisDrawer = new TapisZoomDrawer();
 		this.converter = new TapisZoomConverteur(fenetre.getOffscreen());
+		this.tapisDrawer = new TapisZoomDrawer(this.tapis,this.fenetre.getBuffer(0),this.converter);
+		
 		this.mousePosition = new Point();
 		
 		this.tapisDrawer.draw();

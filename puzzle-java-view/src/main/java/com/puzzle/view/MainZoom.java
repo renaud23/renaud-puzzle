@@ -25,7 +25,7 @@ public class MainZoom {
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int largeur = 6000;
+		int largeur = 3000;
 		int hauteur = 3000;
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
