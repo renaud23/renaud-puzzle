@@ -78,7 +78,6 @@ public class TapisBasicController implements IController,Observer{
 		Point p = new Point(x,y);
 		this.converter.convertScreenToModel(p);
 		
-		
 		this.isClipsParam.setCentre(p);
 		CommandeArgument<IsClipsParam> cmd = new IsClipsable(this.tapis);
 		cmd.setArgument(this.isClipsParam);
@@ -234,6 +233,20 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void mouseDrag(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseRightPressed(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseRightReleased(int x, int y) {
 		// TODO Auto-generated method stub
 		
 	}

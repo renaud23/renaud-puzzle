@@ -105,13 +105,10 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		List<Piece> tmp = new ArrayList<Piece>();
 
 		for(Piece cmp : set){
-			
 			if(cmp.getRect().contains(x, y)) {
 				tmp.add(cmp);
-			}
-			
+			}	
 		}
-		
 		
 		return tmp;
 	}
