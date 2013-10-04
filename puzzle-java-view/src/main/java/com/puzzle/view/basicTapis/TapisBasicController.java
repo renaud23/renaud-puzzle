@@ -1,12 +1,9 @@
 package com.puzzle.view.basicTapis;
 
-import java.awt.Component;
-import java.util.List;
+
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.command.AttrapperMainDroite;
-import com.puzzle.command.Clipser;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.ClipserParam;
 import com.puzzle.command.CommandeArgument;
@@ -16,18 +13,22 @@ import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
 import com.puzzle.controller.IController;
 import com.puzzle.controller.TapisConverter;
-import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.MainDroite;
-import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
-import com.puzzle.view.drawer.DrawCandidats;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
+
+
+
+
+
+
+
 
 public class TapisBasicController implements IController,Observer{
 	
@@ -55,10 +56,8 @@ public class TapisBasicController implements IController,Observer{
 		this.isClipsParam = new IsClipsParam();
 		
 		// IOC
-		this.converter = new TapisBasicConverter();
-		((TapisBasicConverter)this.converter).setOffscreen(this.fenetre.getOffscreen());
-		((TapisBasicConverter)this.converter).setTapis(tapis);
-		((TapisBasicConverter)this.converter).update();
+		this.converter = new TapisBasicConverter(this.fenetre.getOffscreen(),tapis);
+		this.converter.update();
 		this.tapisDrawer = new TapisBasicDrawer(tapis, fenetre.getBuffer(0),this.converter);
 		
 		this.tapis.addObserver(this);

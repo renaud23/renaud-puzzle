@@ -17,8 +17,9 @@ public class TapisBasicConverter implements TapisConverter {
 	
 
 	
-	public TapisBasicConverter() {
-		
+	public TapisBasicConverter(Offscreen offscreen,Tapis tapis) {
+		this.tapis = tapis;
+		this.offscreen = offscreen;
 	}
 
 

@@ -107,51 +107,12 @@ public class Fenetre extends Thread {
 		this.frame.repaint();
 	}
 
-	public void run(){
+//	public void run(){
 //		while(true)
 //			System.out.println("u");
-	}
+//	}
 
 
 
-	public static void main(String[] args){
-		File file = new File("/home/renaud/puzzle/paris_160/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/puzzle/paris_160/images/");
-		XmlLoader ld = new XmlLoader(file);
-		
-		
-		int largeur = 6000;
-		int hauteur = 3000;
-		int tx = largeur - 200;
-		int ty = hauteur - 200;
-		
-		Tapis tapis = new Tapis(largeur,hauteur);
-		List<Piece> pieces = ld.getPieces();
-		Puzzle puzzle = ld.getPuzzle();
-		
-		Random rnd = new Random();
-
-		CompositePiece cmp = new CompositePiece(0, 0);
-		for(Piece p : pieces){
-			p.setX(rnd.nextInt(tx)-tx/2);
-			p.setY(rnd.nextInt(ty)-ty/2);
-			p.updateRect();
-			
-			p.setPuzzle(puzzle);
-			puzzle.put(p.getId(), p);
-			
-			p.poser(tapis);
-//			cmp.addComponent(p);
-		}
-//		cmp.poser(tapis);
-		
-		Fenetre f = new Fenetre(1200,600);
-		f.start();
-		TapisBasicController c = new TapisBasicController(f, tapis);
-		f.getOffscreen().addMouseListener(new MyMouseListener(c));
-		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
-		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
-		f.getFrame().addKeyListener(new MyKeyListener(c));
-		
-	}
+	
 }
