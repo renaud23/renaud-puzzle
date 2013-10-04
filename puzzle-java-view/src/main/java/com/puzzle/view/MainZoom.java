@@ -20,13 +20,13 @@ import com.puzzle.view.zoomTapis.TapisZoomControler;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("E:/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/");
+		File file = new File("E:/git/renaud-puzzle/puzzle-java/src/main/resources/paris_84/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("E:/git/renaud-puzzle/puzzle-java/src/main/resources/paris_84/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
 		int largeur = 6000;
-		int hauteur = 3000;
+		int hauteur = 6000;
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
 		
@@ -38,8 +38,8 @@ public class MainZoom {
 
 		CompositePiece cmp = new CompositePiece(0, 0);
 		for(Piece p : pieces){
-//			p.setX(rnd.nextInt(tx)-tx/2);
-//			p.setY(rnd.nextInt(ty)-ty/2);
+			p.setX(rnd.nextInt(tx)-tx/2);
+			p.setY(rnd.nextInt(ty)-ty/2);
 			
 			
 			p.setPuzzle(puzzle);

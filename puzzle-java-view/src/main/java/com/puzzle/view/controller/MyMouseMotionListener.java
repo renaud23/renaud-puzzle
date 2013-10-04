@@ -19,6 +19,7 @@ public class MyMouseMotionListener extends MouseMotionAdapter{
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		this.controler.mouseDrag(e.getX(), e.getY());
+		
 	}
 	
 	

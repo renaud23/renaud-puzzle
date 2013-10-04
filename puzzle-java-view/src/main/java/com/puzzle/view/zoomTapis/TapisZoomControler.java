@@ -40,14 +40,20 @@ public class TapisZoomControler implements IController,Observer{
 	
 	
 	private void zoom(boolean up){
-	
+		
+		((TapisZoomConverteur)this.converter).zoom(up);
+		
+		this.tapisDrawer.draw();
+		this.fenetre.repaint();
 	}
 	
-	private void move(int x,int y){
-		Point p = new Point(x,y);
-		this.converter.convertScreenToModel(p);
+	private void move(double vx,double vy){
+		Point p = new Point(vx,vy);
 		
-		System.out.println(p);
+		((TapisZoomConverteur)this.converter).moveTo(p);
+		
+		this.tapisDrawer.draw();
+		this.fenetre.repaint();
 	}
 	
 
@@ -110,10 +116,12 @@ public class TapisZoomControler implements IController,Observer{
 
 	@Override
 	public void mouseDrag(int x, int y) {
+		double vx = this.mousePosition.getX() - x;
+		double vy = this.mousePosition.getY() - y;
 		this.mousePosition.setX(x);
 		this.mousePosition.setY(y);
 		
-		this.move(x, y);
+		this.move(vx, vy);
 	}
 
 }

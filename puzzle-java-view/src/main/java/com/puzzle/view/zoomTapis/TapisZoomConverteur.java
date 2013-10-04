@@ -28,7 +28,7 @@ public class TapisZoomConverteur implements TapisConverter{
 		this.rapportAngle = this.tapis.getLargeur() / this.tapis.getHauteur();
 
 		// TODO 
-		this.scale = 0.5;
+		this.scale = 0.2;
 		this.largeur = this.offscreen.getLargeur() / this.scale;
 		this.hauteur = this.offscreen.getHauteur() / this.scale;
 		this.corner = new Point(-this.largeur / 2.0,this.hauteur / 2.0);
@@ -50,7 +50,31 @@ public class TapisZoomConverteur implements TapisConverter{
 
 	
 	
-	
+	public void zoom(boolean up){
+		double next = this.scale;
+		if(up) next *= 1.1;
+		else next *= 0.9;
+		
+		this.scale = next;
+
+		double vx = this.largeur * 0.1 / 2.0;
+		double vy = this.hauteur * 0.1 / 2.0;
+				
+		this.update();
+		
+		double x;
+		double y;
+		if(up){
+			x = this.corner.getX() + vx ;
+			y = this.corner.getY() - vy ;
+		}else{
+			x = this.corner.getX() - vx ;
+			y = this.corner.getY() + vy ;
+		}
+		
+		this.corner.setX(x);
+		this.corner.setY(y);
+	}
 	
 	
 	@Override
@@ -76,12 +100,28 @@ public class TapisZoomConverteur implements TapisConverter{
 
 	@Override
 	public void update() {
-		
+		this.largeur = this.offscreen.getLargeur() / this.scale;
+		this.hauteur = this.offscreen.getHauteur() / this.scale;
 
 	}
 
 	
-	public void move(Point position){
+	public void moveTo(Point p){
+		double ml = this.tapis.getLargeur()/2.0;
+		double mh = this.tapis.getHauteur()/2.0;
+		
+		double x = this.corner.getX() + p.getX() / scale;
+		double y = this.corner.getY() - p.getY() / scale;
+		
+		if(x < -ml) x=-ml;
+		else if((x+this.largeur)>ml) x = ml - this.largeur;
+		if(y>mh) y=mh;
+		else if((y-this.hauteur)<-mh) y = -mh + this.hauteur;
+		
+		this.corner.setX(x);
+		this.corner.setY(y);
+		
+	
 		
 	}
 	
