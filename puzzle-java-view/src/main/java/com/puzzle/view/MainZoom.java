@@ -22,12 +22,12 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("E:/workspaceEclipse/puzzle-pieces/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/floflo/images/");
+		File file = new File("E:/workspaceEclipse/puzzle-pieces/paris_160/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/paris_160/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int largeur = 6000;
+		int largeur = 12000;
 		int hauteur = 6000;
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
@@ -54,7 +54,7 @@ public class MainZoom {
 		}
 //		cmp.poser(tapis);
 		
-		Fenetre f = new Fenetre(600,600);
+		Fenetre f = new Fenetre(800,800);
 		f.start();
 		IController c = new TapisZoomController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));

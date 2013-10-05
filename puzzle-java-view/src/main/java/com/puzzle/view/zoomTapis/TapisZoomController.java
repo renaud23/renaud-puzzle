@@ -2,9 +2,7 @@ package com.puzzle.view.zoomTapis;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.command.AttrapperMainDroite;
-import com.puzzle.command.Clipser;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.ClipserParam;
 import com.puzzle.command.CommandeArgument;
@@ -13,7 +11,6 @@ import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
 import com.puzzle.model.MainDroite;
-import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
@@ -175,14 +172,6 @@ public class TapisZoomController implements IController,Observer{
 		
 		cmd.execute();	
 		
-		
-//		if(this.clips){
-//			this.selectionParam.clearCandidats();
-//			this.clips = false;
-//			
-//			// TODO clipseR
-//		}
-		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.clean();
 		this.tapisDrawer.draw();
@@ -236,7 +225,6 @@ public class TapisZoomController implements IController,Observer{
 		this.mousePosition.setY(y);
 	}
 	
-
 	@Override
 	public void mouseMove(int x, int y, boolean isShiftDown) {
 		this.mousePosition.setX(x);
@@ -270,7 +258,6 @@ public class TapisZoomController implements IController,Observer{
 		if(!this.tryClips && !this.mainVide){
 			this.tryClips = true;
 			this.isClipsable(this.mousePosition.getX(), this.mousePosition.getY());
-		
 		}
 		
 	}
@@ -283,8 +270,6 @@ public class TapisZoomController implements IController,Observer{
 		if(this.clips){
 			this.selectionParam.clearCandidats();
 			this.clips = false;
-			
-			
 		}
 		if(!this.mainVide){
 			
@@ -295,8 +280,6 @@ public class TapisZoomController implements IController,Observer{
 		}
 		
 	}
-
-
 
 	@Override
 	public void mouseDrag(int x, int y) {
@@ -310,14 +293,10 @@ public class TapisZoomController implements IController,Observer{
 		}
 	}
 
-
-
 	@Override
 	public void mouseRightPressed(int x, int y) {
 		this.rightClick = true;	
 	}
-
-
 
 	@Override
 	public void mouseRightReleased(int x, int y) {

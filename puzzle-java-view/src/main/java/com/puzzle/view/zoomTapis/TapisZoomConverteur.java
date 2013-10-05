@@ -16,7 +16,7 @@ public class TapisZoomConverteur implements TapisConverter{
 	private double largeur;
 	private double hauteur;
 	private double rapportAngle;
-	private double zoom;
+
 	
 	
 	
@@ -33,7 +33,6 @@ public class TapisZoomConverteur implements TapisConverter{
 		this.hauteur = this.offscreen.getHauteur() / this.scale;
 		this.corner = new Point(-this.largeur / 2.0,this.hauteur / 2.0);
 	
-		
 		
 		this.update();
 	}
@@ -53,27 +52,42 @@ public class TapisZoomConverteur implements TapisConverter{
 	public void zoom(boolean up){
 		double next = this.scale;
 		if(up) next *= 1.1;
-		else next *= 0.9;
+		else next *= 0.9;// variation initiale prévues
 		
-		this.scale = next;
+		double nextl = this.offscreen.getLargeur() / next;
+		double nexth = this.offscreen.getHauteur() / next;// taille obtenue avec cette var
+		double l = Math.min(nextl, this.tapis.getLargeur());
+		double h = Math.min(nexth, this.tapis.getHauteur());// limite imposé par le tapis
+		
+		double nexts = next;
+		if(l == this.tapis.getLargeur()){
+			nexts = this.offscreen.getLargeur() / l;
 
-		double vx = this.largeur * 0.1 / 2.0;
-		double vy = this.hauteur * 0.1 / 2.0;
-				
-		this.update();
-		
-		double x;
-		double y;
-		if(up){
-			x = this.corner.getX() + vx ;
-			y = this.corner.getY() - vy ;
-		}else{
-			x = this.corner.getX() - vx ;
-			y = this.corner.getY() + vy ;
+		}else if(h == this.tapis.getHauteur()){
+			nexts = this.offscreen.getHauteur() / h;
 		}
+		this.scale = nexts;// scale effectif
+		
+		double vx = (this.largeur - this.offscreen.getLargeur() / this.scale) / 2.0;
+		double vy = (this.hauteur - this.offscreen.getHauteur() / this.scale) / 2.0;// variations a répartir
+		this.largeur = this.offscreen.getLargeur() / this.scale;
+		this.hauteur = this.offscreen.getHauteur() / this.scale;// largeur finale
+//		
+		double x = this.corner.getX();
+		double y = this.corner.getY();
+//		
+		x = this.corner.getX() + vx ;
+		y = this.corner.getY() - vy ;
+
+		
+		if(x < -(this.tapis.getLargeur() / 2.0)) x = -(this.tapis.getLargeur() / 2.0);
+		else if((x+this.largeur) > (this.tapis.getLargeur() / 2.0)) x = this.tapis.getLargeur() / 2.0 - this.largeur;
+		if(y > (this.tapis.getHauteur()/2.0)) y = this.tapis.getHauteur()/2.0;
+		else if((y-this.hauteur) < -(this.tapis.getHauteur()/2.0)) y = this.hauteur-this.tapis.getHauteur()/2.0;
 		
 		this.corner.setX(x);
 		this.corner.setY(y);
+		
 	}
 	
 	
