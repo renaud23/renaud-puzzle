@@ -1,0 +1,5 @@
+<template id="template_medium" path="80_test">
+	<cote>80</cote>
+	<varMin>3</varMin>
+	<varMax>21</varMax>
+</template>
