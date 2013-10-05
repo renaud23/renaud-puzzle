@@ -108,10 +108,21 @@ public class TapisBasicController implements IController,Observer{
 			this.selectionParam.setPosition(new Point(x,y));
 			this.selectionDrawer.setParam(this.selectionParam);
 			
+			this.selectionDrawer.clean();
 			this.tapisDrawer.draw();
 			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		}
+	}
+	
+	private void tourner(boolean up){
+		CommandeArgument<Boolean> cmd = new tournerMainDroite();
+		cmd.setArgument(!up);
+		cmd.execute();
+		
+		this.selectionDrawer.clean();
+		this.selectionDrawer.draw();
+		this.fenetre.repaint();
 	}
 	
 	private void poser(int x,int y){
@@ -186,6 +197,7 @@ public class TapisBasicController implements IController,Observer{
 				this.isClipsable(x, y);
 			}
 			
+			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			this.selectionParam.setPosition(new Point(x,y));
 			this.fenetre.repaint();
@@ -197,12 +209,7 @@ public class TapisBasicController implements IController,Observer{
 	@Override
 	public void mouseWheel(boolean up) {
 		if(!this.mainVide){
-			CommandeArgument<Boolean> cmd = new tournerMainDroite();
-			cmd.setArgument(!up);
-			cmd.execute();
-			
-			this.selectionDrawer.draw();
-			this.fenetre.repaint();
+			this.tourner(up);
 		}
 		
 	}
@@ -211,7 +218,10 @@ public class TapisBasicController implements IController,Observer{
 	@Override
 	public void keyShiftPressed() {
 		if(!this.mainVide) {
+			
 			this.isClipsable(this.mouseX, this.mouseY);
+			
+			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			this.selectionParam.setPosition(new Point(this.mouseX, this.mouseY));
 			this.fenetre.repaint();

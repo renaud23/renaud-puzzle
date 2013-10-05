@@ -1,10 +1,7 @@
 package com.puzzle.view.drawer;
 
 import java.awt.Color;
-import java.awt.Image;
-import java.util.List;
-
-import com.puzzle.model.ComponentPiece;
+import java.awt.Image;import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -34,7 +31,7 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 
 	@Override
 	public void draw() {
-		this.buffer.transparentClean();
+//		this.buffer.transparentClean();
 		// les candidats
 		for(Piece piece : this.param.getCandidats()){
 			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
