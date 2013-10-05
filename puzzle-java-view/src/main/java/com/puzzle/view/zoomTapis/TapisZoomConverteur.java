@@ -120,9 +120,6 @@ public class TapisZoomConverteur implements TapisConverter{
 		
 		this.corner.setX(x);
 		this.corner.setY(y);
-		
-	
-		
 	}
 	
 	/* *** */

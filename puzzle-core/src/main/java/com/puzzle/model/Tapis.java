@@ -9,10 +9,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
-import java.util.Set;
-import java.util.SortedSet;
-
-import com.renaud.manager.IRect;
+import java.util.Set;import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
 
 

@@ -1,6 +1,6 @@
 package com.puzzle.command;
 
-import java.util.List;
+
 
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.Piece;
@@ -8,14 +8,7 @@ import com.puzzle.model.Piece;
 public class ClipserParam {
 	private Piece candidat;
 	private ComponentPiece component;
-	
-	
-	
-	
-	
-	
-	
-	
+			
 	
 	public Piece getCandidat() {
 		return candidat;

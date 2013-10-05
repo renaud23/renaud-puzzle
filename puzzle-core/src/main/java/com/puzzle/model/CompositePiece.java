@@ -29,7 +29,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	@Override
 	public IRect getRect() {
-		return this.rect;//this.rect.clone();
+		return this.rect;
 	}
 
 	@Override
@@ -84,16 +84,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		cmp.setComposite(this);
 		
 		((MyRect)cmp.getRect()).update();
-	}
-	
-//	@Override
-//	public void setAngle(double angle) {
-//		for(Piece p : this){
-//			p.setAngle(angle);
-//		}
-////		this.rect.update();
-//	}
-	
+	}	
 	
 	public void remove(ComponentPiece cmp){
 		if(this.pieces.contains(cmp)){
@@ -132,16 +123,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	public Point getCentre() {
 		return this.centre;
 	}
-
-//	@Override
-//	public double getAngle() {
-//		double angle = 0.0;
-//		if(!this.pieces.isEmpty()){
-//			angle = this.pieces.get(0).getAngle();
-//		}
-//		return angle;
-//	}
-
+	
 
 	@Override
 	public boolean verifierClips(Piece piece) {

@@ -9,13 +9,15 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.TapisStateContoller.TapisZoomControllerEx;
 import com.puzzle.view.basicTapis.TapisBasicController;
+import com.puzzle.view.controller.IController;
 import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.ImageMemoryManager;
-import com.puzzle.view.zoomTapis.TapisZoomControler;
+import com.puzzle.view.zoomTapis.TapisZoomController;
 
 public class MainZoom {
 
@@ -54,7 +56,7 @@ public class MainZoom {
 		
 		Fenetre f = new Fenetre(600,600);
 		f.start();
-		TapisZoomControler c = new TapisZoomControler(f, tapis);
+		IController c = new TapisZoomController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
