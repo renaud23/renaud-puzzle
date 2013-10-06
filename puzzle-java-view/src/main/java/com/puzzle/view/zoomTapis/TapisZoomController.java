@@ -156,6 +156,9 @@ public class TapisZoomController implements IController,Observer{
 		cmd.execute();
 		
 		if(!this.mainVide){
+			
+			System.out.println(this.attraperParam.getAncre());
+			
 			this.selectionDrawer = new DrawSelection(
 					this.fenetre.getBuffer(1), 
 					MainDroite.getInstance().getPiece(), 
