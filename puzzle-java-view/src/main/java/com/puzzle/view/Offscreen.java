@@ -12,41 +12,36 @@ public class Offscreen extends JPanel{
 	 */
 	private static final long serialVersionUID = 7927839937475130643L;
 	
-	private ImageBuffer frontBuffer;
 	private List<ImageBuffer> backBuffer;
 	
 	
 	
 	
-	public Offscreen(ImageBuffer buffer,List<ImageBuffer> backBuffer) {
-		this.frontBuffer = buffer;
+	public Offscreen(List<ImageBuffer> backBuffer) {
 		this.backBuffer = backBuffer;
-		this.setPreferredSize(new Dimension(this.frontBuffer.getLargeur(), this.frontBuffer.getHauteur()));
+		this.setPreferredSize(new Dimension(this.backBuffer.get(0).getLargeur(),this.backBuffer.get(0).getHauteur()));
 	}
 
 
 
 
 	protected void paintComponent(Graphics g){
-		Graphics g1 = this.frontBuffer.getImage().getGraphics();
 		
 		for(ImageBuffer buff : this.backBuffer){
-			g1.drawImage(buff.getImage(), 0, 0, null);
-			
-		}
-		g1.dispose();
+			g.drawImage(buff.getImage(), 0, 0, null);
 		
-		g.drawImage(this.frontBuffer.getImage(),0,0,null);
+		}
+		
 		g.dispose();
 	}
 	
 	
 	public int getLargeur(){
-		return this.frontBuffer.getLargeur();
+		return this.backBuffer.get(0).getLargeur();
 	}
 	
 	public int getHauteur(){
-		return this.frontBuffer.getHauteur();
+		return this.backBuffer.get(0).getHauteur();
 	}
 	
 }

@@ -26,7 +26,6 @@ import com.puzzle.view.drawer.ImageMemoryManager;
 public class Fenetre extends Thread {
 	
 	private JFrame frame;
-	private ImageBuffer frontBuffer;
 	private Offscreen offscreen;
 	private List<ImageBuffer> backBuffers;
 	private int largeur;
@@ -41,9 +40,7 @@ public class Fenetre extends Thread {
 		this.backBuffers.get(0).transparentClean();
 		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), this.largeur,this.hauteur));
 		this.backBuffers.get(1).transparentClean();
-		this.frontBuffer = new ImageBuffer(Color.yellow, this.largeur,this.hauteur);
-		this.frontBuffer.clean();
-		this.offscreen = new Offscreen(this.frontBuffer,this.backBuffers);
+		this.offscreen = new Offscreen(this.backBuffers);
 		this.offscreen.setPreferredSize(new Dimension(this.largeur,this.hauteur));
 		
 		this.frame = new JFrame("JPuzzle");
@@ -88,9 +85,6 @@ public class Fenetre extends Thread {
 		return frame;
 	}
 
-	public ImageBuffer getFrontBuffer() {
-		return frontBuffer;
-	}
 
 	public Offscreen getOffscreen() {
 		return this.offscreen;
