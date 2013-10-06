@@ -40,13 +40,7 @@ public class AttrapperMainDroite implements CommandeArgument<AttrapperMainDroite
 			
 			if(candidat != null){
 				ComponentPiece candidatfinal = candidat;
-				
-				double xi = this.param.getPosition().getX();
-				xi -= candidatfinal.getCentre().getX();
-				double yi = this.param.getPosition().getY();
-				yi -= candidatfinal.getCentre().getY();
-				this.param.setAncre(new Point(xi,yi));
-				
+		
 				if(candidat.getComposite() != null) {
 					candidatfinal = candidat.getComposite();
 					

@@ -7,15 +7,17 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 
 public class DrawSelectionParam {
+	/**
+	 * Position de la pièce sur le tapis.
+	 */
 	private Point position;
+	/**
+	 * Piéces du tapis à mettre en surbrillance.
+	 */
 	private List<Piece> candidats = new ArrayList<Piece>();
+
 	
-	
-	
-	
-	
-	
-	
+
 	public void addCandidats(List<Piece> l){
 		this.candidats.addAll(l);
 	}

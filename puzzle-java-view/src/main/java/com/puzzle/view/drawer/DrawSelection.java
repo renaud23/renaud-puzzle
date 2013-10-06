@@ -56,16 +56,12 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 		double x = this.param.getPosition().getX() - cx;
 		double y = this.param.getPosition().getY() - cy;
 		
-	
+		
 		this.buffer.drawImage(
 				this.selection.getImage(), 
 				x, y, 
 				this.param.getPosition().getX(), this.param.getPosition().getY(), -this.component.getAngle(), 
 				1.0, 1.0, 1.0f);
-		
-		
-		
-		
 	}
 
 	private void drawPiece(Piece piece,double x,double y){

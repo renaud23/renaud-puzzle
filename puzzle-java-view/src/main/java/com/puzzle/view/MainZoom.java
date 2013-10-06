@@ -48,11 +48,11 @@ public class MainZoom {
 			puzzle.put(p.getId(), p);
 			
 			
-//			p.updateRect();
+			p.updateRect();
 			p.poser(tapis);
-//			cmp.addComponent(p);
+			cmp.addComponent(p);
 		}
-//		cmp.poser(tapis);
+		cmp.poser(tapis);
 		
 		Fenetre f = new Fenetre(800,800);
 		f.start();

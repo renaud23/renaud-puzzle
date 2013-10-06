@@ -100,8 +100,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	public List<Piece> chercherPiece(double x,double y){
 		Set<Piece> set = this.memoire.get(x,y);
 		List<Piece> tmp = new ArrayList<Piece>();
-//System.out.println(set);
-//System.out.println(x+" "+y);
+
 		for(Piece cmp : set){
 			if(cmp.getRect().contains(x, y)) {
 				tmp.add(cmp);
