@@ -6,12 +6,13 @@ import java.util.Observer;
 
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
-import com.puzzle.command.ClipserParam;
 import com.puzzle.command.CommandeArgument;
-import com.puzzle.command.IsClipsParam;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
+import com.puzzle.command.param.AttrapperMainDroiteParam;
+import com.puzzle.command.param.ClipserParam;
+import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
@@ -39,6 +40,7 @@ public class TapisBasicController implements IController,Observer{
 	private IDrawerParametrable<DrawSelectionParam> selectionDrawer;
 	private DrawSelectionParam selectionParam;
 	private IsClipsParam isClipsParam;
+	private AttrapperMainDroiteParam attraperParam;
 	private Tapis tapis;
 	private int mouseX;
 	private int mouseY;
@@ -55,6 +57,7 @@ public class TapisBasicController implements IController,Observer{
 		this.tapis = tapis;
 		this.selectionParam = new DrawSelectionParam();
 		this.isClipsParam = new IsClipsParam();
+		this.attraperParam = new AttrapperMainDroiteParam();
 		
 		// IOC
 		this.converter = new TapisBasicConverter(this.fenetre.getOffscreen(),tapis);
@@ -95,8 +98,9 @@ public class TapisBasicController implements IController,Observer{
 	private void attraper(int x,int y){
 		Point p = new Point(x, y);
 		this.converter.convertScreenToModel(p);
-		CommandeArgument<Point> cmd = new AttrapperMainDroite(this.tapis);
-		cmd.setArgument(p);
+		CommandeArgument<AttrapperMainDroiteParam> cmd = new AttrapperMainDroite(this.tapis);
+		this.attraperParam.setPosition(p);
+		cmd.setArgument(this.attraperParam);
 		
 		cmd.execute();
 		

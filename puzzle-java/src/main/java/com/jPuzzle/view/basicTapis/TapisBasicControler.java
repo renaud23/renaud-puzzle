@@ -16,13 +16,14 @@ import com.jPuzzle.view.controler.ITapisControler;
 import com.jPuzzle.view.drawer.IDrawable;
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
-import com.puzzle.command.ClipserParam;
-import com.puzzle.command.IsClipsParam;
 import com.puzzle.command.Clipser;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
+import com.puzzle.command.param.AttrapperMainDroiteParam;
+import com.puzzle.command.param.ClipserParam;
+import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
@@ -40,12 +41,13 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	private ScreenParam screenParam;
 	private Tapis tapis;
 	private TapisBasicDrawer tapisDrawer;
-	private CommandeArgument<Point> attraper;
+	private CommandeArgument<AttrapperMainDroiteParam> attraper;
 	private CommandeArgument<Point> poser;
 	private CommandeArgument<Boolean> tourner;
 	private CommandeArgument<IsClipsParam> iSclips;
 	private CommandeArgument<ClipserParam> clips;
 	
+	private AttrapperMainDroiteParam attraperParam;
 	
 	private IDrawable<ScreenParam> drawable;
 
@@ -55,7 +57,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		this.tapis = tapis;
 		this.mainDroiteVide = true;
 		this.screenParam = new ScreenParam();
-		
+		this.attraperParam = new AttrapperMainDroiteParam();
 		
 		// TODO IOC
 		this.attraper = new AttrapperMainDroite(tapis);
@@ -68,7 +70,8 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 	
 	@Override
 	public void attraperMainDroite(Point position) {
-		this.attraper.setArgument(position);
+		this.attraperParam.setPosition(position);
+		this.attraper.setArgument(this.attraperParam);
 		this.attraper.execute();
 		
 		if(!this.mainDroiteVide){
