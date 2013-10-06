@@ -13,32 +13,49 @@ public class MonCompositeContext implements CompositeContext{
 		this.color = color;
 	}
 
-	public void compose(Raster src, Raster dstIn, WritableRaster dstOut) {
-		int[] srcPixel = new int[4];
-		int[] dstPixel = new int[4];
+//	public void compose(Raster src, Raster dstIn, WritableRaster dstOut) {
+//		int[] srcPixel = new int[4];
+//		int[] dstPixel = new int[4];
+//
+//		for (int y = dstIn.getMinY(); y < dstIn.getMinY() +
+//			dstIn.getHeight(); y++) {
+//			for (int x = dstIn.getMinX(); x < dstIn.getMinX()
+//				+ dstIn.getWidth(); x++) {
+//				srcPixel = src.getPixel(x, y, srcPixel);
+//				
+//				dstPixel[0] = ((srcPixel[0] * color.getRed()) >> 8) & 0xFF;
+//				dstPixel[1] = ((srcPixel[1] * color.getGreen()) >> 8) & 0xFF;
+//				dstPixel[2] = ((srcPixel[2] * color.getBlue()) >> 8) & 0xFF;
+//
+//				dstPixel[3] = srcPixel[3];
+//				
+//				
+//				if(dstPixel[3] == 255)
+//					dstOut.setPixel(x, y, dstPixel);
+//			}
+//		}
+//		
+//	}
 
-		for (int y = dstIn.getMinY(); y < dstIn.getMinY() +
-			dstIn.getHeight(); y++) {
-			for (int x = dstIn.getMinX(); x < dstIn.getMinX()
-				+ dstIn.getWidth(); x++) {
-				srcPixel = src.getPixel(x, y, srcPixel);
-				
-				dstPixel[0] = ((srcPixel[0] * color.getRed()) >> 8) & 0xFF;
-				dstPixel[1] = ((srcPixel[1] * color.getGreen()) >> 8) & 0xFF;
-				dstPixel[2] = ((srcPixel[2] * color.getBlue()) >> 8) & 0xFF;
-
-				dstPixel[3] = srcPixel[3];
-				
-				
-				if(dstPixel[3] == 255)
-					dstOut.setPixel(x, y, dstPixel);
-			}
-		}
-		
-	}
-
+	 public void compose(Raster src, Raster dstIn, WritableRaster dstOut) {
+	      int[] srcPixel = new int[4];
+	      int[] dstPixel = new int[4];
+	 
+	      for (int y = dstIn.getMinY(); y < dstIn.getMinY() + dstIn.getHeight(); y++) {
+	        for (int x = dstIn.getMinX(); x < dstIn.getMinX() + dstIn.getWidth(); x++) {
+	          srcPixel = src.getPixel(x, y, srcPixel);
+	          dstPixel[0] = ((srcPixel[0] * color.getRed()) >> 8) & 0xFF;
+	          dstPixel[1] = ((srcPixel[1] * color.getGreen()) >> 8) & 0xFF;
+	          dstPixel[2] = ((srcPixel[2] * color.getBlue()) >> 8) & 0xFF;
+	          dstPixel[3] = srcPixel[3];
+	 
+	          dstOut.setPixel(x, y, dstPixel);
+	        }
+	      }
+	    }
+	
 	public void dispose() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

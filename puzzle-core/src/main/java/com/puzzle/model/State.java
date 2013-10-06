@@ -1,5 +1,5 @@
 package com.puzzle.model;
 
 public enum State {
-	MainDroitePleine, MainDroiteVide;
+	MainDroitePleine, MainDroiteVide, PuzzleFini;
 }

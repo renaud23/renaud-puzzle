@@ -112,6 +112,8 @@ public class TapisZoomController implements IController,Observer{
 				this.mainVide = false;
 			else if(st == State.MainDroiteVide)
 				this.mainVide = true;
+			else if(st == State.PuzzleFini)
+				System.out.println("Fini!!!");
 		}
 	}
 
@@ -193,19 +195,6 @@ public class TapisZoomController implements IController,Observer{
 				
 				param.setCandidat(this.isClipsParam.getCandidats().get(0));
 				cmd.execute();
-				
-//				for(Piece p : this.isClipsParam.getCandidats()){
-//					CommandeArgument<ClipserParam> cmd = new Clipser(this.tapis);
-//					ClipserParam param = new ClipserParam();
-//					param.setCandidat(p);
-//					param.setComponent(this.isClipsParam.getComponent());
-//					cmd.setArgument(param);
-//					
-//					cmd.execute();
-//				}
-//				
-//				this.mainVide = true;
-//				MainDroite.getInstance().libere();
 				
 				this.clips = false;
 

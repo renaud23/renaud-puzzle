@@ -48,25 +48,6 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 
 	}
 	
-//	public Piece(int id,double x,double y,double puzzleX,double puzzleY,double largeur,double hauteur){
-//		this.id = id;
-//		this.centre = new Point();
-//		this.centre.setX(x);
-//		this.centre.setY(y);
-//		this.largeur = largeur;
-//		this.hauteur = hauteur;
-//		this.rect = new RectPiece(this);
-//		this.puzzleX = puzzleX;
-//		this.puzzleY = puzzleY;
-//		
-//		((MyRect)this.rect).update();
-//	}
-	
-	
-	
-
-	
-	
 
 	@Override
 	public IRect getRect() {

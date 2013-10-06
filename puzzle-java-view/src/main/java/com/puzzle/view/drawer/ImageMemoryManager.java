@@ -27,12 +27,11 @@ public class ImageMemoryManager extends Thread implements ImageProvider{
 	
 	private String path;
 	
-
-
-
 	private static ImageMemoryManager instance;
 	
 	private Map<Integer, SoftReference<VolatileImage>> images;
+	
+	
 
 
 	

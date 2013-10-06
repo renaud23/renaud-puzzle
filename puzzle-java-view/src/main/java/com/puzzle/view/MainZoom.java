@@ -22,13 +22,13 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("E:/workspaceEclipse/puzzle-pieces/paris_160/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/paris_160/images/");
+		File file = new File("E:/workspaceEclipse/puzzle-pieces/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int largeur = 12000;
-		int hauteur = 6000;
+		int largeur = 4000;
+		int hauteur = 4000;
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
 		

@@ -58,7 +58,10 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 			this.addPiece(p);
 		}
 	}
-	
+
+	public int getTaille(){
+		return this.pieces.size();
+	}
 
 	private void addPiece(Piece cmp){
 		if(this.pieces.isEmpty()) {

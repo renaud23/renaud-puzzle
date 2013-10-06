@@ -14,6 +14,7 @@ public class Puzzle {
 	private int largeur;
 	private int hauteur;
 	private int taille;
+	private boolean fini;
 	private int id;
 	private String nom;
 	private Map<Integer, Piece> pieces;
@@ -26,10 +27,17 @@ public class Puzzle {
 		this.nom = nom;
 		this.taille = this.largeur * this.hauteur;
 		this.id = nb++;
+		this.fini = false;
 	}
 	
 	
 	
+	public boolean isFini() {
+		return fini;
+	}
+	public void setFini(boolean fini) {
+		this.fini = fini;
+	}
 	public int getLargeur() {
 		return largeur;
 	}
@@ -82,7 +90,9 @@ public class Puzzle {
 		}
 		return p;
 	}
-	
+
+
+
 	public Piece get(Position position,int index){
 		Piece p = null;
 		int pasy = 0;
@@ -111,7 +121,6 @@ public class Puzzle {
 			
 			p = this.get(ref);
 		}
-		
 		
 		return p;
 	}

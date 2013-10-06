@@ -147,6 +147,8 @@ public class TapisBasicController implements IController,Observer{
 				this.mainVide = false;
 			else if(st == State.MainDroiteVide)
 				this.mainVide = true;
+			else if(st == State.PuzzleFini)
+				System.out.println("Fini!!!");
 		}
 		
 	}

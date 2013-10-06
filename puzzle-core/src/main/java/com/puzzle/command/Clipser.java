@@ -3,6 +3,7 @@ package com.puzzle.command;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 
 public class Clipser implements CommandeArgument<ClipserParam>{
@@ -33,7 +34,16 @@ public class Clipser implements CommandeArgument<ClipserParam>{
 		}
 		
 		cmp.poser(this.tapis);
+		
+		if(((CompositePiece)cmp).getTaille() == p.getPuzzle().getTaille()){
+			p.getPuzzle().setFini(true);
+			this.tapis.change();
+			this.tapis.notifyObservers(State.PuzzleFini);
+		}
+		
 	}
+	
+	
 
 	@Override
 	public void setArgument(ClipserParam arg) {
