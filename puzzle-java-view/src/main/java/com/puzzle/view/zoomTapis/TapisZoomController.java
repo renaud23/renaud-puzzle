@@ -160,6 +160,7 @@ public class TapisZoomController implements IController,Observer{
 					this.fenetre.getBuffer(1), 
 					MainDroite.getInstance().getPiece(), 
 					this.converter);
+			this.selectionParam.setAncre(this.attraperParam.getAncre());
 			this.selectionParam.setPosition(new Point(x,y));
 			this.selectionDrawer.setParam(this.selectionParam);
 			

@@ -16,7 +16,19 @@ public class DrawSelectionParam {
 	 */
 	private List<Piece> candidats = new ArrayList<Piece>();
 
+	private Point ancre;
 	
+	
+	
+	
+
+	public Point getAncre() {
+		return ancre;
+	}
+
+	public void setAncre(Point ancre) {
+		this.ancre = ancre;
+	}
 
 	public void addCandidats(List<Piece> l){
 		this.candidats.addAll(l);

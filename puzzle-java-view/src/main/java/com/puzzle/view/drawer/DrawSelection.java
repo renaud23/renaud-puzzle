@@ -56,7 +56,6 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 		double x = this.param.getPosition().getX() - cx;
 		double y = this.param.getPosition().getY() - cy;
 		
-		
 		this.buffer.drawImage(
 				this.selection.getImage(), 
 				x, y, 
