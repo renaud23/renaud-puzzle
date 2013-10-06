@@ -1,5 +1,6 @@
 package com.puzzle.command;
 
+import com.puzzle.command.param.ClipserParam;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;

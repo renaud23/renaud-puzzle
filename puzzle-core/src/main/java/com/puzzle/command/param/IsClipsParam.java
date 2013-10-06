@@ -1,4 +1,4 @@
-package com.puzzle.command;
+package com.puzzle.command.param;
 
 import java.util.List;
 

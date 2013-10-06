@@ -2,6 +2,7 @@ package com.puzzle.command;
 
 import java.util.List;
 
+import com.puzzle.command.param.AttrapperMainDroiteParam;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
@@ -11,25 +12,25 @@ import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 
-public class AttrapperMainDroite implements CommandeArgument<Point>{
+public class AttrapperMainDroite implements CommandeArgument<AttrapperMainDroiteParam>{
 	
 	private Tapis tapis;
-	private Point position;
+	private AttrapperMainDroiteParam param;
+	
 
 	public AttrapperMainDroite(Tapis tapis) {
 		this.tapis = tapis;
-		this.position = new Point(Double.MAX_VALUE,Double.MAX_VALUE);
 	}
 
 	@Override
 	public void execute() {
 		if(MainDroite.getInstance().isEmpty()){
-			List<Piece> candidats = this.tapis.chercherPiece(this.position.getX(), this.position.getY());
+			List<Piece> candidats = this.tapis.chercherPiece(this.param.getPosition().getX(), this.param.getPosition().getY());
 			int ref = -1;
 			Piece candidat = null;
 			
 			for(Piece cmp : candidats){		
-				if(cmp.getRect().contains(this.position.getX(), this.position.getY())){
+				if(cmp.getRect().contains(this.param.getPosition().getX(), this.param.getPosition().getY())){
 					if(cmp.getZIndex() > ref){
 						candidat = cmp;
 						ref = cmp.getZIndex();
@@ -62,8 +63,8 @@ public class AttrapperMainDroite implements CommandeArgument<Point>{
 	}
 
 	@Override
-	public void setArgument(Point arg) {
-		this.position = arg;
+	public void setArgument(AttrapperMainDroiteParam param) {
+		this.param = param;
 	}
 
 

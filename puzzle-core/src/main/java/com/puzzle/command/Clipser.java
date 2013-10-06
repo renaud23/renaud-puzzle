@@ -1,5 +1,6 @@
 package com.puzzle.command;
 
+import com.puzzle.command.param.ClipserParam;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;

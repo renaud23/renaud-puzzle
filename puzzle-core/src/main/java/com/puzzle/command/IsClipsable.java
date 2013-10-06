@@ -4,6 +4,8 @@ package com.puzzle.command;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MyRect;
