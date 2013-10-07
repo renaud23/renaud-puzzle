@@ -1,7 +1,6 @@
 package com.puzzle.model;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
@@ -28,7 +27,6 @@ public class RectPiece implements MyRect{
 		this.coins[3] = new Point();
 		
 		this.update();
-//		System.out.println(this.toString());
 	}
 	
 	public boolean isIn(double x,double y,double largeur,double hauteur){

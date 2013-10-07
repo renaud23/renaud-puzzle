@@ -59,10 +59,6 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		}
 	}
 
-	public int getTaille(){
-		return this.pieces.size();
-	}
-
 	private void addPiece(Piece cmp){
 		if(this.pieces.isEmpty()) {
 			cmp.getCentre().setX(this.centre.getX());
@@ -71,7 +67,6 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 			Piece r = this.pieces.get(0);
 			cmp.setZIndex(r.getZIndex());
 			cmp.setAngle(r.getAngle());
-			
 			
 			double x = r.getPuzzleX() - cmp.getPuzzleX();
 			double y = r.getPuzzleY() - cmp.getPuzzleY();
@@ -87,7 +82,14 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		cmp.setComposite(this);
 		
 		((MyRect)cmp.getRect()).update();
+//		((MyRect)this.rect).update();
 	}	
+	
+
+	public int getTaille(){
+		return this.pieces.size();
+	}
+
 	
 	public void remove(ComponentPiece cmp){
 		if(this.pieces.contains(cmp)){
