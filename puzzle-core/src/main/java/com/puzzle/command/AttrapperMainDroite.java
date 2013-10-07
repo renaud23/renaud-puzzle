@@ -53,13 +53,15 @@ public class AttrapperMainDroite implements CommandeArgument<AttrapperMainDroite
 				}else{
 					this.tapis.retirerPiece(candidat);
 				}
-					
-			
-				double xi = this.param.getPosition().getX();
-				xi -= candidatfinal.getCentre().getX();
-				double yi = this.param.getPosition().getY();
-				yi -= candidatfinal.getCentre().getY();
+				// ancrage de la saisie (pour un angle nul)
+				Point p = new Point(candidatfinal.getCentre().getX(), candidatfinal.getCentre().getY());
+				p.tourner(-candidatfinal.getAngle(), this.param.getPosition().getX(), this.param.getPosition().getY());
+				double xi = p.getX();
+				xi -= this.param.getPosition().getX();
+				double yi = p.getY();
+				yi -= this.param.getPosition().getY();
 				this.param.setAncre(new Point(xi,yi));
+				MainDroite.getInstance().setAncre(this.param.getAncre());
 				
 				MainDroite.getInstance().setPiece(candidatfinal);
 				this.tapis.change();

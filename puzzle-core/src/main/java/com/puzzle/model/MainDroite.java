@@ -5,7 +5,7 @@ public class MainDroite {
 	private static MainDroite instance;
 	
 	private ComponentPiece piece;
-	
+	private Point ancre;
 	
 	
 	private boolean empty;
@@ -44,6 +44,14 @@ public class MainDroite {
 	public ComponentPiece poserPiece(){
 		this.empty = true;
 		return this.piece;
+	}
+
+	public Point getAncre() {
+		return ancre;
+	}
+
+	public void setAncre(Point ancre) {
+		this.ancre = ancre;
 	}
 
 

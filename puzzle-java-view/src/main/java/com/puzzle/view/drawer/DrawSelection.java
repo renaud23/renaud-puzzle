@@ -1,7 +1,8 @@
 package com.puzzle.view.drawer;
 
 import java.awt.Color;
-import java.awt.Image;import com.puzzle.model.ComponentPiece;
+import java.awt.Image;
+import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -53,14 +54,23 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 		// la selection
 		double cx = (double)this.selection.getLargeur() / 2.0;
 		double cy = (double)this.selection.getHauteur() / 2.0;
-		double x = this.param.getPosition().getX() - cx;
-		double y = this.param.getPosition().getY() - cy;
+		
+		double x = this.param.getPosition().getX();
+		double y = this.param.getPosition().getY();
+		x += this.param.getAncre().getX() * this.converter.getScaleX();
+		y -= this.param.getAncre().getY() * this.converter.getScaleY();
+		x -= cx;
+		y -= cy;
 		
 		this.buffer.drawImage(
-				this.selection.getImage(), 
-				x, y, 
-				this.param.getPosition().getX(), this.param.getPosition().getY(), -this.component.getAngle(), 
-				1.0, 1.0, 1.0f);
+			this.selection.getImage(), 
+			x,y, 
+			this.param.getPosition().getX(), this.param.getPosition().getY(), -this.component.getAngle(), 
+			1.0, 1.0, 1.0f);
+		
+		
+		this.buffer.drawRect(Color.blue, (int) (x), (int)(y), 2, 2);
+		
 	}
 
 	private void drawPiece(Piece piece,double x,double y){

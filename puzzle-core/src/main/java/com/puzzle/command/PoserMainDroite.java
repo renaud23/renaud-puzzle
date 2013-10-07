@@ -22,13 +22,21 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 	@Override
 	public void execute() {
 		ComponentPiece cmp = MainDroite.getInstance().getPiece();
+		// calcul de la position selon le point d'ancrage de la pièce
+		double x = this.position.getX();
+		x += MainDroite.getInstance().getAncre().getX();
+		double y = this.position.getY();
+		y += MainDroite.getInstance().getAncre().getY();
+		Point pos = new Point(x,y);
+		pos.tourner(cmp.getAngle(), this.position.getX(),this.position.getY());
+		
 		
 		if(cmp != null){
 			if(cmp instanceof Piece){
 				Piece piece = (Piece) cmp;
 				
-				piece.getCentre().setX(this.position.getX());
-				piece.getCentre().setY(this.position.getY());
+				piece.getCentre().setX(pos.getX());
+				piece.getCentre().setY(pos.getY());
 				
 				((MyRect)piece.getRect()).update();
 
@@ -36,8 +44,8 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 			}else if(cmp instanceof ComponentPiece){
 				CompositePiece composite = (CompositePiece) cmp;
 				
-				composite.getCentre().setX(this.position.getX());
-				composite.getCentre().setY(this.position.getY());
+				composite.getCentre().setX(pos.getX());
+				composite.getCentre().setY(pos.getY());
 				
 				((MyRect)composite.getRect()).update();
 				
