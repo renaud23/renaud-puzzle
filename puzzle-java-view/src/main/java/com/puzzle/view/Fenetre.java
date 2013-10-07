@@ -2,24 +2,9 @@ package com.puzzle.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import javax.swing.JFrame;
-
-import com.puzzle.loader.XmlLoader;
-import com.puzzle.model.CompositePiece;
-import com.puzzle.model.Piece;
-import com.puzzle.model.Puzzle;
-import com.puzzle.model.Tapis;
-import com.puzzle.view.basicTapis.TapisBasicController;
-import com.puzzle.view.controller.MyKeyListener;
-import com.puzzle.view.controller.MyMouseListener;
-import com.puzzle.view.controller.MyMouseMotionListener;
-import com.puzzle.view.controller.MyMouseWheelListener;
-import com.puzzle.view.drawer.ImageMemoryManager;
 
 
 

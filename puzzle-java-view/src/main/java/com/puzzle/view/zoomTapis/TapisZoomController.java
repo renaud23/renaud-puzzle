@@ -204,7 +204,6 @@ public class TapisZoomController implements IController,Observer{
 				
 				this.clips = false;
 
-				
 				this.selectionParam.clearCandidats();
 				this.selectionDrawer.clean();
 				this.tapisDrawer.draw();
@@ -233,7 +232,6 @@ public class TapisZoomController implements IController,Observer{
 			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		}
-		
 	}
 
 	@Override
@@ -254,7 +252,6 @@ public class TapisZoomController implements IController,Observer{
 			this.tryClips = true;
 			this.isClipsable(this.mousePosition.getX(), this.mousePosition.getY());
 		}
-		
 	}
 
 	@Override
@@ -273,7 +270,6 @@ public class TapisZoomController implements IController,Observer{
 			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		}
-		
 	}
 
 	@Override

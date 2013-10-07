@@ -38,15 +38,17 @@ public class TapisBasicController implements IController,Observer{
 	private TapisConverter converter;
 	private IDrawer tapisDrawer;
 	private IDrawerParametrable<DrawSelectionParam> selectionDrawer;
+	
 	private DrawSelectionParam selectionParam;
 	private IsClipsParam isClipsParam;
 	private AttrapperMainDroiteParam attraperParam;
-	private Tapis tapis;
-	private int mouseX;
-	private int mouseY;
-
-
 	
+	private Tapis tapis;
+	private Point mousePosition;
+
+	private boolean tryClips;
+	private boolean rightClick;
+	private boolean shiftPressed;
 	private boolean mainVide;
 	private boolean clips;
 
@@ -70,9 +72,14 @@ public class TapisBasicController implements IController,Observer{
 		this.tapisDrawer.draw();
 		this.fenetre.repaint();
 		
-		
+		this.mainVide = true;
+		this.rightClick = false;
+		this.shiftPressed = false;
+		this.tryClips = false;
 		this.mainVide = true;
 		this.clips = false;
+		
+		this.mousePosition = new Point();
 	}
 
 	
@@ -89,6 +96,11 @@ public class TapisBasicController implements IController,Observer{
 		if(!this.isClipsParam.getCandidats().isEmpty()){
 			this.selectionParam.addCandidats(this.isClipsParam.getCandidats());
 			this.clips = true;
+			
+			this.selectionDrawer.clean();
+			this.selectionDrawer.draw();
+			this.selectionParam.setPosition(new Point(x,y));
+			this.fenetre.repaint();
 		} else{
 			this.clips = false;
 		}
@@ -98,6 +110,7 @@ public class TapisBasicController implements IController,Observer{
 	private void attraper(int x,int y){
 		Point p = new Point(x, y);
 		this.converter.convertScreenToModel(p);
+		
 		CommandeArgument<AttrapperMainDroiteParam> cmd = new AttrapperMainDroite(this.tapis);
 		this.attraperParam.setPosition(p);
 		cmd.setArgument(this.attraperParam);
@@ -109,10 +122,10 @@ public class TapisBasicController implements IController,Observer{
 					this.fenetre.getBuffer(1), 
 					MainDroite.getInstance().getPiece(), 
 					this.converter);
+			this.selectionParam.setAncre(this.attraperParam.getAncre());
 			this.selectionParam.setPosition(new Point(x,y));
 			this.selectionDrawer.setParam(this.selectionParam);
 			
-			this.selectionDrawer.clean();
 			this.tapisDrawer.draw();
 			this.selectionDrawer.draw();
 			this.fenetre.repaint();
@@ -139,6 +152,7 @@ public class TapisBasicController implements IController,Observer{
 		cmd.execute();	
 		
 		this.selectionDrawer.clean();
+		this.selectionDrawer.clean();
 		this.tapisDrawer.draw();
 		this.fenetre.repaint();
 	}
@@ -160,14 +174,15 @@ public class TapisBasicController implements IController,Observer{
 	
 	@Override
 	public void mouseLeftReleased(int x, int y) {
-		
+		this.mousePosition.setX(x);
+		this.mousePosition.setY(y);
 		
 	}
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-		this.mouseX = x;
-		this.mouseY = y;
+		this.mousePosition.setX(x);
+		this.mousePosition.setY(y);
 		
 		if(this.mainVide){
 			this.attraper(x, y);
@@ -195,20 +210,17 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void mouseMove(int x, int y,boolean isShiftDown) {
-		this.mouseX = x;
-		this.mouseY = y;
-		if(!this.mainVide){
-			this.selectionDrawer.clean();
-			if(isShiftDown){
-				this.isClipsable(x, y);
-			}
+		this.mousePosition.setX(x);
+		this.mousePosition.setY(y);
+		
+		if(!this.mainVide && !this.shiftPressed){
+			
+			this.selectionParam.setPosition(new Point(x,y));
 			
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
-			this.selectionParam.setPosition(new Point(x,y));
 			this.fenetre.repaint();
 		}
-		
 	}
 
 
@@ -223,27 +235,31 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void keyShiftPressed() {
-		if(!this.mainVide) {
-			
-			this.isClipsable(this.mouseX, this.mouseY);
-			
-			this.selectionDrawer.clean();
-			this.selectionDrawer.draw();
-			this.selectionParam.setPosition(new Point(this.mouseX, this.mouseY));
-			this.fenetre.repaint();
-		}
+		this.shiftPressed = true;
 		
+		if(!this.tryClips && !this.mainVide){
+			this.tryClips = true;
+			this.isClipsable(this.mousePosition.getX(), this.mousePosition.getY());
+		}
 	}
 
 
 	@Override
 	public void keyShiftReleased() {
-		if(!this.mainVide){
+		this.shiftPressed = false;
+		this.tryClips = false;
+		
+		if(this.clips){
 			this.selectionParam.clearCandidats();
+			this.clips = false;
+		}
+		if(!this.mainVide){
+			
+			this.selectionParam.setPosition(new Point(this.mousePosition.getX(),this.mousePosition.getY()));
+			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		}
-		
 	}
 
 
@@ -256,15 +272,12 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		this.rightClick = true;	
 	}
-
 
 	@Override
 	public void mouseRightReleased(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		this.rightClick = false;
 	}
 
 
