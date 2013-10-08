@@ -67,7 +67,7 @@ public class MainZoom {
 		
 		MainGaucheController mgc = new MainGaucheController(tapis, f);
 		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
-
+		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
 	}
 
 }

@@ -22,7 +22,7 @@ public class PoserMainDroite implements CommandeArgument<Point>{
 	@Override
 	public void execute() {
 		ComponentPiece cmp = MainDroite.getInstance().getPiece();
-		// calcul de la position selon le point d'ancrage de la pièce
+		// calcul de la position selon le point d'ancrage de la piï¿½ce
 		double x = this.position.getX();
 		x += MainDroite.getInstance().getAncre().getX();
 		double y = this.position.getY();

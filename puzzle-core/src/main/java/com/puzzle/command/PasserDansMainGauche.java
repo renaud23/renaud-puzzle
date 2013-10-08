@@ -34,9 +34,7 @@ public class PasserDansMainGauche implements CommandeArgument<ChangerDeMainParam
 			
 			MainDroite.getInstance().libere();
 			this.tapis.change();
-			this.tapis.notifyObservers(State.MainDroiteVide);
-			this.tapis.change();
-			this.tapis.notifyObservers(State.ajoutMainGauche);
+			this.tapis.notifyObservers(State.droiteToGauche);
 		}
 		
 		this.param.setReussi(reussi);

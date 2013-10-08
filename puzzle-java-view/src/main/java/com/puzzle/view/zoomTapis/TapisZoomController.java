@@ -116,12 +116,14 @@ public class TapisZoomController implements IController,Observer{
 	public void update(Observable o, Object arg) {
 		if(arg instanceof State){
 			State st = (State) arg;
-			if(st == State.MainDroitePleine)
-				this.mainVide = false;
-			else if(st == State.MainDroiteVide)
+			if(st == State.MainDroitePleine)this.mainVide = false;
+			else if(st == State.MainDroiteVide)this.mainVide = true;
+			else if(st == State.droiteToGauche)this.mainVide = true;
+			else if(st == State.gaucheToDroite)this.mainVide = false;
+			else if(st == State.PuzzleFini){
 				this.mainVide = true;
-			else if(st == State.PuzzleFini)
 				System.out.println("Fini!!!");
+			}
 		}
 	}
 

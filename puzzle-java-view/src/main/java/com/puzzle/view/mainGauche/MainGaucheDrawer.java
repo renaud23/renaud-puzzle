@@ -21,7 +21,7 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 
 	public MainGaucheDrawer(ImageBuffer buffer) {
 		this.buffer = buffer;
-		this.focused = 5;
+		this.focused = -1;
 		this.init();
 	}
 

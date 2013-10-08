@@ -3,6 +3,11 @@ package com.puzzle.view.mainGauche;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.puzzle.command.Commande;
+import com.puzzle.command.CommandeArgument;
+import com.puzzle.command.ParcourirMainGauche;
+import com.puzzle.command.PasserDansMainDroite;
+import com.puzzle.command.param.ParcourirMainGaucheParam;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
@@ -17,11 +22,12 @@ public class MainGaucheController implements IController,Observer{
 	
 	
 	
+	
 	public MainGaucheController(Tapis tapis, Fenetre fenetre){
 		this.tapis = tapis;
 		this.fenetre = fenetre;
 		this.drawer = new MainGaucheDrawer(fenetre.getMainGauche().getBuffer(0));
-		
+
 		this.tapis.addObserver(this);
 		this.drawer.draw();
 		this.fenetre.repaint();
@@ -31,8 +37,13 @@ public class MainGaucheController implements IController,Observer{
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-		// TODO Auto-generated method stub
+		Commande cmd = new PasserDansMainDroite(this.tapis);
+		cmd.execute();
 		
+		this.drawer.setParam(-1);
+		this.drawer.clean();
+		this.drawer.draw();
+		this.fenetre.repaint();
 	}
 
 
@@ -79,7 +90,18 @@ public class MainGaucheController implements IController,Observer{
 
 	@Override
 	public void mouseWheel(boolean up) {
+		ParcourirMainGaucheParam param = new ParcourirMainGaucheParam();
+		param.setUp(up);
+		CommandeArgument<ParcourirMainGaucheParam> cmd = new ParcourirMainGauche();
+		cmd.setArgument(param);
 		
+		cmd.execute();
+		
+		this.drawer.setParam(param.getFocused());
+		
+		this.drawer.clean();
+		this.drawer.draw();
+		this.fenetre.repaint();
 		
 	}
 
@@ -121,7 +143,8 @@ public class MainGaucheController implements IController,Observer{
 	public void update(Observable o, Object param) {
 		if(param instanceof State){
 			State state = (State) param;
-			if(state == State.ajoutMainGauche){
+			if(state == State.droiteToGauche || state == State.gaucheToDroite){
+				this.drawer.setParam(-1);
 				this.drawer.clean();
 				this.drawer.draw();
 				this.fenetre.repaint();

@@ -6,9 +6,8 @@ public class MainDroite {
 	
 	private ComponentPiece piece;
 	private Point ancre;
-	
-	
 	private boolean empty;
+	
 	
 	private MainDroite(){
 		this.empty = true;

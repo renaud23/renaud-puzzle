@@ -18,7 +18,29 @@ public class MainGauche implements Iterable<Piece>{
 		this.pieces = new ArrayList<Piece>(20);
 	}
 	
+	public Piece removeFocused(){
+		Piece foc = null;
+		if(this.focused != -1){
+			foc = this.pieces.remove(this.focused);
+			this.focused = -1;
+		}
+		
+		return foc;
+	}
 	
+	public void focusedNext(){
+		if(!this.pieces.isEmpty()){
+			this.focused++;
+			if(this.focused >= this.pieces.size()) this.focused = 0;
+		}
+	}
+	
+	public void focusedPrevious(){
+		if(!this.pieces.isEmpty()){ 
+			this.focused--;
+			if(this.focused <0 ) this.focused = this.pieces.size()-1;
+		}
+	}
 	
 	public void addPiece(Piece piece){
 		if(this.pieces.size() < this.size){
@@ -31,17 +53,20 @@ public class MainGauche implements Iterable<Piece>{
 		return this.pieces.size() == this.size;
 	}
 	
-	public void removePiece(Piece piece){
-		this.pieces.remove(piece);
-		this.focused = -1;
-	}
 	
+	public int getFocused(){
+		return this.focused;
+	}
 	
 	public static MainGauche getInstance(){
 		if(instance == null) instance = new MainGauche();
 		return instance;
 	}
 
+	public boolean isFocused(){
+		return this.focused != -1;
+	}
+	
 	public int getSize() {
 		return size;
 	}
