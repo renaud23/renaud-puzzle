@@ -30,7 +30,7 @@ public class Fenetre extends Thread {
 		
 		// tapis
 		this.backBuffers = new ArrayList<ImageBuffer>();
-		this.backBuffers.add(0, new ImageBuffer(new Color(255,0,0,255),(int)(largeur*0.8),this.hauteur));
+		this.backBuffers.add(0, new ImageBuffer(new Color(50,100,150,255),(int)(largeur*0.8),this.hauteur));
 		this.backBuffers.get(0).transparentClean();
 		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), (int)(largeur*0.8),this.hauteur));
 		this.backBuffers.get(1).transparentClean();
