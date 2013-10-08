@@ -20,8 +20,8 @@ public class TapisZoomConverteur implements TapisConverter{
 	
 	
 	
-	
-	
+
+
 	public TapisZoomConverteur(Offscreen offscreen,Tapis tapis) {
 		this.offscreen = offscreen;
 		this.tapis = tapis;
@@ -52,12 +52,12 @@ public class TapisZoomConverteur implements TapisConverter{
 	public void zoom(boolean up){
 		double next = this.scale;
 		if(up) next *= 1.1;
-		else next *= 0.9;// variation initiale prévues
+		else next *= 0.9;// variation initiale prï¿½vues
 		
 		double nextl = this.offscreen.getLargeur() / next;
 		double nexth = this.offscreen.getHauteur() / next;// taille obtenue avec cette var
 		double l = Math.min(nextl, this.tapis.getLargeur());
-		double h = Math.min(nexth, this.tapis.getHauteur());// limite imposé par le tapis
+		double h = Math.min(nexth, this.tapis.getHauteur());// limite imposï¿½ par le tapis
 		
 		double nexts = next;
 		if(l == this.tapis.getLargeur()){
@@ -69,7 +69,7 @@ public class TapisZoomConverteur implements TapisConverter{
 		this.scale = nexts;// scale effectif
 		
 		double vx = (this.largeur - this.offscreen.getLargeur() / this.scale) / 2.0;
-		double vy = (this.hauteur - this.offscreen.getHauteur() / this.scale) / 2.0;// variations a répartir
+		double vy = (this.hauteur - this.offscreen.getHauteur() / this.scale) / 2.0;// variations a rï¿½partir
 		this.largeur = this.offscreen.getLargeur() / this.scale;
 		this.hauteur = this.offscreen.getHauteur() / this.scale;// largeur finale
 //		
@@ -116,7 +116,6 @@ public class TapisZoomConverteur implements TapisConverter{
 	public void update() {
 		this.largeur = this.offscreen.getLargeur() / this.scale;
 		this.hauteur = this.offscreen.getHauteur() / this.scale;
-
 	}
 
 	
@@ -162,6 +161,10 @@ public class TapisZoomConverteur implements TapisConverter{
 	}
 
 	
+	
+	public Point getCorner() {
+		return corner;
+	}
 	
 	
 }

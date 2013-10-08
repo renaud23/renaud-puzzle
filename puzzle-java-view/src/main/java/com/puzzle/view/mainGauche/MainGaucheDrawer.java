@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Image;
 
 import com.puzzle.model.MainGauche;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.view.ImageBuffer;
 import com.puzzle.view.drawer.IDrawer;
@@ -33,9 +34,10 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 		Piece pFocused = null;
 		Image imgFocused = null;
 		double px =0, py =0;
+		float alpha = 1.0f;
+		if(this.focused != -1) alpha = 0.5f;
 		for(Piece p : MainGauche.getInstance()){
 			if(i == 0) scale =  this.largeur / p.getLargeur();
-			
 			
 			Image img = ImageMemoryManager.getInstance().getImage(p.getId());
 			
@@ -52,7 +54,7 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 					img, 
 					x,y, 
 					xi, yi, -p.getAngle(), 
-					scale, scale, 1.0f);
+					scale, scale, alpha);
 			}else{
 				pFocused = p;
 				imgFocused = img;

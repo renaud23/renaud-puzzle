@@ -2,10 +2,8 @@ package com.puzzle.view.zoomTapis;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
-import com.puzzle.command.Commande;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PasserDansMainGauche;
@@ -26,7 +24,6 @@ import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
-import com.puzzle.view.mainGauche.MainGaucheView;
 
 
 public class TapisZoomController implements IController,Observer{
@@ -74,7 +71,18 @@ public class TapisZoomController implements IController,Observer{
 		this.fenetre.repaint();
 	}
 	
-	
+	private void resetSelection(){
+		this.selectionDrawer = new DrawSelection(
+				this.fenetre.getBuffer(1), 
+				MainDroite.getInstance().getPiece(), 
+				this.converter);
+		this.selectionParam.setAncre(MainDroite.getInstance().getAncre());
+		this.selectionParam.setPosition(new Point(Double.MAX_VALUE,Double.MAX_VALUE));
+		this.selectionDrawer.setParam(this.selectionParam);
+		
+		this.selectionDrawer.clean();
+		this.selectionDrawer.draw();
+	}
 	
 	private void zoom(boolean up){
 		((TapisZoomConverteur)this.converter).zoom(up);
@@ -119,7 +127,7 @@ public class TapisZoomController implements IController,Observer{
 			if(st == State.MainDroitePleine)this.mainVide = false;
 			else if(st == State.MainDroiteVide)this.mainVide = true;
 			else if(st == State.droiteToGauche)this.mainVide = true;
-			else if(st == State.gaucheToDroite)this.mainVide = false;
+			else if(st == State.gaucheToDroite){this.mainVide = false;this.resetSelection();}
 			else if(st == State.PuzzleFini){
 				this.mainVide = true;
 				System.out.println("Fini!!!");

@@ -24,13 +24,13 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("/home/renaud/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/");
+		File file = new File("/home/renaud/workspace/puzzle-pieces/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/workspace/puzzle-pieces/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int largeur = 4000;
-		int hauteur = 4000;
+		int largeur = 20000;
+		int hauteur = 10000;
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
 		
