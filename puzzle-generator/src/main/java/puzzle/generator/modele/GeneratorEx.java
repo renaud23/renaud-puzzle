@@ -276,7 +276,7 @@ public class GeneratorEx {
 	 * assemble puzzle � sa taille dans une image.
 	 * @return
 	 */
-	public BufferedImage makeAper�u(Map<Integer,BufferedImage> images,double scaleTo){
+	public BufferedImage makeApercu(Map<Integer,BufferedImage> images,double scaleTo){
 		BufferedImage img = new BufferedImage(
 				(int)(this.finalWidth * scaleTo), 
 				(int)(this.finalHeight * scaleTo), 

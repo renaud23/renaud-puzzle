@@ -8,9 +8,11 @@ import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
+import com.puzzle.command.PasserDansMainGauche;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
 import com.puzzle.command.param.AttrapperMainDroiteParam;
+import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.ClipserParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.MainDroite;
@@ -161,16 +163,30 @@ public class TapisBasicController implements IController,Observer{
 	public void update(Observable obs, Object arg) {
 		if(arg instanceof State){
 			State st = (State) arg;
-			if(st == State.MainDroitePleine)
-				this.mainVide = false;
-			else if(st == State.MainDroiteVide)
+			if(st == State.MainDroitePleine)this.mainVide = false;
+			else if(st == State.MainDroiteVide)this.mainVide = true;
+			else if(st == State.droiteToGauche)this.mainVide = true;
+			else if(st == State.gaucheToDroite){this.mainVide = false;this.resetSelection();}
+			else if(st == State.PuzzleFini){
 				this.mainVide = true;
-			else if(st == State.PuzzleFini)
 				System.out.println("Fini!!!");
+			}
 		}
 		
 	}
 
+	private void resetSelection(){
+		this.selectionDrawer = new DrawSelection(
+				this.fenetre.getBuffer(1), 
+				MainDroite.getInstance().getPiece(), 
+				this.converter);
+		this.selectionParam.setAncre(MainDroite.getInstance().getAncre());
+		this.selectionParam.setPosition(new Point(Double.MAX_VALUE,Double.MAX_VALUE));
+		this.selectionDrawer.setParam(this.selectionParam);
+		
+		this.selectionDrawer.clean();
+		this.selectionDrawer.draw();
+	}
 	
 	@Override
 	public void mouseLeftReleased(int x, int y) {
@@ -282,7 +298,17 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void keyControlPressed() {
-		// TODO Auto-generated method stub
+		if(!this.mainVide && !clips){
+			ChangerDeMainParam param = new ChangerDeMainParam();
+			CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.tapis);
+			cmd.setArgument(param);
+			cmd.execute();
+			
+			if(param.isReussi()){
+				this.selectionDrawer.clean();
+				this.fenetre.repaint();
+			}
+		}// if
 		
 	}
 

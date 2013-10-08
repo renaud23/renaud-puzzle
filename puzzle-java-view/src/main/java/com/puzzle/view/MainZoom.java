@@ -24,8 +24,8 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("/home/renaud/workspace/puzzle-pieces/paris_160/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/workspace/puzzle-pieces/paris_160/images/");
+		File file = new File("E:/workspaceEclipse/puzzle-pieces/champignon_520/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/champignon_520/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -54,7 +54,7 @@ public class MainZoom {
 		}
 //		cmp.poser(tapis);
 		
-		Fenetre f = new Fenetre(600,600);
+		Fenetre f = new Fenetre(1200,1024);
 		f.start();
 		
 		IController c = new TapisZoomController(f, tapis);

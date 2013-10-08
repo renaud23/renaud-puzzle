@@ -117,7 +117,7 @@ public class Puzzle {
 	public synchronized BufferedImage genereAperçu(String buildPath,double scalePiece,double scaleApercu){
 		GeneratorEx gen = new GeneratorEx(this.frame,this.descriptor,this.image,scalePiece);
 		Map<Integer,BufferedImage> images = gen.genere();
-		return gen.makeAperçu(images,scaleApercu);
+		return gen.makeApercu(images,scaleApercu);
 	}
 	
 	/**

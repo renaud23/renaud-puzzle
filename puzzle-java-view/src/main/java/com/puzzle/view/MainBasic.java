@@ -15,6 +15,7 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.ImageMemoryManager;
+import com.puzzle.view.mainGauche.MainGaucheController;
 
 public class MainBasic {
 	public static void main(String[] args){
@@ -23,8 +24,8 @@ public class MainBasic {
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int largeur = 6000;
-		int hauteur = 3000;
+		int largeur = 2000;
+		int hauteur = 2000;
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
 		
@@ -48,13 +49,17 @@ public class MainBasic {
 		}
 //		cmp.poser(tapis);
 		
-		Fenetre f = new Fenetre(1200,600);
+		Fenetre f = new Fenetre(1000,800);
 		f.start();
 		TapisBasicController c = new TapisBasicController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
 		f.getFrame().addKeyListener(new MyKeyListener(c));
+		
+		MainGaucheController mgc = new MainGaucheController(tapis, f);
+		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
+		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
 		
 	}
 }

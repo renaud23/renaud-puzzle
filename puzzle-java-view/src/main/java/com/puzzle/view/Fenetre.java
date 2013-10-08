@@ -40,7 +40,7 @@ public class Fenetre extends Thread {
 		// main gauche
 		this.mainGauche = new MainGaucheView((int)(largeur*0.2), hauteur);
 	
-		
+	
 		
 		
 		this.mainGauche.getOffscreen().setPreferredSize(new Dimension((int)(largeur*0.2),this.hauteur));
@@ -60,7 +60,7 @@ public class Fenetre extends Thread {
 		
 		this.frame.repaint();
 		
-		
+			
 	}
 	
 	
