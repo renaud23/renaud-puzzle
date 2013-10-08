@@ -28,7 +28,6 @@ public class PasserDansMainDroite implements Commande {
 			MainDroite.getInstance().setPiece(p);
 			MainDroite.getInstance().setAncre(new Point(0,0));
 			
-			MainDroite.getInstance().libere();
 			this.tapis.change();
 			this.tapis.notifyObservers(State.gaucheToDroite);
 		}

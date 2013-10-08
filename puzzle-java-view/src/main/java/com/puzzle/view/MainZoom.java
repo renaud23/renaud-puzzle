@@ -3,14 +3,11 @@ package com.puzzle.view;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
-
 import com.puzzle.loader.XmlLoader;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.TapisStateContoller.TapisZoomControllerEx;
-import com.puzzle.view.basicTapis.TapisBasicController;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
@@ -18,14 +15,17 @@ import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.ImageMemoryManager;
 import com.puzzle.view.mainGauche.MainGaucheController;
-import com.puzzle.view.mainGauche.MainGaucheView;
 import com.puzzle.view.zoomTapis.TapisZoomController;
+
+
+
+
 
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("/home/renaud/workspace/puzzle-pieces/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/workspace/puzzle-pieces/floflo/images/");
+		File file = new File("/home/renaud/workspace/puzzle-pieces/paris_160/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/workspace/puzzle-pieces/paris_160/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -49,8 +49,6 @@ public class MainZoom {
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 			
-			
-//			p.updateRect();
 			p.poser(tapis);
 //			cmp.addComponent(p);
 		}
