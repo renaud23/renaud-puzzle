@@ -5,11 +5,14 @@ import java.util.Observer;
 
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
+import com.puzzle.command.Commande;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
+import com.puzzle.command.PasserDansMainGauche;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
 import com.puzzle.command.param.AttrapperMainDroiteParam;
+import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.ClipserParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.MainDroite;
@@ -23,6 +26,7 @@ import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
+import com.puzzle.view.mainGauche.MainGaucheView;
 
 
 public class TapisZoomController implements IController,Observer{
@@ -137,8 +141,8 @@ public class TapisZoomController implements IController,Observer{
 			this.clips = true;
 			
 			this.selectionDrawer.clean();
-			this.selectionDrawer.draw();
 			this.selectionParam.setPosition(new Point(x,y));
+			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		} else{
 			this.clips = false;
@@ -180,7 +184,6 @@ public class TapisZoomController implements IController,Observer{
 		
 		cmd.execute();	
 		
-		this.selectionDrawer.clean();
 		this.selectionDrawer.clean();
 		this.tapisDrawer.draw();
 		this.fenetre.repaint();
@@ -292,6 +295,31 @@ public class TapisZoomController implements IController,Observer{
 	@Override
 	public void mouseRightReleased(int x, int y) {
 		this.rightClick = false;
+	}
+
+
+
+	@Override
+	public void keyControlPressed() {
+		if(!this.mainVide && !clips){
+			ChangerDeMainParam param = new ChangerDeMainParam();
+			CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.tapis);
+			cmd.setArgument(param);
+			cmd.execute();
+			
+			if(param.isReussi()){
+				this.selectionDrawer.clean();
+				this.fenetre.repaint();
+			}
+		}// if
+	}
+
+
+
+	@Override
+	public void keyControlReleased() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

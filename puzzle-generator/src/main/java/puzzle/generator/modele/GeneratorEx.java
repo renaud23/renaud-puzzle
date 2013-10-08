@@ -23,7 +23,7 @@ import puzzle.generator.utilitaire.FileUtils;
 
 
 /**
- * Classe chargée de construire les piéce à partir
+ * Classe chargï¿½e de construire les piï¿½ce ï¿½ partir
  * de la frame et e l'image.
  * @author kqhlz2
  *
@@ -83,8 +83,8 @@ public class GeneratorEx {
 	}
 	
 	/**
-	 * Crée les piécés et les enregiste à l'adresse fournit.
-	 * Fait le ménage avant tout, attention !
+	 * Crï¿½e les piï¿½cï¿½s et les enregiste ï¿½ l'adresse fournit.
+	 * Fait le mï¿½nage avant tout, attention !
 	 * @param path
 	 */
 	public void genereAndSave(String buildPath){
@@ -122,8 +122,8 @@ public class GeneratorEx {
 	}
 	
 	/**
-	 * Génére un jeu de piece dans un tampon en mémoire.
-	 * @param buildPath répertoire de travail.
+	 * Gï¿½nï¿½re un jeu de piece dans un tampon en mï¿½moire.
+	 * @param buildPath rï¿½pertoire de travail.
 	 * @return
 	 */
 	public Map<Integer, BufferedImage> genere(){
@@ -165,7 +165,7 @@ public class GeneratorEx {
 	}
 	
 	/**
-	 * Rempli le tampon avec la prochaine ligne de génération de piéces.
+	 * Rempli le tampon avec la prochaine ligne de gï¿½nï¿½ration de piï¿½ces.
 	 * @param y
 	 */
 	private void fillBuffer(int y,int x){
@@ -180,7 +180,7 @@ public class GeneratorEx {
 	}
 	
 	/**
-	 * assemble puzzle à sa taille dans une image.
+	 * assemble puzzle ï¿½ sa taille dans une image.
 	 * @return
 	 */
 	public BufferedImage makeVue(String pathImagesPieces,double scaleVue){
@@ -227,10 +227,10 @@ public class GeneratorEx {
 	
 	
 	/**
-	 * assemble puzzle à sa taille dans une image.
+	 * assemble puzzle ï¿½ sa taille dans une image.
 	 * @return
 	 */
-	public BufferedImage makeAperçu(Map<Integer,BufferedImage> images){
+	public BufferedImage makeApercu(Map<Integer,BufferedImage> images){
 		BufferedImage img = new BufferedImage(
 				(int)this.finalWidth, 
 				(int)this.finalHeight, 
@@ -273,10 +273,10 @@ public class GeneratorEx {
 	
 	
 	/**
-	 * assemble puzzle à sa taille dans une image.
+	 * assemble puzzle ï¿½ sa taille dans une image.
 	 * @return
 	 */
-	public BufferedImage makeAperçu(Map<Integer,BufferedImage> images,double scaleTo){
+	public BufferedImage makeAperï¿½u(Map<Integer,BufferedImage> images,double scaleTo){
 		BufferedImage img = new BufferedImage(
 				(int)(this.finalWidth * scaleTo), 
 				(int)(this.finalHeight * scaleTo), 
@@ -319,7 +319,7 @@ public class GeneratorEx {
 	}
 	
 	/**
-	 * Calcul les coordonnée du rectangle à saisir dans le puzzle final.
+	 * Calcul les coordonnï¿½e du rectangle ï¿½ saisir dans le puzzle final.
 	 * @param i
 	 * @param j
 	 * @return
@@ -336,7 +336,7 @@ public class GeneratorEx {
 		double minVar = this.decriptor.getPieceVarMin() * this.scalePiece;
 		double maxVar = this.decriptor.getPieceVarMax() * this.scalePiece;
 		
-		// calcul selon le type de la piéce.
+		// calcul selon le type de la piï¿½ce.
 		if( (value&FrameEx.nord) == FrameEx.nord){
 			h += maxVar;
 			y -= maxVar;
@@ -459,7 +459,7 @@ public class GeneratorEx {
 	}
 	
 	/**
-	 * Nettoie le répertoire de destination.
+	 * Nettoie le rï¿½pertoire de destination.
 	 */
 	private void cleanDirectory(String path){
 		FileUtils.cleanDirectory(path);

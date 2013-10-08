@@ -69,7 +69,7 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 			1.0, 1.0, 1.0f);
 		
 		
-		this.buffer.drawRect(Color.blue, (int) (x), (int)(y), 2, 2);
+//		this.buffer.drawRect(Color.blue, (int) (x), (int)(y), 2, 2);
 		
 	}
 

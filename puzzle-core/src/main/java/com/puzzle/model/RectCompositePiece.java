@@ -63,13 +63,11 @@ public class RectCompositePiece implements MyRect{
 
 	@Override
 	public double getLargeur() {
-		// TODO Auto-generated method stub
 		return this.largeur;
 	}
 
 	@Override
 	public double getHauteur() {
-		// TODO Auto-generated method stub
 		return this.hauteur;
 	}
 

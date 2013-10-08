@@ -141,4 +141,19 @@ public class TapisZoomControllerEx implements IController,Observer,ControllerSta
 		return this.mousePosition;
 	}
 
+
+
+
+	@Override
+	public void keyControlPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyControlReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

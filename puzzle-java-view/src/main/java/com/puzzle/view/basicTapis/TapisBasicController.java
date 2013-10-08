@@ -47,7 +47,7 @@ public class TapisBasicController implements IController,Observer{
 	private Point mousePosition;
 
 	private boolean tryClips;
-	private boolean rightClick;
+	
 	private boolean shiftPressed;
 	private boolean mainVide;
 	private boolean clips;
@@ -73,7 +73,7 @@ public class TapisBasicController implements IController,Observer{
 		this.fenetre.repaint();
 		
 		this.mainVide = true;
-		this.rightClick = false;
+		
 		this.shiftPressed = false;
 		this.tryClips = false;
 		this.mainVide = true;
@@ -265,19 +265,32 @@ public class TapisBasicController implements IController,Observer{
 
 	@Override
 	public void mouseDrag(int x, int y) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
-		this.rightClick = true;	
+		
 	}
 
 	@Override
 	public void mouseRightReleased(int x, int y) {
-		this.rightClick = false;
+		
+	}
+
+
+	@Override
+	public void keyControlPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyControlReleased() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

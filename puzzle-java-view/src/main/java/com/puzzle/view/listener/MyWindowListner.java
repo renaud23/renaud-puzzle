@@ -28,13 +28,8 @@ public class MyWindowListner implements ComponentListener{
 
 	@Override
 	public void componentResized(ComponentEvent e) {
+			this.fenetre.resize();
 	
-		int w = this.fenetre.getOffscreen().getWidth();
-		int h = this.fenetre.getOffscreen().getHeight();
-	
-//		if(w>0 && h>0)
-//			this.fenetre.resize(w, h);
-//		
 	}
 
 	@Override

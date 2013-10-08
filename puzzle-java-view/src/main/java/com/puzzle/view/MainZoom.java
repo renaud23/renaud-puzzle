@@ -17,13 +17,15 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.ImageMemoryManager;
+import com.puzzle.view.mainGauche.MainGaucheController;
+import com.puzzle.view.mainGauche.MainGaucheView;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("E:/workspaceEclipse/puzzle-pieces/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/floflo/images/");
+		File file = new File("/home/renaud/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -54,13 +56,17 @@ public class MainZoom {
 		}
 //		cmp.poser(tapis);
 		
-		Fenetre f = new Fenetre(800,800);
+		Fenetre f = new Fenetre(600,600);
 		f.start();
+		
 		IController c = new TapisZoomController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
 		f.getFrame().addKeyListener(new MyKeyListener(c));
+		
+		MainGaucheController mgc = new MainGaucheController(tapis, f);
+		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
 
 	}
 

@@ -1,6 +1,6 @@
 package com.puzzle.view;
 
-import java.awt.Dimension;
+
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.JPanel;
@@ -19,17 +19,14 @@ public class Offscreen extends JPanel{
 	
 	public Offscreen(List<ImageBuffer> backBuffer) {
 		this.backBuffer = backBuffer;
-		this.setPreferredSize(new Dimension(this.backBuffer.get(0).getLargeur(),this.backBuffer.get(0).getHauteur()));
 	}
 
 
 
 
 	protected void paintComponent(Graphics g){
-		
 		for(ImageBuffer buff : this.backBuffer){
 			g.drawImage(buff.getImage(), 0, 0, null);
-		
 		}
 		
 		g.dispose();

@@ -2,15 +2,15 @@ package com.puzzle.view.zoomTapis;
 
 import java.awt.Color;
 import java.awt.Image;
-
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.ImageBuffer;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.drawer.IDrawerParametrable;
 import com.puzzle.view.drawer.ImageMemoryManager;
+
+
 
 public class TapisZoomDrawer implements IDrawer{
 	

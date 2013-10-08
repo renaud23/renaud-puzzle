@@ -10,4 +10,6 @@ public interface IController {
 	public void mouseWheel(boolean up);
 	public void keyShiftPressed();
 	public void keyShiftReleased();
+	public void keyControlPressed();
+	public void keyControlReleased();
 }
