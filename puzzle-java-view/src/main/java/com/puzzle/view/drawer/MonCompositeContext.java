@@ -42,10 +42,6 @@ public class MonCompositeContext implements CompositeContext{
 //					dstPixel[3] = 255;
 //					dstOut.setPixel(x, y, dstPixel);
 //				}
-				
-				
-				
-				int posY = 
 			}
 		}
 		
