@@ -8,12 +8,14 @@ import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.ParcourirMainGauche;
 import com.puzzle.command.PasserDansMainDroite;
 import com.puzzle.command.param.ParcourirMainGaucheParam;
+import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
-import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
+
+
 
 public class MainGaucheController implements IController,Observer{
 	private Tapis tapis;
@@ -150,6 +152,27 @@ public class MainGaucheController implements IController,Observer{
 				this.fenetre.repaint();
 			}
 		}
+		
+	}
+
+
+
+	@Override
+	public void mouseEntered() {
+		this.drawer.setParam(MainGauche.getInstance().getFocused());
+		
+		this.drawer.clean();
+		this.drawer.draw();this.fenetre.repaint();
+	}
+
+
+
+	@Override
+	public void mouseExited() {
+		this.drawer.setParam(-1);
+		
+		this.drawer.clean();
+		this.drawer.draw();this.fenetre.repaint();
 		
 	}
 	

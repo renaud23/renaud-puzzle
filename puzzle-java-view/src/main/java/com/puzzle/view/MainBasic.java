@@ -19,8 +19,8 @@ import com.puzzle.view.mainGauche.MainGaucheController;
 
 public class MainBasic {
 	public static void main(String[] args){
-		File file = new File("E:/workspaceEclipse/puzzle-pieces/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("E:/workspaceEclipse/puzzle-pieces/floflo/images/");
+		File file = new File("/home/renaud/workspace/puzzle-pieces/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("/home/renaud/workspace/puzzle-pieces/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -49,7 +49,7 @@ public class MainBasic {
 		}
 //		cmp.poser(tapis);
 		
-		Fenetre f = new Fenetre(1000,800);
+		Fenetre f = new Fenetre(750,600);
 		f.start();
 		TapisBasicController c = new TapisBasicController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));

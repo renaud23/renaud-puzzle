@@ -21,13 +21,12 @@ public class MyMouseListener extends  MouseAdapter{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+		this.controller.mouseEntered();
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseExited(MouseEvent e) {
+		this.controller.mouseExited();
 	}
 
 	@Override

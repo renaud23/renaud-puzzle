@@ -12,4 +12,6 @@ public interface IController {
 	public void keyShiftReleased();
 	public void keyControlPressed();
 	public void keyControlReleased();
+	public void mouseEntered();
+	public void mouseExited();
 }
