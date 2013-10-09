@@ -58,9 +58,9 @@ public class TapisZoomDrawer implements IDrawer{
 						1.0f);
 				
 				// pour dev
-				Point c = new Point(piece.getCentre().getX(), piece.getCentre().getY());
-				this.converter.convertModelToScreen(c);
-				this.tapisBuffer.drawRect(Color.white, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
+//				Point c = new Point(piece.getCentre().getX(), piece.getCentre().getY());
+//				this.converter.convertModelToScreen(c);
+//				this.tapisBuffer.drawRect(Color.white, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
 			}
 		}
 			
