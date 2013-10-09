@@ -25,8 +25,8 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("/home/renaud/workspace/puzzle-pieces/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/workspace/puzzle-pieces/floflo/images/");
+		File file = new File("P:/workspace_java/puzzle-pieces/floflo/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/floflo/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		

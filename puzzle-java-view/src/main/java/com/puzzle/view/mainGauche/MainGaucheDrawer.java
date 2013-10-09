@@ -69,13 +69,16 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 			scale = this.buffer.getLargeur() / pFocused.getRect().getLargeur();
 			double x = px - pFocused.getLargeur() / 2.0 *scale;
 			double y = py - pFocused.getHauteur() / 2.0 *scale;
+			
+//			this.buffer.drawImageMask(imgFocused, x, y, px, py, -pFocused.getAngle(), scale, scale, Color.red);
+			
 			this.buffer.drawImage(
 					imgFocused, 
 					x,y, 
 					px, py, -pFocused.getAngle(), 
 					scale, scale, 1.0f);
 			
-//			this.buffer.drawImageMask(imgFocused, x, y, px, py, -pFocused.getAngle(), scale, scale, Color.red);
+			
 		}
 	}
 

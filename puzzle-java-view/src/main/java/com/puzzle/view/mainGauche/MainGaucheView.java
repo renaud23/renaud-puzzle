@@ -27,7 +27,7 @@ public class MainGaucheView {
 	
 	public void create(int largeur,int hauteur){
 		this.buffers.clear();
-		ImageBuffer im1 = new ImageBuffer(new Color(50,100,100,255), largeur, hauteur);
+		ImageBuffer im1 = new ImageBuffer(new Color(200,200,200,255), largeur, hauteur);
 		im1.clean();
 //		ImageBuffer im2 = new ImageBuffer(new Color(0,0,0,0), largeur, hauteur);
 //		im2.transparentClean();

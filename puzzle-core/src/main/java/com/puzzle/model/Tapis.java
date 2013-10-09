@@ -30,11 +30,10 @@ public class Tapis extends Observable implements Iterable<Piece>{
 
 
 	public Tapis(double largeur, double hauteur) {
-		super();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-		this.memoire = new TasManager<Piece>(7, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
+		this.memoire = new TasManager<Piece>(10, (largeur / 2.0) * -1.0, hauteur / 2.0, largeur, hauteur);
 	}
 
 	
