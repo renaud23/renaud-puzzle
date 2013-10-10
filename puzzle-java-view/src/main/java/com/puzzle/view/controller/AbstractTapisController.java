@@ -15,6 +15,7 @@ import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.ClipserParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.MainDroite;
+import com.puzzle.model.MainGauche;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
@@ -38,7 +39,8 @@ public abstract class AbstractTapisController implements IController, Observer{
 	protected IsClipsParam isClipsParam;
 	protected AttrapperMainDroiteParam attraperParam;
 	
-	protected boolean mainVide;
+	protected boolean mainDroiteVide;
+	protected boolean mainGaucheVide;
 	protected boolean rightClick;
 	protected boolean shiftPressed;
 	protected boolean tryClips;
@@ -55,7 +57,8 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.isClipsParam = new IsClipsParam();
 		this.attraperParam = new AttrapperMainDroiteParam();
 		
-		this.mainVide = true;
+		this.mainDroiteVide = true;
+		this.mainGaucheVide = true;
 		this.rightClick = false;
 		this.shiftPressed = false;
 		this.tryClips = false;
@@ -78,6 +81,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.selectionParam.setAncre(MainDroite.getInstance().getAncre());
 		this.selectionParam.setPosition(new Point(Double.MAX_VALUE,Double.MAX_VALUE));
 		this.selectionDrawer.setParam(this.selectionParam);
+		this.mainGaucheVide = MainGauche.getInstance().isEmpty();
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
@@ -89,7 +93,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		((TapisZoomConverteur)this.converter).moveTo(p);
 		
-		if(!this.mainVide){
+		if(!this.mainDroiteVide){
 			this.selectionParam.setPosition(new Point(this.mousePosition.getX(),this.mousePosition.getY()));
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
@@ -114,12 +118,17 @@ public abstract class AbstractTapisController implements IController, Observer{
 	public void update(Observable o, Object arg) {
 		if(arg instanceof State){
 			State st = (State) arg;
-			if(st == State.MainDroitePleine)this.mainVide = false;
-			else if(st == State.MainDroiteVide)this.mainVide = true;
-			else if(st == State.droiteToGauche)this.mainVide = true;
-			else if(st == State.gaucheToDroite){this.mainVide = false;this.resetSelection();}
-			else if(st == State.PuzzleFini){
-				this.mainVide = true;
+			if(st == State.MainDroitePleine)this.mainDroiteVide = false;
+			else if(st == State.MainDroiteVide)this.mainDroiteVide = true;
+			else if(st == State.droiteToGauche){
+				this.mainDroiteVide = true;
+				this.mainGaucheVide = false;
+			}
+			else if(st == State.gaucheToDroite){
+				this.mainDroiteVide = false;
+				this.resetSelection();
+			}else if(st == State.PuzzleFini){
+				this.mainDroiteVide = true;
 				System.out.println("Fini!!!");
 			}
 		}
@@ -159,7 +168,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		cmd.execute();
 		
-		if(!this.mainVide){
+		if(!this.mainDroiteVide){
 			this.selectionDrawer = new DrawSelection(
 					this.fenetre.getBuffer(1), 
 					MainDroite.getInstance().getPiece(), 
@@ -194,7 +203,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.mousePosition.setX(x);
 		this.mousePosition.setY(y);
 	
-		if(this.mainVide){
+		if(this.mainDroiteVide){
 			this.attraper(x, y);
 		}else{
 			if(this.clips){
@@ -215,6 +224,14 @@ public abstract class AbstractTapisController implements IController, Observer{
 		}
 	}
 	
+	private void save(){
+		if(this.mainDroiteVide && this.mainGaucheVide){
+			System.out.println("save");
+		}else{
+			System.out.println("Videz vous les mains !");
+		}
+	}
+	
 
 	@Override
 	public void mouseLeftReleased(int x, int y) {
@@ -227,7 +244,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.mousePosition.setX(x);
 		this.mousePosition.setY(y);
 		
-		if(!this.mainVide && !this.shiftPressed){
+		if(!this.mainDroiteVide && !this.shiftPressed){
 			
 			this.selectionParam.setPosition(new Point(x,y));
 			
@@ -239,7 +256,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 
 	@Override
 	public void mouseWheel(boolean up) {
-		if(!this.mainVide){
+		if(!this.mainDroiteVide){
 			this.tourner(up);
 		}	
 	}
@@ -248,7 +265,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 	public void keyShiftPressed() {
 		this.shiftPressed = true;
 		
-		if(!this.tryClips && !this.mainVide){
+		if(!this.tryClips && !this.mainDroiteVide){
 			this.tryClips = true;
 			this.isClipsable(this.mousePosition.getX(), this.mousePosition.getY());
 		}
@@ -263,7 +280,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionParam.clearCandidats();
 			this.clips = false;
 		}
-		if(!this.mainVide){
+		if(!this.mainDroiteVide){
 			
 			this.selectionParam.setPosition(new Point(this.mousePosition.getX(),this.mousePosition.getY()));
 			this.selectionDrawer.clean();
@@ -291,7 +308,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 
 	@Override
 	public void keyControlPressed() {
-		if(!this.mainVide && !clips){
+		if(!this.mainDroiteVide && !clips){
 			ChangerDeMainParam param = new ChangerDeMainParam();
 			CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.tapis);
 			cmd.setArgument(param);
@@ -303,6 +320,11 @@ public abstract class AbstractTapisController implements IController, Observer{
 			}
 		}// if
 	}
+	
+	public void controlPlusS(){
+		this.save();
+	}
+	
 
 	public void mouseEntered(){
 		// Nothing

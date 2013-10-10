@@ -67,6 +67,10 @@ public class MainGauche implements Iterable<Piece>{
 		return this.focused != -1;
 	}
 	
+	public boolean isEmpty(){
+		return this.pieces.isEmpty();
+	}
+	
 	public int getSize() {
 		return size;
 	}

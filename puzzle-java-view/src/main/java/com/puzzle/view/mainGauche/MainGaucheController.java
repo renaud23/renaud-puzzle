@@ -109,35 +109,7 @@ public class MainGaucheController implements IController,Observer{
 
 
 
-	@Override
-	public void keyShiftPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void keyShiftReleased() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void keyControlPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void keyControlReleased() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 
@@ -173,6 +145,46 @@ public class MainGaucheController implements IController,Observer{
 		
 		this.drawer.clean();
 		this.drawer.draw();this.fenetre.repaint();
+		
+	}
+
+
+
+	@Override
+	public void keyShiftPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void keyShiftReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void keyControlPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void keyControlReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void controlPlusS() {
+		// TODO Auto-generated method stub
 		
 	}
 	

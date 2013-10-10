@@ -20,7 +20,7 @@ public class TapisZoomController extends AbstractTapisController{
 	
 	@Override
 	public void mouseWheel(boolean up) {
-		if(this.mainVide){
+		if(this.mainDroiteVide){
 			this.zoom(up);
 		}else super.mouseWheel(up);
 	}
