@@ -188,6 +188,13 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		return angle;
 	}
 	
+	public Puzzle getPuzzle(){
+		Puzzle p = null;
+		if(!this.pieces.isEmpty()) p = this.pieces.get(0).getPuzzle();
+		
+		return p;
+	}
+	
 	public void updateRect(){
 		this.rect.update();
 	}

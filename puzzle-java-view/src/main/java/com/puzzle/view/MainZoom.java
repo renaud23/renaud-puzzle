@@ -27,40 +27,22 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
-//		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/schtroumf_21/images/");
-		XmlLoader ld = new XmlLoader(file);
-		
-	
 		int largeur = 10000;
 		int hauteur = 5000;
-		int tx = largeur - 200;
-		int ty = hauteur - 200;
-		
-		Tapis tapis = new Tapis(largeur,hauteur);
-		List<Piece> pieces = ld.getPieces();
-		Puzzle puzzle = ld.getPuzzle();
-		
-		Random rnd = new Random();
 
-		CompositePiece cmp = new CompositePiece(0, 0);
-		for(Piece p : pieces){
-			p.setX(rnd.nextInt(tx)-tx/2);
-			p.setY(rnd.nextInt(ty)-ty/2);
-			p.setAngle(new Angle(16));
-			
-			p.setPuzzle(puzzle);
-			puzzle.put(p.getId(), p);
-			
-//			cmp.addComponent(p);
-		}
-//		cmp.poser(tapis);
-		tapis.poser(puzzle);
+		Tapis tapis = new Tapis(largeur,hauteur);
+
+
+		Puzzle p1 = MainZoom.loadPuzzle("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml", largeur, hauteur);
+		tapis.poser(p1);
+		Puzzle p2 = MainZoom.loadPuzzle("P:/workspace_java/puzzle-pieces/floflo/puzzle.xml", largeur, hauteur);
+		tapis.poser(p2);
 		
 		
-		ImageMemoryManager.getInstance().put(puzzle.getId(),
+		ImageMemoryManager.getInstance().put(p1.getId(),
 				new BasicImageProvider("P:/workspace_java/puzzle-pieces/schtroumf_21/images/"));
-		
+		ImageMemoryManager.getInstance().put(p2.getId(),
+				new BasicImageProvider("P:/workspace_java/puzzle-pieces/floflo/images/"));
 		
 		
 		Fenetre f = new Fenetre(800,600);
@@ -76,10 +58,29 @@ public class MainZoom {
 		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
 		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
 		
-		
-		
 		System.setProperty(PuzzleProperties.savePath.getName(), "P:/git/renaud-puzzle/puzzle-io-xml/src/main/resources");
 		
+	}
+	
+	
+	public static Puzzle loadPuzzle(String path,int largeur,int hauteur){
+		File file = new File(path);
+		XmlLoader ld = new XmlLoader(file);
+		List<Piece> pieces = ld.getPieces();
+		Puzzle puzzle = ld.getPuzzle();
+		
+		Random rnd = new Random();
+		int tx = largeur - 200;
+		int ty = hauteur - 200;
+		for(Piece p : pieces){
+			p.setX(rnd.nextInt(tx)-tx/2);
+			p.setY(rnd.nextInt(ty)-ty/2);
+			p.setAngle(new Angle(16));
+			
+			p.setPuzzle(puzzle);
+			puzzle.put(p.getId(), p);
+		}
+		return puzzle;
 	}
 
 }

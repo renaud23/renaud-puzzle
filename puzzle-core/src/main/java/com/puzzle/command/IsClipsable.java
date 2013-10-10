@@ -51,8 +51,11 @@ public class IsClipsable implements CommandeArgument<IsClipsParam>{
 			List<Piece> elus = new ArrayList<Piece>();
 		
 			for(Piece p : cdt){
-				boolean state = cmp.verifierClips(p);
-				if(state) elus.add(p);
+				boolean state = false;
+				if(cmp.getPuzzle().getId() == p.getPuzzle().getId()){
+					state = cmp.verifierClips(p);
+					if(state) elus.add(p);
+				}
 			}// for
 		
 			this.param.setCandidats(elus);

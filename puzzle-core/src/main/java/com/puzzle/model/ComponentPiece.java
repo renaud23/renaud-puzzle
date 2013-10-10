@@ -15,4 +15,5 @@ public interface ComponentPiece extends IRectable{
 	public double getLargeur();
 	public double getHauteur();
 	public void poser(Tapis tapis);
+	public Puzzle getPuzzle();
 }
