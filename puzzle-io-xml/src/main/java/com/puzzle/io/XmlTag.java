@@ -8,7 +8,8 @@ public enum XmlTag {
 	hauteur("hauteur"),
 	cx("cx"),
 	cy("cy"),
-	nom("nom");
+	nom("nom"),
+	angle("angle");
 	
 	
 	private XmlTag(String name){

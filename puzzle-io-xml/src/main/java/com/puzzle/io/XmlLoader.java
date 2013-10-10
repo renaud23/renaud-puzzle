@@ -48,10 +48,6 @@ public class XmlLoader implements PuzzleLoader{
 			
 			
 			for(Element eps : rootPieces){
-				
-				
-				
-				
 				List<Element> pieces = eps.getChildren(XmlTag.piece.toString());
 				for(Element ep : pieces){
 					int id = Integer.valueOf(ep.getChild(XmlTag.id.toString()).getText());
@@ -59,8 +55,11 @@ public class XmlLoader implements PuzzleLoader{
 					double puzzleY = Double.valueOf(ep.getChild(XmlTag.cy.toString()).getText());
 					double largeur = Double.valueOf(ep.getChild(XmlTag.largeur.toString()).getText());
 					double hauteur = Double.valueOf(ep.getChild(XmlTag.hauteur.toString()).getText());
+					double angle = 0.0;
+					if(ep.getChild(XmlTag.angle.toString()) != null) angle = Double.valueOf(ep.getChild(XmlTag.angle.toString()).getText());
 					
 					Piece p = new Piece(id, puzzleX, puzzleY, largeur, hauteur);
+					p.setAngle(angle);
 					this.pieces.add(p);
 				}// for
 			}// for

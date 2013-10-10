@@ -248,6 +248,10 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.angle.regler(angle);
 	}
 	
+	public void setAngle(Angle angle){
+		this.angle = angle;
+	}
+	
 	public void updateRect(){
 		this.rect.update();
 	}

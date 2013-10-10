@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.puzzle.io.XmlLoader;
+import com.puzzle.model.Angle;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
@@ -45,6 +46,7 @@ public class MainZoom {
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(tx)-tx/2);
 			p.setY(rnd.nextInt(ty)-ty/2);
+			p.setAngle(new Angle(16));
 			
 			
 			p.setPuzzle(puzzle);
