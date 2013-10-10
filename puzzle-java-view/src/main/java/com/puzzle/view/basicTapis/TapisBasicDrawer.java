@@ -34,7 +34,9 @@ public class TapisBasicDrawer implements IDrawer {
 		
 		//	 dessin tapis
 		for(Piece piece : this.tapis){
-			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+//			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
+			
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			this.converteur.convertModelToScreen(p);
 			

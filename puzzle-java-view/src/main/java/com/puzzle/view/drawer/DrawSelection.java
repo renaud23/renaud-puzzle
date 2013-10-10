@@ -37,7 +37,8 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 //		this.buffer.transparentClean();
 		// les candidats
 		for(Piece piece : this.param.getCandidats()){
-			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+//			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			this.converter.convertModelToScreen(p);
 			
@@ -76,7 +77,8 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 	}
 
 	private void drawPiece(Piece piece,double x,double y){
-		Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+//		Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+		Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 		
 		this.selection.drawImage(img, 
 				x, y, 
@@ -95,7 +97,8 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 		
 		if(this.component instanceof Piece){
 			Piece piece = (Piece)this.component;
-			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+//			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 			
 			this.selection.drawImage(img, 0, 0, 0, 0, 0, 
 					this.converter.getScaleX(),this.converter.getScaleY(), 1.0f);

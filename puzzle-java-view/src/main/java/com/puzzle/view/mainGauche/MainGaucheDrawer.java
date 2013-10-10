@@ -39,7 +39,8 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 		for(Piece p : MainGauche.getInstance()){
 			if(i == 0) scale =  this.largeur / p.getLargeur();
 			
-			Image img = ImageMemoryManager.getInstance().getImage(p.getId());
+//			Image img = ImageMemoryManager.getInstance().getImage(p.getId());
+			Image img = ImageMemoryManager.getInstance().get(p.getPuzzle().getId()).getImage(p.getId());
 			
 			double xi = this.margeVerticale;
 			xi += this.largeur / 2.0;

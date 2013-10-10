@@ -16,6 +16,7 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.mainGauche.MainGaucheController;
+import com.puzzle.view.tool.BasicImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 
@@ -27,10 +28,10 @@ public class MainZoom {
 
 	public static void main(String[] args) {
 		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/schtroumf_21/images/");
+//		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/schtroumf_21/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
-		
+	
 		int largeur = 10000;
 		int hauteur = 5000;
 		int tx = largeur - 200;
@@ -54,8 +55,13 @@ public class MainZoom {
 //			cmp.addComponent(p);
 		}
 //		cmp.poser(tapis);
-		
 		tapis.poser(puzzle);
+		
+		
+		ImageMemoryManager.getInstance().put(puzzle.getId(),
+				new BasicImageProvider("P:/workspace_java/puzzle-pieces/schtroumf_21/images/"));
+		
+		
 		
 		Fenetre f = new Fenetre(800,600);
 		f.start();
@@ -69,6 +75,8 @@ public class MainZoom {
 		MainGaucheController mgc = new MainGaucheController(tapis, f);
 		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
 		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
+		
+		
 		
 		System.setProperty(PuzzleProperties.savePath.getName(), "P:/git/renaud-puzzle/puzzle-io-xml/src/main/resources");
 		

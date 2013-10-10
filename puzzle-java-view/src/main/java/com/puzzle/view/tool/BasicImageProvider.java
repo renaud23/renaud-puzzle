@@ -17,7 +17,7 @@ import java.util.Map;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
-public class BasicImageProvider {
+public class BasicImageProvider implements ImageProvider {
 	
 	
 	private String path;

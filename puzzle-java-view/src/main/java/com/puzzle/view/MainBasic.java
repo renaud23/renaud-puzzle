@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.puzzle.io.XmlLoader;
+import com.puzzle.model.Angle;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
@@ -15,12 +16,12 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.mainGauche.MainGaucheController;
+import com.puzzle.view.tool.BasicImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 
 public class MainBasic {
 	public static void main(String[] args){
-		File file = new File("/home/renaud/workspace/puzzle-pieces/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("/home/renaud/workspace/puzzle-pieces/floflo/images/");
+		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -39,15 +40,19 @@ public class MainBasic {
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(tx)-tx/2);
 			p.setY(rnd.nextInt(ty)-ty/2);
-			p.updateRect();
+			p.setAngle(new Angle(16));
 			
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 			
-			p.poser(tapis);
+		
 //			cmp.addComponent(p);
 		}
 //		cmp.poser(tapis);
+		tapis.poser(puzzle);
+		
+		ImageMemoryManager.getInstance().put(puzzle.getId(), 
+				new BasicImageProvider("P:/workspace_java/puzzle-pieces/schtroumf_21/images/"));
 		
 		Fenetre f = new Fenetre(750,600);
 		f.start();

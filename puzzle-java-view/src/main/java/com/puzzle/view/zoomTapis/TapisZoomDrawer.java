@@ -41,7 +41,8 @@ public class TapisZoomDrawer implements IDrawer{
 		//	 dessin tapis
 		for(Piece piece : this.tapis){
 			if(piece.getRect().isIn(r)){
-				Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+//				Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+				Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 				Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 				this.converter.convertModelToScreen(p);
 				
