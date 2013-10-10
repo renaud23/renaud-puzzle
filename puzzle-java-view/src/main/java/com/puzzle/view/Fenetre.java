@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import com.puzzle.view.listener.MyWindowListner;
 import com.puzzle.view.mainGauche.MainGaucheView;
+import com.puzzle.view.tool.ImageBuffer;
 
 
 

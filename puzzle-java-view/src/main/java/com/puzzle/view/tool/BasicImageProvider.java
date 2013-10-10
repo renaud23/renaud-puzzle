@@ -1,4 +1,4 @@
-package com.puzzle.view.drawer;
+package com.puzzle.view.tool;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -17,32 +17,19 @@ import java.util.Map;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
-
-
-
-public class ImageMemoryManager extends Thread implements ImageProvider{
-	
-//	private static String PATH_IMAGES = "data/images/";
+public class BasicImageProvider {
 	
 	
 	private String path;
-	
-	private static ImageMemoryManager instance;
-	
 	private Map<Integer, SoftReference<VolatileImage>> images;
 	
 	
 
 
-	
-	public static ImageMemoryManager getInstance(){
-		if(ImageMemoryManager.instance == null){
-			ImageMemoryManager.instance = new ImageMemoryManager();
-		}
-		return ImageMemoryManager.instance;
-	}
 
-	private ImageMemoryManager(){
+
+	public BasicImageProvider(String path){
+		this.path = path;
 		this.images = new HashMap<Integer, SoftReference<VolatileImage>>();
 	}
 

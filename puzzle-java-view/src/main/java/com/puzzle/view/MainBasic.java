@@ -14,8 +14,8 @@ import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
-import com.puzzle.view.drawer.ImageMemoryManager;
 import com.puzzle.view.mainGauche.MainGaucheController;
+import com.puzzle.view.tool.ImageMemoryManager;
 
 public class MainBasic {
 	public static void main(String[] args){

@@ -4,8 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import com.puzzle.view.ImageBuffer;
+
 import com.puzzle.view.Offscreen;
+import com.puzzle.view.tool.ImageBuffer;
 
 
 

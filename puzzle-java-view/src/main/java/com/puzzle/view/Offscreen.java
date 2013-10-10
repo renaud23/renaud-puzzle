@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import com.puzzle.view.tool.ImageBuffer;
+
 public class Offscreen extends JPanel{
 
 	/**

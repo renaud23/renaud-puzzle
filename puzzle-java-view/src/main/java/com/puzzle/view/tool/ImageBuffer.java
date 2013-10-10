@@ -1,4 +1,4 @@
-package com.puzzle.view;
+package com.puzzle.view.tool;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -10,8 +10,6 @@ import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.VolatileImage;
-
-import com.puzzle.view.drawer.MonComposite;
 
 
 
