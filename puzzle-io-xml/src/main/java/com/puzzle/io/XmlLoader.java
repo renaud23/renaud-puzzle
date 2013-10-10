@@ -1,4 +1,4 @@
-package com.puzzle.loader;
+package com.puzzle.io;
 
 import java.io.File;
 import java.io.IOException;

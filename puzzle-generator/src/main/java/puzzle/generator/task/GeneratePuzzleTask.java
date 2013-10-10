@@ -8,7 +8,6 @@ import puzzle.generator.modele.Puzzle;
 import puzzle.generator.modele.Tapis;
 import puzzle.generator.utilitaire.FileUtils;
 import puzzle.generator.utilitaire.XMLGenerator;
-import puzzle.generator.vue.LoggerArea;
 import puzzle.generator.vue.MainScreen;
 
 
@@ -63,14 +62,14 @@ public class GeneratePuzzleTask extends Thread {
 	}
 	
 	
-	private void clean(File file){
-		if(file.isFile()) file.delete();
-		else if(file.isDirectory()){
-			for(File f : file.listFiles()){
-				this.clean(f);
-			}
-		}
-	}
+//	private void clean(File file){
+//		if(file.isFile()) file.delete();
+//		else if(file.isDirectory()){
+//			for(File f : file.listFiles()){
+//				this.clean(f);
+//			}
+//		}
+//	}
 	
 	
 	/*

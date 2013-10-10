@@ -2,7 +2,12 @@ package com.puzzle.view;
 
 
 import java.awt.Graphics;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 import java.util.List;
+
 import javax.swing.JPanel;
 
 public class Offscreen extends JPanel{
@@ -30,6 +35,21 @@ public class Offscreen extends JPanel{
 		}
 		
 		g.dispose();
+	}
+	
+	public void cleanListener(){
+		for(MouseListener l : this.getMouseListeners()){
+			this.removeMouseListener(l);
+		}
+		for(MouseMotionListener l : this.getMouseMotionListeners()){
+			this.removeMouseMotionListener(l);
+		}
+		for(MouseWheelListener l : this.getMouseWheelListeners()){
+			this.removeMouseWheelListener(l);
+		}
+		for(KeyListener l : this.getKeyListeners()){
+			this.removeKeyListener(l);
+		}
 	}
 	
 	

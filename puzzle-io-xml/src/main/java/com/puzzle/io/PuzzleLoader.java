@@ -1,4 +1,4 @@
-package com.puzzle.loader;
+package com.puzzle.io;
 
 import java.util.List;
 

@@ -64,6 +64,11 @@ public class Fenetre extends Thread {
 	}
 	
 	
+	public void cleanListener(){
+		this.offscreen.cleanListener();
+		this.mainGauche.getOffscreen().cleanListener();
+	}
+	
 	public void resize(){
 		// TODO
 		

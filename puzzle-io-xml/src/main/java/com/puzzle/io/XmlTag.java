@@ -1,7 +1,14 @@
-package com.puzzle.loader;
+package com.puzzle.io;
 
 public enum XmlTag {
-	pieces("pieces"), piece("piece"),id("id"),largeur("largeur"),hauteur("hauteur"),cx("cx"),cy("cy"),nom("nom");
+	pieces("pieces"), 
+	piece("piece"),
+	id("id"),
+	largeur("largeur"),
+	hauteur("hauteur"),
+	cx("cx"),
+	cy("cy"),
+	nom("nom");
 	
 	
 	private XmlTag(String name){

@@ -9,7 +9,7 @@ import com.jPuzzle.view.basicTapis.TapisBasicConverter;
 import com.jPuzzle.view.basicTapis.TapisBasicDrawer;
 import com.jPuzzle.view.drawer.HeadUpDisplayDrawer;
 import com.jPuzzle.view.image.ImageMemoryManager;
-import com.puzzle.loader.XmlLoader;
+import com.puzzle.io.XmlLoader;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;

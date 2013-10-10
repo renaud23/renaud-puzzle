@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
-import com.puzzle.loader.XmlLoader;
+import com.puzzle.io.XmlLoader;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;

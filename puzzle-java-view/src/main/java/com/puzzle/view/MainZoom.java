@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
-import com.puzzle.loader.XmlLoader;
+import com.puzzle.io.XmlLoader;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
@@ -25,12 +25,12 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("P:/workspace_java/puzzle-pieces/floflo/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/floflo/images/");
+		File file = new File("P:/workspace_java/puzzle-pieces/gaston_135/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/gaston_135/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
-		int largeur = 5000;
+		int largeur = 10000;
 		int hauteur = 5000;
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
@@ -55,7 +55,7 @@ public class MainZoom {
 		}
 //		cmp.poser(tapis);
 		
-		Fenetre f = new Fenetre(600,600);
+		Fenetre f = new Fenetre(800,600);
 		f.start();
 		
 		IController c = new TapisZoomController(f, tapis);

@@ -56,43 +56,36 @@ public class MonCompositeContext implements CompositeContext{
 		int[] srcPixel = new int[4];
 		int[] dstPixel = new int[4];
 
-		for (int y = dstIn.getMinY(); y < dstIn.getMinY() +
-			dstIn.getHeight(); y++) {
+		for (int y = dstIn.getMinY(); y < (dstIn.getMinY() +
+			dstIn.getHeight()); y++) {
 			for (int x = dstIn.getMinX(); x < dstIn.getMinX()
 				+ dstIn.getWidth(); x++) {
 				
 				
-//				srcPixel = src.getPixel(x, y, srcPixel);
+				srcPixel = src.getPixel(x, y, srcPixel);
+				
+				dstPixel[0] = ((srcPixel[0] * color.getRed()) >> 8) & 0xFF;
+				dstPixel[1] = ((srcPixel[1] * color.getGreen()) >> 8) & 0xFF;
+				dstPixel[2] = ((srcPixel[2] * color.getBlue()) >> 8) & 0xFF;
+
+				dstPixel[3] = srcPixel[3];
+				
+				
+				if(dstPixel[3] == 255)
+					dstOut.setPixel(x, y, dstPixel);
+		
+//				dstPixel[0] = 255;
+//				dstPixel[1] = 0;
+//				dstPixel[2] = 255;
+//				dstPixel[3] = 150;
 //				
-//				dstPixel[0] = ((srcPixel[0] * color.getRed()) >> 8) & 0xFF;
-//				dstPixel[1] = ((srcPixel[1] * color.getGreen()) >> 8) & 0xFF;
-//				dstPixel[2] = ((srcPixel[2] * color.getBlue()) >> 8) & 0xFF;
-//
-//				dstPixel[3] = srcPixel[3];
-//				
-//				
-//				if(dstPixel[3] == 255)
+//				if(this.isBord(x, y)){
+//					dstOut.setPixel(x-1, y, dstPixel);
+//					dstOut.setPixel(x+1, y, dstPixel);
+//					dstOut.setPixel(x, y-1, dstPixel);
+//					dstOut.setPixel(x, y+1, dstPixel);
 //					dstOut.setPixel(x, y, dstPixel);
-				
-				dstPixel[0] = 255;
-				dstPixel[1] = 0;
-				dstPixel[2] = 255;
-				dstPixel[3] = 150;
-				
-				if(this.isBord(x, y)){
-					if(this.left){
-						dstOut.setPixel(x-1, y, dstPixel);
-					}
-					if(this.right){
-						dstOut.setPixel(x+1, y, dstPixel);
-					}
-					if(this.up){
-						dstOut.setPixel(x, y-1, dstPixel);
-					}
-					if(this.down){
-						dstOut.setPixel(x, y+1, dstPixel);
-					}
-				}// if
+//				}// if
 			}
 		}
 	}
@@ -103,8 +96,8 @@ public class MonCompositeContext implements CompositeContext{
 		
 		this.left = false;
 		this.right = false;
-		this.up = false;
-		this.down = false;
+		this.up = true;
+		this.down = true;
 		
 		this.src.getPixel(x, y, pixel);
 		if(pixel[3] != 0){
@@ -125,24 +118,7 @@ public class MonCompositeContext implements CompositeContext{
 				}
 			}
 			
-			if(y>0){
-				this.up = true;
-				this.src.getPixel(x, y-1, pixel);
-				if(pixel[3] == 0){
-					state = true;
-					this.up = true;
-				}
-			}
-			
-			if(y < (this.src.getHeight()-1)){
-				this.right = true;
-				this.src.getPixel(x, y+1, pixel);
-				if(pixel[3] == 0){
-					state = true;
-					this.down = true;
-				}
-			}
-		}
+		}// if
 		
 		return state;
 	}
