@@ -26,8 +26,8 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) {
-		File file = new File("P:/workspace_java/puzzle-pieces/gaston_135/puzzle.xml");
-		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/gaston_135/images/");
+		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
+		ImageMemoryManager.getInstance().setPath("P:/workspace_java/puzzle-pieces/schtroumf_21/images/");
 		XmlLoader ld = new XmlLoader(file);
 		
 		
@@ -48,14 +48,14 @@ public class MainZoom {
 			p.setY(rnd.nextInt(ty)-ty/2);
 			p.setAngle(new Angle(16));
 			
-			
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 			
-			p.poser(tapis);
 //			cmp.addComponent(p);
 		}
 //		cmp.poser(tapis);
+		
+		tapis.poser(puzzle);
 		
 		Fenetre f = new Fenetre(800,600);
 		f.start();
@@ -69,6 +69,9 @@ public class MainZoom {
 		MainGaucheController mgc = new MainGaucheController(tapis, f);
 		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
 		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
+		
+		System.setProperty(PuzzleProperties.savePath.getName(), "P:/git/renaud-puzzle/puzzle-io-xml/src/main/resources");
+		
 	}
 
 }

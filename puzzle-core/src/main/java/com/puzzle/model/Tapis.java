@@ -22,14 +22,15 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	
 	private double hauteur;
 	
-	
+	private List<Puzzle> puzzles;
 	
 	public Tapis(){
-		
+		this.puzzles = new ArrayList<Puzzle>();
 	}
 
 
 	public Tapis(double largeur, double hauteur) {
+		this();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
@@ -109,7 +110,12 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		return tmp;
 	}
 	
-	
+	public void poser(Puzzle puzzle){
+		this.puzzles.add(puzzle);
+		for(Piece p : puzzle.getPieces()){
+			p.poser(this);
+		}
+	}
 	
 	
 	@Override

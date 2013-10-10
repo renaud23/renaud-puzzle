@@ -40,23 +40,23 @@ public class XmlLoader implements PuzzleLoader{
 			this.document = this.sxb.build(this.file);
 			this.root = this.document.getRootElement();	
 			
-			List<Element> rootPieces = this.root.getChildren(XmlTag.pieces.toString());
-			int puzzl = Integer.valueOf(this.root.getChild(XmlTag.largeur.toString()).getText());
-			int puzzh = Integer.valueOf(this.root.getChild(XmlTag.hauteur.toString()).getText());
-			String nom = this.root.getChild(XmlTag.nom.toString()).getText();
+			List<Element> rootPieces = this.root.getChildren(XmlDescriptorTag.pieces.toString());
+			int puzzl = Integer.valueOf(this.root.getChild(XmlDescriptorTag.largeur.toString()).getText());
+			int puzzh = Integer.valueOf(this.root.getChild(XmlDescriptorTag.hauteur.toString()).getText());
+			String nom = this.root.getChild(XmlDescriptorTag.nom.toString()).getText();
 			this.puzzle = new Puzzle(nom, puzzl, puzzh);
 			
 			
 			for(Element eps : rootPieces){
-				List<Element> pieces = eps.getChildren(XmlTag.piece.toString());
+				List<Element> pieces = eps.getChildren(XmlDescriptorTag.piece.toString());
 				for(Element ep : pieces){
-					int id = Integer.valueOf(ep.getChild(XmlTag.id.toString()).getText());
-					double puzzleX = Double.valueOf(ep.getChild(XmlTag.cx.toString()).getText());
-					double puzzleY = Double.valueOf(ep.getChild(XmlTag.cy.toString()).getText());
-					double largeur = Double.valueOf(ep.getChild(XmlTag.largeur.toString()).getText());
-					double hauteur = Double.valueOf(ep.getChild(XmlTag.hauteur.toString()).getText());
+					int id = Integer.valueOf(ep.getChild(XmlDescriptorTag.id.toString()).getText());
+					double puzzleX = Double.valueOf(ep.getChild(XmlDescriptorTag.cx.toString()).getText());
+					double puzzleY = Double.valueOf(ep.getChild(XmlDescriptorTag.cy.toString()).getText());
+					double largeur = Double.valueOf(ep.getChild(XmlDescriptorTag.largeur.toString()).getText());
+					double hauteur = Double.valueOf(ep.getChild(XmlDescriptorTag.hauteur.toString()).getText());
 					double angle = 0.0;
-					if(ep.getChild(XmlTag.angle.toString()) != null) angle = Double.valueOf(ep.getChild(XmlTag.angle.toString()).getText());
+					if(ep.getChild(XmlDescriptorTag.angle.toString()) != null) angle = Double.valueOf(ep.getChild(XmlDescriptorTag.angle.toString()).getText());
 					
 					Piece p = new Piece(id, puzzleX, puzzleY, largeur, hauteur);
 					p.setAngle(angle);
@@ -79,6 +79,14 @@ public class XmlLoader implements PuzzleLoader{
 	@Override
 	public Puzzle getPuzzle() {
 		return this.puzzle;
+	}
+
+
+
+	@Override
+	public void save(Puzzle puzzle) {
+		System.out.println();
+		
 	}
 
 }

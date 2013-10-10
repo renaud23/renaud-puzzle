@@ -1,7 +1,10 @@
 package com.puzzle.model;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+
 
 public class Puzzle {
 	
@@ -91,7 +94,9 @@ public class Puzzle {
 		return p;
 	}
 
-
+	public Collection<Piece> getPieces(){
+		return this.pieces.values();
+	}
 
 	public Piece get(Position position,int index){
 		Piece p = null;

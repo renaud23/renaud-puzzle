@@ -1,5 +1,6 @@
 package com.puzzle.view.controller;
 
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -20,6 +21,8 @@ import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
+import com.puzzle.view.PuzzleProperties;
+import com.puzzle.view.SaveView;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
@@ -226,7 +229,8 @@ public abstract class AbstractTapisController implements IController, Observer{
 	
 	private void save(){
 		if(this.mainDroiteVide && this.mainGaucheVide){
-			System.out.println("save");
+			SaveView sv = new SaveView(this.tapis);
+			sv.save();	
 		}else{
 			System.out.println("Videz vous les mains !");
 		}

@@ -5,21 +5,6 @@
   <hauteur>4</hauteur>
   <taille>20</taille>
   <scaleApercu>0.5</scaleApercu>
-  <tapis>
-    <largeur>2000</largeur>
-    <hauteur>2000</hauteur>
-    <color>
-      <r>100</r>
-      <g>100</g>
-      <b>100</b>
-    </color>
-  </tapis>
-  <set>
-    <cote>240</cote>
-    <varMin>14</varMin>
-    <varMax>64</varMax>
-    <scale>2.0</scale>
-  </set>
   <pieces>
     <piece>
       <id>1</id>

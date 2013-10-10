@@ -1,6 +1,6 @@
 package com.puzzle.io;
 
-public enum XmlTag {
+public enum XmlDescriptorTag {
 	pieces("pieces"), 
 	piece("piece"),
 	id("id"),
@@ -12,7 +12,7 @@ public enum XmlTag {
 	angle("angle");
 	
 	
-	private XmlTag(String name){
+	private XmlDescriptorTag(String name){
 		this.name = name;
 	}
 	
