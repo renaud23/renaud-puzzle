@@ -17,12 +17,11 @@ import java.util.Map;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
-public class BasicImageProvider implements ImageProvider {
+public class BasicImageProvider extends Thread implements ImageProvider {
 	
 	
 	private String path;
 	private Map<Integer, SoftReference<VolatileImage>> images;
-	
 	
 
 
@@ -31,6 +30,7 @@ public class BasicImageProvider implements ImageProvider {
 	public BasicImageProvider(String path){
 		this.path = path;
 		this.images = new HashMap<Integer, SoftReference<VolatileImage>>();
+		this.start();
 	}
 
 

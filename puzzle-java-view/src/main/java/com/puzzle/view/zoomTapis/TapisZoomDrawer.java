@@ -1,8 +1,7 @@
 package com.puzzle.view.zoomTapis;
 
-import java.awt.Color;
-import java.awt.Image;
 
+import java.awt.Image;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
@@ -33,7 +32,6 @@ public class TapisZoomDrawer implements IDrawer{
 	public void draw() {
 		this.tapisBuffer.clean();
 		
-//		System.out.println(((TapisZoomConverteur)this.converter).getLargeur());
 		TapisZoomConverteur cvt = (TapisZoomConverteur)this.converter;
 		Rect r = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), 
 				cvt.getLargeur(), cvt.getHauteur());
@@ -41,7 +39,7 @@ public class TapisZoomDrawer implements IDrawer{
 		//	 dessin tapis
 		for(Piece piece : this.tapis){
 			if(piece.getRect().isIn(r)){
-//				Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
+
 				Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 				Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 				this.converter.convertModelToScreen(p);

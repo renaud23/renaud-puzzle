@@ -1,9 +1,8 @@
 package com.puzzle.view.controller;
 
-import java.io.File;
+
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.CommandeArgument;
@@ -21,7 +20,6 @@ import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
-import com.puzzle.view.PuzzleProperties;
 import com.puzzle.view.SaveView;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;

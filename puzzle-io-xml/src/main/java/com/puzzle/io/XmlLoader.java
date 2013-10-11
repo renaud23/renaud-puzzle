@@ -12,6 +12,7 @@ import org.jdom2.input.SAXBuilder;
 
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
+import com.puzzle.model.Tapis;
 
 public class XmlLoader implements PuzzleLoader{
 	
@@ -28,14 +29,12 @@ public class XmlLoader implements PuzzleLoader{
 	public XmlLoader(File file) {
 		this.file = file;
 		this.pieces = new ArrayList<Piece>();
-		this.sxb = new SAXBuilder();
-		
-		this.load();
 	}
 
 	
 	
-	private void load(){
+	public void load(){
+		this.sxb = new SAXBuilder();
 		try {
 			this.document = this.sxb.build(this.file);
 			this.root = this.document.getRootElement();	
@@ -84,8 +83,20 @@ public class XmlLoader implements PuzzleLoader{
 
 
 	@Override
-	public void save(Puzzle puzzle) {
-		System.out.println();
+	public void save(Tapis tapis) {
+		this.root = new Element("");
+		
+		for(Puzzle p : tapis.getPuzzles()){
+			this.save(p);
+		}
+		
+	}
+
+
+
+	
+	private void save(Puzzle puzzle) {
+		System.out.println(puzzle.getId());
 		
 	}
 

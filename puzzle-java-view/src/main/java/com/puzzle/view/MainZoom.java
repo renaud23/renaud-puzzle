@@ -33,16 +33,16 @@ public class MainZoom {
 		Tapis tapis = new Tapis(largeur,hauteur);
 
 
-		Puzzle p1 = MainZoom.loadPuzzle("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml", largeur, hauteur);
+		Puzzle p1 = MainZoom.loadPuzzle("P:/workspace_java/puzzle-pieces/gaston_135/puzzle.xml", largeur, hauteur);
 		tapis.poser(p1);
-		Puzzle p2 = MainZoom.loadPuzzle("P:/workspace_java/puzzle-pieces/floflo/puzzle.xml", largeur, hauteur);
-		tapis.poser(p2);
-		
-		
 		ImageMemoryManager.getInstance().put(p1.getId(),
-				new BasicImageProvider("P:/workspace_java/puzzle-pieces/schtroumf_21/images/"));
-		ImageMemoryManager.getInstance().put(p2.getId(),
-				new BasicImageProvider("P:/workspace_java/puzzle-pieces/floflo/images/"));
+				new BasicImageProvider("P:/workspace_java/puzzle-pieces/gaston_135/images/"));
+		
+		
+//		Puzzle p2 = MainZoom.loadPuzzle("P:/workspace_java/puzzle-pieces/floflo/puzzle.xml", largeur, hauteur);
+//		tapis.poser(p2);
+//		ImageMemoryManager.getInstance().put(p2.getId(),
+//				new BasicImageProvider("P:/workspace_java/puzzle-pieces/floflo/images/"));
 		
 		
 		Fenetre f = new Fenetre(800,600);
@@ -64,11 +64,14 @@ public class MainZoom {
 	
 	
 	public static Puzzle loadPuzzle(String path,int largeur,int hauteur){
+		// chargement depuis le descripteur de puzzle
 		File file = new File(path);
 		XmlLoader ld = new XmlLoader(file);
+		ld.load();
 		List<Piece> pieces = ld.getPieces();
 		Puzzle puzzle = ld.getPuzzle();
 		
+		// placement aléatoire des piéces
 		Random rnd = new Random();
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
@@ -77,6 +80,7 @@ public class MainZoom {
 			p.setY(rnd.nextInt(ty)-ty/2);
 			p.setAngle(new Angle(16));
 			
+			// piéces liées au puzzle
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 		}

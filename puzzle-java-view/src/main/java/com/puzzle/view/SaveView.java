@@ -23,6 +23,6 @@ public class SaveView {
 		XmlLoader ld = new XmlLoader(f);
 		
 		
-//		ld.save(puzzle);
+		ld.save(this.tapis);
 	}
 }

@@ -23,7 +23,7 @@ public class MainBasic {
 	public static void main(String[] args){
 		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
 		XmlLoader ld = new XmlLoader(file);
-		
+		ld.load();
 		
 		int largeur = 2000;
 		int hauteur = 2000;
