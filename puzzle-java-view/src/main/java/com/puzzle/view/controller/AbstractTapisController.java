@@ -229,7 +229,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 	
 	private void save(){
 		if(this.mainDroiteVide && this.mainGaucheVide){
-			SaveView sv = new SaveView(this.tapis);
+			SaveView sv = new SaveView(this.tapis,this.fenetre.getFrame());
 			sv.save();	
 		}else{
 			System.out.println("Videz vous les mains !");
