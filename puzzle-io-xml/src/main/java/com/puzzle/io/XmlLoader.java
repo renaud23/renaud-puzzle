@@ -175,7 +175,8 @@ public class XmlLoader implements PuzzleLoader{
 			List<Element> puzzElmt = this.root.getChildren(XmlSaveTag.puzzle.getName());
 			
 			for(Element puzz : puzzElmt){
-				XmlLoader loader = new XmlLoader(new File(puzz.getChildText(XmlSaveTag.path.getName())));
+				File file = new File(puzz.getChildText(XmlSaveTag.path.getName()));
+				XmlLoader loader = new XmlLoader(file);
 				loader.loadDescriptor();
 				
 				List<Piece> pieces = loader.getPieces();
@@ -188,17 +189,32 @@ public class XmlLoader implements PuzzleLoader{
 					puzzle.put(p.getId(), p);
 				}
 				
+				
+				
+				
+				
 				// plaçage
+				for(Element cmpElmt : puzz.getChildren(XmlSaveTag.composite.getName())){
+					CompositePiece cmp = new CompositePiece(0, 0);
+					for(Element pe : cmpElmt.getChildren(XmlSaveTag.piece.getName())){
+						Piece piece = puzzle.get(Integer.valueOf(pe.getChildText(XmlSaveTag.id.getName())));
+						piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
+						piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
+//						piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
+						
+						cmp.addComponent(piece);
+					}
+					
+				}
 				for(Element pe : puzz.getChildren(XmlSaveTag.piece.getName())){
 					Piece piece = puzzle.get(Integer.valueOf(pe.getChildText(XmlSaveTag.id.getName())));
 					piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
 					piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
 //					piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
 					
-					tapis.poserPiece(piece);
 				}
 				
-				
+				tapis.poser(puzzle);
 			}
 			
 			
