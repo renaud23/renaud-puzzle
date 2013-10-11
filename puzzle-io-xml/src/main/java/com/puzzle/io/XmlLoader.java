@@ -156,6 +156,11 @@ public class XmlLoader implements PuzzleLoader{
 			this.root = this.document.getRootElement();	
 			
 			
+			tapis.setLargeur(Double.valueOf(this.root.getChild(XmlSaveTag.largeur.getName()).getText()));
+			tapis.setHauteur(Double.valueOf(this.root.getChild(XmlSaveTag.hauteur.getName()).getText()));
+			
+			
+			
 		} catch (JDOMException | IOException e) {
 			throw new PuzzleIOException("Impossible de charger une sauvegarde.", e);
 		}
