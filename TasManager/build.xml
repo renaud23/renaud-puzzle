@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<project name="puzzle-core" >
+<project name="tasManager" >
 	<property name="src.dir" location="src/main/java" />
 	<property name="build.dir" location="build" />
-	<property name="lib.dir" location="lib" />
+
 	
 	<target name="clean">
 	    <delete dir="${build.dir}" />
@@ -12,22 +12,13 @@
 	    <mkdir dir="${build.dir}" />
 	  </target>
 	
-	 <path id="project.class.path">
-	      <fileset dir="lib/">
-	        <include name="*.jar"/>
-	      </fileset>
-	  </path>
-	
 	 <target name="compile" depends="clean, makedir">
-	    <javac srcdir="${src.dir}" destdir="${build.dir}" >
-	    	<classpath refid="project.class.path"/>
-	    </javac>
+	    <javac srcdir="${src.dir}" destdir="${build.dir}" />
 	 </target>
 	
+	
 	<target name="jar" depends="compile">
-	    <jar destfile="${build.dir}\puzzle-core.jar" basedir="${build.dir}" />  
+	    <jar destfile="${build.dir}\tasManager.jar" basedir="${build.dir}" />  
 	</target>
-	
-	
 
 </project>
