@@ -41,7 +41,7 @@ public class MainBasic {
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(tx)-tx/2);
 			p.setY(rnd.nextInt(ty)-ty/2);
-			p.setAngle(new Angle(16));
+			p.setAngle(new Angle());
 			
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);

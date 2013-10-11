@@ -207,4 +207,10 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		
 		return angle;
 	}
+
+
+	@Override
+	public void setAngleIndex(int index) {
+		for(Piece p : this.pieces) p.setAngleIndex(index);
+	}
 }

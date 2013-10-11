@@ -39,10 +39,10 @@ public class MainZoom {
 		ImageMemoryManager.getInstance().put(p1.getId(),
 				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
-//		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/papa_20/puzzle.xml", largeur, hauteur);
-//		tapis.poser(p2);
-//		ImageMemoryManager.getInstance().put(p2.getId(),
-//				new BasicImageProvider(rootPath+"/papa_20/images/"));
+		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/papa_20/puzzle.xml", largeur, hauteur);
+		tapis.poser(p2);
+		ImageMemoryManager.getInstance().put(p2.getId(),
+				new BasicImageProvider(rootPath+"/papa_20/images/"));
 		
 //		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/schtroumf_21/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p3);
@@ -84,7 +84,7 @@ public class MainZoom {
 		for(Piece p : pieces){
 			p.setX(rnd.nextInt(tx)-tx/2);
 			p.setY(rnd.nextInt(ty)-ty/2);
-			p.setAngle(new Angle(16));
+			p.setAngle(new Angle());
 			
 			// piéces liées au puzzle
 			p.setPuzzle(puzzle);

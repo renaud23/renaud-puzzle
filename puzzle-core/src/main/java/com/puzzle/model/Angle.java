@@ -9,14 +9,12 @@ public class Angle {
 	private double[] angles;
 	private double theta;
 	private int courant;
+	private static int nbAngle = 16;
 	
+
 	public Angle(){
-		this.update(4);
-	}
-	
-	public Angle(int nb){
-		this.update(nb);
-		this.courant = rnd.nextInt(nb);
+		this.update(nbAngle);
+		this.courant = rnd.nextInt(nbAngle);
 	}
 
 	public void update(int nbStep){	
@@ -48,6 +46,13 @@ public class Angle {
 		return this.courant;
 	}
 	
+	
+	
+	
+	public void setIndex(int index) {
+		this.courant = index;
+	}
+
 	public void regler(double angle){
 		boolean find = false;
 		int i = 0;

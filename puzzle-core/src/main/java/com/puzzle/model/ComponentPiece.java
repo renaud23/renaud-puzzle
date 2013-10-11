@@ -17,4 +17,5 @@ public interface ComponentPiece extends IRectable{
 	public void poser(Tapis tapis);
 	public Puzzle getPuzzle();
 	public int getAngleIndex();
+	public void setAngleIndex(int index);
 }

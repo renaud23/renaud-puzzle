@@ -35,7 +35,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	}
 
 	public Piece(int id,double puzzleX,double puzzleY,double largeur,double hauteur){
-		this.angle = new Angle(16);
+		this.angle = new Angle();
 		this.id = id;
 		this.centre = new Point();
 		this.centre.setX(0.0);
@@ -248,5 +248,10 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	@Override
 	public int getAngleIndex() {
 		return this.angle.getIndex();
+	}
+
+	@Override
+	public void setAngleIndex(int index) {
+		this.angle.setIndex(index);
 	}
 }

@@ -6,125 +6,250 @@
     <path>E:/workspaceEclipse/puzzle-pieces/floflo/puzzle.xml</path>
     <piece>
       <id>1</id>
-      <x>667.0</x>
-      <y>-1636.0</y>
-      <x>0</x>
+      <x>2274.0</x>
+      <y>-1649.0</y>
+      <angle>11</angle>
     </piece>
     <piece>
       <id>2</id>
-      <x>-660.0</x>
-      <y>-1195.0</y>
-      <x>0</x>
+      <x>-1040.0</x>
+      <y>-42.0</y>
+      <angle>0</angle>
     </piece>
-    <composite>
-      <piece>
-        <id>3</id>
-        <x>-1742.0000000000002</x>
-        <y>954.3333333333333</y>
-        <x>0</x>
-      </piece>
-      <piece>
-        <id>8</id>
-        <x>-1742.0000000000002</x>
-        <y>746.3333333333333</y>
-        <x>0</x>
-      </piece>
-      <piece>
-        <id>9</id>
-        <x>-1502.0000000000002</x>
-        <y>721.3333333333333</y>
-        <x>0</x>
-      </piece>
-      <piece>
-        <id>14</id>
-        <x>-1502.0000000000002</x>
-        <y>481.33333333333326</y>
-        <x>0</x>
-      </piece>
-    </composite>
+    <piece>
+      <id>3</id>
+      <x>-51.0</x>
+      <y>295.0</y>
+      <angle>8</angle>
+    </piece>
     <piece>
       <id>4</id>
-      <x>1765.0</x>
-      <y>-899.0</y>
-      <x>0</x>
+      <x>2031.0</x>
+      <y>-1301.0</y>
+      <angle>0</angle>
     </piece>
     <piece>
       <id>5</id>
-      <x>-2843.0</x>
-      <y>-1472.0</y>
-      <x>0</x>
+      <x>3880.0</x>
+      <y>143.0</y>
+      <angle>15</angle>
     </piece>
     <piece>
       <id>6</id>
-      <x>564.0</x>
-      <y>-160.0</y>
-      <x>0</x>
+      <x>-1503.0</x>
+      <y>-2344.0</y>
+      <angle>15</angle>
     </piece>
     <piece>
       <id>7</id>
-      <x>2545.0</x>
-      <y>1544.0</y>
-      <x>0</x>
+      <x>-846.0</x>
+      <y>1917.0</y>
+      <angle>0</angle>
     </piece>
+    <composite>
+      <x>-3563.53317510231</x>
+      <y>614.5616909980483</y>
+      <piece>
+        <id>8</id>
+        <x>-3733.85063339113</x>
+        <y>582.2822331024141</y>
+        <angle>3</angle>
+      </piece>
+      <piece>
+        <id>9</id>
+        <x>-3618.9096213107264</x>
+        <y>794.4462350959957</y>
+        <angle>3</angle>
+      </piece>
+      <piece>
+        <id>13</id>
+        <x>-3535.2165339012035</x>
+        <y>500.00529514391985</y>
+        <angle>3</angle>
+      </piece>
+      <piece>
+        <id>14</id>
+        <x>-3397.178533508017</x>
+        <y>702.6022113283741</y>
+        <angle>3</angle>
+      </piece>
+    </composite>
     <piece>
       <id>10</id>
-      <x>2812.0</x>
-      <y>528.0</y>
-      <x>0</x>
+      <x>4627.0</x>
+      <y>1789.0</y>
+      <angle>10</angle>
     </piece>
     <piece>
       <id>11</id>
-      <x>-380.0</x>
-      <y>407.0</y>
-      <x>0</x>
+      <x>1672.0</x>
+      <y>384.0</y>
+      <angle>14</angle>
     </piece>
     <piece>
       <id>12</id>
-      <x>-31.0</x>
-      <y>-2193.0</y>
-      <x>0</x>
-    </piece>
-    <piece>
-      <id>13</id>
-      <x>4637.0</x>
-      <y>-1381.0</y>
-      <x>0</x>
+      <x>431.0</x>
+      <y>1922.0</y>
+      <angle>3</angle>
     </piece>
     <piece>
       <id>15</id>
-      <x>-694.0</x>
-      <y>1785.0</y>
-      <x>0</x>
+      <x>2632.0</x>
+      <y>2040.0</y>
+      <angle>9</angle>
     </piece>
     <piece>
       <id>17</id>
-      <x>-912.0000000000002</x>
-      <y>101.33333333333348</y>
-      <x>0</x>
+      <x>-4241.342599549212</x>
+      <y>209.25351182751615</y>
+      <angle>15</angle>
     </piece>
     <piece>
       <id>16</id>
-      <x>-3560.0</x>
-      <y>555.0</y>
-      <x>0</x>
+      <x>639.0</x>
+      <y>-214.0</y>
+      <angle>8</angle>
     </piece>
     <piece>
       <id>19</id>
-      <x>2185.0</x>
-      <y>42.0</y>
-      <x>0</x>
+      <x>-378.0</x>
+      <y>1593.0</y>
+      <angle>12</angle>
     </piece>
     <piece>
       <id>18</id>
-      <x>-3747.0</x>
-      <y>-1258.0</y>
-      <x>0</x>
+      <x>-2734.0</x>
+      <y>-1651.0</y>
+      <angle>6</angle>
     </piece>
     <piece>
       <id>20</id>
-      <x>3755.0</x>
-      <y>-1752.0</y>
-      <x>0</x>
+      <x>-1297.0</x>
+      <y>1786.0</y>
+      <angle>5</angle>
+    </piece>
+  </puzzle>
+  <puzzle>
+    <path>E:/workspaceEclipse/puzzle-pieces/papa_20/puzzle.xml</path>
+    <piece>
+      <id>1</id>
+      <x>-2754.0</x>
+      <y>479.0</y>
+      <angle>12</angle>
+    </piece>
+    <piece>
+      <id>2</id>
+      <x>1801.0</x>
+      <y>-1566.0</y>
+      <angle>6</angle>
+    </piece>
+    <piece>
+      <id>3</id>
+      <x>-324.0</x>
+      <y>-1630.0</y>
+      <angle>6</angle>
+    </piece>
+    <piece>
+      <id>4</id>
+      <x>-3022.0</x>
+      <y>-1175.0</y>
+      <angle>15</angle>
+    </piece>
+    <piece>
+      <id>5</id>
+      <x>2480.0</x>
+      <y>919.0</y>
+      <angle>15</angle>
+    </piece>
+    <piece>
+      <id>6</id>
+      <x>773.0</x>
+      <y>-2103.0</y>
+      <angle>12</angle>
+    </piece>
+    <piece>
+      <id>7</id>
+      <x>-3398.0</x>
+      <y>-1578.0</y>
+      <angle>13</angle>
+    </piece>
+    <piece>
+      <id>8</id>
+      <x>-3878.0</x>
+      <y>2246.0</y>
+      <angle>3</angle>
+    </piece>
+    <piece>
+      <id>9</id>
+      <x>2276.0</x>
+      <y>1605.0</y>
+      <angle>2</angle>
+    </piece>
+    <piece>
+      <id>10</id>
+      <x>2256.0</x>
+      <y>575.0</y>
+      <angle>9</angle>
+    </piece>
+    <piece>
+      <id>11</id>
+      <x>4618.0</x>
+      <y>-1317.0</y>
+      <angle>1</angle>
+    </piece>
+    <piece>
+      <id>12</id>
+      <x>3839.0</x>
+      <y>1160.0</y>
+      <angle>13</angle>
+    </piece>
+    <piece>
+      <id>13</id>
+      <x>1222.0</x>
+      <y>-368.0</y>
+      <angle>10</angle>
+    </piece>
+    <piece>
+      <id>14</id>
+      <x>1117.0</x>
+      <y>-922.0</y>
+      <angle>14</angle>
+    </piece>
+    <piece>
+      <id>15</id>
+      <x>-2408.0</x>
+      <y>1827.0</y>
+      <angle>12</angle>
+    </piece>
+    <piece>
+      <id>17</id>
+      <x>1178.0</x>
+      <y>455.0</y>
+      <angle>7</angle>
+    </piece>
+    <piece>
+      <id>16</id>
+      <x>-910.0</x>
+      <y>-1498.0</y>
+      <angle>11</angle>
+    </piece>
+    <piece>
+      <id>19</id>
+      <x>-3899.666666666667</x>
+      <y>1291.3333333333333</y>
+      <angle>3</angle>
+    </piece>
+    <piece>
+      <id>18</id>
+      <x>3039.0</x>
+      <y>-1958.0</y>
+      <angle>11</angle>
+    </piece>
+    <piece>
+      <id>20</id>
+      <x>-3559.0</x>
+      <y>2161.0</y>
+      <angle>12</angle>
     </piece>
   </puzzle>
 </tapis>

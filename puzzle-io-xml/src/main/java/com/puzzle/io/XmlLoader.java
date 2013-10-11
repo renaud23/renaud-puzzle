@@ -120,7 +120,7 @@ public class XmlLoader implements PuzzleLoader{
 			pieceElmt.addContent(new Element(XmlSaveTag.id.getName()).setText(String.valueOf(p.getId())));
 			pieceElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getCentre().getX())));
 			pieceElmt.addContent(new Element(XmlSaveTag.y.getName()).setText(String.valueOf(p.getCentre().getY())));
-			pieceElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getAngleIndex())));
+			pieceElmt.addContent(new Element(XmlSaveTag.angle.getName()).setText(String.valueOf(p.getAngleIndex())));
 			
 			
 			
@@ -128,6 +128,8 @@ public class XmlLoader implements PuzzleLoader{
 				Element cmpElmt = composites.get(p.getComposite());
 				if(cmpElmt == null) {
 					cmpElmt = new Element(XmlSaveTag.composite.getName());
+					cmpElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getComposite().getCentre().getX())));
+					cmpElmt.addContent(new Element(XmlSaveTag.y.getName()).setText(String.valueOf(p.getComposite().getCentre().getY())));
 					composites.put(p.getComposite(),cmpElmt);
 					puzzElmt.addContent(cmpElmt);
 				}
@@ -189,18 +191,16 @@ public class XmlLoader implements PuzzleLoader{
 					puzzle.put(p.getId(), p);
 				}
 				
-				
-				
-				
-				
 				// plaçage
 				for(Element cmpElmt : puzz.getChildren(XmlSaveTag.composite.getName())){
-					CompositePiece cmp = new CompositePiece(0, 0);
+					CompositePiece cmp = new CompositePiece(
+							Double.valueOf(cmpElmt.getChildText(XmlSaveTag.x.getName())),
+							Double.valueOf(cmpElmt.getChildText(XmlSaveTag.y.getName())));
 					for(Element pe : cmpElmt.getChildren(XmlSaveTag.piece.getName())){
 						Piece piece = puzzle.get(Integer.valueOf(pe.getChildText(XmlSaveTag.id.getName())));
 						piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
 						piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
-//						piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
+						piece.setAngleIndex(Integer.valueOf(pe.getChildText(XmlSaveTag.angle.getName())));
 						
 						cmp.addComponent(piece);
 					}
@@ -210,14 +210,12 @@ public class XmlLoader implements PuzzleLoader{
 					Piece piece = puzzle.get(Integer.valueOf(pe.getChildText(XmlSaveTag.id.getName())));
 					piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
 					piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
-//					piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
+					piece.setAngleIndex(Integer.valueOf(pe.getChildText(XmlSaveTag.angle.getName())));
 					
 				}
 				
 				tapis.poser(puzzle);
-			}
-			
-			
+			}	
 			
 		} catch (JDOMException | IOException e) {
 			throw new PuzzleIOException("Impossible de charger une sauvegarde.", e);

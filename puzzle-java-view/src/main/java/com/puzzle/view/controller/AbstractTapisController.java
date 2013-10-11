@@ -352,6 +352,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		if(this.selectionDrawer!=null) this.selectionDrawer.clean();
 		this.tapisDrawer.clean();
+		this.tapisDrawer.draw();
 		this.fenetre.repaint();
 	}
 	
