@@ -24,7 +24,7 @@ public class MainBasic {
 	public static void main(String[] args) throws PuzzleIOException{
 		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
 		XmlLoader ld = new XmlLoader(file);
-		ld.load();
+		ld.loadDescriptor();
 		
 		int largeur = 2000;
 		int hauteur = 2000;

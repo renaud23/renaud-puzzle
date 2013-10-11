@@ -11,7 +11,8 @@ import com.puzzle.model.Tapis;
 
 
 public interface PuzzleLoader {
-	public void load() throws PuzzleIOException;
+	public void loadDescriptor() throws PuzzleIOException;
+	public void loadSave(Tapis tapis) throws PuzzleIOException;
 	public List<Piece> getPieces();
 	public Puzzle getPuzzle();
 	public void save(Tapis tapis) throws PuzzleIOException;

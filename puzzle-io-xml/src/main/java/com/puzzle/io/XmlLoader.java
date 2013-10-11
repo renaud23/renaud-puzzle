@@ -36,7 +36,7 @@ public class XmlLoader implements PuzzleLoader{
 
 	
 	
-	public void load() throws PuzzleIOException{
+	public void loadDescriptor() throws PuzzleIOException{
 		this.sxb = new SAXBuilder();
 		try {
 			this.document = this.sxb.build(this.file);
@@ -143,5 +143,22 @@ public class XmlLoader implements PuzzleLoader{
 	   catch (java.io.IOException e){
 		   throw new PuzzleIOException("Impossible de constituer sauvegarder.",e);
 	   }
+	}
+
+
+
+	@Override
+	public void loadSave(Tapis tapis) throws PuzzleIOException {
+		tapis.nettoyer();
+		this.sxb = new SAXBuilder();
+		try {
+			this.document = this.sxb.build(this.file);
+			this.root = this.document.getRootElement();	
+			
+			
+		} catch (JDOMException | IOException e) {
+			throw new PuzzleIOException("Impossible de charger une sauvegarde.", e);
+		}
+		
 	}
 }

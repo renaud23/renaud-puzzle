@@ -3,6 +3,7 @@ package com.puzzle.view.controller;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.CommandeArgument;
@@ -20,6 +21,7 @@ import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
+import com.puzzle.view.LoadView;
 import com.puzzle.view.SaveView;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
@@ -340,4 +342,19 @@ public abstract class AbstractTapisController implements IController, Observer{
 	public void keyControlReleased() {
 		// Nothing
 	}
+
+	@Override
+	public void controlPlusL() {
+		LoadView view = new LoadView(this.tapis);
+		MainDroite.getInstance().libere();
+		MainGauche.getInstance().libere();
+		view.load();
+		
+		this.selectionDrawer.clean();
+		this.tapisDrawer.clean();
+		this.fenetre.repaint();
+	}
+	
+	
+	
 }

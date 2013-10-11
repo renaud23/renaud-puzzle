@@ -76,7 +76,10 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	
 	
 	
-	
+	public void nettoyer(){
+		this.memoire.clear();
+		this.puzzles.clear();
+	}
 	
 	public void ajouterAComposite(CompositePiece cmp,Piece p){
 		this.memoire.remove(p);

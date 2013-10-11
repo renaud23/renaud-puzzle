@@ -75,6 +75,10 @@ public class MainGauche implements Iterable<Piece>{
 		return size;
 	}
 
+	public void libere(){
+		this.focused = -1;
+		this.pieces.clear();
+	}
 
 	@Override
 	public Iterator<Piece> iterator() {

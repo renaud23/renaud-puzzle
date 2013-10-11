@@ -3,6 +3,7 @@ package com.puzzle.view;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
+
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
@@ -70,7 +71,7 @@ public class MainZoom {
 		// chargement depuis le descripteur de puzzle
 		File file = new File(path);
 		XmlLoader ld = new XmlLoader(file);
-		ld.load();
+		ld.loadDescriptor();
 		List<Piece> pieces = ld.getPieces();
 		Puzzle puzzle = ld.getPuzzle();
 		puzzle.setPath(path);

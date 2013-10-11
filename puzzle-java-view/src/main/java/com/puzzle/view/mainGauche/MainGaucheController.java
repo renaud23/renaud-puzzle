@@ -189,7 +189,10 @@ public class MainGaucheController implements IController,Observer{
 	}
 	
 	
-
+	@Override
+	public void controlPlusL() {
+		
+	}
 
 
 }
