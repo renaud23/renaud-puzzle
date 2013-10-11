@@ -9,6 +9,8 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
@@ -33,7 +35,7 @@ public class XmlLoader implements PuzzleLoader{
 
 	
 	
-	public void load(){
+	public void load() throws PuzzleIOException{
 		this.sxb = new SAXBuilder();
 		try {
 			this.document = this.sxb.build(this.file);
@@ -64,8 +66,7 @@ public class XmlLoader implements PuzzleLoader{
 			}// for
 			
 		} catch (JDOMException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new PuzzleIOException("Impossible de charger un fichier de description.", e);
 		}
 	}
 	
@@ -83,8 +84,8 @@ public class XmlLoader implements PuzzleLoader{
 
 
 	@Override
-	public void save(Tapis tapis) {
-		this.root = new Element("");
+	public void save(Tapis tapis)  throws PuzzleIOException{
+		this.root = new Element(XmlSaveTag.tapis.getName());
 		
 		for(Puzzle p : tapis.getPuzzles()){
 			this.save(p);
@@ -100,4 +101,12 @@ public class XmlLoader implements PuzzleLoader{
 		
 	}
 
+	void affiche() throws IOException{
+	   try{
+	      XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+	      sortie.output(document, System.out);
+	   }catch (java.io.IOException e){
+		   
+	   }
+	}
 }

@@ -2,11 +2,15 @@ package com.puzzle.io;
 
 public enum XmlSaveTag {
 
+	tapis("tapis"),
 	puzzle("puzzle"), 
 	path("path"),
 	pieces("pieces"),
 	piece("piece"),
-	id("id"), x("x"),y("y"),angle("angle");
+	id("id"), 
+	x("x"),
+	y("y"),
+	angle("angle");
 	
 	private String name;
 	
@@ -15,6 +19,10 @@ public enum XmlSaveTag {
 	}
 
 	public String toString(){
+		return this.name;
+	}
+	
+	public String getName(){
 		return this.name;
 	}
 }

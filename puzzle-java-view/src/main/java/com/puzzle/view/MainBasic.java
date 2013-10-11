@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
+import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
 import com.puzzle.model.CompositePiece;
@@ -20,7 +21,7 @@ import com.puzzle.view.tool.BasicImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 
 public class MainBasic {
-	public static void main(String[] args){
+	public static void main(String[] args) throws PuzzleIOException{
 		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
 		XmlLoader ld = new XmlLoader(file);
 		ld.load();

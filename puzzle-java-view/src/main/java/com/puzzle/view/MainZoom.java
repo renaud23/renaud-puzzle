@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
+import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
 import com.puzzle.model.CompositePiece;
@@ -26,7 +27,7 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 
 public class MainZoom {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws PuzzleIOException {
 		int largeur = 10000;
 		int hauteur = 5000;
 
@@ -63,7 +64,7 @@ public class MainZoom {
 	}
 	
 	
-	public static Puzzle loadPuzzle(String path,int largeur,int hauteur){
+	public static Puzzle loadPuzzle(String path,int largeur,int hauteur) throws PuzzleIOException{
 		// chargement depuis le descripteur de puzzle
 		File file = new File(path);
 		XmlLoader ld = new XmlLoader(file);

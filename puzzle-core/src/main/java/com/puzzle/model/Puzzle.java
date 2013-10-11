@@ -14,6 +14,7 @@ public class Puzzle {
 	
 	private static int nb = 0;
 	
+	private String path;
 	private int largeur;
 	private int hauteur;
 	private int taille;
@@ -35,6 +36,12 @@ public class Puzzle {
 	
 	
 	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public boolean isFini() {
 		return fini;
 	}

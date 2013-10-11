@@ -1,7 +1,9 @@
 package com.puzzle.view;
 
 import java.io.File;
+import java.io.IOException;
 
+import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Tapis;
 
@@ -23,6 +25,20 @@ public class SaveView {
 		XmlLoader ld = new XmlLoader(f);
 		
 		
-		ld.save(this.tapis);
+		try {
+			ld.save(this.tapis);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		} catch (PuzzleIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
