@@ -198,4 +198,13 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	public void updateRect(){
 		this.rect.update();
 	}
+
+
+	@Override
+	public int getAngleIndex() {
+		int angle = -1;
+		if(!this.pieces.isEmpty()) angle = this.pieces.get(0).getAngleIndex();
+		
+		return angle;
+	}
 }

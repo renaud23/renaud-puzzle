@@ -86,18 +86,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.id = id;
 	}
 
-//	public double getAngle() {
-//		return angle;
-//	}
-//
-//	public void setAngle(double angle) {
-//		this.angle = angle;
-//		
-//		if(this.angle >= (Math.PI * 2.0)) this.angle = 0.0;
-//		else if(this.angle < 0) this.angle = Math.PI * 2.0;
-//
-//		((RectPiece)this.rect).update();
-//	}
+
 
 	@Override
 	public int getZIndex() {
@@ -254,5 +243,10 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	
 	public void updateRect(){
 		this.rect.update();
+	}
+
+	@Override
+	public int getAngleIndex() {
+		return this.angle.getIndex();
 	}
 }

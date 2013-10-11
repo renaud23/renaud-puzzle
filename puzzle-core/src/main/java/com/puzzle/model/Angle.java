@@ -44,6 +44,9 @@ public class Angle {
 		if(this.courant <0 ) this.courant = this.angles.length - 1;
 	}
 	
+	public int getIndex(){
+		return this.courant;
+	}
 	
 	public void regler(double angle){
 		boolean find = false;

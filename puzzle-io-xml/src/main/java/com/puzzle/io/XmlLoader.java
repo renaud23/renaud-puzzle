@@ -86,10 +86,16 @@ public class XmlLoader implements PuzzleLoader{
 	@Override
 	public void save(Tapis tapis)  throws PuzzleIOException{
 		this.root = new Element(XmlSaveTag.tapis.getName());
+		this.document = new Document(this.root);
+		
+		this.root.addContent(new Element(XmlSaveTag.largeur.getName()).setText(String.valueOf(tapis.getLargeur())));
+		this.root.addContent(new Element(XmlSaveTag.hauteur.getName()).setText(String.valueOf(tapis.getHauteur())));
 		
 		for(Puzzle p : tapis.getPuzzles()){
 			this.save(p);
 		}
+		
+		this.affiche();
 		
 	}
 
@@ -97,16 +103,35 @@ public class XmlLoader implements PuzzleLoader{
 
 	
 	private void save(Puzzle puzzle) {
-		System.out.println(puzzle.getId());
+		Element puzzElmt = new Element(XmlSaveTag.puzzle.getName());
+		puzzElmt.addContent(new Element(XmlSaveTag.largeur.getName()).setText(String.valueOf(puzzle.getLargeur())));
+		puzzElmt.addContent(new Element(XmlSaveTag.hauteur.getName()).setText(String.valueOf(puzzle.getHauteur())));
+		puzzElmt.addContent(new Element(XmlSaveTag.taille.getName()).setText(String.valueOf(puzzle.getTaille())));
+		puzzElmt.addContent(new Element(XmlSaveTag.path.getName()).setText(puzzle.getPath()));
+		
+		Element piecesElmt = new Element(XmlSaveTag.pieces.getName());
+		for(Piece p : puzzle.getPieces()){
+			Element pieceElmt = new Element(XmlSaveTag.piece.getName());
+			piecesElmt.addContent(new Element(XmlSaveTag.id.getName()).setText(String.valueOf(p.getId())));
+			piecesElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getCentre().getX())));
+			piecesElmt.addContent(new Element(XmlSaveTag.y.getName()).setText(String.valueOf(p.getCentre().getY())));
+			piecesElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getAngle())));
+			
+			piecesElmt.addContent(pieceElmt);
+		}
+		
+		puzzElmt.addContent(piecesElmt);
+		this.root.addContent(puzzElmt);
 		
 	}
 
-	void affiche() throws IOException{
+	private void affiche() throws PuzzleIOException{
 	   try{
 	      XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-	      sortie.output(document, System.out);
-	   }catch (java.io.IOException e){
-		   
+	      sortie.output(this.document, System.out);
+	      
+	   }catch (IOException e){
+		   throw new PuzzleIOException("Impossible de sauver un puzzle.",e);
 	   }
 	}
 }
