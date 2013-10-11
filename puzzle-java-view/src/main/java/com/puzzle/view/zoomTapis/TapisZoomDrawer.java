@@ -1,7 +1,9 @@
 package com.puzzle.view.zoomTapis;
 
 
+import java.awt.Color;
 import java.awt.Image;
+
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
@@ -60,6 +62,12 @@ public class TapisZoomDrawer implements IDrawer{
 //				Point c = new Point(piece.getCentre().getX(), piece.getCentre().getY());
 //				this.converter.convertModelToScreen(c);
 //				this.tapisBuffer.drawRect(Color.white, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
+				
+//				if(piece.getComposite() != null) {
+//					Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
+//					this.converter.convertModelToScreen(c);
+//					this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
+//				}
 			}
 		}
 			

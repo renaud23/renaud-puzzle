@@ -16,6 +16,7 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import com.puzzle.model.CompositePiece;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -198,11 +199,10 @@ public class XmlLoader implements PuzzleLoader{
 							Double.valueOf(cmpElmt.getChildText(XmlSaveTag.y.getName())));
 					for(Element pe : cmpElmt.getChildren(XmlSaveTag.piece.getName())){
 						Piece piece = puzzle.get(Integer.valueOf(pe.getChildText(XmlSaveTag.id.getName())));
-						piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
-						piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
 						piece.setAngleIndex(Integer.valueOf(pe.getChildText(XmlSaveTag.angle.getName())));
 						
 						cmp.addComponent(piece);
+						((MyRect)cmp.getRect()).update();
 					}
 					
 				}

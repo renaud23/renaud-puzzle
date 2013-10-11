@@ -7,7 +7,7 @@ public class RectCompositePiece implements MyRect{
 	private CompositePiece composite;
 	private double puzzX;
 	private double puzzY;
-	private Point[] coins = new Point[4];
+//	private Point[] coins = new Point[4];
 	private double largeur;
 	private double hauteur;
 //	private double x;
@@ -16,10 +16,10 @@ public class RectCompositePiece implements MyRect{
 
 	public RectCompositePiece(CompositePiece composite) {
 		this.composite = composite;
-		this.coins[0] = new Point();
-		this.coins[1] = new Point();
-		this.coins[2] = new Point();
-		this.coins[3] = new Point();
+//		this.coins[0] = new Point();
+//		this.coins[1] = new Point();
+//		this.coins[2] = new Point();
+//		this.coins[3] = new Point();
 	}
 
 	@Override
@@ -147,9 +147,6 @@ public class RectCompositePiece implements MyRect{
 		double cx = minx + cl / 2.0;
 		double cy = miny + ch / 2.0; 
 		
-		
-		
-		
 		// mise à jour de la piéce
 		double x = plus.getPuzzleX();
 		x -= cx;
@@ -178,7 +175,7 @@ public class RectCompositePiece implements MyRect{
 		cx = minx + cl / 2.0;
 		cy = miny + ch / 2.0;
 		this.composite.getCentre().setX(cx);
-		this.composite.getCentre().setY(cy);
+		this.composite.getCentre().setY(cy);System.out.println("ùù");
 		
 		// rotation de la piéce
 		plus.getCentre().tourner(plus.getAngle(),this.composite.getCentre());
