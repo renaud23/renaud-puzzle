@@ -19,7 +19,7 @@ public class LoadView {
 
 	public void load(){
 		StringBuffer buff = new StringBuffer(System.getProperty(PuzzleProperties.savePath.getName()));
-		buff.append(File.separator).append("save/saveTest.xml");
+		buff.append(File.separator).append("saveTest.xml");
 		File f = new File(buff.toString());
 		
 		XmlLoader ld = new XmlLoader(f);

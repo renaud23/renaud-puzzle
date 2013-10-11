@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -13,6 +15,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -109,18 +112,29 @@ public class XmlLoader implements PuzzleLoader{
 //		puzzElmt.addContent(new Element(XmlSaveTag.taille.getName()).setText(String.valueOf(puzzle.getTaille())));
 		puzzElmt.addContent(new Element(XmlSaveTag.path.getName()).setText(puzzle.getPath()));
 		
-		Element piecesElmt = new Element(XmlSaveTag.pieces.getName());
+		
+		Map<CompositePiece, Element> composites = new HashMap<CompositePiece, Element>();
 		for(Piece p : puzzle.getPieces()){
+			
 			Element pieceElmt = new Element(XmlSaveTag.piece.getName());
 			pieceElmt.addContent(new Element(XmlSaveTag.id.getName()).setText(String.valueOf(p.getId())));
 			pieceElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getCentre().getX())));
 			pieceElmt.addContent(new Element(XmlSaveTag.y.getName()).setText(String.valueOf(p.getCentre().getY())));
 			pieceElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getAngleIndex())));
 			
-			piecesElmt.addContent(pieceElmt);
+			
+			
+			if(p.getComposite()!=null){
+				Element cmpElmt = composites.get(p.getComposite());
+				if(cmpElmt == null) {
+					cmpElmt = new Element(XmlSaveTag.composite.getName());
+					composites.put(p.getComposite(),cmpElmt);
+					puzzElmt.addContent(cmpElmt);
+				}
+				cmpElmt.addContent(pieceElmt);
+			}else puzzElmt.addContent(pieceElmt);
 		}
 		
-		puzzElmt.addContent(piecesElmt);
 		this.root.addContent(puzzElmt);
 		
 	}
@@ -155,15 +169,46 @@ public class XmlLoader implements PuzzleLoader{
 			this.document = this.sxb.build(this.file);
 			this.root = this.document.getRootElement();	
 			
-			
 			tapis.setLargeur(Double.valueOf(this.root.getChild(XmlSaveTag.largeur.getName()).getText()));
 			tapis.setHauteur(Double.valueOf(this.root.getChild(XmlSaveTag.hauteur.getName()).getText()));
+			
+			List<Element> puzzElmt = this.root.getChildren(XmlSaveTag.puzzle.getName());
+			
+			for(Element puzz : puzzElmt){
+				XmlLoader loader = new XmlLoader(new File(puzz.getChildText(XmlSaveTag.path.getName())));
+				loader.loadDescriptor();
+				
+				List<Piece> pieces = loader.getPieces();
+				Puzzle puzzle = loader.getPuzzle();
+				puzzle.setPath(puzz.getChildText(XmlSaveTag.path.getName()));
+				
+				// liage
+				for(Piece p : pieces){
+					p.setPuzzle(puzzle);
+					puzzle.put(p.getId(), p);
+				}
+				
+				// plaçage
+				for(Element pe : puzz.getChildren(XmlSaveTag.piece.getName())){
+					Piece piece = puzzle.get(Integer.valueOf(pe.getChildText(XmlSaveTag.id.getName())));
+					piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
+					piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
+//					piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
+					
+					tapis.poserPiece(piece);
+				}
+				
+				
+			}
 			
 			
 			
 		} catch (JDOMException | IOException e) {
 			throw new PuzzleIOException("Impossible de charger une sauvegarde.", e);
 		}
-		
 	}
+	
+	
+	
+	
 }

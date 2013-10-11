@@ -5,7 +5,7 @@ public enum XmlSaveTag {
 	tapis("tapis"),
 	puzzle("puzzle"), 
 	path("path"),
-	pieces("pieces"),
+	composite("composite"),
 	piece("piece"),
 	largeur("largeur"),
 	hauteur("hauteur"),
