@@ -3,11 +3,9 @@ package com.puzzle.view;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
-
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
-import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -71,6 +69,7 @@ public class MainZoom {
 		ld.load();
 		List<Piece> pieces = ld.getPieces();
 		Puzzle puzzle = ld.getPuzzle();
+		puzzle.setPath(path);
 		
 		// placement aléatoire des piéces
 		Random rnd = new Random();

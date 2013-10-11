@@ -1,6 +1,7 @@
 package com.puzzle.io;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +96,7 @@ public class XmlLoader implements PuzzleLoader{
 			this.save(p);
 		}
 		
-		this.affiche();
-		
+		this.enregistre();
 	}
 
 
@@ -104,18 +104,18 @@ public class XmlLoader implements PuzzleLoader{
 	
 	private void save(Puzzle puzzle) {
 		Element puzzElmt = new Element(XmlSaveTag.puzzle.getName());
-		puzzElmt.addContent(new Element(XmlSaveTag.largeur.getName()).setText(String.valueOf(puzzle.getLargeur())));
-		puzzElmt.addContent(new Element(XmlSaveTag.hauteur.getName()).setText(String.valueOf(puzzle.getHauteur())));
-		puzzElmt.addContent(new Element(XmlSaveTag.taille.getName()).setText(String.valueOf(puzzle.getTaille())));
+//		puzzElmt.addContent(new Element(XmlSaveTag.largeur.getName()).setText(String.valueOf(puzzle.getLargeur())));
+//		puzzElmt.addContent(new Element(XmlSaveTag.hauteur.getName()).setText(String.valueOf(puzzle.getHauteur())));
+//		puzzElmt.addContent(new Element(XmlSaveTag.taille.getName()).setText(String.valueOf(puzzle.getTaille())));
 		puzzElmt.addContent(new Element(XmlSaveTag.path.getName()).setText(puzzle.getPath()));
 		
 		Element piecesElmt = new Element(XmlSaveTag.pieces.getName());
 		for(Piece p : puzzle.getPieces()){
 			Element pieceElmt = new Element(XmlSaveTag.piece.getName());
-			piecesElmt.addContent(new Element(XmlSaveTag.id.getName()).setText(String.valueOf(p.getId())));
-			piecesElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getCentre().getX())));
-			piecesElmt.addContent(new Element(XmlSaveTag.y.getName()).setText(String.valueOf(p.getCentre().getY())));
-			piecesElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getAngle())));
+			pieceElmt.addContent(new Element(XmlSaveTag.id.getName()).setText(String.valueOf(p.getId())));
+			pieceElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getCentre().getX())));
+			pieceElmt.addContent(new Element(XmlSaveTag.y.getName()).setText(String.valueOf(p.getCentre().getY())));
+			pieceElmt.addContent(new Element(XmlSaveTag.x.getName()).setText(String.valueOf(p.getAngleIndex())));
 			
 			piecesElmt.addContent(pieceElmt);
 		}
@@ -131,7 +131,17 @@ public class XmlLoader implements PuzzleLoader{
 	      sortie.output(this.document, System.out);
 	      
 	   }catch (IOException e){
-		   throw new PuzzleIOException("Impossible de sauver un puzzle.",e);
+		   throw new PuzzleIOException("Impossible de constituer le xml de sauvegarde.",e);
+	   }
+	}
+	
+	void enregistre()  throws PuzzleIOException{
+	   try{
+	      XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+	      sortie.output(document, new FileOutputStream(this.file));
+	   }
+	   catch (java.io.IOException e){
+		   throw new PuzzleIOException("Impossible de constituer sauvegarder.",e);
 	   }
 	}
 }
