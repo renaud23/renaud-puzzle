@@ -1,16 +1,13 @@
 package com.puzzle.view;
 
 import java.awt.Component;
-
-import javax.swing.Icon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Tapis;
+
+
 
 public class SaveView {
 	
