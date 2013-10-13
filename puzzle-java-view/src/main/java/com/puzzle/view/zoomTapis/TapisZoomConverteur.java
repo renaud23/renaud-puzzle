@@ -119,20 +119,29 @@ public class TapisZoomConverteur implements TapisConverter{
 	}
 
 	
-	public void moveTo(Point p){
+	public boolean moveTo(Point p){
+		boolean state =true;
 		double ml = this.tapis.getLargeur()/2.0;
 		double mh = this.tapis.getHauteur()/2.0;
 		
 		double x = this.corner.getX() + p.getX() / scale;
 		double y = this.corner.getY() - p.getY() / scale;
 		
-		if(x < -ml) x=-ml;
-		else if((x+this.largeur)>ml) x = ml - this.largeur;
-		if(y>mh) y=mh;
-		else if((y-this.hauteur)<-mh) y = -mh + this.hauteur;
+		if(x < -ml){
+			x=-ml;
+		} else if((x+this.largeur)>ml){
+			x = ml - this.largeur;
+		}
+		if(y>mh){
+			y=mh;
+		}else if((y-this.hauteur)<-mh){
+			y = -mh + this.hauteur;
+		}
 		
 		this.corner.setX(x);
 		this.corner.setY(y);
+		
+		return state;
 	}
 	
 	/* *** */

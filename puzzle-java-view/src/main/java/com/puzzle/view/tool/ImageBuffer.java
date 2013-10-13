@@ -2,6 +2,7 @@ package com.puzzle.view.tool;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
@@ -150,6 +151,19 @@ public class ImageBuffer {
 		gr.rotate(theta, xRotation, yRotation);
 
 		gr.drawImage(image,t,null);
+		gr.dispose();
+	}
+	
+	
+	public void drawString(){
+		Graphics2D gr = this.image.createGraphics();
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		        RenderingHints.VALUE_ANTIALIAS_ON);
+	    Font font = new Font("Serif", Font.PLAIN, 96);
+	    gr.setFont(font);
+
+	    gr.drawString("jade", 40, 120); 
+		
 		gr.dispose();
 	}
 	

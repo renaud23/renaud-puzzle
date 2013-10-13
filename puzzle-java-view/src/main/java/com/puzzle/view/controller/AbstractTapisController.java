@@ -55,10 +55,13 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.fenetre = fenetre;
 		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(),this.tapis);
 		this.tapisDrawer = new TapisZoomDrawer(this.tapis,this.fenetre.getBuffer(0),this.converter);
+		this.selectionDrawer = new DrawSelection(this.fenetre.getBuffer(1), this.converter);
 		
 		this.selectionParam = new DrawSelectionParam();
 		this.isClipsParam = new IsClipsParam();
 		this.attraperParam = new AttrapperMainDroiteParam();
+		
+		this.selectionDrawer.setParam(this.selectionParam);
 		
 		this.mainDroiteVide = true;
 		this.mainGaucheVide = true;
@@ -73,38 +76,36 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.mousePosition = new Point();
 		
 		this.tapisDrawer.draw();
+		this.selectionDrawer.draw();
 		this.fenetre.repaint();
 	}
 	
 	private void resetSelection(){
-		this.selectionDrawer = new DrawSelection(
-				this.fenetre.getBuffer(1), 
-				MainDroite.getInstance().getPiece(), 
-				this.converter);
 		this.selectionParam.setAncre(MainDroite.getInstance().getAncre());
 		this.selectionParam.setPosition(new Point(Double.MAX_VALUE,Double.MAX_VALUE));
-		this.selectionDrawer.setParam(this.selectionParam);
+		this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
 		this.mainGaucheVide = MainGauche.getInstance().isEmpty();
 		
+		((DrawSelection)this.selectionDrawer).setSelection(true);
+		((DrawSelection)this.selectionDrawer).createbuffer();
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
 	}
 	
 	
-	protected void move(double vx,double vy){
-		Point p = new Point(vx,vy);
-		
-		((TapisZoomConverteur)this.converter).moveTo(p);
-		
-		if(!this.mainDroiteVide){
-			this.selectionParam.setPosition(new Point(this.mousePosition.getX(),this.mousePosition.getY()));
-			this.selectionDrawer.clean();
-			this.selectionDrawer.draw();
-		}
-		this.tapisDrawer.draw();
-		this.fenetre.repaint();
-	}
 	
+	public void passerMainGauche(){
+		ChangerDeMainParam param = new ChangerDeMainParam();
+		CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.tapis);
+		cmd.setArgument(param);
+		cmd.execute();
+		
+		if(param.isReussi()){
+			((DrawSelection)this.selectionDrawer).setSelection(false);
+			this.selectionDrawer.clean();
+			this.fenetre.repaint();
+		}
+	}
 	
 	protected void tourner(boolean up){
 		CommandeArgument<Boolean> cmd = new tournerMainDroite();
@@ -172,13 +173,12 @@ public abstract class AbstractTapisController implements IController, Observer{
 		cmd.execute();
 		
 		if(!this.mainDroiteVide){
-			this.selectionDrawer = new DrawSelection(
-					this.fenetre.getBuffer(1), 
-					MainDroite.getInstance().getPiece(), 
-					this.converter);
 			this.selectionParam.setAncre(this.attraperParam.getAncre());
 			this.selectionParam.setPosition(new Point(x,y));
-			this.selectionDrawer.setParam(this.selectionParam);
+			this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
+			
+			((DrawSelection)this.selectionDrawer).setSelection(true);
+			((DrawSelection)this.selectionDrawer).createbuffer();
 			
 			this.tapisDrawer.draw();
 			this.selectionDrawer.draw();
@@ -196,7 +196,10 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		cmd.execute();	
 		
+		((DrawSelection)this.selectionDrawer).setSelection(false);
+		
 		this.selectionDrawer.clean();
+		this.selectionDrawer.draw();
 		this.tapisDrawer.draw();
 		this.fenetre.repaint();
 	}
@@ -313,15 +316,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 	@Override
 	public void keyControlPressed() {
 		if(!this.mainDroiteVide && !clips){
-			ChangerDeMainParam param = new ChangerDeMainParam();
-			CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.tapis);
-			cmd.setArgument(param);
-			cmd.execute();
-			
-			if(param.isReussi()){
-				this.selectionDrawer.clean();
-				this.fenetre.repaint();
-			}
+			this.passerMainGauche();
 		}// if
 	}
 	
@@ -345,7 +340,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 
 	@Override
 	public void controlPlusL() {
-		LoadView view = new LoadView(this.tapis);
+		LoadView view = new LoadView(this.tapis,this.fenetre.getFrame());
 		MainDroite.getInstance().libere();
 		MainGauche.getInstance().libere();
 		view.load();

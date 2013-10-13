@@ -16,20 +16,17 @@ import com.puzzle.view.tool.ImageMemoryManager;
 
 public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 	private ImageBuffer buffer;
-	private ImageBuffer selection;
-	private ComponentPiece component;
+	private ImageBuffer selectionBuffer;
 	private TapisConverter converter;
 	private DrawSelectionParam param;
+	private boolean selection;
 	
 
 
-	public DrawSelection(ImageBuffer buffer, ComponentPiece component,
-			TapisConverter converter) {
+	public DrawSelection(ImageBuffer buffer, TapisConverter converter) {
 		this.buffer = buffer;
-		this.component = component;
 		this.converter = converter;
-		
-		this.createbuffer();
+		this.selection = false;
 	}
 
 	@Override
@@ -55,24 +52,27 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 					Color.yellow);
 		}
 		// la selection
-		double cx = (double)this.selection.getLargeur() / 2.0;
-		double cy = (double)this.selection.getHauteur() / 2.0;
+		if(this.selection){
+			double cx = (double)this.selectionBuffer.getLargeur() / 2.0;
+			double cy = (double)this.selectionBuffer.getHauteur() / 2.0;
+			
+			double x = this.param.getPosition().getX();
+			double y = this.param.getPosition().getY();
+			x += this.param.getAncre().getX() * this.converter.getScaleX();
+			y -= this.param.getAncre().getY() * this.converter.getScaleY();
+			x -= cx;
+			y -= cy;
+			
+			this.buffer.drawImage(
+				this.selectionBuffer.getImage(), 
+				x,y, 
+				this.param.getPosition().getX(), this.param.getPosition().getY(), -this.param.getComponent().getAngle(), 
+				1.0, 1.0, 1.0f);
 		
-		double x = this.param.getPosition().getX();
-		double y = this.param.getPosition().getY();
-		x += this.param.getAncre().getX() * this.converter.getScaleX();
-		y -= this.param.getAncre().getY() * this.converter.getScaleY();
-		x -= cx;
-		y -= cy;
-		
-		this.buffer.drawImage(
-			this.selection.getImage(), 
-			x,y, 
-			this.param.getPosition().getX(), this.param.getPosition().getY(), -this.component.getAngle(), 
-			1.0, 1.0, 1.0f);
-		
-		
-//		this.buffer.drawRect(Color.blue, (int) (x), (int)(y), 2, 2);
+		}
+
+		//
+		this.buffer.drawString();
 		
 	}
 
@@ -80,30 +80,30 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 //		Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
 		Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 		
-		this.selection.drawImage(img, 
+		this.selectionBuffer.drawImage(img, 
 				x, y, 
 				0, 0, 0,
 				this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
 	}
 
-	private void createbuffer(){
-		double l = this.component.getLargeur();
+	public void createbuffer(){
+		double l = this.param.getComponent().getLargeur();
 		l *= this.converter.getScaleX();
-		double h = this.component.getHauteur();
+		double h = this.param.getComponent().getHauteur();
 		h *= this.converter.getScaleY();
 		
-		this.selection = new ImageBuffer(new Color(0, 0,0,0),(int) Math.round(l), (int) Math.round(h));
-		this.selection.transparentClean();
+		this.selectionBuffer = new ImageBuffer(new Color(0, 0,0,0),(int) Math.round(l), (int) Math.round(h));
+		this.selectionBuffer.transparentClean();
 		
-		if(this.component instanceof Piece){
-			Piece piece = (Piece)this.component;
+		if(this.param.getComponent() instanceof Piece){
+			Piece piece = (Piece)this.param.getComponent();
 //			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
 			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 			
-			this.selection.drawImage(img, 0, 0, 0, 0, 0, 
+			this.selectionBuffer.drawImage(img, 0, 0, 0, 0, 0, 
 					this.converter.getScaleX(),this.converter.getScaleY(), 1.0f);
-		}else if(this.component instanceof CompositePiece){
-			CompositePiece composite = (CompositePiece) this.component;
+		}else if(this.param.getComponent() instanceof CompositePiece){
+			CompositePiece composite = (CompositePiece) this.param.getComponent();
 			RectCompositePiece r =  (RectCompositePiece) composite.getRect();
 			
 			for(Piece p : composite){
@@ -122,6 +122,15 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 	
 	
 
+
+	public boolean isSelection() {
+		return selection;
+	}
+
+	public void setSelection(boolean selection) {
+		this.selection = selection;
+		this.selectionBuffer = null;
+	}
 
 	@Override
 	public void setParam(DrawSelectionParam param) {

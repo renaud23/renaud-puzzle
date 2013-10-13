@@ -3,6 +3,7 @@ package com.puzzle.view.drawer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 
@@ -18,9 +19,19 @@ public class DrawSelectionParam {
 
 	private Point ancre;
 	
+	private ComponentPiece component;
 	
 	
+
 	
+	
+	public ComponentPiece getComponent() {
+		return component;
+	}
+
+	public void setComponent(ComponentPiece component) {
+		this.component = component;
+	}
 
 	public Point getAncre() {
 		return ancre;
