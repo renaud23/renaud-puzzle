@@ -15,7 +15,7 @@ public class TapisZoomConverteur implements TapisConverter{
 	private Point corner;
 	private double largeur;
 	private double hauteur;
-	private double rapportAngle;
+
 
 	
 	
@@ -25,7 +25,7 @@ public class TapisZoomConverteur implements TapisConverter{
 	public TapisZoomConverteur(Offscreen offscreen,Tapis tapis) {
 		this.offscreen = offscreen;
 		this.tapis = tapis;
-		this.rapportAngle = this.tapis.getLargeur() / this.tapis.getHauteur();
+		
 
 		// TODO 
 		this.scale = 0.2;

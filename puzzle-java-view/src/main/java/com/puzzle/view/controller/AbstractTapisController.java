@@ -75,9 +75,6 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		this.mousePosition = new Point();
 		
-		this.tapisDrawer.draw();
-		this.selectionDrawer.draw();
-		this.fenetre.repaint();
 	}
 	
 	private void resetSelection(){
@@ -90,6 +87,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		((DrawSelection)this.selectionDrawer).createbuffer();
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
+		this.fenetre.repaint();
 	}
 	
 	
@@ -102,9 +100,11 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		if(param.isReussi()){
 			((DrawSelection)this.selectionDrawer).setSelection(false);
-			this.selectionDrawer.clean();
-			this.fenetre.repaint();
 		}
+		
+		this.selectionDrawer.clean();
+		this.selectionDrawer.draw();
+		this.fenetre.repaint();
 	}
 	
 	protected void tourner(boolean up){
@@ -217,13 +217,16 @@ public abstract class AbstractTapisController implements IController, Observer{
 				CommandeArgument<ClipserParam> cmd = new ClipserMainDroite(this.tapis);
 				cmd.setArgument(param);
 				
+				((DrawSelection)this.selectionDrawer).setSelection(false);
 				param.setCandidat(this.isClipsParam.getCandidats().get(0));
 				cmd.execute();
 				
 				this.clips = false;
 
 				this.selectionParam.clearCandidats();
+				
 				this.selectionDrawer.clean();
+				this.selectionDrawer.draw();
 				this.tapisDrawer.draw();
 				this.fenetre.repaint();
 			}else this.poser(x, y);

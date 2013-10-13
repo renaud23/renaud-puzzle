@@ -1,7 +1,9 @@
 package com.puzzle.view.drawer;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
+import java.text.DecimalFormat;
 
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
@@ -20,6 +22,9 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 	private TapisConverter converter;
 	private DrawSelectionParam param;
 	private boolean selection;
+	private double zoomScale;
+	
+	private final static Font zoomFont = new Font("Comic Sans MS", Font.PLAIN, 32); 
 	
 
 
@@ -72,7 +77,11 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 		}
 
 		//
-		this.buffer.drawString();
+		DecimalFormat df = new DecimalFormat("0.00");
+		String format = "x0";
+		if(this.zoomScale != 0) format = "x"+df.format(this.zoomScale);
+		this.buffer.drawString(format,10,30,zoomFont,Color.white);
+		this.buffer.drawString(format,9,29,zoomFont,Color.gray);
 		
 	}
 
@@ -125,6 +134,14 @@ public class DrawSelection implements IDrawerParametrable<DrawSelectionParam>{
 
 	public boolean isSelection() {
 		return selection;
+	}
+
+	public double getZoomScale() {
+		return zoomScale;
+	}
+
+	public void setZoomScale(double zoomScale) {
+		this.zoomScale = zoomScale;
 	}
 
 	public void setSelection(boolean selection) {

@@ -155,14 +155,14 @@ public class ImageBuffer {
 	}
 	
 	
-	public void drawString(){
+	public void drawString(String text,int x,int y,Font font, Color color){
 		Graphics2D gr = this.image.createGraphics();
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		        RenderingHints.VALUE_ANTIALIAS_ON);
-	    Font font = new Font("Serif", Font.PLAIN, 96);
+//	    Font font = new Font("Serif", Font.PLAIN, 96);
 	    gr.setFont(font);
-
-	    gr.drawString("jade", 40, 120); 
+	    gr.setColor(color);
+	    gr.drawString(text, x, y); 
 		
 		gr.dispose();
 	}

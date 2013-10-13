@@ -34,20 +34,20 @@ public class MainZoom {
 
 		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
 		
-		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
-		tapis.poser(p1);
-		ImageMemoryManager.getInstance().put(p1.getId(),
-				new BasicImageProvider(rootPath+"/floflo/images/"));
+//		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
+//		tapis.poser(p1);
+//		ImageMemoryManager.getInstance().put(p1.getId(),
+//				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
 //		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/papa_20/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p2);
 //		ImageMemoryManager.getInstance().put(p2.getId(),
 //				new BasicImageProvider(rootPath+"/papa_20/images/"));
 		
-//		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/schtroumf_21/puzzle.xml", largeur, hauteur);
-//		tapis.poser(p3);
-//		ImageMemoryManager.getInstance().put(p3.getId(),
-//				new BasicImageProvider(rootPath+"/schtroumf_21/images/"));
+		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/fabien_20/puzzle.xml", largeur, hauteur);
+		tapis.poser(p3);
+		ImageMemoryManager.getInstance().put(p3.getId(),
+				new BasicImageProvider(rootPath+"/fabien_20/images/"));
 		
 		
 		Fenetre f = new Fenetre(800,800);
