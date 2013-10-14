@@ -11,7 +11,7 @@ public class TapisZoomController extends AbstractTapisController{
 	public TapisZoomController(Fenetre fenetre, Tapis tapis) {
 		super(fenetre, tapis);
 		
-		this.selectionDrawer = new DrawZoomSelection(this.fenetre.getBuffer(1), this.converter);
+		this.selectionDrawer = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter,this.tapis);
 		this.selectionDrawer.setParam(this.selectionParam);
 		
 		this.tapisDrawer.draw();
@@ -59,9 +59,11 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		if(!this.mainDroiteVide){
 			this.selectionParam.setPosition(new Point(this.mousePosition.getX(),this.mousePosition.getY()));
-			this.selectionDrawer.clean();
-			this.selectionDrawer.draw();
+			
 		}
+		
+		this.selectionDrawer.clean();
+		this.selectionDrawer.draw();
 		this.tapisDrawer.draw();
 		this.fenetre.repaint();
 	}
