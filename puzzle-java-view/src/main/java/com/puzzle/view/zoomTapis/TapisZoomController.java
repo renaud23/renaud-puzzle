@@ -4,15 +4,16 @@ import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.AbstractTapisController;
-import com.puzzle.view.drawer.DrawSelection;
+import com.puzzle.view.drawer.DrawZoomSelection;
 
 public class TapisZoomController extends AbstractTapisController{
 
 	public TapisZoomController(Fenetre fenetre, Tapis tapis) {
 		super(fenetre, tapis);
-		((DrawSelection)this.selectionDrawer).setZoomScale(this.converter.getScaleX());
 		
-
+		this.selectionDrawer = new DrawZoomSelection(this.fenetre.getBuffer(1), this.converter);
+		this.selectionDrawer.setParam(this.selectionParam);
+		
 		this.tapisDrawer.draw();
 		this.selectionDrawer.draw();
 		this.fenetre.repaint();
@@ -22,7 +23,7 @@ public class TapisZoomController extends AbstractTapisController{
 	private void zoom(boolean up){
 		((TapisZoomConverteur)this.converter).zoom(up);
 		
-		((DrawSelection)this.selectionDrawer).setZoomScale(this.converter.getScaleX());
+		((DrawZoomSelection)this.selectionDrawer).setZoomScale(this.converter.getScaleX());
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();

@@ -32,7 +32,8 @@ public class MainZoom {
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
-		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+//		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 		
 //		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p1);
@@ -44,13 +45,13 @@ public class MainZoom {
 //		ImageMemoryManager.getInstance().put(p2.getId(),
 //				new BasicImageProvider(rootPath+"/papa_20/images/"));
 		
-		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/fabien_20/puzzle.xml", largeur, hauteur);
+		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 		tapis.poser(p3);
 		ImageMemoryManager.getInstance().put(p3.getId(),
-				new BasicImageProvider(rootPath+"/fabien_20/images/"));
+				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
 		
-		Fenetre f = new Fenetre(800,800);
+		Fenetre f = new Fenetre(600,600);
 		f.start();
 		
 		IController c = new TapisZoomController(f, tapis);
@@ -77,7 +78,7 @@ public class MainZoom {
 		Puzzle puzzle = ld.getPuzzle();
 		puzzle.setPath(path);
 		
-		// placement aléatoire des piéces
+		// placement alï¿½atoire des piï¿½ces
 		Random rnd = new Random();
 		int tx = largeur - 200;
 		int ty = hauteur - 200;
@@ -86,7 +87,7 @@ public class MainZoom {
 			p.setY(rnd.nextInt(ty)-ty/2);
 			p.setAngle(new Angle());
 			
-			// piéces liées au puzzle
+			// piï¿½ces liï¿½es au puzzle
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 		}

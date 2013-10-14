@@ -87,10 +87,10 @@ MouseMotionListener,ActionListener,IRefreshable{
 	
 	
 	/**
-	 * nouvelle aperçu généré.
+	 * nouvelle aperï¿½u gï¿½nï¿½rï¿½.
 	 * @param apercu
 	 */
-	public void updateAperçu(BufferedImage apercu){
+	public void updateApercu(BufferedImage apercu){
 		this.apercu = apercu;
 		
 		this.offscreen.setTaille(new Dimension(apercu.getWidth(),apercu.getHeight()));
@@ -110,11 +110,11 @@ MouseMotionListener,ActionListener,IRefreshable{
 	 * @param scalePiece
 	 */
 	public void genereApercu(){
-		LoggerArea.getInstance().info("Début de création de l'aperçu.");
+		LoggerArea.getInstance().info("Dï¿½but de crï¿½ation de l'aperï¿½u.");
 		
 		Puzzle puzzle = MainScreen.getInstance().getPuzzle();
 		if(MainScreen.getInstance().isLoadImage()){
-			// calcul de la taille de l'aperçu.
+			// calcul de la taille de l'aperï¿½u.
 			double scaleApercu = 1.0;
 			
 			puzzle.calculNbPieces();
@@ -153,12 +153,12 @@ MouseMotionListener,ActionListener,IRefreshable{
 		MemoryManager.getInstance().clean();
 		this.userChange = true;
 		this.selected.clear();
-		LoggerArea.getInstance().info("Fin de revalidation de l'aperçu.");
+		LoggerArea.getInstance().info("Fin de revalidation de l'aperï¿½u.");
 	}
 
 	
 	/**
-	 * recalcul les coordonnée et le nom de la piéce pointé par
+	 * recalcul les coordonnï¿½e et le nom de la piï¿½ce pointï¿½ par
 	 * le curseur.
 	 * @param point
 	 */
@@ -327,7 +327,7 @@ MouseMotionListener,ActionListener,IRefreshable{
 
 
 	/**
-	 * Pour écouter les bouton
+	 * Pour ï¿½couter les bouton
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -335,7 +335,7 @@ MouseMotionListener,ActionListener,IRefreshable{
 		// Prise en compte de la selection utilisateur
 		if(o.equals(this.validate)){
 			if(this.selected.size()>0){
-				LoggerArea.getInstance().info("Prise en compte de la sélection");
+				LoggerArea.getInstance().info("Prise en compte de la sï¿½lection");
 				MainScreen.getInstance().getPuzzle().validateSelection(this.selected.keySet());
 				
 				this.genereApercu();

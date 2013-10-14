@@ -27,6 +27,7 @@ import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
+import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
 
@@ -36,7 +37,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 	protected IDrawer tapisDrawer;
 	protected TapisConverter converter;
 	protected Point mousePosition;
-	protected IDrawerParametrable<DrawSelectionParam> selectionDrawer;
+	protected IDrawerSelection selectionDrawer;
 	
 	protected DrawSelectionParam selectionParam;
 	protected IsClipsParam isClipsParam;
@@ -83,8 +84,9 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
 		this.mainGaucheVide = MainGauche.getInstance().isEmpty();
 		
-		((DrawSelection)this.selectionDrawer).setSelection(true);
-		((DrawSelection)this.selectionDrawer).createbuffer();
+		this.selectionDrawer.setSelection(true);
+		this.selectionDrawer.createbuffer();
+		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
 		this.fenetre.repaint();
@@ -99,7 +101,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		cmd.execute();
 		
 		if(param.isReussi()){
-			((DrawSelection)this.selectionDrawer).setSelection(false);
+			this.selectionDrawer.setSelection(false);
 		}
 		
 		this.selectionDrawer.clean();
@@ -177,8 +179,8 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionParam.setPosition(new Point(x,y));
 			this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
 			
-			((DrawSelection)this.selectionDrawer).setSelection(true);
-			((DrawSelection)this.selectionDrawer).createbuffer();
+			this.selectionDrawer.setSelection(true);
+			this.selectionDrawer.createbuffer();
 			
 			this.tapisDrawer.draw();
 			this.selectionDrawer.draw();
@@ -196,7 +198,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		cmd.execute();	
 		
-		((DrawSelection)this.selectionDrawer).setSelection(false);
+		this.selectionDrawer.setSelection(false);
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
@@ -217,7 +219,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 				CommandeArgument<ClipserParam> cmd = new ClipserMainDroite(this.tapis);
 				cmd.setArgument(param);
 				
-				((DrawSelection)this.selectionDrawer).setSelection(false);
+				this.selectionDrawer.setSelection(false);
 				param.setCandidat(this.isClipsParam.getCandidats().get(0));
 				cmd.execute();
 				

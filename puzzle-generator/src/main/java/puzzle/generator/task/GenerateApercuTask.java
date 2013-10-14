@@ -11,8 +11,8 @@ import puzzle.generator.vue.MainScreen;
 
 
 /**
- * tache de génération du puzzle.
- * threadé pour pas bloquer l'appli interactive.
+ * tache de gï¿½nï¿½ration du puzzle.
+ * threadï¿½ pour pas bloquer l'appli interactive.
  * @author kqhlz2
  *
  */
@@ -39,7 +39,7 @@ public class GenerateApercuTask extends Thread {
 		
 		
 		BufferedImage vue = this.puzzle.genereVue(FileUtils.buildPath, this.scaleApercu/ApercuPanel.SCALE_APERCU);	
-		ApercuPanel.getInstance().updateAperçu(vue);
+		ApercuPanel.getInstance().updateApercu(vue);
 		MainScreen.getInstance().setAsActiveTab(ApercuPanel.getInstance());
 		
 		

@@ -8,7 +8,7 @@ import puzzle.generator.descriptor.PieceDescripteur;
 import puzzle.generator.modele.frame.FrameEx;
 
 /**
- * Le puzzle à batire ;).
+ * Le puzzle ï¿½ batire ;).
  * @author kqhlz2
  *
  */
@@ -52,7 +52,7 @@ public class Puzzle {
 	 * @param nbPieceLargeur
 	 */
 	public void calculNbPieces(){
-		// calcul du nombre de piéces.
+		// calcul du nombre de piï¿½ces.
 		
 		this.nbPiecesHeight = 1+(int)(this.nbPiecesWidth * (1.0/this.ratio) );
 		this.nbPieces = this.nbPiecesWidth * this.nbPiecesHeight;
@@ -66,7 +66,7 @@ public class Puzzle {
 	 * @param nbPieceLargeur
 	 */
 	public void calculNbPieces(int nbPieceLargeur){
-		// calcul du nombre de piéces.
+		// calcul du nombre de piï¿½ces.
 		this.nbPiecesWidth = nbPieceLargeur;
 		this.calculNbPieces();
 	}
@@ -110,11 +110,11 @@ public class Puzzle {
 	}
 	
 	/**
-	 * Génére un aperçu dans la mémoire.
+	 * Gï¿½nï¿½re un aperï¿½u dans la mï¿½moire.
 	 * @param scale
 	 * @return
 	 */
-	public synchronized BufferedImage genereAperçu(String buildPath,double scalePiece,double scaleApercu){
+	public synchronized BufferedImage genereApercu(String buildPath,double scalePiece,double scaleApercu){
 		GeneratorEx gen = new GeneratorEx(this.frame,this.descriptor,this.image,scalePiece);
 		Map<Integer,BufferedImage> images = gen.genere();
 		return gen.makeApercu(images,scaleApercu);
@@ -135,7 +135,7 @@ public class Puzzle {
 	}
 	
 	/**
-	 * Reconstruit la frame selon la sélection.
+	 * Reconstruit la frame selon la sï¿½lection.
 	 * @param selection
 	 */
 	public synchronized void validateSelection(Collection<Integer> selection){
