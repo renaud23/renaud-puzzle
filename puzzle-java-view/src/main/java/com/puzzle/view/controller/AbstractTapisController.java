@@ -183,6 +183,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionDrawer.createbuffer();
 			
 			this.tapisDrawer.draw();
+			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			this.fenetre.repaint();
 		}

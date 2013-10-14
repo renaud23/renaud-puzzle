@@ -75,6 +75,9 @@ public class DrawZoomSelection extends DrawerDecorator{
 		double l = this.converter.getLargeur() * sx;
 		double h = this.converter.getHauteur() * sx;
 		
+		this.buffer.fillRect(Color.white, 
+				(int)Math.round(xi), (int)Math.round(yi), 
+				(int)Math.round(l), (int)Math.round(h),0.2f);
 		this.buffer.drawRect(Color.black, 
 				(int)Math.round(xi), (int)Math.round(yi), 
 				(int)Math.round(l), (int)Math.round(h));

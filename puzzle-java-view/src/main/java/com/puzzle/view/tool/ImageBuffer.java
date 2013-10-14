@@ -95,6 +95,15 @@ public class ImageBuffer {
 		g.drawRect(x, y, width, height);
 		g.dispose();
 	}
+	
+	public void fillRect(Color color,int x,int y,int width,int height,float alpha){
+		Graphics2D g = this.image.createGraphics();
+		g.setColor(color);
+		g.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER,alpha )) ;
+		g.fillRect(x, y, width, height);
+		g.dispose();
+	}
 
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
 		
