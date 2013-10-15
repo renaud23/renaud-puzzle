@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<project name="puzzle-java" >
+	<property file="build.properties" />
+	
+	<path id="project.class.path">
+		<fileset dir="lib/">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="clean">
+	    <delete dir="${build.dir}" />
+	</target>
+	
+	<target name="cleanAll">
+	    <delete dir="${build.dir}" />
+	     <delete dir="${lib.dir}" />
+	</target>
+
+	<target name="makedir">
+	   <mkdir dir="${build.dir}" />
+	   <mkdir dir="${lib.dir}" />
+	</target>
+	
+	
+	<target name="tasManager" depends="clean, makedir">
+	    <javac srcdir="${tasManager.dir}/src/main/java" destdir="${build.dir}" includeantruntime="false" />
+	    <jar destfile="${lib.dir}/tasManager.jar" basedir="${build.dir}" />
+	</target>
+	
+	<target name="puzzle-core" depends="tasManager">
+	    <javac srcdir="${puzzleCore.dir}/src/main/java" destdir="${build.dir}" includeantruntime="false" >
+	    	<classpath refid="project.class.path"/>
+	    </javac>
+	    <jar destfile="${lib.dir}/puzzle-core.jar" basedir="${build.dir}" />
+	</target>
+	
+	<target name="puzzle-io-xml" depends="puzzle-core">
+		<copy todir="${lib.dir}">
+			<fileset dir="${puzzle-io-xml.dir}/lib">
+			
+			</fileset>
+		</copy>
+	    <javac srcdir="${puzzle-io-xml.dir}/src/main/java" destdir="${build.dir}" includeantruntime="false" >
+	    	<classpath refid="project.class.path"/>
+	    </javac>
+	    <jar destfile="${lib.dir}/puzzle-io-xml.jar" basedir="${build.dir}" />
+	</target>
+
+</project>

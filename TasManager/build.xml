@@ -4,6 +4,7 @@
 	<property name="build.dir" location="build" />
 
 	
+	
 	<target name="clean">
 	    <delete dir="${build.dir}" />
 	  </target>

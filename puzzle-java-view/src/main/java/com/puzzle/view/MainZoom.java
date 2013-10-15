@@ -33,18 +33,18 @@ public class MainZoom {
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
-//		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
-		String rootPath = "/home/renaud/workspace/puzzle-pieces";
+		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+//		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 		
-//		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
-//		tapis.poser(p1);
-//		ImageMemoryManager.getInstance().put(p1.getId(),
-//				new BasicImageProvider(rootPath+"/floflo/images/"));
+		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/papa_20/puzzle.xml", largeur, hauteur);
+		tapis.poser(p1);
+		ImageMemoryManager.getInstance().put(p1.getId(),
+				new BasicImageProvider(rootPath+"/papa_20/images/"));
 		
-		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/paris_28/puzzle.xml", largeur, hauteur);
+		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/fabien_20/puzzle.xml", largeur, hauteur);
 		tapis.poser(p2);
 		ImageMemoryManager.getInstance().put(p2.getId(),
-				new BasicImageProvider(rootPath+"/paris_28/images/"));
+				new BasicImageProvider(rootPath+"/fabien_20/images/"));
 		
 		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 		tapis.poser(p3);
