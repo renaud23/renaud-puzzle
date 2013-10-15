@@ -24,8 +24,6 @@ public class DrawSelection implements IDrawerSelection{
 	private boolean selection;
 	
 	
-//	private final static Font zoomFont = new Font("Comic Sans MS", Font.PLAIN, 32); 
-	
 
 
 	public DrawSelection(ImageBuffer buffer, TapisConverter converter) {

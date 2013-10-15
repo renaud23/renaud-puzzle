@@ -1,12 +1,12 @@
 package com.puzzle.view.zoomTapis;
 
-import com.puzzle.model.Tapis;
+
 import com.puzzle.view.controller.IController;
 
 public class LunetteController implements IController{
 
 	
-	private Tapis tapis;
+	private Lunette lunette;
 	private TapisZoomConverteur converter;
 	private DrawZoomSelection drawer;
 	
@@ -16,11 +16,23 @@ public class LunetteController implements IController{
 	
 	
 	
-	public LunetteController(Tapis tapis, TapisZoomConverteur converter,
+	public LunetteController(Lunette lunette, TapisZoomConverteur converter,
 			DrawZoomSelection drawer) {
-		this.tapis = tapis;
+		this.lunette = lunette;
 		this.converter = converter;
 		this.drawer = drawer;
+	}
+	
+	private boolean isIn(int x,int y){
+		boolean state = false;
+		
+		if(x >= lunette.getX() && x<=(lunette.getX()+lunette.getLargeur()) &&
+				y >= lunette.getY() && y<=(lunette.getY()+lunette.getHauteur())){
+			state = true;
+		}
+		
+		
+		return state;
 	}
 
 	@Override

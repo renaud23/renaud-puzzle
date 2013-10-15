@@ -11,12 +11,24 @@ public class TapisZoomController extends AbstractTapisController{
 	public TapisZoomController(Fenetre fenetre, Tapis tapis) {
 		super(fenetre, tapis);
 		
-		this.selectionDrawer = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter,this.tapis);
+		Lunette lunette = new Lunette();
+		lunette.setTapis(tapis);
+		lunette.setScale(0.2);
+		lunette.setLargeur(this.fenetre.getBuffer(1).getLargeur() * lunette.getScale());
+		lunette.setHauteur(lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
+		lunette.setX(this.fenetre.getBuffer(1).getLargeur() - lunette.getLargeur() - 10.0);
+		lunette.setY(10.0);
+		
+		this.selectionDrawer = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter,lunette);
 		this.selectionDrawer.setParam(this.selectionParam);
+		
+		
+		
+		
 		this.fenetre.getOffscreen().addMouseMotionListener(
 				new MyMouseMotionListener(
 					new LunetteController(
-							tapis,
+							lunette,
 							(TapisZoomConverteur)this.converter,
 							(DrawZoomSelection)this.selectionDrawer)));
 		

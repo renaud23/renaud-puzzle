@@ -3,7 +3,6 @@ package com.puzzle.view.zoomTapis;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.DecimalFormat;
-
 import com.puzzle.model.Tapis;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
@@ -16,27 +15,24 @@ public class DrawZoomSelection extends DrawerDecorator{
 	private ImageBuffer buffer;
 	private TapisZoomConverteur converter;
 	private double zoomScale;
-	private Tapis tapis;
 	
-	private double x;
-	private double y;
-	private double largeurTapis;
-	private double hauteurTapis;
-	private double rectScale;
+	private Lunette lunette;
+
 	
-	public DrawZoomSelection(ImageBuffer buffer,TapisZoomConverteur converter, Tapis tapis) {
+	public DrawZoomSelection(ImageBuffer buffer,TapisZoomConverteur converter,Lunette lunette) {
 		this.decore = new DrawSelection(buffer,converter);
 		this.buffer = buffer;
+		
 		this.converter = converter;
 		this.zoomScale = converter.getScaleX();
-		this.rectScale = 0.2;
+		this.lunette = lunette;
 		
-		this.largeurTapis = buffer.getLargeur() * this.rectScale;
-		this.hauteurTapis = this.largeurTapis * tapis.getHauteur() / tapis.getLargeur();
-		this.x = this.buffer.getLargeur() - this.largeurTapis - 10.0;
-		this.y = 10.0;
-		this.tapis = tapis;
-//		this.largeur = ((TapisZoomConverteur)converter).getLargeur();
+//		this.lunette = new Lunette();
+//		this.lunette.setScale(0.2);
+//		this.lunette.setLargeur(buffer.getLargeur() * this.lunette.getScale());
+//		this.lunette.setHauteur(this.lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
+//		this.lunette.setX(this.buffer.getLargeur() - this.lunette.getLargeur() - 10.0);
+//		this.lunette.setY(10.0);
 	}
 
 	@Override
@@ -63,17 +59,17 @@ public class DrawZoomSelection extends DrawerDecorator{
 	
 	public void drawRectZoom(){
 		this.buffer.drawRect(Color.black, 
-				(int)Math.round(this.x), (int)Math.round(this.y), 
-				(int)Math.round(this.largeurTapis), (int)Math.round(this.hauteurTapis));
+				(int)Math.round(this.lunette.getX()), (int)Math.round(this.lunette.getY()), 
+				(int)Math.round(this.lunette.getLargeur()), (int)Math.round(this.lunette.getHauteur()));
 	
-		double sx = this.largeurTapis / tapis.getLargeur();
+		double sx = this.lunette.getLargeur() / this.lunette.getTapis().getLargeur();
 		
 		double xi = this.converter.getCorner().getX() * sx;
-		xi += tapis.getLargeur() * sx / 2.0;
-		xi += this.x;
+		xi += this.lunette.getTapis().getLargeur() * sx / 2.0;
+		xi += this.lunette.getX();
 		double yi = -this.converter.getCorner().getY() * sx;
-		yi += tapis.getHauteur() * sx / 2.0;
-		yi += this.y;
+		yi += this.lunette.getTapis().getHauteur() * sx / 2.0;
+		yi += this.lunette.getY();
 		double l = this.converter.getLargeur() * sx;
 		double h = this.converter.getHauteur() * sx;
 		
@@ -86,6 +82,15 @@ public class DrawZoomSelection extends DrawerDecorator{
 	
 	}
 	
+	
+	public Lunette getLunette() {
+		return lunette;
+	}
+
+	public void setLunette(Lunette lunette) {
+		this.lunette = lunette;
+	}
+
 	public void draw(){
 		this.decore.draw();
 		this.drawZoom();
