@@ -27,8 +27,8 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainZoom {
 
 	public static void main(String[] args) throws PuzzleIOException {
-		int largeur = 15000;
-		int hauteur = 5000;
+		int largeur = 16000;
+		int hauteur = 8000;
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
@@ -40,10 +40,10 @@ public class MainZoom {
 //		ImageMemoryManager.getInstance().put(p1.getId(),
 //				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
-//		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/papa_20/puzzle.xml", largeur, hauteur);
-//		tapis.poser(p2);
-//		ImageMemoryManager.getInstance().put(p2.getId(),
-//				new BasicImageProvider(rootPath+"/papa_20/images/"));
+		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/paris_28/puzzle.xml", largeur, hauteur);
+		tapis.poser(p2);
+		ImageMemoryManager.getInstance().put(p2.getId(),
+				new BasicImageProvider(rootPath+"/paris_28/images/"));
 		
 		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 		tapis.poser(p3);
@@ -51,8 +51,7 @@ public class MainZoom {
 				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
 		
-		Fenetre f = new Fenetre(600,600);
-		f.start();
+		Fenetre f = new Fenetre(800,600);
 		
 		IController c = new TapisZoomController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));

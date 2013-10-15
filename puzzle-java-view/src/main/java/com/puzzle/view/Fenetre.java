@@ -14,7 +14,7 @@ import com.puzzle.view.tool.ImageBuffer;
 
 
 
-public class Fenetre extends Thread {
+public class Fenetre {
 	
 	private JFrame frame;
 	private Offscreen offscreen;
@@ -40,9 +40,6 @@ public class Fenetre extends Thread {
 		
 		// main gauche
 		this.mainGauche = new MainGaucheView((int)(largeur*0.2), hauteur);
-	
-	
-		
 		
 		this.mainGauche.getOffscreen().setPreferredSize(new Dimension((int)(largeur*0.2),this.hauteur));
 		this.offscreen.setPreferredSize(new Dimension((int)(largeur*0.8),this.hauteur));
@@ -104,10 +101,7 @@ public class Fenetre extends Thread {
 		this.frame.repaint();
 	}
 
-//	public void run(){
-//		while(true)
-//			System.out.println("u");
-//	}
+
 
 
 

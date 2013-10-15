@@ -3,6 +3,8 @@ package com.puzzle.view.mainGauche;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.SwingUtilities;
+
 import com.puzzle.command.Commande;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.ParcourirMainGauche;
@@ -12,6 +14,7 @@ import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
+import com.puzzle.view.RepaintTask;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawerParametrable;
 
@@ -32,7 +35,7 @@ public class MainGaucheController implements IController,Observer{
 
 		this.tapis.addObserver(this);
 		this.drawer.draw();
-		this.fenetre.repaint();
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
 
@@ -45,7 +48,7 @@ public class MainGaucheController implements IController,Observer{
 		this.drawer.setParam(-1);
 		this.drawer.clean();
 		this.drawer.draw();
-		this.fenetre.repaint();
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
 
@@ -103,7 +106,7 @@ public class MainGaucheController implements IController,Observer{
 		
 		this.drawer.clean();
 		this.drawer.draw();
-		this.fenetre.repaint();
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		
 	}
 
@@ -121,7 +124,7 @@ public class MainGaucheController implements IController,Observer{
 				this.drawer.setParam(-1);
 				this.drawer.clean();
 				this.drawer.draw();
-				this.fenetre.repaint();
+				SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 			}
 		}
 		
@@ -134,7 +137,7 @@ public class MainGaucheController implements IController,Observer{
 		this.drawer.setParam(MainGauche.getInstance().getFocused());
 		
 		this.drawer.clean();
-		this.drawer.draw();this.fenetre.repaint();
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
 
@@ -144,7 +147,7 @@ public class MainGaucheController implements IController,Observer{
 		this.drawer.setParam(-1);
 		
 		this.drawer.clean();
-		this.drawer.draw();this.fenetre.repaint();
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		
 	}
 

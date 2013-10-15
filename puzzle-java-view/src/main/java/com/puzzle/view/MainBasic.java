@@ -56,7 +56,6 @@ public class MainBasic {
 				new BasicImageProvider("P:/workspace_java/puzzle-pieces/schtroumf_21/images/"));
 		
 		Fenetre f = new Fenetre(750,600);
-		f.start();
 		TapisBasicController c = new TapisBasicController(f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
