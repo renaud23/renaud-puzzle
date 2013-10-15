@@ -4,6 +4,7 @@ import javax.swing.SwingUtilities;
 
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.DrawTask;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.RepaintTask;
 import com.puzzle.view.controller.AbstractTapisController;
@@ -30,8 +31,10 @@ public class TapisZoomController extends AbstractTapisController{
 		this.fenetre.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(lc));
 		this.fenetre.getOffscreen().addMouseListener(new MyMouseListener(lc));
 		
-		this.tapisDrawer.draw();
-		this.selectionDrawer.draw();
+//		this.tapisDrawer.draw();
+//		this.selectionDrawer.draw();
+		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
+		SwingUtilities.invokeLater(new DrawTask(this.selectionDrawer));
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
@@ -43,10 +46,9 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		this.tapisDrawer.draw();
+		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
 		
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
-//		this.fenetre.repaint();
 	}
 	
 	@Override
@@ -81,7 +83,7 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		this.tapisDrawer.draw();
+		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
 		
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}

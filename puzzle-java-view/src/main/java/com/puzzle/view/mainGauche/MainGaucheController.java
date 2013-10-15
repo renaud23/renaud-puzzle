@@ -137,6 +137,7 @@ public class MainGaucheController implements IController,Observer{
 		this.drawer.setParam(MainGauche.getInstance().getFocused());
 		
 		this.drawer.clean();
+		this.drawer.draw();
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
@@ -147,6 +148,7 @@ public class MainGaucheController implements IController,Observer{
 		this.drawer.setParam(-1);
 		
 		this.drawer.clean();
+		this.drawer.draw();
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		
 	}

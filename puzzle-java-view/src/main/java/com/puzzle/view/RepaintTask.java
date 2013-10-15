@@ -1,6 +1,6 @@
 package com.puzzle.view;
 
-public class RepaintTask implements Runnable{
+public class RepaintTask extends Thread{
 	
 	private Fenetre fenetre;
 

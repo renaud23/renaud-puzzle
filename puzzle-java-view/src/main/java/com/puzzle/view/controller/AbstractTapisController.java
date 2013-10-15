@@ -22,6 +22,7 @@ import com.puzzle.model.MainGauche;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.DrawTask;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
 import com.puzzle.view.RepaintTask;
@@ -92,7 +93,6 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
@@ -159,8 +159,9 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionParam.addCandidats(this.isClipsParam.getCandidats());
 			this.clips = true;
 			
-			this.selectionDrawer.clean();
+			
 			this.selectionParam.setPosition(new Point(x,y));
+			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		} else{
@@ -186,7 +187,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionDrawer.setSelection(true);
 			this.selectionDrawer.createbuffer();
 			
-			this.tapisDrawer.draw();
+			SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
@@ -207,7 +208,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		this.tapisDrawer.draw();
+		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
@@ -234,7 +235,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 				
 				this.selectionDrawer.clean();
 				this.selectionDrawer.draw();
-				this.tapisDrawer.draw();
+				SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
 				SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 			}else this.poser(x, y);
 		}
@@ -269,6 +270,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionDrawer.draw();
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		}
+		
 	}
 
 	@Override
@@ -355,9 +357,9 @@ public abstract class AbstractTapisController implements IController, Observer{
 		MainGauche.getInstance().libere();
 		view.load();
 		
-		if(this.selectionDrawer!=null) this.selectionDrawer.clean();
+		this.selectionDrawer.clean();
 		this.tapisDrawer.clean();
-		this.tapisDrawer.draw();
+		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
