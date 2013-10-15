@@ -19,6 +19,7 @@ import com.puzzle.view.mainGauche.MainGaucheController;
 import com.puzzle.view.tool.BasicImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.zoomTapis.TapisZoomController;
+import com.renaud.manager.TasStatistique;
 
 
 
@@ -50,6 +51,10 @@ public class MainZoom {
 		ImageMemoryManager.getInstance().put(p3.getId(),
 				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
+	
+		
+		TasStatistique stat = tapis.getStatistique();
+		System.out.println(stat);
 		
 		Fenetre f = new Fenetre(800,600);
 		

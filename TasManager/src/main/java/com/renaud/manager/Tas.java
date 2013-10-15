@@ -23,7 +23,6 @@ public class Tas<U extends IRectable> {
 	
 	
 	
-	
 	public Tas(int profondeur,int profondeurMax,double x, double y,  double width,double height) {
 		this.x = x;
 		this.y = y;
@@ -110,6 +109,22 @@ public class Tas<U extends IRectable> {
 	}
 	
 	
+	public Tas<U> getGauche() {
+		return gauche;
+	}
+
+	public Tas<U> getDroite() {
+		return droite;
+	}
+	
+	public double getHeight() {
+		return height;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
 	public void clear(){
 		if(this.elements != null) this.elements.clear();
 		else{

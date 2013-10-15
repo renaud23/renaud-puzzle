@@ -11,8 +11,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Set;
+
 import com.renaud.manager.IRect;
 import com.renaud.manager.TasManager;
+import com.renaud.manager.TasStatistique;
 
 
 
@@ -41,7 +43,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 
 	
 	/**
-	 * Pose une pièce sur le tapis.
+	 * Pose une piï¿½ce sur le tapis.
 	 * 
 	 * @param piece
 	 */
@@ -158,5 +160,9 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.setChanged();
 	}
 	
+	
+	public TasStatistique getStatistique(){
+		return this.memoire.getStatistiques();
+	}
 	
 }
