@@ -4,6 +4,7 @@ import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.AbstractTapisController;
+import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 
 public class TapisZoomController extends AbstractTapisController{
@@ -22,15 +23,9 @@ public class TapisZoomController extends AbstractTapisController{
 		this.selectionDrawer = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter,lunette);
 		this.selectionDrawer.setParam(this.selectionParam);
 		
-		
-		
-		
-		this.fenetre.getOffscreen().addMouseMotionListener(
-				new MyMouseMotionListener(
-					new LunetteController(
-							lunette,
-							(TapisZoomConverteur)this.converter,
-							(DrawZoomSelection)this.selectionDrawer)));
+		LunetteController lc = new LunetteController(lunette, (TapisZoomConverteur)converter, (DrawZoomSelection)this.selectionDrawer,this.fenetre);
+		this.fenetre.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(lc));
+		this.fenetre.getOffscreen().addMouseListener(new MyMouseListener(lc));
 		
 		this.tapisDrawer.draw();
 		this.selectionDrawer.draw();
@@ -73,7 +68,7 @@ public class TapisZoomController extends AbstractTapisController{
 	protected void move(double vx,double vy){
 		Point p = new Point(vx,vy);
 		
-		((TapisZoomConverteur)this.converter).moveTo(p);
+		((TapisZoomConverteur)this.converter).moveBy(p);
 		
 		if(!this.mainDroiteVide){
 			this.selectionParam.setPosition(new Point(this.mousePosition.getX(),this.mousePosition.getY()));

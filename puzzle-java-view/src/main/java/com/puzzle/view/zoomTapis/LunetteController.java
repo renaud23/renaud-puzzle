@@ -1,6 +1,8 @@
 package com.puzzle.view.zoomTapis;
 
 
+import com.puzzle.model.Point;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
 
 public class LunetteController implements IController{
@@ -9,18 +11,21 @@ public class LunetteController implements IController{
 	private Lunette lunette;
 	private TapisZoomConverteur converter;
 	private DrawZoomSelection drawer;
+	private Fenetre fenetre;
 	
-	
+	private Point mousePosition;
 	
 	
 	
 	
 	
 	public LunetteController(Lunette lunette, TapisZoomConverteur converter,
-			DrawZoomSelection drawer) {
+			DrawZoomSelection drawer,Fenetre fenetre) {
 		this.lunette = lunette;
 		this.converter = converter;
 		this.drawer = drawer;
+		this.fenetre = fenetre;
+		this.mousePosition = new Point();
 	}
 	
 	private boolean isIn(int x,int y){
@@ -30,8 +35,6 @@ public class LunetteController implements IController{
 				y >= lunette.getY() && y<=(lunette.getY()+lunette.getHauteur())){
 			state = true;
 		}
-		
-		
 		return state;
 	}
 
@@ -49,8 +52,30 @@ public class LunetteController implements IController{
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-		// TODO Auto-generated method stub
+		if(this.isIn(x, y)){
+//			 double ratio = this.lunette.getLargeur() / this.lunette.getTapis().getLargeur();
+//			 
+//			 double xi = x - this.lunette.getX();
+//			 xi /= ratio;
+//			 xi -= this.lunette.getTapis().getLargeur() / 2.0;
+//			 double yi = y -  this.lunette.getY();
+//			 yi /= ratio;
+//			 yi *= -1.0;
+//			 yi += this.lunette.getTapis().getHauteur() / 2.0;
+//			 
+//			 
+//			 
+//			 this.converter.getCorner().setX(xi);
+//			 this.converter.getCorner().setY(yi);
+//		
+//
+//			 this.drawer.clean();
+//			 this.drawer.draw();
+//			 this.fenetre.repaint();
+		}
 		
+		this.mousePosition.setX(x);
+		this.mousePosition.setY(y);
 	}
 
 	@Override
@@ -73,8 +98,8 @@ public class LunetteController implements IController{
 
 	@Override
 	public void mouseMove(int x, int y, boolean isShiftDown) {
-
-		
+		this.mousePosition.setX(x);
+		this.mousePosition.setY(y);
 	}
 
 	@Override
