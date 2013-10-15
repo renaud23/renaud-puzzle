@@ -1,12 +1,14 @@
-package com.puzzle.view.drawer;
+package com.puzzle.view.zoomTapis;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.text.DecimalFormat;
 
 import com.puzzle.model.Tapis;
+import com.puzzle.view.drawer.DrawSelection;
+import com.puzzle.view.drawer.DrawSelectionParam;
+import com.puzzle.view.drawer.DrawerDecorator;
 import com.puzzle.view.tool.ImageBuffer;
-import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 
 public class DrawZoomSelection extends DrawerDecorator{
 

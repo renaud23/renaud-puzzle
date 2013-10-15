@@ -4,7 +4,7 @@ import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.AbstractTapisController;
-import com.puzzle.view.drawer.DrawZoomSelection;
+import com.puzzle.view.controller.MyMouseMotionListener;
 
 public class TapisZoomController extends AbstractTapisController{
 
@@ -13,6 +13,12 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		this.selectionDrawer = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter,this.tapis);
 		this.selectionDrawer.setParam(this.selectionParam);
+		this.fenetre.getOffscreen().addMouseMotionListener(
+				new MyMouseMotionListener(
+					new LunetteController(
+							tapis,
+							(TapisZoomConverteur)this.converter,
+							(DrawZoomSelection)this.selectionDrawer)));
 		
 		this.tapisDrawer.draw();
 		this.selectionDrawer.draw();
