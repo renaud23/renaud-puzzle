@@ -30,24 +30,24 @@ import com.renaud.manager.TasStatistique;
 public class MainZoom {
 
 	public static void main(String[] args) throws PuzzleIOException {
-		int largeur = 10000;
-		int hauteur = 5000;
+		int largeur = 12000;
+		int hauteur = 8000;
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
 //		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
 //		String rootPath = "/home/renaud/workspace/puzzle-pieces";
-		String rootPath = "C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources";
+		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
 		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 		tapis.poser(p1);
 		ImageMemoryManager.getInstance().put(p1.getId(),
 				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
-//		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/fabien_20/puzzle.xml", largeur, hauteur);
-//		tapis.poser(p2);
-//		ImageMemoryManager.getInstance().put(p2.getId(),
-//				new BasicImageProvider(rootPath+"/fabien_20/images/"));
+		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/luckyluck_30/puzzle.xml", largeur, hauteur);
+		tapis.poser(p2);
+		ImageMemoryManager.getInstance().put(p2.getId(),
+				new BasicImageProvider(rootPath+"/luckyluck_30/images/"));
 //		
 //		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p3);
