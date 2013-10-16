@@ -34,7 +34,10 @@ public class ImageBuffer {
 
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsConfiguration gc = ge.getDefaultScreenDevice().getDefaultConfiguration();
-		this.image = gc.createCompatibleVolatileImage(this.largeur, this.hauteur, Transparency.TRANSLUCENT);
+		
+		synchronized (this) {
+			this.image = gc.createCompatibleVolatileImage(this.largeur, this.hauteur, Transparency.TRANSLUCENT);
+		}
 
 		this.backgroundColor = color;
 
@@ -42,7 +45,7 @@ public class ImageBuffer {
 	}
 	
 	
-	public synchronized void transparentClean(){
+	public void transparentClean(){
 		Graphics2D g = image.createGraphics();
 		 
 		// These commands cause the Graphics2D object to clear to (0,0,0,0).
@@ -51,14 +54,14 @@ public class ImageBuffer {
 		g.fillRect(0, 0, image.getWidth(), image.getHeight()); // Clears the image.
 	}
 	
-	public synchronized void clean(){
+	public void clean(){
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(this.backgroundColor);
 		graphics.fillRect(0, 0, largeur, hauteur);
 		graphics.dispose();
 	}
 	
-	public synchronized void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
+	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
 		
 		Graphics2D gr = this.image.createGraphics();
 
@@ -91,14 +94,14 @@ public class ImageBuffer {
 
 	}
 
-	public synchronized void drawRect(Color color,int x,int y,int width,int height){
+	public void drawRect(Color color,int x,int y,int width,int height){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
 		g.drawRect(x, y, width, height);
 		g.dispose();
 	}
 	
-	public synchronized void fillRect(Color color,int x,int y,int width,int height,float alpha){
+	public void fillRect(Color color,int x,int y,int width,int height,float alpha){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
 		g.setComposite(AlphaComposite.getInstance(
@@ -107,7 +110,7 @@ public class ImageBuffer {
 		g.dispose();
 	}
 
-	public synchronized void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
+	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
 		
 		Graphics2D gr = this.image.createGraphics();
 

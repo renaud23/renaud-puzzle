@@ -18,8 +18,8 @@ public class MainGaucheView {
 	private List<ImageBuffer> buffers;
 	
 	public MainGaucheView (int largeur,int hauteur){
-		this.buffers = new ArrayList<>(2);
-		this.offscreen = new Offscreen(this.buffers);
+		
+		
 		
 		
 		this.create(largeur, hauteur);
@@ -27,6 +27,7 @@ public class MainGaucheView {
 	
 	
 	public void create(int largeur,int hauteur){
+		this.buffers = new ArrayList<>(2);
 		this.buffers.clear();
 		ImageBuffer im1 = new ImageBuffer(new Color(200,200,200,255), largeur, hauteur);
 		im1.clean();
@@ -34,7 +35,7 @@ public class MainGaucheView {
 //		im2.transparentClean();
 		this.buffers.add(0,im1);
 //		this.buffers.add(0,im2);
-		
+		this.offscreen = new Offscreen(this.buffers);
 		this.offscreen.setPreferredSize(new Dimension(largeur,hauteur));
 		this.largeur = largeur;
 		this.hauteur = hauteur;

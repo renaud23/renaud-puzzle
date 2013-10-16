@@ -1,6 +1,7 @@
 package com.puzzle.view;
 
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -20,6 +21,7 @@ public class Offscreen extends JPanel{
 	private static final long serialVersionUID = 7927839937475130643L;
 	
 	
+	private ImageBuffer frontBuffer;
 	private List<ImageBuffer> backBuffer;
 	
 	
@@ -30,16 +32,22 @@ public class Offscreen extends JPanel{
 	
 	public Offscreen(List<ImageBuffer> backBuffer) {
 		this.backBuffer = backBuffer;
+		this.frontBuffer = new ImageBuffer(Color.red, this.backBuffer.get(0).getLargeur(),  this.backBuffer.get(0).getHauteur());
 	}
 
 
 
 
 	protected void paintComponent(Graphics g){
+		Graphics gr = this.frontBuffer.getImage().getGraphics();
+		
 		for(ImageBuffer buff : this.backBuffer){
-			g.drawImage(buff.getImage(), 0, 0, null);
+			gr.drawImage(buff.getImage(), 0, 0, null);
 		}
 		
+		gr.dispose();
+		
+		g.drawImage(this.frontBuffer.getImage(), 0, 0, null);
 		g.dispose();
 	}
 	

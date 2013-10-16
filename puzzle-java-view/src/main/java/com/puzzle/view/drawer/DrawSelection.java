@@ -80,13 +80,12 @@ public class DrawSelection implements IDrawerSelection{
 	}
 
 	private void drawPiece(Piece piece,double x,double y){
-//		Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
 		Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
-		
-		this.selectionBuffer.drawImage(img, 
-				x, y, 
-				0, 0, 0,
-				this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
+		if(this.selectionBuffer != null)
+			this.selectionBuffer.drawImage(img, 
+					x, y, 
+					0, 0, 0,
+					this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
 	}
 
 	public void createbuffer(){
