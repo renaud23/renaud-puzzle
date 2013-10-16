@@ -82,25 +82,21 @@ public class TapisZoomDrawer implements IDrawer{
 
 	@Override
 	public void clean() {
-		this.tapisBuffer.clean();
+	
 		double scalex = tapis.getLargeur() / background.getWidth(null);
 		double scaley = tapis.getHauteur() / background.getHeight(null);
-		Point p = ((TapisZoomConverteur)converter).getCorner();
-		double x = p.getX() + tapis.getLargeur() / 2.0;
-		double y = -p.getY() + tapis.getHauteur() / 2.0;
-		x/=scalex;
-		y/=scaley;
 		
-		double largeur = ((TapisZoomConverteur)converter).getLargeur() / scalex;
-		double hauteur = ((TapisZoomConverteur)converter).getHauteur() / scaley;
-		
-		
-		
+		double x = -this.tapis.getLargeur() / 2.0;
+		x -= ((TapisZoomConverteur)converter).getCorner().getX();
+		x *= converter.getScaleX();
+		double y = -this.tapis.getHauteur() / 2.0;
+		y += ((TapisZoomConverteur)converter).getCorner().getY();
+		y *= converter.getScaleY();
 		
 		this.tapisBuffer.drawImage(this.background, 
-				0,0,this.tapisBuffer.getLargeur(),this.tapisBuffer.getHauteur(),
-				(int)Math.round(x),(int)Math.round(y),
-				(int)Math.round(x)+(int)Math.round(largeur),(int)Math.round(y)+(int)Math.round(hauteur),Color.red);
+				x, y, 
+				0, 0, 0, 
+				scalex*converter.getScaleX(), scaley*converter.getScaleY(), 1.0f);
 	}
 
 
