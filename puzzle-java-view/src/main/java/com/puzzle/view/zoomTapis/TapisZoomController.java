@@ -31,10 +31,8 @@ public class TapisZoomController extends AbstractTapisController{
 		this.fenetre.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(lc));
 		this.fenetre.getOffscreen().addMouseListener(new MyMouseListener(lc));
 		
-//		this.tapisDrawer.draw();
-//		this.selectionDrawer.draw();
-		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
-		SwingUtilities.invokeLater(new DrawTask(this.selectionDrawer));
+		this.tapisDrawer.draw();
+		this.selectionDrawer.draw();
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
@@ -46,7 +44,7 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
+		this.tapisDrawer.draw();
 		
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
@@ -83,7 +81,7 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
+		this.tapisDrawer.draw();
 		
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}

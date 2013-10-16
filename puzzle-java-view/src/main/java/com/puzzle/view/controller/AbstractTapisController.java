@@ -22,6 +22,7 @@ import com.puzzle.model.MainGauche;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.CreateBufferTask;
 import com.puzzle.view.DrawTask;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
@@ -161,6 +162,8 @@ public abstract class AbstractTapisController implements IController, Observer{
 			
 			
 			this.selectionParam.setPosition(new Point(x,y));
+			
+			
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
@@ -185,9 +188,12 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
 			
 			this.selectionDrawer.setSelection(true);
-			this.selectionDrawer.createbuffer();
 			
-			SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
+			
+//			this.selectionDrawer.createbuffer();
+			new CreateBufferTask(this.selectionDrawer,this.fenetre);
+			
+			this.tapisDrawer.draw();
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
@@ -208,7 +214,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
+		this.tapisDrawer.draw();
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
@@ -235,7 +241,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 				
 				this.selectionDrawer.clean();
 				this.selectionDrawer.draw();
-				SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
+				this.tapisDrawer.draw();
 				SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 			}else this.poser(x, y);
 		}
@@ -359,7 +365,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		
 		this.selectionDrawer.clean();
 		this.tapisDrawer.clean();
-		SwingUtilities.invokeLater(new DrawTask(this.tapisDrawer));
+		this.tapisDrawer.draw();
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	

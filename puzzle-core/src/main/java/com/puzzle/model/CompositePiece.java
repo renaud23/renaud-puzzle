@@ -105,7 +105,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	
 	public List<Piece> getChild(){
-		return this.pieces;// attention à l'usage.
+		return this.pieces;// attention ï¿½ l'usage.
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	@Override
 	public void poser(Tapis tapis) {
 //		this.rect.update();
-		tapis.poserComposite(this);
+		tapis.poser(this);
 	}
 
 

@@ -19,7 +19,11 @@ public class Offscreen extends JPanel{
 	 */
 	private static final long serialVersionUID = 7927839937475130643L;
 	
+	
 	private List<ImageBuffer> backBuffer;
+	
+	
+
 	
 	
 	

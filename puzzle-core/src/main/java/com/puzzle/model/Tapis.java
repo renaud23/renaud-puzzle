@@ -62,7 +62,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	}
 	
 	
-	public void poserComposite(CompositePiece composite){
+	public void poser(CompositePiece composite){
 		int z = 0;
 		for(Piece p : composite){
 			this.memoire.remove(p);

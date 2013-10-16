@@ -9,6 +9,14 @@ public class DrawTask extends Thread{
 
 	public DrawTask(IDrawer draw) {
 		this.draw = draw;
+		this.start();
+	}
+
+
+
+	@Override
+	public void interrupt() {
+		
 	}
 
 

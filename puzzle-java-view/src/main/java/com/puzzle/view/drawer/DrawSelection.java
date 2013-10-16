@@ -55,7 +55,7 @@ public class DrawSelection implements IDrawerSelection{
 					Color.yellow);
 		}
 		// la selection
-		if(this.selection){
+		if(this.selection && selectionBuffer != null){
 			double cx = (double)this.selectionBuffer.getLargeur() / 2.0;
 			double cy = (double)this.selectionBuffer.getHauteur() / 2.0;
 			

@@ -77,7 +77,7 @@ public class TasManager<U extends IRectable> {
 		double ec2 = 0;
 		int nbMax = 0;
 		int nbMin = Integer.MAX_VALUE;
-		
+	
 		Stack<Tas<U>> pile = new Stack<>();
 		pile.push(this.root);
 		
@@ -99,11 +99,11 @@ public class TasManager<U extends IRectable> {
 				nbMax = Math.max(nbMax, n);
 				nbMin = Math.min(nbMin, n);
 				total += n;
-				ec2 += Math.pow(n, 2);
+				ec2 += n*n;
 			}
 		}
 		double mean = total / nbLeaf;
-		double var = ec2/total - Math.pow(mean, 2);
+		double var = ec2/nbLeaf - Math.pow(mean, 2);
 		stat.setNbLeaf(nbLeaf);
 		stat.setNbNode(nbNode);
 		stat.setMeanElement(mean);

@@ -26,6 +26,8 @@ public class ImageBuffer {
 	private Color backgroundColor;
 	
 	
+	
+	
 	public ImageBuffer (Color color,int largeur,int hauteur){
 		this.hauteur = hauteur;
 		this.largeur = largeur;
@@ -40,7 +42,7 @@ public class ImageBuffer {
 	}
 	
 	
-	public void transparentClean(){
+	public synchronized void transparentClean(){
 		Graphics2D g = image.createGraphics();
 		 
 		// These commands cause the Graphics2D object to clear to (0,0,0,0).
@@ -49,14 +51,14 @@ public class ImageBuffer {
 		g.fillRect(0, 0, image.getWidth(), image.getHeight()); // Clears the image.
 	}
 	
-	public void clean(){
+	public synchronized void clean(){
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(this.backgroundColor);
 		graphics.fillRect(0, 0, largeur, hauteur);
 		graphics.dispose();
 	}
 	
-	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
+	public synchronized void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
 		
 		Graphics2D gr = this.image.createGraphics();
 
@@ -89,14 +91,14 @@ public class ImageBuffer {
 
 	}
 
-	public void drawRect(Color color,int x,int y,int width,int height){
+	public synchronized void drawRect(Color color,int x,int y,int width,int height){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
 		g.drawRect(x, y, width, height);
 		g.dispose();
 	}
 	
-	public void fillRect(Color color,int x,int y,int width,int height,float alpha){
+	public synchronized void fillRect(Color color,int x,int y,int width,int height,float alpha){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
 		g.setComposite(AlphaComposite.getInstance(
@@ -105,7 +107,7 @@ public class ImageBuffer {
 		g.dispose();
 	}
 
-	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
+	public synchronized void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
 		
 		Graphics2D gr = this.image.createGraphics();
 
@@ -138,7 +140,7 @@ public class ImageBuffer {
 
 	}
 	
-	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
+	public synchronized void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
 		Graphics2D gr = this.image.createGraphics();
 
 		/** D�sactivation de l'anti-aliasing */
@@ -164,7 +166,7 @@ public class ImageBuffer {
 	}
 	
 	
-	public void drawString(String text,int x,int y,Font font, Color color){
+	public synchronized void drawString(String text,int x,int y,Font font, Color color){
 		Graphics2D gr = this.image.createGraphics();
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		        RenderingHints.VALUE_ANTIALIAS_ON);
