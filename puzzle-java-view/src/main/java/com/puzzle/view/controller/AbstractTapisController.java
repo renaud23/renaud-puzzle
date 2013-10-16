@@ -43,6 +43,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 	protected TapisConverter converter;
 	protected Point mousePosition;
 	protected IDrawerSelection selectionDrawer;
+//	protected IDrawer backgroundDrawer;
 	
 	protected DrawSelectionParam selectionParam;
 	protected IsClipsParam isClipsParam;
@@ -90,10 +91,11 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.mainGaucheVide = MainGauche.getInstance().isEmpty();
 		
 		this.selectionDrawer.setSelection(true);
-		this.selectionDrawer.createbuffer();
+		new CreateBufferTask(this.selectionDrawer, this.fenetre);
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
+		
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
@@ -189,12 +191,9 @@ public abstract class AbstractTapisController implements IController, Observer{
 			
 			this.selectionDrawer.setSelection(true);
 			
-			
-//			this.selectionDrawer.createbuffer();
 			new CreateBufferTask(this.selectionDrawer,this.fenetre);
-			
+//			if(this.backgroundDrawer != null) this.backgroundDrawer.draw();
 			this.tapisDrawer.draw();
-//			new DrawTask(this.tapisDrawer, this.fenetre);
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));

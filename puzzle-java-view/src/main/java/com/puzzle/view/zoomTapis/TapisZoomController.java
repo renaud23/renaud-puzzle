@@ -30,6 +30,10 @@ public class TapisZoomController extends AbstractTapisController{
 		this.fenetre.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(lc));
 		this.fenetre.getOffscreen().addMouseListener(new MyMouseListener(lc));
 		
+		
+//		this.backgroundDrawer = new TapisZoomBackground((TapisZoomConverteur)this.converter, tapis, fenetre.getBuffer(0));
+		
+		
 		this.tapisDrawer.draw();
 //		new DrawTask(this.tapisDrawer,this.fenetre);
 		this.selectionDrawer.draw();

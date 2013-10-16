@@ -11,6 +11,7 @@ import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.ImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
+import com.puzzle.view.tool.SimpleImageLoader;
 import com.renaud.manager.Rect;
 
 
@@ -20,6 +21,8 @@ public class TapisZoomDrawer implements IDrawer{
 	private ImageBuffer tapisBuffer;
 	private Tapis tapis;
 	private TapisConverter converter;
+	private Image background;
+	
 	
 
 	public TapisZoomDrawer(Tapis tapis,ImageBuffer tapisBuffer,
@@ -27,12 +30,15 @@ public class TapisZoomDrawer implements IDrawer{
 		this.tapisBuffer = tapisBuffer;
 		this.tapis = tapis;
 		this.converter = converter;
+		
+		this.background = new SimpleImageLoader().getImage("/home/renaud/git/renaud-puzzle/puzzle-java-view/src/main/resources/background/tapis.png");
+		
 	}
 	
 
 	@Override
 	public void draw() {
-		this.tapisBuffer.clean();
+		this.clean();
 		
 		TapisZoomConverteur cvt = (TapisZoomConverteur)this.converter;
 		Rect r = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), 
@@ -77,6 +83,8 @@ public class TapisZoomDrawer implements IDrawer{
 	@Override
 	public void clean() {
 		this.tapisBuffer.clean();
+		
+		this.tapisBuffer.drawImage(this.background, 0, 0, 0, 0, 0, 1.0, 1.0f);
 	}
 
 

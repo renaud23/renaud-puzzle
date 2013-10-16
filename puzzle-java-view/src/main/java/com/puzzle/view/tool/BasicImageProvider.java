@@ -24,9 +24,6 @@ public class BasicImageProvider extends Thread implements ImageProvider {
 	private Map<Integer, SoftReference<VolatileImage>> images;
 	
 
-
-
-
 	public BasicImageProvider(String path){
 		this.path = path;
 		this.images = new HashMap<Integer, SoftReference<VolatileImage>>();
