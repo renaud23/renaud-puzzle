@@ -31,7 +31,7 @@ public class TapisZoomDrawer implements IDrawer{
 		this.tapis = tapis;
 		this.converter = converter;
 		
-		this.background = new SimpleImageLoader().getImage("/home/renaud/git/renaud-puzzle/puzzle-java-view/src/main/resources/background/tapis.png");
+		this.background = new SimpleImageLoader().getImage("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/background/tapis.jpg");
 		
 	}
 	
@@ -83,8 +83,24 @@ public class TapisZoomDrawer implements IDrawer{
 	@Override
 	public void clean() {
 		this.tapisBuffer.clean();
+		double scalex = tapis.getLargeur() / background.getWidth(null);
+		double scaley = tapis.getHauteur() / background.getHeight(null);
+		Point p = ((TapisZoomConverteur)converter).getCorner();
+		double x = p.getX() + tapis.getLargeur() / 2.0;
+		double y = -p.getY() + tapis.getHauteur() / 2.0;
+		x/=scalex;
+		y/=scaley;
 		
-		this.tapisBuffer.drawImage(this.background, 0, 0, 0, 0, 0, 1.0, 1.0f);
+		double largeur = ((TapisZoomConverteur)converter).getLargeur() / scalex;
+		double hauteur = ((TapisZoomConverteur)converter).getHauteur() / scaley;
+		
+		
+		
+		
+		this.tapisBuffer.drawImage(this.background, 
+				0,0,this.tapisBuffer.getLargeur(),this.tapisBuffer.getHauteur(),
+				(int)Math.round(x),(int)Math.round(y),
+				(int)Math.round(x)+(int)Math.round(largeur),(int)Math.round(y)+(int)Math.round(hauteur),Color.red);
 	}
 
 

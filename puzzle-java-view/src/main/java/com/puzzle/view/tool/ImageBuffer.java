@@ -3,6 +3,7 @@ package com.puzzle.view.tool;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
@@ -94,6 +95,16 @@ public class ImageBuffer {
 
 	}
 
+	
+	public void drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, Color bgcolor){
+		Graphics gr = this.image.getGraphics();
+		
+		gr.drawImage( img,  dx1,  dy1,  dx2,  dy2,  sx1,  sy1,  sx2,  sy2, bgcolor,null);
+		
+		gr.dispose();
+		
+	}
+	
 	public void drawRect(Color color,int x,int y,int width,int height){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
