@@ -1,6 +1,7 @@
 package com.puzzle.view.controller;
 
 
+import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -60,15 +61,14 @@ public abstract class AbstractTapisController implements IController, Observer{
 	public AbstractTapisController(Fenetre fenetre, Tapis tapis) {
 		this.tapis = tapis;
 		this.fenetre = fenetre;
-		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(),this.tapis);
-		this.tapisDrawer = new TapisZoomDrawer(this.tapis,this.fenetre.getBuffer(0),this.converter);
-		this.selectionDrawer = new DrawSelection(this.fenetre.getBuffer(1), this.converter);
+		
+		
 		
 		this.selectionParam = new DrawSelectionParam();
 		this.isClipsParam = new IsClipsParam();
 		this.attraperParam = new AttrapperMainDroiteParam();
 		
-		this.selectionDrawer.setParam(this.selectionParam);
+		
 		
 		this.mainDroiteVide = true;
 		this.mainGaucheVide = true;

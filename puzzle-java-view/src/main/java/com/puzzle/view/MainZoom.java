@@ -1,8 +1,10 @@
 package com.puzzle.view;
 
+import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
+
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
@@ -17,6 +19,7 @@ import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.mainGauche.MainGaucheController;
 import com.puzzle.view.tool.BasicImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
+import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.renaud.manager.TasStatistique;
 
@@ -27,13 +30,14 @@ import com.renaud.manager.TasStatistique;
 public class MainZoom {
 
 	public static void main(String[] args) throws PuzzleIOException {
-		int largeur = 20000;
-		int hauteur = 10000;
+		int largeur = 10000;
+		int hauteur = 5000;
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
 //		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
-		String rootPath = "/home/renaud/workspace/puzzle-pieces";
+//		String rootPath = "/home/renaud/workspace/puzzle-pieces";
+		String rootPath = "C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources";
 		
 		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 		tapis.poser(p1);
@@ -64,7 +68,8 @@ public class MainZoom {
 		
 		Fenetre f = new Fenetre(800,600);
 		
-		IController c = new TapisZoomController(f, tapis);
+		Image background = new SimpleImageLoader().getImage("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/background/tapis.jpg");
+		IController c = new TapisZoomController(background,f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));

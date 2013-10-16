@@ -1,5 +1,7 @@
 package com.puzzle.view.zoomTapis;
 
+import java.awt.Image;
+
 import javax.swing.SwingUtilities;
 
 import com.puzzle.model.Point;
@@ -12,8 +14,11 @@ import com.puzzle.view.controller.MyMouseMotionListener;
 
 public class TapisZoomController extends AbstractTapisController{
 
-	public TapisZoomController(Fenetre fenetre, Tapis tapis) {
+	public TapisZoomController(Image background,Fenetre fenetre, Tapis tapis) {
 		super(fenetre, tapis);
+		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(),tapis);
+		this.tapisDrawer = new TapisZoomDrawer(background,tapis,fenetre.getBuffer(0),this.converter);
+		
 		
 		Lunette lunette = new Lunette();
 		lunette.setTapis(tapis);
@@ -30,12 +35,8 @@ public class TapisZoomController extends AbstractTapisController{
 		this.fenetre.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(lc));
 		this.fenetre.getOffscreen().addMouseListener(new MyMouseListener(lc));
 		
-		
-//		this.backgroundDrawer = new TapisZoomBackground((TapisZoomConverteur)this.converter, tapis, fenetre.getBuffer(0));
-		
-		
+
 		this.tapisDrawer.draw();
-//		new DrawTask(this.tapisDrawer,this.fenetre);
 		this.selectionDrawer.draw();
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}

@@ -25,13 +25,13 @@ public class TapisZoomDrawer implements IDrawer{
 	
 	
 
-	public TapisZoomDrawer(Tapis tapis,ImageBuffer tapisBuffer,
+	public TapisZoomDrawer(Image background,Tapis tapis,ImageBuffer tapisBuffer,
 			TapisConverter converter) {
 		this.tapisBuffer = tapisBuffer;
 		this.tapis = tapis;
 		this.converter = converter;
 		
-		this.background = new SimpleImageLoader().getImage("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/background/tapis.jpg");
+		this.background = background;
 		
 	}
 	

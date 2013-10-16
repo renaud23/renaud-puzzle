@@ -22,7 +22,7 @@ import com.puzzle.view.tool.ImageMemoryManager;
 
 public class MainBasic {
 	public static void main(String[] args) throws PuzzleIOException{
-		File file = new File("P:/workspace_java/puzzle-pieces/schtroumf_21/puzzle.xml");
+		File file = new File("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/puzzle.xml");
 		XmlLoader ld = new XmlLoader(file);
 		ld.loadDescriptor();
 		
@@ -53,7 +53,7 @@ public class MainBasic {
 		tapis.poser(puzzle);
 		
 		ImageMemoryManager.getInstance().put(puzzle.getId(), 
-				new BasicImageProvider("P:/workspace_java/puzzle-pieces/schtroumf_21/images/"));
+				new BasicImageProvider("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/"));
 		
 		Fenetre f = new Fenetre(750,600);
 		TapisBasicController c = new TapisBasicController(f, tapis);
