@@ -68,7 +68,7 @@ public class MainZoom {
 		
 		Fenetre f = new Fenetre(800,600);
 		
-		Image background = new SimpleImageLoader().getImage(rootPath+"/background/wood_tapis.jpg");
+		Image background = new SimpleImageLoader().getImage(rootPath+"/background/wood_tapis3.jpg");
 		IController c = new TapisZoomController(background,f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
