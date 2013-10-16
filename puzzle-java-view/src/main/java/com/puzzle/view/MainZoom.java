@@ -68,7 +68,7 @@ public class MainZoom {
 		
 		Fenetre f = new Fenetre(800,600);
 		
-		Image background = new SimpleImageLoader().getImage("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/background/tapis.jpg");
+		Image background = new SimpleImageLoader().getImage("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/background/cuir_jaune.jpg");
 		IController c = new TapisZoomController(background,f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
