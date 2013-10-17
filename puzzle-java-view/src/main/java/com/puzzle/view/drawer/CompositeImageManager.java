@@ -4,11 +4,9 @@ import java.awt.Color;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.RectCompositePiece;
-import com.puzzle.view.basicTapis.TapisBasicConverter;
 import com.puzzle.view.tool.ImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 
@@ -73,8 +71,9 @@ public class CompositeImageManager {
 		ImageBuffer b = this.buffers.get(cmp);
 		if(b == null){
 			b = this.createbuffer(cmp);
+			this.buffers.put(cmp, b);
 		}
-		
+
 		return b;
 	}
 

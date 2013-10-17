@@ -6,7 +6,6 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
-import com.renaud.manager.IRect;
 
 public class Clipser implements CommandeArgument<ClipserParam>{
 	private Tapis tapis;
@@ -35,23 +34,12 @@ public class Clipser implements CommandeArgument<ClipserParam>{
 			cmp = composite;
 		}
 		
-		// recalcul du centre.
-		double maxx = -Double.MAX_VALUE;
-		double minx = Double.MAX_VALUE;
-		double maxy = -Double.MAX_VALUE;
-		double miny = Double.MAX_VALUE;
-		CompositePiece composite = (CompositePiece) cmp;
-		for(Piece pi : composite){
-			IRect r = pi.getRect();
-			maxx = Math.max(maxx, r.getX() + r.getLargeur());
-			minx = Math.min(minx, r.getX());
-			maxy = Math.max(maxy,r.getY());
-			miny = Math.min(miny, r.getY() - r.getHauteur());
-		}
-		composite.getCentre().setX(minx + (maxx - minx)/ 2.0);
-		composite.getCentre().setY(miny + (maxy - miny)/ 2.0);
 		
 		cmp.poser(this.tapis);
+		
+		// renvoi du nouveau component
+		this.param.setDetruit(this.param.getComponent());
+		this.param.setComponent(cmp);
 		
 		if(((CompositePiece)cmp).getTaille() == candidat.getPuzzle().getTaille()){
 			candidat.getPuzzle().setFini(true);

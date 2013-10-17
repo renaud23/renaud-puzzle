@@ -66,7 +66,7 @@ public class MainZoom {
 		TasStatistique stat = tapis.getStatistique();
 		System.out.println(stat);
 		
-		Fenetre f = new Fenetre(800,600);
+		Fenetre f = new Fenetre(1000,800);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+"/background/wood_tapis3.jpg");
 		IController c = new TapisZoomController(background,f, tapis);

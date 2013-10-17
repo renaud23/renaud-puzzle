@@ -18,6 +18,7 @@ import com.puzzle.command.param.AttrapperMainDroiteParam;
 import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.ClipserParam;
 import com.puzzle.command.param.IsClipsParam;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Point;
@@ -29,6 +30,7 @@ import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
 import com.puzzle.view.RepaintTask;
 import com.puzzle.view.SaveView;
+import com.puzzle.view.drawer.CompositeImageManager;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
@@ -96,6 +98,34 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
 		
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+	}
+	
+	private void clips(){
+		ClipserParam param = new ClipserParam();
+		CommandeArgument<ClipserParam> cmd = new ClipserMainDroite(this.tapis);
+		cmd.setArgument(param);
+		
+		this.selectionDrawer.setSelection(false);
+		param.setCandidat(this.isClipsParam.getCandidats().get(0));
+		cmd.execute();
+		
+		this.clips = false;
+
+		this.selectionParam.clearCandidats();
+		
+		if(param.getComponent() instanceof CompositePiece){
+			CompositeImageManager.getInstance().removeBuffer((CompositePiece) param.getComponent());
+		}
+		if(param.getDetruit() instanceof CompositePiece){
+			CompositeImageManager.getInstance().removeBuffer((CompositePiece) param.getDetruit());
+		}
+		
+		
+		this.selectionDrawer.clean();
+		this.selectionDrawer.draw();
+		this.tapisDrawer.draw();
+//		new DrawTask(this.tapisDrawer,this.fenetre);
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
@@ -228,23 +258,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.attraper(x, y);
 		}else{
 			if(this.clips){
-				ClipserParam param = new ClipserParam();
-				CommandeArgument<ClipserParam> cmd = new ClipserMainDroite(this.tapis);
-				cmd.setArgument(param);
-				
-				this.selectionDrawer.setSelection(false);
-				param.setCandidat(this.isClipsParam.getCandidats().get(0));
-				cmd.execute();
-				
-				this.clips = false;
-
-				this.selectionParam.clearCandidats();
-				
-				this.selectionDrawer.clean();
-				this.selectionDrawer.draw();
-				this.tapisDrawer.draw();
-//				new DrawTask(this.tapisDrawer,this.fenetre);
-				SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+				this.clips();
 			}else this.poser(x, y);
 		}
 	}
