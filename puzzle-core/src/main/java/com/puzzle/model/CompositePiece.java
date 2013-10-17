@@ -83,6 +83,14 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		
 		((MyRect)p.getRect()).update();
 		((RectCompositePiece)this.rect).updateSize();
+		
+		Piece r = this.pieces.get(0);
+		double x = r.getPuzzleX() - ((RectCompositePiece)this.rect).getPuzzX();
+		double y = r.getPuzzleY() - ((RectCompositePiece)this.rect).getPuzzY();
+		Point nc = new Point(r.getCentre().getX() - x,r.getCentre().getY() - y);
+		nc.tourner(this.getAngle(), r.getCentre());
+		this.centre.setX(nc.getX());
+		this.centre.setY(nc.getY());
 	}	
 	
 

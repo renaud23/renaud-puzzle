@@ -97,14 +97,14 @@ public class RectCompositePiece implements MyRect{
 		
 		
 		
-		// mise à jour des piéces
+		// mise ï¿½ jour des piï¿½ces
 		for(Piece p : this.composite){
 			double x = p.getPuzzleX();
 			x -= cx;
 			double y = p.getPuzzleY();
 			y -= cy; 
 			
-			y*= -1.0;// symétrie horizontale
+			y*= -1.0;// symï¿½trie horizontale
 			x += this.composite.getCentre().getX();
 			y += this.composite.getCentre().getY();
 			
@@ -143,17 +143,6 @@ public class RectCompositePiece implements MyRect{
 		this.puzzX = minx;
 		this.puzzY = miny;
 
-		maxx = -Double.MAX_VALUE;
-		minx = Double.MAX_VALUE;
-		maxy = -Double.MAX_VALUE;
-		miny = Double.MAX_VALUE;
-		
-		for(Piece p : this.composite){
-			maxx = Math.max(maxx, p.getCentre().getX() + p.getLargeur() / 2.0);
-			minx = Math.min(minx, p.getPuzzleX() - p.getLargeur() / 2.0);
-			maxy = Math.max(maxy, p.getPuzzleY() + p.getHauteur() / 2.0);
-			miny = Math.min(miny, p.getPuzzleY() - p.getHauteur() / 2.0);
-		}
 		
 	}
 	

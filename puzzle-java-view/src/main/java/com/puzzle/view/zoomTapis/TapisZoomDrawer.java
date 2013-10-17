@@ -11,7 +11,6 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.TapisConverter;
-import com.puzzle.view.drawer.CompositeImageManager;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.ImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
@@ -75,11 +74,11 @@ public class TapisZoomDrawer implements IDrawer{
 //				this.converter.convertModelToScreen(c);
 //				this.tapisBuffer.drawRect(Color.white, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
 				
-//				if(piece.getComposite() != null) {
-//					Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
-//					this.converter.convertModelToScreen(c);
-//					this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
-//				}
+				if(piece.getComposite() != null) {
+					Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
+					this.converter.convertModelToScreen(c);
+					this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
+				}
 				
 				
 				
