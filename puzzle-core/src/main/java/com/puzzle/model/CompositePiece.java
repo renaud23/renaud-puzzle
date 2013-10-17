@@ -59,30 +59,30 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		}
 	}
 
-	private void addPiece(Piece cmp){
+	private void addPiece(Piece p){
 		if(this.pieces.isEmpty()) {
-			cmp.getCentre().setX(this.centre.getX());
-			cmp.getCentre().setY(this.centre.getY());
+			p.getCentre().setX(this.centre.getX());
+			p.getCentre().setY(this.centre.getY());
 		}else{
 			Piece r = this.pieces.get(0);
-			cmp.setZIndex(r.getZIndex());
-			cmp.setAngle(r.getAngle());
+			p.setZIndex(r.getZIndex());
+			p.setAngle(r.getAngle());
 			
-			double x = r.getPuzzleX() - cmp.getPuzzleX();
-			double y = r.getPuzzleY() - cmp.getPuzzleY();
+			double x = r.getPuzzleX() - p.getPuzzleX();
+			double y = r.getPuzzleY() - p.getPuzzleY();
 			
-			cmp.getCentre().setX(r.getCentre().getX() - x);
-			cmp.getCentre().setY(r.getCentre().getY() + y);
+			p.getCentre().setX(r.getCentre().getX() - x);
+			p.getCentre().setY(r.getCentre().getY() + y);
 			
-			cmp.getCentre().tourner(r.getAngle(), r.getCentre());
+			p.getCentre().tourner(r.getAngle(), r.getCentre());
 			
 		}
 		
-		this.pieces.add(cmp);
-		cmp.setComposite(this);
+		this.pieces.add(p);
+		p.setComposite(this);
 		
-		((MyRect)cmp.getRect()).update();
-//		((MyRect)this.rect).update();
+		((MyRect)p.getRect()).update();
+		((RectCompositePiece)this.rect).updateSize();
 	}	
 	
 

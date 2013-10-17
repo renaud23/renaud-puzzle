@@ -34,10 +34,8 @@ public class DrawSelection implements IDrawerSelection{
 
 	@Override
 	public void draw() {
-//		this.buffer.transparentClean();
 		// les candidats
 		for(Piece piece : this.param.getCandidats()){
-//			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
 			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			this.converter.convertModelToScreen(p);
@@ -99,7 +97,6 @@ public class DrawSelection implements IDrawerSelection{
 		
 		if(this.param.getComponent() instanceof Piece){
 			Piece piece = (Piece)this.param.getComponent();
-//			Image img = ImageMemoryManager.getInstance().getImage(piece.getId());
 			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 			
 			this.selectionBuffer.drawImage(img, 0, 0, 0, 0, 0, 
@@ -119,6 +116,8 @@ public class DrawSelection implements IDrawerSelection{
 				y *= this.converter.getScaleY();
 				this.drawPiece(p, x, y);
 			}
+			
+//			this.selectionBuffer = CompositeImageManager.getInstance().getBuffer(composite);
 		}
 	}
 	

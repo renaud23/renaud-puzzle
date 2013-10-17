@@ -123,9 +123,8 @@ public class RectCompositePiece implements MyRect{
 	}
 	
 
-	// ne met à jour que la piece transmise
-	public void update(Piece plus) {
-		// centre dans le puzzle.
+	
+	public void updateSize(){
 		double maxx = -Double.MAX_VALUE;
 		double minx = Double.MAX_VALUE;
 		double maxy = -Double.MAX_VALUE;
@@ -137,54 +136,24 @@ public class RectCompositePiece implements MyRect{
 			maxy = Math.max(maxy, p.getPuzzleY() + p.getHauteur() / 2.0);
 			miny = Math.min(miny, p.getPuzzleY() - p.getHauteur() / 2.0);
 		}
-		
 		double cl = maxx - minx;
 		double ch = maxy - miny;
 		this.composite.setLargeur(cl);
 		this.composite.setHauteur(ch);
 		this.puzzX = minx;
 		this.puzzY = miny;
-		double cx = minx + cl / 2.0;
-		double cy = miny + ch / 2.0; 
-		
-		// mise à jour de la piéce
-		double x = plus.getPuzzleX();
-		x -= cx;
-		double y = plus.getPuzzleY();
-		y -= cy; 
-		
-		y*= -1.0;// symétrie horizontale
-		x += this.composite.getCentre().getX();
-		y += this.composite.getCentre().getY();
-		
-		plus.getCentre().setX(x);
-		plus.getCentre().setY(y);
-		
-		
-		// centre sur le tapis
+
 		maxx = -Double.MAX_VALUE;
 		minx = Double.MAX_VALUE;
 		maxy = -Double.MAX_VALUE;
 		miny = Double.MAX_VALUE;
+		
 		for(Piece p : this.composite){
 			maxx = Math.max(maxx, p.getCentre().getX() + p.getLargeur() / 2.0);
-			minx = Math.min(minx, p.getCentre().getX()  - p.getLargeur() / 2.0);
-			maxy = Math.max(maxy, p.getCentre().getY()  + p.getHauteur() / 2.0);
-			miny = Math.min(miny, p.getCentre().getY()  - p.getHauteur() / 2.0);
+			minx = Math.min(minx, p.getPuzzleX() - p.getLargeur() / 2.0);
+			maxy = Math.max(maxy, p.getPuzzleY() + p.getHauteur() / 2.0);
+			miny = Math.min(miny, p.getPuzzleY() - p.getHauteur() / 2.0);
 		}
-		cx = minx + cl / 2.0;
-		cy = miny + ch / 2.0;
-		this.composite.getCentre().setX(cx);
-		this.composite.getCentre().setY(cy);System.out.println("ùù");
-		
-		// rotation de la piéce
-		plus.getCentre().tourner(plus.getAngle(),this.composite.getCentre());
-		
-		((MyRect)plus.getRect()).update();
-		
-		
-		// calcul du rect
-		// inutile pour l'heure
 		
 	}
 	

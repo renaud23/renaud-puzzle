@@ -44,10 +44,10 @@ public class MainZoom {
 		ImageMemoryManager.getInstance().put(p1.getId(),
 				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
-		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/fabien_20/puzzle.xml", largeur, hauteur);
-		tapis.poser(p2);
-		ImageMemoryManager.getInstance().put(p2.getId(),
-				new BasicImageProvider(rootPath+"/fabien_20/images/"));
+//		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/eglise_35/puzzle.xml", largeur, hauteur);
+//		tapis.poser(p2);
+//		ImageMemoryManager.getInstance().put(p2.getId(),
+//				new BasicImageProvider(rootPath+"/eglise_35/images/"));
 //		
 //		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p3);
