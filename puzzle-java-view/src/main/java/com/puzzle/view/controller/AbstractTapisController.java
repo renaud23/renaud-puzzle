@@ -1,12 +1,9 @@
 package com.puzzle.view.controller;
 
 
-import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.SwingUtilities;
-
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.CommandeArgument;
@@ -24,20 +21,15 @@ import com.puzzle.model.MainGauche;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.CreateBufferTask;
-import com.puzzle.view.DrawTask;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
 import com.puzzle.view.RepaintTask;
 import com.puzzle.view.SaveView;
 import com.puzzle.view.drawer.CompositeImageManager;
-import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.drawer.IDrawerParametrable;
 import com.puzzle.view.drawer.IDrawerSelection;
-import com.puzzle.view.zoomTapis.TapisZoomConverteur;
-import com.puzzle.view.zoomTapis.TapisZoomDrawer;
+
 
 public abstract class AbstractTapisController implements IController, Observer{
 	protected Tapis tapis;
@@ -46,7 +38,6 @@ public abstract class AbstractTapisController implements IController, Observer{
 	protected TapisConverter converter;
 	protected Point mousePosition;
 	protected IDrawerSelection selectionDrawer;
-//	protected IDrawer backgroundDrawer;
 	
 	protected DrawSelectionParam selectionParam;
 	protected IsClipsParam isClipsParam;
@@ -64,13 +55,9 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.tapis = tapis;
 		this.fenetre = fenetre;
 		
-		
-		
 		this.selectionParam = new DrawSelectionParam();
 		this.isClipsParam = new IsClipsParam();
 		this.attraperParam = new AttrapperMainDroiteParam();
-		
-		
 		
 		this.mainDroiteVide = true;
 		this.mainGaucheVide = true;
@@ -93,7 +80,6 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.mainGaucheVide = MainGauche.getInstance().isEmpty();
 		
 		this.selectionDrawer.setSelection(true);
-		new CreateBufferTask(this.selectionDrawer, this.fenetre);
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
@@ -220,9 +206,8 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
 			
 			this.selectionDrawer.setSelection(true);
-			
-			new CreateBufferTask(this.selectionDrawer,this.fenetre);
-//			if(this.backgroundDrawer != null) this.backgroundDrawer.draw();
+
+
 			this.tapisDrawer.draw();
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
@@ -245,7 +230,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
 		this.tapisDrawer.draw();
-//		new DrawTask(this.tapisDrawer,this.fenetre);
+		
 		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	

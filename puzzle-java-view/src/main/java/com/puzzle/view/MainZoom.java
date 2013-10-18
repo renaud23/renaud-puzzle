@@ -35,8 +35,8 @@ public class MainZoom {
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
-		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
-//		String rootPath = "/home/renaud/workspace/puzzle-pieces";
+//		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 //		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
 		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
@@ -66,7 +66,7 @@ public class MainZoom {
 		TasStatistique stat = tapis.getStatistique();
 		System.out.println(stat);
 		
-		Fenetre f = new Fenetre(1000,800);
+		Fenetre f = new Fenetre(800,600);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+"/background/wood_tapis3.jpg");
 		IController c = new TapisZoomController(background,f, tapis);
