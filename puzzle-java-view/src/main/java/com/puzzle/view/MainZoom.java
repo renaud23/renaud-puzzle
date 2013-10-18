@@ -8,6 +8,7 @@ import java.util.Random;
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -30,24 +31,24 @@ import com.renaud.manager.TasStatistique;
 public class MainZoom {
 
 	public static void main(String[] args) throws PuzzleIOException {
-		int largeur = 24000;
-		int hauteur = 8000;
+		int largeur = 36000;
+		int hauteur = 12000;
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
 //		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
-		String rootPath = "/home/renaud/workspace/puzzle-pieces";
-//		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
+//		String rootPath = "/home/renaud/workspace/puzzle-pieces";
+		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
 		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
-		tapis.poser(p1);
+//		tapis.poser(p1);
 		ImageMemoryManager.getInstance().put(p1.getId(),
 				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
-//		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/eglise_35/puzzle.xml", largeur, hauteur);
+//		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/luckyluck_30/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p2);
 //		ImageMemoryManager.getInstance().put(p2.getId(),
-//				new BasicImageProvider(rootPath+"/eglise_35/images/"));
+//				new BasicImageProvider(rootPath+"/luckyluck_30/images/"));
 //		
 //		Puzzle p3 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p3);
@@ -55,12 +56,12 @@ public class MainZoom {
 //				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
 	
-//		CompositePiece cmp = new CompositePiece(0,0);
-//		for(Piece p : p1.getPieces()){
-//			cmp.addComponent(p);
-//		}
-//
-//		tapis.poser(cmp);
+		CompositePiece cmp = new CompositePiece(0,0);
+		for(Piece p : p1.getPieces()){
+			cmp.addComponent(p);
+		}
+
+		tapis.poser(cmp);
 		
 		
 		TasStatistique stat = tapis.getStatistique();
