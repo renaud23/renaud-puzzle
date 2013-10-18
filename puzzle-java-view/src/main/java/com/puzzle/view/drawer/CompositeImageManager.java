@@ -13,6 +13,7 @@ import com.puzzle.view.tool.ImageMemoryManager;
 public class CompositeImageManager {
 	private static CompositeImageManager instance;
 	private double scale = 0.5;
+	private static double limite = 1000.0;
 	
 	private Map<CompositePiece, ScaleBuffer> buffers;
 	
@@ -40,11 +41,24 @@ public class CompositeImageManager {
 
 
 	private ImageBuffer createbuffer(CompositePiece cmp){
+		this.scale = 1.0;
 		double l = cmp.getLargeur();
 		l *= scale;
 		double h = cmp.getHauteur();
 		h *= scale;
 		
+		if(l > limite){
+			scale = limite / cmp.getLargeur();
+			l =  cmp.getLargeur() * scale;
+			h = cmp.getHauteur() * scale;
+		}
+		if(h > limite){
+			scale = limite / cmp.getHauteur();
+			l =  cmp.getLargeur() * scale;
+			h = cmp.getHauteur() * scale;
+		}
+		
+
 		ImageBuffer buffer = new ImageBuffer(new Color(0,0,0,0),(int) Math.round(l), (int) Math.round(h));
 		buffer.transparentClean();
 		
@@ -92,6 +106,9 @@ public class CompositeImageManager {
 	
 	
 	public class ScaleBuffer{
+		/**
+		 * réduction apportée à l'image.
+		 */
 		private double scale;
 		private ImageBuffer buffer;
 		

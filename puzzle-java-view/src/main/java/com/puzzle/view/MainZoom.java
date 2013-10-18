@@ -36,12 +36,12 @@ public class MainZoom {
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
-//		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
 //		String rootPath = "/home/renaud/workspace/puzzle-pieces";
-		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
+//		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
 		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
-//		tapis.poser(p1);
+		tapis.poser(p1);
 		ImageMemoryManager.getInstance().put(p1.getId(),
 				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
@@ -56,12 +56,12 @@ public class MainZoom {
 //				new BasicImageProvider(rootPath+"/floflo/images/"));
 		
 	
-		CompositePiece cmp = new CompositePiece(0,0);
-		for(Piece p : p1.getPieces()){
-			cmp.addComponent(p);
-		}
-
-		tapis.poser(cmp);
+//		CompositePiece cmp = new CompositePiece(0,0);
+//		for(Piece p : p1.getPieces()){
+//			cmp.addComponent(p);
+//		}
+//
+//		tapis.poser(cmp);
 		
 		
 		TasStatistique stat = tapis.getStatistique();
