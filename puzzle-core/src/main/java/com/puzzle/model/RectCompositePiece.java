@@ -7,19 +7,19 @@ public class RectCompositePiece implements MyRect{
 	private CompositePiece composite;
 	private double puzzX;
 	private double puzzY;
-//	private Point[] coins = new Point[4];
+	private Point[] coins = new Point[4];
 	private double largeur;
 	private double hauteur;
-//	private double x;
-//	private double y;
+	private double x;
+	private double y;
 	
 
 	public RectCompositePiece(CompositePiece composite) {
 		this.composite = composite;
-//		this.coins[0] = new Point();
-//		this.coins[1] = new Point();
-//		this.coins[2] = new Point();
-//		this.coins[3] = new Point();
+		this.coins[0] = new Point();
+		this.coins[1] = new Point();
+		this.coins[2] = new Point();
+		this.coins[3] = new Point();
 	}
 
 	@Override
@@ -95,9 +95,7 @@ public class RectCompositePiece implements MyRect{
 		double cx = minx + cl / 2.0;
 		double cy = miny + ch / 2.0; 
 		
-		
-		
-		// mise ï¿½ jour des piï¿½ces
+		// mise à jour des piéces
 		for(Piece p : this.composite){
 			double x = p.getPuzzleX();
 			x -= cx;
@@ -115,16 +113,39 @@ public class RectCompositePiece implements MyRect{
 			((MyRect)p.getRect()).update();
 		}
 		
-		
-		
 		// calcul du rect
-		// inutile pour l'heure
+		this.coins[0].setX(minx);
+		this.coins[0].setY(-miny);
+		this.coins[1].setX(maxx);
+		this.coins[1].setY(-miny);
+		this.coins[2].setX(maxx);
+		this.coins[2].setY(-maxy);
+		this.coins[3].setX(minx);
+		this.coins[3].setY(-maxy);
+		
+		this.coins[0].tourner(this.composite.getAngle(),this.composite.getCentre());
+		this.coins[1].tourner(this.composite.getAngle(),this.composite.getCentre());
+		this.coins[2].tourner(this.composite.getAngle(),this.composite.getCentre());
+		this.coins[3].tourner(this.composite.getAngle(),this.composite.getCentre());
+		
+		double l = this.composite.getLargeur() / 2.0;
+		double h = this.composite.getHauteur() / 2.0;
+		for(int i=0;i<4;i++){
+			double x = this.coins[i].getX();
+			x -= l;
+			double y = this.coins[i].getY();
+			y += h;
+			this.coins[i].setX(x);
+			this.coins[i].setY(y);
+		}
+		
 		
 	}
 	
-
+	
 	
 	public void updateSize(){
+		// calcul de la taille selon les coordonnées puzz.
 		double maxx = -Double.MAX_VALUE;
 		double minx = Double.MAX_VALUE;
 		double maxy = -Double.MAX_VALUE;
@@ -142,8 +163,6 @@ public class RectCompositePiece implements MyRect{
 		this.composite.setHauteur(ch);
 		this.puzzX = minx;
 		this.puzzY = miny;
-
-		
 	}
 	
 	

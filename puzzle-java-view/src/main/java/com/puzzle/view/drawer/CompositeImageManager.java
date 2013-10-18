@@ -36,6 +36,8 @@ public class CompositeImageManager {
 				0, 0, 0,
 				scale, scale, 1.0f);
 	}
+	
+
 
 	private ImageBuffer createbuffer(CompositePiece cmp){
 		double l = cmp.getLargeur();
