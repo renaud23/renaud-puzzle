@@ -2,10 +2,12 @@ package com.puzzle.view.drawer;
 
 import java.awt.Color;
 import java.awt.Image;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.view.controller.TapisConverter;
+import com.puzzle.view.drawer.CompositeImageManager.ScaleBuffer;
 import com.puzzle.view.tool.ImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 
@@ -71,9 +73,9 @@ public class DrawSelection implements IDrawerSelection{
 					this.param.getPosition().getX(), this.param.getPosition().getY(), -this.param.getComponent().getAngle(), 
 					this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
 			}else if(this.param.getComponent() instanceof CompositePiece){
-				ImageBuffer ib =  CompositeImageManager.getInstance().getBuffer((CompositePiece)this.param.getComponent());
-				Image img = ib.getImage();
-				double scale = CompositeImageManager.getInstance().getScale();
+				ScaleBuffer sb = CompositeImageManager.getInstance().getBuffer((CompositePiece)this.param.getComponent());
+				Image img = sb.getBuffer().getImage();
+				double scale = sb.getScale();
 				double cx = (double)img.getWidth(null) / 2.0 * this.converter.getScaleX()/scale;
 				double cy = (double)img.getHeight(null) / 2.0 * this.converter.getScaleY()/scale;
 				

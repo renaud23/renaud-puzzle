@@ -14,7 +14,7 @@ public class CompositeImageManager {
 	private static CompositeImageManager instance;
 	private double scale = 0.5;
 	
-	private Map<CompositePiece, ImageBuffer> buffers;
+	private Map<CompositePiece, ScaleBuffer> buffers;
 	
 	public static CompositeImageManager getInstance(){
 		if(instance == null) instance = new CompositeImageManager();
@@ -23,7 +23,7 @@ public class CompositeImageManager {
 	
 	
 	private CompositeImageManager(){
-		this.buffers = new HashMap<CompositePiece, ImageBuffer>();
+		this.buffers = new HashMap<CompositePiece, ScaleBuffer>();
 	}
 	
 	
@@ -69,10 +69,12 @@ public class CompositeImageManager {
 		this.buffers.remove(cmp); 
 	}
 	
-	public ImageBuffer getBuffer(CompositePiece cmp){
-		ImageBuffer b = this.buffers.get(cmp);
+	public ScaleBuffer getBuffer(CompositePiece cmp){
+		
+		ScaleBuffer b = this.buffers.get(cmp);
 		if(b == null){
-			b = this.createbuffer(cmp);
+			ImageBuffer bf = this.createbuffer(cmp);
+			b = new  ScaleBuffer(scale, bf);
 			this.buffers.put(cmp, b);
 		}
 
@@ -88,6 +90,25 @@ public class CompositeImageManager {
 		this.scale = scale;
 	}
 	
+	
+	public class ScaleBuffer{
+		private double scale;
+		private ImageBuffer buffer;
+		
+		
+		public ScaleBuffer(double scale, ImageBuffer buffer) {
+			this.scale = scale;
+			this.buffer = buffer;
+		}
+		public double getScale() {
+			return scale;
+		}
+		public ImageBuffer getBuffer() {
+			return buffer;
+		}
+		
+		
+	}
 	
 	
 		

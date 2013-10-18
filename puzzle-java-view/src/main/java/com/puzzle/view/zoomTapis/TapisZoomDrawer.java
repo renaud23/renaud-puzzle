@@ -13,6 +13,7 @@ import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.CompositeImageManager;
 import com.puzzle.view.drawer.IDrawer;
+import com.puzzle.view.drawer.CompositeImageManager.ScaleBuffer;
 import com.puzzle.view.tool.ImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.SimpleImageLoader;
@@ -75,11 +76,11 @@ public class TapisZoomDrawer implements IDrawer{
 //				this.converter.convertModelToScreen(c);
 //				this.tapisBuffer.drawRect(Color.white, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
 				
-				if(piece.getComposite() != null) {
-					Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
-					this.converter.convertModelToScreen(c);
-					this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
-				}
+//				if(piece.getComposite() != null) {
+//					Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
+//					this.converter.convertModelToScreen(c);
+//					this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
+//				}
 				
 				
 				
@@ -89,8 +90,9 @@ public class TapisZoomDrawer implements IDrawer{
 					CompositePiece cmp = piece.getComposite();
 					
 					if(cmp.getRect().isIn(r)){
-						ImageBuffer b = CompositeImageManager.getInstance().getBuffer(cmp);
-						double scale = CompositeImageManager.getInstance().getScale();
+						ScaleBuffer sb =  CompositeImageManager.getInstance().getBuffer(cmp);
+						ImageBuffer b = sb.getBuffer();
+						double scale = sb.getScale();
 						Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
 						this.converter.convertModelToScreen(p);
 						
