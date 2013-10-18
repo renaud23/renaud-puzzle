@@ -51,14 +51,12 @@ public class RectCompositePiece implements MyRect{
 
 	@Override
 	public double getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.y;
 	}
 
 	@Override
 	public double getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.x;
 	}
 
 	@Override
@@ -130,6 +128,11 @@ public class RectCompositePiece implements MyRect{
 		
 		double l = this.composite.getLargeur() / 2.0;
 		double h = this.composite.getHauteur() / 2.0;
+		
+		maxx = -Double.MAX_VALUE;
+		minx = Double.MAX_VALUE;
+		maxy = -Double.MAX_VALUE;
+		miny = Double.MAX_VALUE;
 		for(int i=0;i<4;i++){
 			double x = this.coins[i].getX();
 			x -= l;
@@ -137,8 +140,16 @@ public class RectCompositePiece implements MyRect{
 			y += h;
 			this.coins[i].setX(x);
 			this.coins[i].setY(y);
+			
+			minx = Math.min(minx, x);
+			maxx = Math.max(maxx, x);
+			miny = Math.min(miny, y);
+			maxy = Math.max(maxy, y);
 		}
-		
+		this.x = minx;
+		this.y = maxy;
+		this.largeur = maxx - minx;
+		this.hauteur = maxy - miny;
 		
 	}
 	
