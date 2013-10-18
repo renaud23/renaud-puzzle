@@ -15,7 +15,7 @@ import java.awt.image.VolatileImage;
 
 
 
-public class ImageBuffer {
+public class JImageBuffer implements IImageBuffer{
 	
 	private static GraphicsConfiguration gc = 
 			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
@@ -29,7 +29,7 @@ public class ImageBuffer {
 	
 	
 	
-	public ImageBuffer (Color color,int largeur,int hauteur){
+	public JImageBuffer (Color color,int largeur,int hauteur){
 		this.hauteur = hauteur;
 		this.largeur = largeur;
 
@@ -154,7 +154,7 @@ public class ImageBuffer {
 
 	}
 	
-	public synchronized void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
+	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
 		Graphics2D gr = this.image.createGraphics();
 
 		/** D�sactivation de l'anti-aliasing */
@@ -180,11 +180,11 @@ public class ImageBuffer {
 	}
 	
 	
-	public synchronized void drawString(String text,int x,int y,Font font, Color color){
+	public void drawString(String text,int x,int y,Font font, Color color){
 		Graphics2D gr = this.image.createGraphics();
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		        RenderingHints.VALUE_ANTIALIAS_ON);
-//	    Font font = new Font("Serif", Font.PLAIN, 96);
+
 	    gr.setFont(font);
 	    gr.setColor(color);
 	    gr.drawString(text, x, y); 

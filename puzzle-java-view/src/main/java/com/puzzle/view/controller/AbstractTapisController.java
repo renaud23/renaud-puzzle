@@ -25,10 +25,10 @@ import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
 import com.puzzle.view.RepaintTask;
 import com.puzzle.view.SaveView;
-import com.puzzle.view.drawer.CompositeImageManager;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
+import com.puzzle.view.tool.CompositeImageManager;
 
 
 public abstract class AbstractTapisController implements IController, Observer{

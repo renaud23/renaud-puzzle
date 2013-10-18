@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 import com.puzzle.view.listener.MyWindowListner;
 import com.puzzle.view.mainGauche.MainGaucheView;
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.JImageBuffer;
 
 
 
@@ -18,7 +18,7 @@ public class Fenetre {
 	
 	private JFrame frame;
 	private Offscreen offscreen;
-	private List<ImageBuffer> backBuffers;
+	private List<JImageBuffer> backBuffers;
 	private MainGaucheView mainGauche;
 	private int largeur;
 	private int hauteur;
@@ -30,10 +30,10 @@ public class Fenetre {
 		this.hauteur = hauteur;
 		
 		// tapis
-		this.backBuffers = new ArrayList<ImageBuffer>();
-		this.backBuffers.add(0, new ImageBuffer(new Color(200,50,50,255),(int)(largeur*0.8),this.hauteur));
+		this.backBuffers = new ArrayList<JImageBuffer>();
+		this.backBuffers.add(0, new JImageBuffer(new Color(200,50,50,255),(int)(largeur*0.8),this.hauteur));
 		this.backBuffers.get(0).transparentClean();
-		this.backBuffers.add(1, new ImageBuffer(new Color(0,0,0,0), (int)(largeur*0.8),this.hauteur));
+		this.backBuffers.add(1, new JImageBuffer(new Color(0,0,0,0), (int)(largeur*0.8),this.hauteur));
 		this.backBuffers.get(1).transparentClean();
 		
 		
@@ -92,8 +92,8 @@ public class Fenetre {
 		return this.offscreen;
 	}
 	
-	public ImageBuffer getBuffer(int i){
-		ImageBuffer b = null;
+	public JImageBuffer getBuffer(int i){
+		JImageBuffer b = null;
 		if(i< this.backBuffers.size()) b = this.backBuffers.get(i);
 		return b;
 	}

@@ -1,14 +1,13 @@
-package com.puzzle.view.drawer;
+package com.puzzle.view.tool;
 
 import java.awt.Color;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.RectCompositePiece;
-import com.puzzle.view.tool.ImageBuffer;
-import com.puzzle.view.tool.ImageMemoryManager;
 
 public class CompositeImageManager {
 	private static CompositeImageManager instance;
@@ -29,7 +28,7 @@ public class CompositeImageManager {
 	
 	
 	
-	private void drawPiece(ImageBuffer buffer,Piece piece,double x,double y){
+	private void drawPiece(JImageBuffer buffer,Piece piece,double x,double y){
 		Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
 		
 		buffer.drawImage(img, 
@@ -40,7 +39,7 @@ public class CompositeImageManager {
 	
 
 
-	private ImageBuffer createbuffer(CompositePiece cmp){
+	private JImageBuffer createbuffer(CompositePiece cmp){
 		this.scale = 1.0;
 		double l = cmp.getLargeur();
 		l *= scale;
@@ -59,7 +58,7 @@ public class CompositeImageManager {
 		}
 		
 
-		ImageBuffer buffer = new ImageBuffer(new Color(0,0,0,0),(int) Math.round(l), (int) Math.round(h));
+		JImageBuffer buffer = new JImageBuffer(new Color(0,0,0,0),(int) Math.round(l), (int) Math.round(h));
 		buffer.transparentClean();
 		
 		RectCompositePiece r =  (RectCompositePiece) cmp.getRect();
@@ -87,7 +86,7 @@ public class CompositeImageManager {
 		
 		ScaleBuffer b = this.buffers.get(cmp);
 		if(b == null){
-			ImageBuffer bf = this.createbuffer(cmp);
+			JImageBuffer bf = this.createbuffer(cmp);
 			b = new  ScaleBuffer(scale, bf);
 			this.buffers.put(cmp, b);
 		}
@@ -110,17 +109,17 @@ public class CompositeImageManager {
 		 * réduction apportée à l'image.
 		 */
 		private double scale;
-		private ImageBuffer buffer;
+		private JImageBuffer buffer;
 		
 		
-		public ScaleBuffer(double scale, ImageBuffer buffer) {
+		public ScaleBuffer(double scale, JImageBuffer buffer) {
 			this.scale = scale;
 			this.buffer = buffer;
 		}
 		public double getScale() {
 			return scale;
 		}
-		public ImageBuffer getBuffer() {
+		public JImageBuffer getBuffer() {
 			return buffer;
 		}
 		

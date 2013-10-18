@@ -3,36 +3,28 @@ package com.puzzle.view.zoomTapis;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.DecimalFormat;
-import com.puzzle.model.Tapis;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.DrawerDecorator;
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.JImageBuffer;
 
 public class DrawZoomSelection extends DrawerDecorator{
 
 	private final static Font zoomFont = new Font("Comic Sans MS", Font.PLAIN, 32);
-	private ImageBuffer buffer;
+	private JImageBuffer buffer;
 	private TapisZoomConverteur converter;
 	private double zoomScale;
 	
 	private Lunette lunette;
 
 	
-	public DrawZoomSelection(ImageBuffer buffer,TapisZoomConverteur converter,Lunette lunette) {
+	public DrawZoomSelection(JImageBuffer buffer,TapisZoomConverteur converter,Lunette lunette) {
 		this.decore = new DrawSelection(buffer,converter);
 		this.buffer = buffer;
 		
 		this.converter = converter;
 		this.zoomScale = converter.getScaleX();
 		this.lunette = lunette;
-		
-//		this.lunette = new Lunette();
-//		this.lunette.setScale(0.2);
-//		this.lunette.setLargeur(buffer.getLargeur() * this.lunette.getScale());
-//		this.lunette.setHauteur(this.lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
-//		this.lunette.setX(this.buffer.getLargeur() - this.lunette.getLargeur() - 10.0);
-//		this.lunette.setY(10.0);
 	}
 
 	@Override

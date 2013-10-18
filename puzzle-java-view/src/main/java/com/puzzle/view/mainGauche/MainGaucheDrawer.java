@@ -8,19 +8,19 @@ import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 
 public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 	
-	private ImageBuffer buffer;
+	private JImageBuffer buffer;
 	private int margeHorizontale;
 	private int margeVerticale;
 	private int largeur;
 	private int marge;
 	private int focused;
 
-	public MainGaucheDrawer(ImageBuffer buffer) {
+	public MainGaucheDrawer(JImageBuffer buffer) {
 		this.buffer = buffer;
 		this.focused = -1;
 		this.init();

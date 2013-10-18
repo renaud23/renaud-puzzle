@@ -82,21 +82,12 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		p.setComposite(this);
 		
 		((MyRect)p.getRect()).update();
-		((RectCompositePiece)this.rect).updateSize();
-		
-		// recalcul du centre
-		Piece r = this.pieces.get(0);
-		
-		double x = r.getPuzzleX();
-		x -= ((RectCompositePiece)this.rect).getPuzzX() + this.largeur/2.0;
-		double y = r.getPuzzleY();
-		y -= ((RectCompositePiece)this.rect).getPuzzY() + this.hauteur/2.0;
-		
-		Point nc = new Point(r.getCentre().getX() - x,r.getCentre().getY() + y);
-		nc.tourner(this.getAngle(), r.getCentre());
-		this.centre.setX(nc.getX());
-		this.centre.setY(nc.getY());
+		// update du composite sans mise en cohérence des pièces.
+		((RectCompositePiece)this.rect).calculTaille();
+		((RectCompositePiece)this.rect).calculCentre();
+		((RectCompositePiece)this.rect).calculRect();
 	}	
+	
 	
 
 	public int getTaille(){
@@ -117,8 +108,8 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	}
 	
 	
-	public List<Piece> getChild(){
-		return this.pieces;// attention ï¿½ l'usage.
+	public List<Piece> getPieces(){
+		return this.pieces;
 	}
 
 	@Override
@@ -176,7 +167,9 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	@Override
 	public void poser(Tapis tapis) {
-//		this.rect.update();
+//		// calculer les bonnes positions sur le tapis...
+		((RectCompositePiece)this.rect).update();
+//		// ... avant de poser sur le tapis !!!
 		tapis.poser(this);
 	}
 

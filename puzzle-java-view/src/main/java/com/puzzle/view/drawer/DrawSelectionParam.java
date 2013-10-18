@@ -20,10 +20,7 @@ public class DrawSelectionParam {
 	private Point ancre;
 	
 	private ComponentPiece component;
-	
-	
-
-	
+	 
 	
 	public ComponentPiece getComponent() {
 		return component;

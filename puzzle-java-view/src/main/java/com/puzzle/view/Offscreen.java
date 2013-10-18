@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.JImageBuffer;
 
 public class Offscreen extends JPanel{
 
@@ -21,8 +21,8 @@ public class Offscreen extends JPanel{
 	private static final long serialVersionUID = 7927839937475130643L;
 	
 	
-	private ImageBuffer frontBuffer;
-	private List<ImageBuffer> backBuffer;
+	private JImageBuffer frontBuffer;
+	private List<JImageBuffer> backBuffer;
 	
 	
 
@@ -30,9 +30,9 @@ public class Offscreen extends JPanel{
 	
 	
 	
-	public Offscreen(List<ImageBuffer> backBuffer) {
+	public Offscreen(List<JImageBuffer> backBuffer) {
 		this.backBuffer = backBuffer;
-		this.frontBuffer = new ImageBuffer(Color.red, this.backBuffer.get(0).getLargeur(),  this.backBuffer.get(0).getHauteur());
+		this.frontBuffer = new JImageBuffer(Color.red, this.backBuffer.get(0).getLargeur(),  this.backBuffer.get(0).getHauteur());
 	}
 
 
@@ -41,7 +41,7 @@ public class Offscreen extends JPanel{
 	protected void paintComponent(Graphics g){
 		Graphics gr = this.frontBuffer.getImage().getGraphics();
 		
-		for(ImageBuffer buff : this.backBuffer){
+		for(JImageBuffer buff : this.backBuffer){
 			gr.drawImage(buff.getImage(), 0, 0, null);
 		}
 		

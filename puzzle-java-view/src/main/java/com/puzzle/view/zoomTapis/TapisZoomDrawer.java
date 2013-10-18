@@ -5,32 +5,31 @@ import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
+import com.puzzle.model.RectCompositePiece;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.TapisConverter;
-import com.puzzle.view.drawer.CompositeImageManager;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.drawer.CompositeImageManager.ScaleBuffer;
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.CompositeImageManager;
+import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.SimpleImageLoader;
+import com.puzzle.view.tool.CompositeImageManager.ScaleBuffer;
 import com.renaud.manager.Rect;
 
 
 
 public class TapisZoomDrawer implements IDrawer{
 	
-	private ImageBuffer tapisBuffer;
+	private JImageBuffer tapisBuffer;
 	private Tapis tapis;
 	private TapisConverter converter;
 	private Image background;
 	
 	
 
-	public TapisZoomDrawer(Image background,Tapis tapis,ImageBuffer tapisBuffer,
+	public TapisZoomDrawer(Image background,Tapis tapis,JImageBuffer tapisBuffer,
 			TapisConverter converter) {
 		this.tapisBuffer = tapisBuffer;
 		this.tapis = tapis;
@@ -52,6 +51,7 @@ public class TapisZoomDrawer implements IDrawer{
 		//	 dessin tapis
 		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
 		for(Piece piece : this.tapis){
+			
 			if(piece.getComposite() == null){
 				if(piece.getRect().isIn(r)){
 					Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
@@ -69,21 +69,10 @@ public class TapisZoomDrawer implements IDrawer{
 							p.getX() , p.getY(), -piece.getAngle(), 
 							this.converter.getScaleX(), this.converter.getScaleY(), 
 							1.0f);
+					
+					
 				}// if in
-				
-				// pour dev
-//				Point c = new Point(piece.getCentre().getX(), piece.getCentre().getY());
-//				this.converter.convertModelToScreen(c);
-//				this.tapisBuffer.drawRect(Color.white, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
-				
-//				if(piece.getComposite() != null) {
-//					Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
-//					this.converter.convertModelToScreen(c);
-//					this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
-//				}
-				
-				
-				
+			
 			}else{
 				if(!alreadyDraw.contains(piece.getComposite())){
 					alreadyDraw.add(piece.getComposite());
@@ -91,7 +80,7 @@ public class TapisZoomDrawer implements IDrawer{
 					
 					if(cmp.getRect().isIn(r)){
 						ScaleBuffer sb =  CompositeImageManager.getInstance().getBuffer(cmp);
-						ImageBuffer b = sb.getBuffer();
+						JImageBuffer b = sb.getBuffer();
 						double scale = sb.getScale();
 						Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
 						this.converter.convertModelToScreen(p);
@@ -109,17 +98,29 @@ public class TapisZoomDrawer implements IDrawer{
 								1.0f);
 						
 						
-						
+						// dev
 						Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
 						this.converter.convertModelToScreen(c);
 						this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
-					}
+						
+						Point[] pt = ((RectCompositePiece)cmp.getRect()).getCoins();
+						for(int i=0;i<pt.length;i++){
+							Point o = new Point(pt[i].getX(),pt[i].getY());
+							this.converter.convertModelToScreen(o);
+							this.tapisBuffer.drawRect(Color.white, (int)Math.round(o.getX()), (int)Math.round(o.getY()), 2, 2);
+						}
+						
+					}// if isIn
 					
-				}// if
+				}// if already
 			}// else
 			
 			
-			
+			// dev
+			Point cp = new Point(piece.getCentre().getX(), piece.getCentre().getY());
+			this.converter.convertModelToScreen(cp);
+			this.tapisBuffer.drawRect(Color.yellow, (int)Math.round(cp.getX()), (int)Math.round(cp.getY()), 2, 2);
+						
 		}// for
 			
 		

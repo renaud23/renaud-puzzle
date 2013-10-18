@@ -8,18 +8,18 @@ import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 
 
 public class TapisBasicDrawer implements IDrawer {
 	
 	private Tapis tapis;
-	private ImageBuffer tapisBuffer;
+	private JImageBuffer tapisBuffer;
 	private TapisConverter converteur;
 
 
-	public TapisBasicDrawer(Tapis tapis, ImageBuffer tapisBuffer,
+	public TapisBasicDrawer(Tapis tapis, JImageBuffer tapisBuffer,
 			TapisConverter converteur) {
 		this.tapis = tapis;
 		this.tapisBuffer = tapisBuffer;

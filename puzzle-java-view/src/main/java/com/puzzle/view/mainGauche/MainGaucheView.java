@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.puzzle.view.Offscreen;
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.JImageBuffer;
 
 
 
@@ -15,7 +15,7 @@ public class MainGaucheView {
 	private Offscreen offscreen;
 	private int largeur;
 	private int hauteur;
-	private List<ImageBuffer> buffers;
+	private List<JImageBuffer> buffers;
 	
 	public MainGaucheView (int largeur,int hauteur){
 		
@@ -29,7 +29,7 @@ public class MainGaucheView {
 	public void create(int largeur,int hauteur){
 		this.buffers = new ArrayList<>(2);
 		this.buffers.clear();
-		ImageBuffer im1 = new ImageBuffer(new Color(200,200,200,255), largeur, hauteur);
+		JImageBuffer im1 = new JImageBuffer(new Color(200,200,200,255), largeur, hauteur);
 		im1.clean();
 //		ImageBuffer im2 = new ImageBuffer(new Color(0,0,0,0), largeur, hauteur);
 //		im2.transparentClean();
@@ -41,7 +41,7 @@ public class MainGaucheView {
 		this.hauteur = hauteur;
 	}
 	
-	public ImageBuffer getBuffer(int i){
+	public JImageBuffer getBuffer(int i){
 		return this.buffers.get(i);
 	}
 	

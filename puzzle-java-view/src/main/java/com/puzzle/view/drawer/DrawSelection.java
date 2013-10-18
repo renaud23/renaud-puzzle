@@ -7,14 +7,15 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.view.controller.TapisConverter;
-import com.puzzle.view.drawer.CompositeImageManager.ScaleBuffer;
-import com.puzzle.view.tool.ImageBuffer;
+import com.puzzle.view.tool.CompositeImageManager;
+import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
+import com.puzzle.view.tool.CompositeImageManager.ScaleBuffer;
 
 
 
 public class DrawSelection implements IDrawerSelection{
-	private ImageBuffer buffer;
+	private JImageBuffer buffer;
 	private TapisConverter converter;
 	private DrawSelectionParam param;
 	private boolean selection;
@@ -22,7 +23,7 @@ public class DrawSelection implements IDrawerSelection{
 	
 
 
-	public DrawSelection(ImageBuffer buffer, TapisConverter converter) {
+	public DrawSelection(JImageBuffer buffer, TapisConverter converter) {
 		this.buffer = buffer;
 		this.converter = converter;
 		this.selection = false;

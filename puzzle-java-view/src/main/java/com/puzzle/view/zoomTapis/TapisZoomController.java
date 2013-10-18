@@ -1,9 +1,7 @@
 package com.puzzle.view.zoomTapis;
 
 import java.awt.Image;
-
 import javax.swing.SwingUtilities;
-
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
