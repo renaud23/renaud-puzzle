@@ -79,8 +79,8 @@ public class DrawSelection implements IDrawerSelection{
 				
 				double x = this.param.getPosition().getX();
 				double y = this.param.getPosition().getY();
-				x += this.param.getAncre().getX() * this.converter.getScaleX()/scale;
-				y -= this.param.getAncre().getY() * this.converter.getScaleY()/scale;
+				x += this.param.getAncre().getX() * this.converter.getScaleX();
+				y -= this.param.getAncre().getY() * this.converter.getScaleY();
 				x -= cx;
 				y -= cy;
 				

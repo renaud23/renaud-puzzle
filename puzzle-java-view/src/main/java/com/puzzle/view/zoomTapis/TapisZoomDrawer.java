@@ -98,7 +98,7 @@ public class TapisZoomDrawer implements IDrawer{
 						x -= b.getImage().getWidth(null) / 2.0 * this.converter.getScaleX() / scale;
 						
 						double y = p.getY();
-						y -= b.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
+						y -= b.getImage().getHeight(null) / 2.0 * this.converter.getScaleY() / scale;
 						
 						this.tapisBuffer.drawImage(b.getImage(),
 								x,  y, 

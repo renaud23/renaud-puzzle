@@ -12,7 +12,7 @@ import com.puzzle.view.tool.ImageMemoryManager;
 
 public class CompositeImageManager {
 	private static CompositeImageManager instance;
-	private double scale = 1.0;
+	private double scale = 0.5;
 	
 	private Map<CompositePiece, ImageBuffer> buffers;
 	
