@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.image.VolatileImage;
 
 
@@ -179,6 +180,14 @@ public class JImageBuffer implements IImageBuffer{
 		gr.dispose();
 	}
 	
+	
+	public void drawLine(Color color,double x1,double y1,double x2,double y2){
+		Graphics2D gr = this.image.createGraphics();
+		Line2D.Double line = new Line2D.Double(x1, y1, x2, y2);
+		gr.setColor(color);
+		gr.draw(line);
+		gr.dispose();
+	}
 	
 	public void drawString(String text,int x,int y,Font font, Color color){
 		Graphics2D gr = this.image.createGraphics();

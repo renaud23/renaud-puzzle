@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -16,6 +18,7 @@ import com.puzzle.view.tool.CompositeImageManager;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.CompositeImageManager.ScaleBuffer;
+import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
 
@@ -50,7 +53,13 @@ public class TapisZoomDrawer implements IDrawer{
 		
 		//	 dessin tapis
 		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
-		for(Piece piece : this.tapis){
+		
+		// filtrage
+	
+		IRect rect = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), cvt.getLargeur(), cvt.getHauteur());
+		Set<Piece> pieces = this.tapis.chercherPiece(rect);
+	
+		for(Piece piece : pieces){
 			
 			if(piece.getComposite() == null){
 				if(piece.getRect().isIn(r)){
@@ -72,7 +81,6 @@ public class TapisZoomDrawer implements IDrawer{
 					
 					
 				}// if in
-			
 			}else{
 				if(!alreadyDraw.contains(piece.getComposite())){
 					alreadyDraw.add(piece.getComposite());
@@ -96,34 +104,11 @@ public class TapisZoomDrawer implements IDrawer{
 								p.getX() , p.getY(), -cmp.getAngle(), 
 								this.converter.getScaleX()/scale, this.converter.getScaleY()/scale, 
 								1.0f);
-						
-						
-						// dev
-						Point c = new Point(piece.getComposite().getCentre().getX(), piece.getComposite().getCentre().getY());
-						this.converter.convertModelToScreen(c);
-						this.tapisBuffer.drawRect(Color.red, (int)Math.round(c.getX()), (int)Math.round(c.getY()), 2, 2);
-						
-						Point[] pt = ((RectCompositePiece)cmp.getRect()).getCoins();
-						for(int i=0;i<pt.length;i++){
-							Point o = new Point(pt[i].getX(),pt[i].getY());
-							this.converter.convertModelToScreen(o);
-							this.tapisBuffer.drawRect(Color.white, (int)Math.round(o.getX()), (int)Math.round(o.getY()), 2, 2);
-						}
-						
 					}// if isIn
 					
 				}// if already
-			}// else
-			
-			
-			// dev
-			Point cp = new Point(piece.getCentre().getX(), piece.getCentre().getY());
-			this.converter.convertModelToScreen(cp);
-			this.tapisBuffer.drawRect(Color.yellow, (int)Math.round(cp.getX()), (int)Math.round(cp.getY()), 2, 2);
-						
+			}// else				
 		}// for
-			
-		
 	}
 
 	@Override

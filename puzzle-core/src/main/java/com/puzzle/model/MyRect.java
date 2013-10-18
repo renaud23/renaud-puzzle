@@ -4,4 +4,5 @@ import com.renaud.manager.IRect;
 
 public interface MyRect extends IRect{
 	public void update();
+	public Point[] getCoins();
 }
