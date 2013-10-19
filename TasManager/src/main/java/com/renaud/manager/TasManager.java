@@ -4,7 +4,6 @@ package com.renaud.manager;
 
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -15,34 +14,36 @@ import java.util.Stack;
 public class TasManager<U extends IRectable> {
 
 	private Tas<U> root;
+	private Set<U> listeComplete;
 	
 
 
 	public TasManager(int profondeurMax,double x,double y,double largeur, double hauteur) {
 		this.root = new Tas<U>(1, profondeurMax, x, y, largeur, hauteur);
+		this.listeComplete = new HashSet<U>();
 	}
 	
 	public void clear(){
+		this.listeComplete.clear();
 		if(this.root != null) this.root.clear();
 	}
 
 	public void remove(U e){
+		this.listeComplete.remove(e);
 		this.root.remove(e);
 	}
 	
 	
 	public void put(U e){
+		this.listeComplete.add(e);
 		this.root.put(e);
 	}
 	
 	
-	/**
-	 * rempli la liste fournie.
-	 * @param e
-	 */
+	
 	public Set<U> getAll(){
 		Set<U> liste = new HashSet<U>();
-		this.root.getAll(liste);
+		liste.addAll(this.listeComplete);
 		
 		return liste;
 	}
@@ -65,9 +66,9 @@ public class TasManager<U extends IRectable> {
 	}
 
 	
-	public List<U> getRootList(){
-		return this.root.getElements();
-	}
+//	public List<U> getRootList(){
+//		return this.root.getElements();
+//	}
 	
 	
 	public TasStatistique getStatistiques(){
