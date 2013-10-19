@@ -48,7 +48,7 @@ public class MainZoom {
 		
 		
 		
-		Commande cmd = new Assemblage(tapis);
+		Commande cmd = new Assemblage(tapis,150);
 		cmd.execute();
 		
 		

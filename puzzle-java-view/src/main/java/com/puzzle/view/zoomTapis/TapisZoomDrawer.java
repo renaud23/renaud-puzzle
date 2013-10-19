@@ -4,6 +4,7 @@ package com.puzzle.view.zoomTapis;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -54,10 +55,10 @@ public class TapisZoomDrawer implements IDrawer{
 		//	 dessin tapis
 		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
 		
-		// filtrage
-	
+		// filtrage des pièce dans la zone.
 		IRect rect = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), cvt.getLargeur(), cvt.getHauteur());
-		Set<Piece> pieces = this.tapis.chercherPiece(rect);
+		List<Piece> pieces = this.tapis.chercherPiece(rect);
+		Collections.sort(pieces);
 	
 		for(Piece piece : pieces){
 			if(piece.getComposite() == null){

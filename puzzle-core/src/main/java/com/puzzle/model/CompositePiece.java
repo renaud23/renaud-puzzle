@@ -37,13 +37,6 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		return this.pieces.iterator();
 	}
 
-	public int getzIndex() {
-		return zIndex;
-	}
-	
-	public void setzIndex(int zIndex) {
-		this.zIndex = zIndex;
-	}
 	
 	/* gestion du composite */
 	
@@ -123,9 +116,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 
 	@Override
 	public void setZIndex(int index) {
-		if(!this.pieces.isEmpty()){
-			for(Piece p : this) p.setZIndex(index);
-		}
+		for(Piece p : this) p.setZIndex(index);
 	}
 
 	@Override

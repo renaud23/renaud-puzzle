@@ -3,7 +3,9 @@ package com.renaud.manager;
 
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -49,26 +51,17 @@ public class TasManager<U extends IRectable> {
 	}
 	
 	
-	public Set<U> get(Set<U> elmts,U e){
-		return this.get(e.getRect());
-	}
-	
-	
-	public Set<U> get(IRect r){
+	public List<U> get(IRect r){
 		Set<U> set = new HashSet<U>();
 		this.root.get(set, r);
+		List<U> liste = new ArrayList<U>(set);
 		
-		return set;
+		return liste;
 	}
 	
-	public Set<U> get(double x,double y){
+	public List<U> get(double x,double y){
 		return this.get(new Rect(x,y,1,1));
 	}
-
-	
-//	public List<U> getRootList(){
-//		return this.root.getElements();
-//	}
 	
 	
 	public TasStatistique getStatistiques(){

@@ -1,27 +1,32 @@
 package com.puzzle.command;
 
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Puzzle.Position;
 import com.puzzle.model.Tapis;
 
+
+
 public class Assemblage implements Commande{
 
 	private Tapis tapis;
+	private int limite;
 	
 	
 	
 	
 	
 	
-	public Assemblage(Tapis tapis) {
+	public Assemblage(Tapis tapis,int limite) {
 		this.tapis = tapis;
-
+		this.limite = limite;
 	}
 
 
@@ -52,7 +57,7 @@ public class Assemblage implements Commande{
 
 			
 			
-			while(i<30 && !sac.isEmpty()){
+			while(i<this.limite && !sac.isEmpty()){
 				if(p != null && !already.contains(p)){
 					sac.remove(p);
 					already.add(p);
@@ -82,10 +87,7 @@ public class Assemblage implements Commande{
 				i++;
 			}
 			
-
-			
 			cmp.poser(this.tapis);
-			
 		}
 	}
 

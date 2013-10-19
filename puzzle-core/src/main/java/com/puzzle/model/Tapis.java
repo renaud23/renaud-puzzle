@@ -43,16 +43,18 @@ public class Tapis extends Observable implements Iterable<Piece>{
 
 	
 	/**
-	 * Pose une pi�ce sur le tapis.
+	 * Pose une piece sur le tapis.
 	 * 
 	 * @param piece
 	 */
 	public void poser(Piece piece){
-		Set<Piece> set = this.memoire.get(piece.getRect());
+		this.memoire.remove(piece);
+		piece.setZIndex(0);
+		List<Piece> set = this.memoire.get(piece.getRect());
 		int index = 0;
 		
 		for(Piece c : set){
-			if(c.getZIndex() > index){
+			if(piece.getRect().isIn(c.getRect())){
 				index = c.getZIndex();
 			}	
 		}
@@ -65,15 +67,14 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	public void poser(CompositePiece composite){
 		int z = 0;
 		for(Piece p : composite){
-			this.memoire.remove(p);
 			this.poser(p);
-			if(p.getZIndex() > z) z = p.getZIndex();
-			p.setZIndex(0);
+			if(p.getZIndex() > z) 
+				z = p.getZIndex();
+			p.setZIndex(-1);
+			
 		}
-		
-		for(Piece p : composite){
-			p.setZIndex(z);
-		}
+
+		composite.setZIndex(z);
 	}
 	
 	
@@ -98,12 +99,12 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	
 	
 	
-	public Set<Piece> chercherPiece(IRect r){// TODO
+	public List<Piece> chercherPiece(IRect r){// TODO
 		 return this.memoire.get(r);
 	}
 	
 	public List<Piece> chercherPiece(double x,double y){
-		Set<Piece> set = this.memoire.get(x,y);
+		List<Piece> set = this.memoire.get(x,y);
 		List<Piece> tmp = new ArrayList<Piece>();
 
 		for(Piece cmp : set){
