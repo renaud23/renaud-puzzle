@@ -15,7 +15,7 @@ public class TapisZoomController extends AbstractTapisController{
 	public TapisZoomController(Image background,Fenetre fenetre, Tapis tapis) {
 		super(fenetre, tapis);
 		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(),tapis);
-		this.tapisDrawer = new TapisZoomDrawerDev(background,tapis,fenetre.getBuffer(0),this.converter);
+		this.tapisDrawer = new TapisZoomDrawer(background,tapis,fenetre.getBuffer(0),this.converter);
 		
 		
 		Lunette lunette = new Lunette();

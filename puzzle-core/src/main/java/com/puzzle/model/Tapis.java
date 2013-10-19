@@ -47,7 +47,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 	 * 
 	 * @param piece
 	 */
-	public void poserPiece(Piece piece){
+	public void poser(Piece piece){
 		Set<Piece> set = this.memoire.get(piece.getRect());
 		int index = 0;
 		
@@ -66,7 +66,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		int z = 0;
 		for(Piece p : composite){
 			this.memoire.remove(p);
-			this.poserPiece(p);
+			this.poser(p);
 			if(p.getZIndex() > z) z = p.getZIndex();
 			p.setZIndex(0);
 		}
@@ -94,9 +94,7 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.memoire.remove(piece);
 	}
 	
-	public void retirerComposite(CompositePiece piece){
-		
-	}
+	
 	
 	
 	

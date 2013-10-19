@@ -5,10 +5,11 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
+import com.puzzle.command.Assemblage;
+import com.puzzle.command.Commande;
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
-import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -40,10 +41,17 @@ public class MainZoom {
 //		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 //		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
-		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/floflo/puzzle.xml", largeur, hauteur);
+		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/delacroix_1200/puzzle.xml", largeur, hauteur);
 		tapis.poser(p1);
 		ImageMemoryManager.getInstance().put(p1.getId(),
-				new BasicImageProvider(rootPath+"/floflo/images/"));
+				new BasicImageProvider(rootPath+"/delacroix_1200/images/"));
+		
+		
+		
+		Commande cmd = new Assemblage(tapis);
+		cmd.execute();
+		
+		
 		
 //		Puzzle p2 = MainZoom.loadPuzzle(rootPath+"/luckyluck_30/puzzle.xml", largeur, hauteur);
 //		tapis.poser(p2);

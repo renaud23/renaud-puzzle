@@ -60,7 +60,6 @@ public class TapisZoomDrawer implements IDrawer{
 		Set<Piece> pieces = this.tapis.chercherPiece(rect);
 	
 		for(Piece piece : pieces){
-			
 			if(piece.getComposite() == null){
 				if(piece.getRect().isIn(r)){
 					Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());

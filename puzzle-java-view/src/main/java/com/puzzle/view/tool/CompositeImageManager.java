@@ -12,7 +12,7 @@ import com.puzzle.model.RectCompositePiece;
 public class CompositeImageManager {
 	private static CompositeImageManager instance;
 	private double scale = 0.5;
-	private static double limite = 1000.0;
+	private static double limite = 1024.0;
 	
 	private Map<CompositePiece, ScaleBuffer> buffers;
 	

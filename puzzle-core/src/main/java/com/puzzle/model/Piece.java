@@ -215,7 +215,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 	@Override
 	public void poser(Tapis tapis) {
 		this.rect.update();
-		tapis.poserPiece(this);
+		tapis.poser(this);
 	}
 
 	@Override
