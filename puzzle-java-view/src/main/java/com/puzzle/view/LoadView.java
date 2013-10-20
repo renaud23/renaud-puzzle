@@ -10,7 +10,7 @@ import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.tool.BasicImageProvider;
+import com.puzzle.view.tool.PieceImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 
 public class LoadView {
@@ -41,7 +41,7 @@ public class LoadView {
 				// les images
 				for(Puzzle puzz : this.tapis.getPuzzles()){
 					File file = new File(puzz.getPath());
-					ImageMemoryManager.getInstance().put(puzz.getId(), new BasicImageProvider(file.getParent()+File.separator+"images"));
+					ImageMemoryManager.getInstance().put(puzz.getId(), new PieceImageProvider(file.getParent()+File.separator+"images"));
 					
 				}
 				

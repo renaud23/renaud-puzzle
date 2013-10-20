@@ -17,7 +17,7 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.mainGauche.MainGaucheController;
-import com.puzzle.view.tool.BasicImageProvider;
+import com.puzzle.view.tool.PieceImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 
 public class MainBasic {
@@ -53,7 +53,7 @@ public class MainBasic {
 		tapis.poser(puzzle);
 		
 		ImageMemoryManager.getInstance().put(puzzle.getId(), 
-				new BasicImageProvider("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/"));
+				new PieceImageProvider("C:/Documents and Settings/Administrateur/git/renaud-puzzle/puzzle-java-view/src/main/resources/floflo/images/"));
 		
 		Fenetre f = new Fenetre(750,600);
 		TapisBasicController c = new TapisBasicController(f, tapis);

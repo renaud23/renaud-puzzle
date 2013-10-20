@@ -22,7 +22,7 @@ import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.CompositeImageManager;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.ScaleBuffer;
+import com.puzzle.view.tool.CompositeBufferOperation;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
@@ -93,7 +93,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 					CompositePiece cmp = piece.getComposite();
 					
 					if(cmp.getRect().isIn(r)){
-						ScaleBuffer sb =  CompositeImageManager.getInstance().getBufferDeferred(cmp, this);
+						CompositeBufferOperation sb =  CompositeImageManager.getInstance().getBufferDeferred(cmp, this);
 						
 						if(sb != null){
 							this.drawComposite(sb);
@@ -108,7 +108,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	}
 	
 	
-	private void drawComposite(ScaleBuffer sb){
+	private void drawComposite(CompositeBufferOperation sb){
 		JImageBuffer b = sb.getBuffer();
 		double scale = sb.getScale();
 		CompositePiece cmp = sb.getComposite();
@@ -151,9 +151,9 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if(arg instanceof ScaleBuffer){
-			this.drawComposite((ScaleBuffer)arg);
+	public synchronized void update(Observable o, Object arg) {
+		if(arg instanceof CompositeBufferOperation){
+			this.drawComposite((CompositeBufferOperation)arg);
 			o.deleteObserver(this);
 			
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));

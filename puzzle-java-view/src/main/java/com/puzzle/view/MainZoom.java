@@ -19,7 +19,7 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.mainGauche.MainGaucheController;
-import com.puzzle.view.tool.BasicImageProvider;
+import com.puzzle.view.tool.PieceImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.TapisZoomController;
@@ -38,13 +38,14 @@ public class MainZoom {
 		Tapis tapis = new Tapis(largeur,hauteur);
 
 		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String name =  "fabien_20";
 //		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 //		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
-		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/fabien_20/puzzle.xml", largeur, hauteur);
+		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/"+name+"/puzzle.xml", largeur, hauteur);
 		tapis.poser(p1);
 		ImageMemoryManager.getInstance().put(p1.getId(),
-				new BasicImageProvider(rootPath+"/fabien_20/images/"));
+				new PieceImageProvider(rootPath+"/"+name+"/images/"));
 		
 		
 //		

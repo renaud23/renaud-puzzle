@@ -69,7 +69,7 @@ public class CompositeBufferTask extends Observable implements Runnable{
 		}
 		
 		
-		ScaleBuffer sc = new ScaleBuffer(scale, buffer,composite);
+		CompositeBufferOperation sc = new CompositeBufferOperation(scale, buffer,composite);
 		
 		this.setChanged();
 		this.notifyObservers(sc);

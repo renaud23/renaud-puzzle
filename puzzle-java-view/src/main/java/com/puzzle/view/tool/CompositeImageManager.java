@@ -16,7 +16,7 @@ public class CompositeImageManager implements Observer{
 	private double scale = 0.5;
 	private static double limite = 2048.0;
 	
-	private Map<CompositePiece, ScaleBuffer> buffers;
+	private Map<CompositePiece, CompositeBufferOperation> buffers;
 	
 	public static CompositeImageManager getInstance(){
 		if(instance == null) instance = new CompositeImageManager();
@@ -25,7 +25,7 @@ public class CompositeImageManager implements Observer{
 	
 	
 	private CompositeImageManager(){
-		this.buffers = new HashMap<CompositePiece, ScaleBuffer>(); 
+		this.buffers = new HashMap<CompositePiece, CompositeBufferOperation>(); 
 	}
 	
 	
@@ -84,21 +84,21 @@ public class CompositeImageManager implements Observer{
 		this.buffers.remove(cmp); 
 	}
 	
-	public ScaleBuffer getBuffer(CompositePiece cmp){
+	public CompositeBufferOperation getBuffer(CompositePiece cmp){
 		
-		ScaleBuffer b = this.buffers.get(cmp);
+		CompositeBufferOperation b = this.buffers.get(cmp);
 		if(b == null){
 			JImageBuffer bf = this.createbuffer(cmp);
-			b = new  ScaleBuffer(scale, bf,cmp);
+			b = new  CompositeBufferOperation(scale, bf,cmp);
 			this.buffers.put(cmp, b);
 		}
 
 		return b;
 	}
 	
-	public ScaleBuffer getBufferDeferred(CompositePiece composite,Observer observer){
+	public CompositeBufferOperation getBufferDeferred(CompositePiece composite,Observer observer){
 		
-		ScaleBuffer b = this.buffers.get(composite);
+		CompositeBufferOperation b = this.buffers.get(composite);
 		if(b == null){
 			CompositeBufferTask task = new CompositeBufferTask(composite, limite);
 			task.addObserver(observer);
@@ -122,8 +122,8 @@ public class CompositeImageManager implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(arg instanceof ScaleBuffer){
-			ScaleBuffer sb = (ScaleBuffer) arg;
+		if(arg instanceof CompositeBufferOperation){
+			CompositeBufferOperation sb = (CompositeBufferOperation) arg;
 			this.buffers.put(sb.getComposite(), sb);
 			o.deleteObserver(this);
 			

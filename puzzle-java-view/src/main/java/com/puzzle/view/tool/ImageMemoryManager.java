@@ -10,14 +10,10 @@ import java.util.Map;
 
 
 
-public class ImageMemoryManager extends Thread {
+public class ImageMemoryManager {
 	
 	
 	private static ImageMemoryManager instance;
-	
-
-	
-	
 	private Map<Integer, ImageProvider> providers;
 
 	

@@ -10,7 +10,7 @@ import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.tool.CompositeImageManager;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.ScaleBuffer;
+import com.puzzle.view.tool.CompositeBufferOperation;
 
 
 
@@ -74,7 +74,7 @@ public class DrawSelection implements IDrawerSelection{
 					this.param.getPosition().getX(), this.param.getPosition().getY(), -this.param.getComponent().getAngle(), 
 					this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
 			}else if(this.param.getComponent() instanceof CompositePiece){
-				ScaleBuffer sb = CompositeImageManager.getInstance().getBuffer((CompositePiece)this.param.getComponent());
+				CompositeBufferOperation sb = CompositeImageManager.getInstance().getBuffer((CompositePiece)this.param.getComponent());
 				Image img = sb.getBuffer().getImage();
 				double scale = sb.getScale();
 				double cx = (double)img.getWidth(null) / 2.0 * this.converter.getScaleX()/scale;

@@ -17,17 +17,17 @@ import java.util.Map;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
-public class BasicImageProvider extends Thread implements ImageProvider {
+
+public class PieceImageProvider implements ImageProvider {
 	
 	
 	private String path;
 	private Map<Integer, SoftReference<VolatileImage>> images;
 	
 
-	public BasicImageProvider(String path){
+	public PieceImageProvider(String path){
 		this.path = path;
 		this.images = new HashMap<Integer, SoftReference<VolatileImage>>();
-		this.start();
 	}
 
 
@@ -39,8 +39,8 @@ public class BasicImageProvider extends Thread implements ImageProvider {
 	}
 
 
-	public void reload(int code){
-		String file = path+File.separator+String.valueOf(code)+".png";
+	public void reload(Integer code){
+		String file = path+File.separator+String.valueOf(code.toString())+".png";
 		try {
 			VolatileImage buff = loadFromFile(file);
 			this.images.put(code,new SoftReference<VolatileImage>(buff));
@@ -109,4 +109,6 @@ public class BasicImageProvider extends Thread implements ImageProvider {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+
 }

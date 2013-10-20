@@ -2,7 +2,7 @@ package com.puzzle.view.tool;
 
 import com.puzzle.model.CompositePiece;
 
-public class ScaleBuffer{
+public class CompositeBufferOperation{
 	/**
 	 * réduction apportée à l'image.
 	 */
@@ -11,7 +11,7 @@ public class ScaleBuffer{
 	private JImageBuffer buffer;
 	
 	
-	public ScaleBuffer(double scale, JImageBuffer buffer,CompositePiece composite) {
+	public CompositeBufferOperation(double scale, JImageBuffer buffer,CompositePiece composite) {
 		this.scale = scale;
 		this.buffer = buffer;
 		this.composite = composite;
