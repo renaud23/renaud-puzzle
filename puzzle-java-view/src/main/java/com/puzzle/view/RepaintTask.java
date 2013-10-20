@@ -14,7 +14,7 @@ public class RepaintTask extends Thread{
 
 	@Override
 	public void run() {
-		fenetre.repaint();
+		this.fenetre.repaint();
 	}
 	
 }

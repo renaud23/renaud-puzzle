@@ -8,10 +8,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.SwingUtilities;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.Fenetre;
+import com.puzzle.view.RepaintTask;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.CompositeImageManager;
@@ -29,15 +34,16 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	private Tapis tapis;
 	private TapisConverter converter;
 	private Image background;
+	private Fenetre fenetre;
 	
 	
 
-	public TapisZoomDrawer(Image background,Tapis tapis,JImageBuffer tapisBuffer,
+	public TapisZoomDrawer(Fenetre fenetre,Image background,Tapis tapis,JImageBuffer tapisBuffer,
 			TapisConverter converter) {
 		this.tapisBuffer = tapisBuffer;
 		this.tapis = tapis;
 		this.converter = converter;
-		
+		this.fenetre = fenetre;
 		this.background = background;
 		
 	}
@@ -60,6 +66,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		Collections.sort(pieces);
 	
 		for(Piece piece : pieces){
+			
 			if(piece.getComposite() == null){
 				if(piece.getRect().isIn(r)){
 					Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
@@ -86,14 +93,15 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 					CompositePiece cmp = piece.getComposite();
 					
 					if(cmp.getRect().isIn(r)){
-						ScaleBuffer sb =  CompositeImageManager.getInstance().getBuffer(cmp);
+						ScaleBuffer sb =  CompositeImageManager.getInstance().getBufferDeferred(cmp, this);
 						
 						if(sb != null){
 							this.drawComposite(sb);
 						}// if != null
 					}// if isIn	
 				}// if already
-			}// else				
+			}// else
+			
 		}// for
 	}
 	
@@ -143,9 +151,11 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(arg instanceof ScaleBuffer){
+			this.drawComposite((ScaleBuffer)arg);
+			o.deleteObserver(this);
 			
+			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		}
-		
 	}
 
 

@@ -11,7 +11,7 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.RectCompositePiece;
 
-public class CompositeImageManager{
+public class CompositeImageManager implements Observer{
 	private static CompositeImageManager instance;
 	private double scale = 0.5;
 	private static double limite = 2048.0;
@@ -102,6 +102,7 @@ public class CompositeImageManager{
 		if(b == null){
 			CompositeBufferTask task = new CompositeBufferTask(composite, limite);
 			task.addObserver(observer);
+			task.addObserver(this);
 			task.start();
 			
 		}
@@ -116,6 +117,18 @@ public class CompositeImageManager{
 
 	public void setScale(double scale) {
 		this.scale = scale;
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg instanceof ScaleBuffer){
+			ScaleBuffer sb = (ScaleBuffer) arg;
+			this.buffers.put(sb.getComposite(), sb);
+			o.deleteObserver(this);
+			
+		}
+		
 	}
 	
 	

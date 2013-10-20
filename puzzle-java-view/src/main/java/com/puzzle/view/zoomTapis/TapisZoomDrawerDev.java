@@ -9,6 +9,7 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectCompositePiece;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
@@ -28,12 +29,12 @@ public class TapisZoomDrawerDev implements IDrawer {
 	 * @param tapisBuffer
 	 * @param converter
 	 */
-	public TapisZoomDrawerDev(Image background,Tapis tapis,JImageBuffer tapisBuffer,
+	public TapisZoomDrawerDev(Fenetre fenetre,Image background,Tapis tapis,JImageBuffer tapisBuffer,
 			TapisConverter converter){
 		this.tapis = tapis;
 		this.tapisBuffer = tapisBuffer;
 		this.converter = converter;
-		this.drawer = new TapisZoomDrawer(background, tapis, tapisBuffer, converter);
+		this.drawer = new TapisZoomDrawer(fenetre,background, tapis, tapisBuffer, converter);
 	}
 
 	@Override
