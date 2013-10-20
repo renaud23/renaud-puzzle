@@ -3,7 +3,9 @@ package com.puzzle.view.controller;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.SwingUtilities;
+
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.CommandeArgument;
@@ -28,7 +30,7 @@ import com.puzzle.view.SaveView;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
-import com.puzzle.view.tool.CompositeImageManager;
+import com.puzzle.view.tool.provider.CompositeImageProvider;
 
 
 public abstract class AbstractTapisController implements IController, Observer{
@@ -101,10 +103,10 @@ public abstract class AbstractTapisController implements IController, Observer{
 		this.selectionParam.clearCandidats();
 		
 		if(param.getComponent() instanceof CompositePiece){
-			CompositeImageManager.getInstance().removeBuffer((CompositePiece) param.getComponent());
+			CompositeImageProvider.getInstance().removeBuffer((CompositePiece) param.getComponent());
 		}
 		if(param.getDetruit() instanceof CompositePiece){
-			CompositeImageManager.getInstance().removeBuffer((CompositePiece) param.getDetruit());
+			CompositeImageProvider.getInstance().removeBuffer((CompositePiece) param.getDetruit());
 		}
 		
 		

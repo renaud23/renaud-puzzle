@@ -1,10 +1,13 @@
-package com.puzzle.view.tool;
+package com.puzzle.view.tool.provider;
 
 import java.awt.Color;
 import java.util.Observable;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.RectCompositePiece;
+import com.puzzle.view.tool.ImageMemoryManager;
+import com.puzzle.view.tool.JImageBuffer;
 
 
 
@@ -13,6 +16,7 @@ public class CompositeBufferTask extends Observable implements Runnable{
 	private CompositePiece composite;
 	private double limite;
 	private Thread task;
+	private CompositeBufferOperation operation;
 
 
 
@@ -67,16 +71,21 @@ public class CompositeBufferTask extends Observable implements Runnable{
 		}
 		
 		
-		CompositeBufferOperation sc = new CompositeBufferOperation(scale, buffer,composite);
+		this.operation = new CompositeBufferOperation(scale, buffer,composite);
 		
 		this.setChanged();
-		this.notifyObservers(sc);
+		this.notifyObservers(operation);
 		
+	}
+	
+
+	public CompositeBufferOperation getOperation() {
+		return operation;
 	}
 	
 	
 	private void drawPiece(JImageBuffer buffer,Piece piece,double x,double y,double scale){
-		PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
+		PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
 		
 		buffer.drawImage(pbo.getImage(), 
 				x, y, 

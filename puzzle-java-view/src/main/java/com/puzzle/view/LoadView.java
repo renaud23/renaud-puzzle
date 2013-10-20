@@ -10,8 +10,8 @@ import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.tool.PieceImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
+import com.puzzle.view.tool.provider.PieceImageProvider;
 
 public class LoadView {
 	private Tapis tapis;

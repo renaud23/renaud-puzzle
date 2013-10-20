@@ -9,9 +9,9 @@ import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.PieceBufferOperation;
+import com.puzzle.view.tool.JImageBuffer;
+import com.puzzle.view.tool.provider.PieceBufferOperation;
 
 
 public class TapisBasicDrawer implements IDrawer {
@@ -35,7 +35,7 @@ public class TapisBasicDrawer implements IDrawer {
 		
 		//	 dessin tapis
 		for(Piece piece : this.tapis){
-			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
 			
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			this.converteur.convertModelToScreen(p);

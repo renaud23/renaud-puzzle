@@ -7,11 +7,11 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.view.controller.TapisConverter;
-import com.puzzle.view.tool.CompositeImageManager;
-import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.CompositeBufferOperation;
-import com.puzzle.view.tool.PieceBufferOperation;
+import com.puzzle.view.tool.JImageBuffer;
+import com.puzzle.view.tool.provider.CompositeBufferOperation;
+import com.puzzle.view.tool.provider.CompositeImageProvider;
+import com.puzzle.view.tool.provider.PieceBufferOperation;
 
 
 
@@ -36,7 +36,7 @@ public class DrawSelection implements IDrawerSelection{
 	public void draw() {
 		// les candidats
 		for(Piece piece : this.param.getCandidats()){
-			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			this.converter.convertModelToScreen(p);
 			
@@ -57,7 +57,7 @@ public class DrawSelection implements IDrawerSelection{
 		if(this.selection){
 			if(this.param.getComponent() instanceof Piece){
 				Piece piece = (Piece) this.param.getComponent();
-				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
+				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
 				
 				double cx = (double)pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
 				double cy = (double)pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
@@ -75,7 +75,7 @@ public class DrawSelection implements IDrawerSelection{
 					this.param.getPosition().getX(), this.param.getPosition().getY(), -this.param.getComponent().getAngle(), 
 					this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
 			}else if(this.param.getComponent() instanceof CompositePiece){
-				CompositeBufferOperation sb = CompositeImageManager.getInstance().getBuffer((CompositePiece)this.param.getComponent());
+				CompositeBufferOperation sb = CompositeImageProvider.getInstance().getElement((CompositePiece)this.param.getComponent());
 				Image img = sb.getBuffer().getImage();
 				double scale = sb.getScale();
 				double cx = (double)img.getWidth(null) / 2.0 * this.converter.getScaleX()/scale;

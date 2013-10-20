@@ -1,4 +1,4 @@
-package com.puzzle.view.tool;
+package com.puzzle.view.tool.provider;
 
 import java.awt.image.VolatileImage;
 import com.puzzle.model.Piece;

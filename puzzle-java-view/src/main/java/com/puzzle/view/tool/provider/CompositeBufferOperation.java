@@ -1,6 +1,7 @@
-package com.puzzle.view.tool;
+package com.puzzle.view.tool.provider;
 
 import com.puzzle.model.CompositePiece;
+import com.puzzle.view.tool.JImageBuffer;
 
 public class CompositeBufferOperation{
 	/**

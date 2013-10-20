@@ -19,9 +19,9 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.mainGauche.MainGaucheController;
-import com.puzzle.view.tool.PieceImageProvider;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.SimpleImageLoader;
+import com.puzzle.view.tool.provider.PieceImageProvider;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.renaud.manager.TasStatistique;
 
@@ -38,7 +38,7 @@ public class MainZoom {
 		Tapis tapis = new Tapis(largeur,hauteur);
 
 		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
-		String name =  "fabien_20";
+		String name =  "chantier_2080";
 //		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 //		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		

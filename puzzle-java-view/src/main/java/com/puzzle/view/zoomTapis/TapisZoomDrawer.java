@@ -19,11 +19,11 @@ import com.puzzle.view.Fenetre;
 import com.puzzle.view.RepaintTask;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.tool.CompositeImageManager;
-import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.CompositeBufferOperation;
-import com.puzzle.view.tool.PieceBufferOperation;
+import com.puzzle.view.tool.JImageBuffer;
+import com.puzzle.view.tool.provider.CompositeBufferOperation;
+import com.puzzle.view.tool.provider.CompositeImageProvider;
+import com.puzzle.view.tool.provider.PieceBufferOperation;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
@@ -70,23 +70,8 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 			
 			if(piece.getComposite() == null){
 				if(piece.getRect().isIn(r)){
-					PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
-					Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
-					this.converter.convertModelToScreen(p);
-					
-					double x = p.getX();
-					x -= pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
-					
-					double y = p.getY();
-					y -= pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
-				
-					this.tapisBuffer.drawImage(pbo.getImage(),
-							x,  y, 
-							p.getX() , p.getY(), -piece.getAngle(), 
-							this.converter.getScaleX(), this.converter.getScaleY(), 
-							1.0f);
-					
-					
+					PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElementDeferred(piece,this);
+					if(pbo != null) this.drawPiece(pbo);	
 				}// if in
 			}else{
 				if(!alreadyDraw.contains(piece.getComposite())){
@@ -94,11 +79,8 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 					CompositePiece cmp = piece.getComposite();
 					
 					if(cmp.getRect().isIn(r)){
-						CompositeBufferOperation sb =  CompositeImageManager.getInstance().getBufferDeferred(cmp, this);
-						
-						if(sb != null){
-							this.drawComposite(sb);
-						}// if != null
+						CompositeBufferOperation sb =  CompositeImageProvider.getInstance().getElementDeferred(cmp, this);
+						if(sb != null) this.drawComposite(sb);
 					}// if isIn	
 				}// if already
 			}// else
@@ -130,6 +112,24 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	}
 	
 	
+	private void drawPiece(PieceBufferOperation pbo){
+		Point p = new Point(pbo.getPiece().getCentre().getX(),pbo.getPiece().getCentre().getY());
+		this.converter.convertModelToScreen(p);
+		
+		double x = p.getX();
+		x -= pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
+		
+		double y = p.getY();
+		y -= pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
+	
+		this.tapisBuffer.drawImage(pbo.getImage(),
+				x,  y, 
+				p.getX() , p.getY(), -pbo.getPiece().getAngle(), 
+				this.converter.getScaleX(), this.converter.getScaleY(), 
+				1.0f);
+	}
+	
+	
 
 	@Override
 	public void clean() {
@@ -157,6 +157,11 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 			this.drawComposite((CompositeBufferOperation)arg);
 			o.deleteObserver(this);
 			
+			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+		}else if(arg instanceof PieceBufferOperation){
+			this.drawPiece((PieceBufferOperation) arg);
+			
+			o.deleteObserver(this);
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		}
 	}

@@ -2,12 +2,13 @@ package com.puzzle.view.mainGauche;
 
 
 import java.awt.Image;
+
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.view.drawer.IDrawerParametrable;
-import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.PieceBufferOperation;
+import com.puzzle.view.tool.JImageBuffer;
+import com.puzzle.view.tool.provider.PieceBufferOperation;
 
 public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 	
@@ -38,7 +39,7 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 			if(i == 0) scale =  this.largeur / p.getLargeur();
 			
 
-			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(p.getPuzzle().getId()).getImage(p);
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(p.getPuzzle().getId()).getElement(p);
 			
 			double xi = this.margeVerticale;
 			xi += this.largeur / 2.0;

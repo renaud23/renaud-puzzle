@@ -14,8 +14,6 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	private Point centre;
 	
-	private int zIndex;
-	
 	private double largeur;
 	
 	private double hauteur;
