@@ -10,7 +10,7 @@ import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.tool.CompositeImageManager;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.CompositeImageManager.ScaleBuffer;
+import com.puzzle.view.tool.ScaleBuffer;
 
 
 

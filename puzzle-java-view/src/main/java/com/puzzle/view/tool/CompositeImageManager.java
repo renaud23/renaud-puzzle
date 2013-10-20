@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.RectCompositePiece;
 
-public class CompositeImageManager {
+public class CompositeImageManager{
 	private static CompositeImageManager instance;
 	private double scale = 0.5;
 	private static double limite = 2048.0;
@@ -93,6 +94,18 @@ public class CompositeImageManager {
 
 		return b;
 	}
+	
+	public void getBufferDeferred(CompositePiece cmp,Observable observer){
+		
+		ScaleBuffer b = this.buffers.get(cmp);
+		if(b == null){
+			JImageBuffer bf = this.createbuffer(cmp);
+			b = new  ScaleBuffer(scale, bf);
+			this.buffers.put(cmp, b);
+		}
+
+		
+	}
 
 
 	public double getScale() {
@@ -104,27 +117,27 @@ public class CompositeImageManager {
 	}
 	
 	
-	public class ScaleBuffer{
-		/**
-		 * réduction apportée à l'image.
-		 */
-		private double scale;
-		private JImageBuffer buffer;
-		
-		
-		public ScaleBuffer(double scale, JImageBuffer buffer) {
-			this.scale = scale;
-			this.buffer = buffer;
-		}
-		public double getScale() {
-			return scale;
-		}
-		public JImageBuffer getBuffer() {
-			return buffer;
-		}
-		
-		
-	}
+//	public class ScaleBuffer{
+//		/**
+//		 * réduction apportée à l'image.
+//		 */
+//		private double scale;
+//		private JImageBuffer buffer;
+//		
+//		
+//		public ScaleBuffer(double scale, JImageBuffer buffer) {
+//			this.scale = scale;
+//			this.buffer = buffer;
+//		}
+//		public double getScale() {
+//			return scale;
+//		}
+//		public JImageBuffer getBuffer() {
+//			return buffer;
+//		}
+//		
+//		
+//	}
 	
 	
 		

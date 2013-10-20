@@ -41,15 +41,15 @@ public class MainZoom {
 //		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 //		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
-		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/delacroix_1200/puzzle.xml", largeur, hauteur);
+		Puzzle p1 = MainZoom.loadPuzzle(rootPath+"/fabien_20/puzzle.xml", largeur, hauteur);
 		tapis.poser(p1);
 		ImageMemoryManager.getInstance().put(p1.getId(),
-				new BasicImageProvider(rootPath+"/delacroix_1200/images/"));
+				new BasicImageProvider(rootPath+"/fabien_20/images/"));
 		
 		
-		
-		Commande cmd = new Assemblage(tapis,150);
-		cmd.execute();
+//		
+//		Commande cmd = new Assemblage(tapis,150);
+//		cmd.execute();
 		
 		
 		

@@ -18,7 +18,7 @@ import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.CompositeImageManager;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
-import com.puzzle.view.tool.CompositeImageManager.ScaleBuffer;
+import com.puzzle.view.tool.ScaleBuffer;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
