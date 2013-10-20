@@ -103,6 +103,8 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 			}// else
 			
 		}// for
+		
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
 	
