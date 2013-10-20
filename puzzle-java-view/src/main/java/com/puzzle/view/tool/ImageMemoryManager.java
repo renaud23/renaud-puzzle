@@ -6,6 +6,8 @@ package com.puzzle.view.tool;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.puzzle.model.Piece;
+
 
 
 
@@ -14,7 +16,7 @@ public class ImageMemoryManager {
 	
 	
 	private static ImageMemoryManager instance;
-	private Map<Integer, ImageProvider> providers;
+	private Map<Integer, ImageProvider<Piece>> providers;
 
 	
 	public static ImageMemoryManager getInstance(){
@@ -25,7 +27,7 @@ public class ImageMemoryManager {
 	}
 
 	private ImageMemoryManager(){
-		this.providers = new HashMap<Integer, ImageProvider>();
+		this.providers = new HashMap<Integer, ImageProvider<Piece>>();
 	}
 
 
@@ -33,11 +35,11 @@ public class ImageMemoryManager {
 
 	
 	
-	public void put(int idPuzzle,ImageProvider provider){
+	public void put(int idPuzzle,ImageProvider<Piece> provider){
 		this.providers.put(idPuzzle, provider);
 	}
 	
-	public ImageProvider get(int idPuzzle){
+	public ImageProvider<Piece> get(int idPuzzle){
 		return this.providers.get(idPuzzle);
 	}
 	

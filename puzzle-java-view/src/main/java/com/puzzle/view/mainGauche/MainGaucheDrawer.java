@@ -1,15 +1,13 @@
 package com.puzzle.view.mainGauche;
 
-import java.awt.Color;
-import java.awt.Image;
 
+import java.awt.Image;
 import com.puzzle.model.MainGauche;
-import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
-import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerParametrable;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
+import com.puzzle.view.tool.PieceBufferOperation;
 
 public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 	
@@ -39,8 +37,8 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 		for(Piece p : MainGauche.getInstance()){
 			if(i == 0) scale =  this.largeur / p.getLargeur();
 			
-//			Image img = ImageMemoryManager.getInstance().getImage(p.getId());
-			Image img = ImageMemoryManager.getInstance().get(p.getPuzzle().getId()).getImage(p.getId());
+
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(p.getPuzzle().getId()).getImage(p);
 			
 			double xi = this.margeVerticale;
 			xi += this.largeur / 2.0;
@@ -52,13 +50,13 @@ public class MainGaucheDrawer implements IDrawerParametrable<Integer>{
 			
 			if(this.focused != i){
 			this.buffer.drawImage(
-					img, 
+					pbo.getImage(), 
 					x,y, 
 					xi, yi, -p.getAngle(), 
 					scale, scale, alpha);
 			}else{
 				pFocused = p;
-				imgFocused = img;
+				imgFocused = pbo.getImage();
 				px = xi;
 				py = yi;
 			}

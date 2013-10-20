@@ -1,7 +1,6 @@
 package com.puzzle.view.tool;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -31,9 +30,9 @@ public class CompositeImageManager implements Observer{
 	
 	
 	private void drawPiece(JImageBuffer buffer,Piece piece,double x,double y){
-		Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
+		PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
 		
-		buffer.drawImage(img, 
+		buffer.drawImage(pbo.getImage(), 
 				x, y, 
 				0, 0, 0,
 				scale, scale, 1.0f);

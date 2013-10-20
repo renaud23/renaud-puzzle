@@ -3,6 +3,7 @@ package com.puzzle.view.basicTapis;
 
 
 import java.awt.Image;
+
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
@@ -10,6 +11,7 @@ import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
+import com.puzzle.view.tool.PieceBufferOperation;
 
 
 public class TapisBasicDrawer implements IDrawer {
@@ -33,18 +35,18 @@ public class TapisBasicDrawer implements IDrawer {
 		
 		//	 dessin tapis
 		for(Piece piece : this.tapis){
-			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
 			
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			this.converteur.convertModelToScreen(p);
 			
 			double x = p.getX();
-			x -= img.getWidth(null) / 2.0 * this.converteur.getScaleX();
+			x -= pbo.getImage().getWidth(null) / 2.0 * this.converteur.getScaleX();
 			
 			double y = p.getY();
-			y -= img.getHeight(null) / 2.0 * this.converteur.getScaleY();
+			y -= pbo.getImage().getHeight(null) / 2.0 * this.converteur.getScaleY();
 		
-			this.tapisBuffer.drawImage(img,
+			this.tapisBuffer.drawImage(pbo.getImage(),
 					x,  y, 
 					p.getX() , p.getY(), -piece.getAngle(), 
 					this.converteur.getScaleX(), this.converteur.getScaleY(), 

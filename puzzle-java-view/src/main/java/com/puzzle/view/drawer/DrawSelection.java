@@ -11,6 +11,7 @@ import com.puzzle.view.tool.CompositeImageManager;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.CompositeBufferOperation;
+import com.puzzle.view.tool.PieceBufferOperation;
 
 
 
@@ -35,17 +36,17 @@ public class DrawSelection implements IDrawerSelection{
 	public void draw() {
 		// les candidats
 		for(Piece piece : this.param.getCandidats()){
-			Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
 			Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 			this.converter.convertModelToScreen(p);
 			
 			double xi = p.getX();
-			xi -= img.getWidth(null) / 2.0 * this.converter.getScaleX();
+			xi -= pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
 			
 			double yi = p.getY();
-			yi -= img.getHeight(null) / 2.0 * this.converter.getScaleY();
+			yi -= pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
 		
-			this.buffer.drawImageMask(img,
+			this.buffer.drawImageMask(pbo.getImage(),
 					xi,  yi, 
 					p.getX() , p.getY(), -piece.getAngle(), 
 					this.converter.getScaleX(), this.converter.getScaleY(), 
@@ -56,10 +57,10 @@ public class DrawSelection implements IDrawerSelection{
 		if(this.selection){
 			if(this.param.getComponent() instanceof Piece){
 				Piece piece = (Piece) this.param.getComponent();
-				Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
+				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
 				
-				double cx = (double)img.getWidth(null) / 2.0 * this.converter.getScaleX();
-				double cy = (double)img.getHeight(null) / 2.0 * this.converter.getScaleY();
+				double cx = (double)pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
+				double cy = (double)pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
 				
 				double x = this.param.getPosition().getX();
 				double y = this.param.getPosition().getY();
@@ -69,7 +70,7 @@ public class DrawSelection implements IDrawerSelection{
 				y -= cy;
 				
 				this.buffer.drawImage(
-					img, 
+						pbo.getImage(), 
 					x,y, 
 					this.param.getPosition().getX(), this.param.getPosition().getY(), -this.param.getComponent().getAngle(), 
 					this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);

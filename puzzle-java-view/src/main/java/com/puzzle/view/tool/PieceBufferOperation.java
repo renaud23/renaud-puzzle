@@ -3,13 +3,13 @@ package com.puzzle.view.tool;
 import java.awt.image.VolatileImage;
 import com.puzzle.model.Piece;
 
-public class PieceImage {
+public class PieceBufferOperation {
 	private Piece piece;
 	private VolatileImage image;
 	
 	
 	
-	public PieceImage(Piece piece, VolatileImage image) {
+	public PieceBufferOperation(Piece piece, VolatileImage image) {
 		this.piece = piece;
 		this.image = image;
 	}

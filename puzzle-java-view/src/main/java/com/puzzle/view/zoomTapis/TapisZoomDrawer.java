@@ -23,6 +23,7 @@ import com.puzzle.view.tool.CompositeImageManager;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.CompositeBufferOperation;
+import com.puzzle.view.tool.PieceBufferOperation;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
@@ -69,17 +70,17 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 			
 			if(piece.getComposite() == null){
 				if(piece.getRect().isIn(r)){
-					Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
+					PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
 					Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
 					this.converter.convertModelToScreen(p);
 					
 					double x = p.getX();
-					x -= img.getWidth(null) / 2.0 * this.converter.getScaleX();
+					x -= pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
 					
 					double y = p.getY();
-					y -= img.getHeight(null) / 2.0 * this.converter.getScaleY();
+					y -= pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
 				
-					this.tapisBuffer.drawImage(img,
+					this.tapisBuffer.drawImage(pbo.getImage(),
 							x,  y, 
 							p.getX() , p.getY(), -piece.getAngle(), 
 							this.converter.getScaleX(), this.converter.getScaleY(), 

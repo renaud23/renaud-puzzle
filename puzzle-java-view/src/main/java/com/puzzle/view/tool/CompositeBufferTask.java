@@ -1,9 +1,7 @@
 package com.puzzle.view.tool;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.util.Observable;
-
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.RectCompositePiece;
@@ -78,9 +76,9 @@ public class CompositeBufferTask extends Observable implements Runnable{
 	
 	
 	private void drawPiece(JImageBuffer buffer,Piece piece,double x,double y,double scale){
-		Image img = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece.getId());
+		PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getImage(piece);
 		
-		buffer.drawImage(img, 
+		buffer.drawImage(pbo.getImage(), 
 				x, y, 
 				0, 0, 0,
 				scale, scale, 1.0f);

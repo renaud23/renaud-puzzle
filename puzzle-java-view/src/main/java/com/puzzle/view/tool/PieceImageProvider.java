@@ -17,33 +17,40 @@ import java.util.Map;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
+import com.puzzle.model.Piece;
 
-public class PieceImageProvider implements ImageProvider {
+
+public class PieceImageProvider implements ImageProvider<Piece> {
 	
 	
 	private String path;
-	private Map<Integer, SoftReference<VolatileImage>> images;
+	private Map<Integer, SoftReference<PieceBufferOperation>> images;
 	
 
 	public PieceImageProvider(String path){
 		this.path = path;
-		this.images = new HashMap<Integer, SoftReference<VolatileImage>>();
+		this.images = new HashMap<Integer, SoftReference<PieceBufferOperation>>();
 	}
 
 
-	public VolatileImage getImage(int code) {
-		if(this.images.get(code)== null ||
-			this.images.get(code).get() == null)
-			this.reload(code);
-		return this.images.get(code).get();
+	public PieceBufferOperation getImage(Piece piece) {
+		
+		if(this.images.get(piece.getId())== null ||
+			this.images.get(piece.getId()).get() == null){
+			this.reload(piece);
+			
+		}
+		return this.images.get(piece.getId()).get();
 	}
 
 
-	public void reload(Integer code){
-		String file = path+File.separator+String.valueOf(code.toString())+".png";
+	public void reload(Piece piece){
+		String file = path+File.separator+String.valueOf(piece.getId())+".png";
 		try {
 			VolatileImage buff = loadFromFile(file);
-			this.images.put(code,new SoftReference<VolatileImage>(buff));
+			PieceBufferOperation pbo = new PieceBufferOperation(piece, buff);
+			
+			this.images.put(piece.getId(),new SoftReference<PieceBufferOperation>(pbo));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
