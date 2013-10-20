@@ -1,17 +1,16 @@
 package com.puzzle.view.zoomTapis;
 
 
-import java.awt.Color;
+
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-
+import java.util.Observable;
+import java.util.Observer;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
-import com.puzzle.model.RectCompositePiece;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
@@ -24,7 +23,7 @@ import com.renaud.manager.Rect;
 
 
 
-public class TapisZoomDrawer implements IDrawer{
+public class TapisZoomDrawer implements IDrawer,Observer{
 	
 	private JImageBuffer tapisBuffer;
 	private Tapis tapis;
@@ -88,28 +87,38 @@ public class TapisZoomDrawer implements IDrawer{
 					
 					if(cmp.getRect().isIn(r)){
 						ScaleBuffer sb =  CompositeImageManager.getInstance().getBuffer(cmp);
-						JImageBuffer b = sb.getBuffer();
-						double scale = sb.getScale();
-						Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
-						this.converter.convertModelToScreen(p);
 						
-						double x = p.getX();
-						x -= b.getImage().getWidth(null) / 2.0 * this.converter.getScaleX() / scale;
-						
-						double y = p.getY();
-						y -= b.getImage().getHeight(null) / 2.0 * this.converter.getScaleY() / scale;
-						
-						this.tapisBuffer.drawImage(b.getImage(),
-								x,  y, 
-								p.getX() , p.getY(), -cmp.getAngle(), 
-								this.converter.getScaleX()/scale, this.converter.getScaleY()/scale, 
-								1.0f);
-					}// if isIn
-					
+						if(sb != null){
+							this.drawComposite(sb);
+						}// if != null
+					}// if isIn	
 				}// if already
 			}// else				
 		}// for
 	}
+	
+	
+	private void drawComposite(ScaleBuffer sb){
+		JImageBuffer b = sb.getBuffer();
+		double scale = sb.getScale();
+		CompositePiece cmp = sb.getComposite();
+		Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
+		this.converter.convertModelToScreen(p);
+		
+		double x = p.getX();
+		x -= b.getImage().getWidth(null) / 2.0 * this.converter.getScaleX() / scale;
+		
+		double y = p.getY();
+		y -= b.getImage().getHeight(null) / 2.0 * this.converter.getScaleY() / scale;
+		
+		this.tapisBuffer.drawImage(b.getImage(),
+				x,  y, 
+				p.getX() , p.getY(), -cmp.getAngle(), 
+				this.converter.getScaleX()/scale, this.converter.getScaleY()/scale, 
+				1.0f);
+	}
+	
+	
 
 	@Override
 	public void clean() {
@@ -128,6 +137,15 @@ public class TapisZoomDrawer implements IDrawer{
 				x, y, 
 				0, 0, 0, 
 				scalex*converter.getScaleX(), scaley*converter.getScaleY(), 1.0f);
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg instanceof ScaleBuffer){
+			
+		}
+		
 	}
 
 

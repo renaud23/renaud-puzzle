@@ -14,7 +14,7 @@ public class CompositeBufferTask extends Observable implements Runnable{
 	
 	private CompositePiece composite;
 	private double limite;
-
+	private Thread task;
 
 
 
@@ -22,8 +22,11 @@ public class CompositeBufferTask extends Observable implements Runnable{
 		this.composite = composite;
 		this.limite = limite;
 		
-		Thread t = new Thread(this);
-		t.start();
+		this.task = new Thread(this);
+	}
+	
+	public void start(){
+		this.task.start();
 	}
 
 
@@ -66,7 +69,7 @@ public class CompositeBufferTask extends Observable implements Runnable{
 		}
 		
 		
-		ScaleBuffer sc = new ScaleBuffer(scale, buffer);
+		ScaleBuffer sc = new ScaleBuffer(scale, buffer,composite);
 		
 		this.setChanged();
 		this.notifyObservers(sc);
