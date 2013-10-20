@@ -47,10 +47,9 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-//		new DrawTask(this.tapisDrawer,this.fenetre);
 		this.tapisDrawer.draw();
 		
-		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+//		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
 	@Override
@@ -85,11 +84,8 @@ public class TapisZoomController extends AbstractTapisController{
 		
 		this.selectionDrawer.clean();
 		this.selectionDrawer.draw();
-		
-//		new DrawTask(this.tapisDrawer, fenetre);
-
 		this.tapisDrawer.draw();
 		
-		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+//		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 }
