@@ -10,24 +10,15 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
-
-
 
 
 public class SimpleImageLoader  {
 
 	
-	public Image getImage(String path) {
+	public Image getImage(String path) throws ImageLoadException {
 		Image image = null;
-		try {
-			image =  this.loadFromFile(path);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		image =  this.loadFromFile(path);
 		
 		return image;
 	}
@@ -35,30 +26,28 @@ public class SimpleImageLoader  {
 	
 	
 	
-	private VolatileImage loadFromFile(String filename) throws IOException {
+	private VolatileImage loadFromFile(String filename)  throws ImageLoadException{
 		try{
 
 		BufferedImage bimage = ImageIO.read(new File(filename) );
 		VolatileImage vimage = createVolatileImage(bimage.getWidth(), bimage.getHeight(), Transparency.TRANSLUCENT);
 		Graphics2D g = null;
 		
-		try {
-			g = vimage.createGraphics();
-			g.setComposite(AlphaComposite.Src);
-			 
-			g.setColor(new Color(0,0,0,0));
-			g.fillRect(0, 0, vimage.getWidth(), vimage.getHeight());
-			
-			g.drawImage(bimage,null,0,0);
-		} finally {	
-			g.dispose();
-		}
+			try {
+				g = vimage.createGraphics();
+				g.setComposite(AlphaComposite.Src);
+				 
+				g.setColor(new Color(0,0,0,0));
+				g.fillRect(0, 0, vimage.getWidth(), vimage.getHeight());
+				
+				g.drawImage(bimage,null,0,0);
+			} finally {	
+				g.dispose();
+			}
 		
-		return vimage;
-		}catch (IIOException e) {
-			System.out.println("erreur chargement "+filename);
-			e.printStackTrace();
-			return null;
+			return vimage;
+		}catch (Exception e) {
+			throw new ImageLoadException("Impossible de charger une image à "+filename, e);
 		}
 	}
 	

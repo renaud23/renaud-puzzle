@@ -2,6 +2,10 @@ package com.puzzle.view.zoomTapis;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MyRect;
@@ -10,9 +14,12 @@ import com.puzzle.model.Point;
 import com.puzzle.model.RectCompositePiece;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
+import com.puzzle.view.RepaintTask;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
+import com.renaud.manager.IRect;
+import com.renaud.manager.Rect;
 
 public class TapisZoomDrawerDev implements IDrawer {
 	
@@ -20,6 +27,7 @@ public class TapisZoomDrawerDev implements IDrawer {
 	private IDrawer drawer;
 	private JImageBuffer tapisBuffer;
 	private TapisConverter converter;
+	private Fenetre fenetre;
 	
 	
 	/**
@@ -34,12 +42,24 @@ public class TapisZoomDrawerDev implements IDrawer {
 		this.tapis = tapis;
 		this.tapisBuffer = tapisBuffer;
 		this.converter = converter;
+		this.fenetre = fenetre;
 		this.drawer = new TapisZoomDrawer(fenetre,background, tapis, tapisBuffer, converter);
 	}
 
 	@Override
 	public void draw() {
 		this.drawer.draw();
+		
+//		this.clean();
+		
+		TapisZoomConverteur cvt = (TapisZoomConverteur)this.converter;
+		
+		
+		// filtrage des pièce dans la zone.
+		IRect rect = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), cvt.getLargeur(), cvt.getHauteur());
+		List<Piece> pieces = this.tapis.chercherPiece(rect);
+		Collections.sort(pieces);
+		
 		for(Piece piece : this.tapis){
 			// dev
 			Point cp = new Point(piece.getCentre().getX(), piece.getCentre().getY());
@@ -87,6 +107,7 @@ public class TapisZoomDrawerDev implements IDrawer {
 			
 			
 		}// for
+		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
 	@Override

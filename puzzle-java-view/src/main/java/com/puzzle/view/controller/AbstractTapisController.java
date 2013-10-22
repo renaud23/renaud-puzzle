@@ -162,6 +162,11 @@ public abstract class AbstractTapisController implements IController, Observer{
 				this.mainDroiteVide = true;
 				System.out.println("Fini!!!");
 			}
+		}else{
+			// par défaut, on rafraichit l'affichage.
+			this.selectionDrawer.clean();
+			this.selectionDrawer.draw();
+			this.tapisDrawer.draw();
 		}
 	}
 

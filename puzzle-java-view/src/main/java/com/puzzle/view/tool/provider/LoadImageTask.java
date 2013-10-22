@@ -10,9 +10,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
 import java.util.Observable;
+
 import javax.imageio.ImageIO;
 
 import com.puzzle.model.Piece;
+import com.puzzle.view.tool.ImageLoadException;
 
 public class LoadImageTask extends Observable implements Runnable {
 	
@@ -50,7 +52,7 @@ public class LoadImageTask extends Observable implements Runnable {
 		return image;
 	}
 	
-	public VolatileImage loadFromFile(String filename){
+	public VolatileImage loadFromFile(String filename) throws ImageLoadException{
 		try{
 
 			BufferedImage bimage = ImageIO.read(new File(filename) );
@@ -71,8 +73,7 @@ public class LoadImageTask extends Observable implements Runnable {
 		
 			return vimage;
 		}catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new ImageLoadException("Impossible de charger une image à "+filename, e);
 		}
 	}
 
@@ -84,6 +85,7 @@ public class LoadImageTask extends Observable implements Runnable {
 			this.operation = new PieceBufferOperation(this.piece, buff);	
 		} catch (Exception e) {
 			e.printStackTrace();
+			// TODO
 		}
 
 

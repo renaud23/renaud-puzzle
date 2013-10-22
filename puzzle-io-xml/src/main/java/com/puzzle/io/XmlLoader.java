@@ -142,7 +142,7 @@ public class XmlLoader implements PuzzleLoader{
 		
 	}
 
-	private void affiche() throws PuzzleIOException{
+	public void affiche() throws PuzzleIOException{
 	   try{
 	      XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 	      sortie.output(this.document, System.out);

@@ -121,7 +121,7 @@ public class MainScreen extends JFrame{
         
         this.setAsActiveTab(LoggerArea.getInstance());
         LoggerArea.getInstance().info("Bonjour !!!");
-        LoggerArea.getInstance().info("Commencer par charger une image.");
+        LoggerArea.getInstance().info("Commencez par charger une image.");
         
         
         //  

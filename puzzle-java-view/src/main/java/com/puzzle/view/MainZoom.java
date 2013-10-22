@@ -10,6 +10,7 @@ import com.puzzle.command.Commande;
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -19,6 +20,7 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.mainGauche.MainGaucheController;
+import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.tool.provider.PieceImageProvider;
@@ -31,14 +33,17 @@ import com.renaud.manager.TasStatistique;
 
 public class MainZoom {
 
-	public static void main(String[] args) throws PuzzleIOException {
-		int largeur = 36000;
-		int hauteur = 12000;
+	public static void main(String[] args) throws PuzzleIOException, ImageLoadException {
+//		int largeur = 36000;
+//		int hauteur = 12000;
+		
+		int largeur = (int)(36000.0*1.0);
+		int hauteur = (int)(12000.0*1.0);
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 
 		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
-		String name =  "chantier_2080";
+		String name =  "tour_560";
 //		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 //		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		
@@ -48,9 +53,7 @@ public class MainZoom {
 				new PieceImageProvider(rootPath+"/"+name+"/images/"));
 		
 		
-//		
-//		Commande cmd = new Assemblage(tapis,150);
-//		cmd.execute();
+
 		
 		
 		
@@ -88,6 +91,8 @@ public class MainZoom {
 		MainGaucheController mgc = new MainGaucheController(tapis, f);
 		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
 		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
+		
+		
 		
 		System.setProperty(PuzzleProperties.savePath.getName(), "C:/Users/Renaud/git/renaud-puzzle/puzzle-io-xml/src/main/resources/save");
 		

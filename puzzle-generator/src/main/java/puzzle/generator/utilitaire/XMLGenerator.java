@@ -62,8 +62,8 @@ public class XMLGenerator {
 		this.rootElement.addContent(new Element("taille").setText(String.valueOf(this.puzzle.getNbPieces())));
 		this.rootElement.addContent(new Element("scaleApercu").setText(String.valueOf(this.scaleApercu)));
 		
-		this.genereTapisSection();
-		this.genereSetSection();
+//		this.genereTapisSection();
+//		this.genereSetSection();
 		this.generePiecesSection();
 		
 		XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
@@ -100,8 +100,8 @@ public class XMLGenerator {
 				
 				Element piece = new Element("piece");
 				piece.addContent(new Element("id").setText(String.valueOf(1+i+j*this.puzzle.getNbPiecesWidth())));
-				piece.addContent(new Element("x").setText(String.valueOf(r.x)));
-				piece.addContent(new Element("y").setText(String.valueOf(r.y)));
+//				piece.addContent(new Element("x").setText(String.valueOf(r.x)));
+//				piece.addContent(new Element("y").setText(String.valueOf(r.y)));
 				piece.addContent(new Element("cx").setText(String.valueOf( Math.round(r.x + r.width / 2.0))));
 				piece.addContent(new Element("cy").setText(String.valueOf(Math.round(r.y + r.height / 2.0))));
 				piece.addContent(new Element("largeur").setText(String.valueOf(r.width)));

@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class FileUtils {
 	
-	public final static String imagesPath = "D:/projet_java/personnel/puzzle-ex/data/";
+//	public final static String imagesPath = "D:/projet_java/personnel/puzzle-ex/data/";
 	public final static String buildPath = "build/";
 	
 	
