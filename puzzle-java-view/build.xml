@@ -17,6 +17,7 @@
 	    <delete dir="${build.dir}" />
 	    <delete dir="${lib.dir}" />
 	    <delete dir="${install.dir}" />
+	    <delete dir="${zip.dir}" />
 	</target>
 
 	<target name="makedir">
@@ -24,7 +25,7 @@
 	   <mkdir dir="${lib.dir}" />
 	   <mkdir dir="${install.dir}" />
 	   <mkdir dir="${install.dir}/puzzle" />
-	   <mkdir dir="${install.dir}/background" />
+	   <mkdir dir="${zip.dir}" />
 	</target>
 	
 	
@@ -76,7 +77,7 @@
 	</target>
 	
 	
-	<target name="build_jvm"  >
+	<target name="build-jvm"  >
 		<echo message="Copie des fichiers de la JVM" />
 		<copy todir="install/${jre.name}" >
 				<fileset dir="${jre.path}" >
@@ -121,7 +122,7 @@
 	</target>
 	
 	
-	<target name="build-appli"  depends="puzzle-java-view,build_jvm" >
+	<target name="build-appli"  depends="puzzle-java-view,build-jvm" >
 		<echo message="copies des dépendance" />
 		<copy todir="${install.dir}/lib" >
 			<fileset dir="${lib.dir}" >
@@ -133,6 +134,7 @@
 			<fileset dir="${puzzle-pieces.dir}" >
 				<include name="*/*.*" />
 				<include name="*/*/*.*" />
+				<include name="*/*/*/*.*" />
 			</fileset>
 		</copy>
 	    
@@ -140,6 +142,11 @@
 		<exec executable="${lauch4j.path}">
 			<arg value="${basedir}/installerLaunch4j.xml"/>
 		</exec>
+		
+		<zip destfile="${zip.dir}/${puzzle.name}.zip"
+		       basedir="${install.dir}"
+		       update="true"
+		  />
 	</target>
 
 </project>
