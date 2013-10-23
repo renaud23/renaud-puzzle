@@ -5,6 +5,7 @@
 	<path id="project.class.path">
 		<fileset dir="lib/">
 			<include name="*.jar"/>
+			<exclude name="puzzle-java-view.jar" />
 		</fileset>
 	</path>
 	
@@ -14,12 +15,16 @@
 	
 	<target name="cleanAll">
 	    <delete dir="${build.dir}" />
-	     <delete dir="${lib.dir}" />
+	    <delete dir="${lib.dir}" />
+	    <delete dir="${install.dir}" />
 	</target>
 
 	<target name="makedir">
 	   <mkdir dir="${build.dir}" />
 	   <mkdir dir="${lib.dir}" />
+	   <mkdir dir="${install.dir}" />
+	   <mkdir dir="${install.dir}/puzzle" />
+	   <mkdir dir="${install.dir}/background" />
 	</target>
 	
 	
@@ -45,6 +50,96 @@
 	    	<classpath refid="project.class.path"/>
 	    </javac>
 	    <jar destfile="${lib.dir}/puzzle-io-xml.jar" basedir="${build.dir}" />
+	</target>
+	
+	<target name="puzzle-java-view" depends="puzzle-io-xml" >
+	    
+	    <pathconvert property="lib.project.manifest.classpath" pathsep=" ">
+  			<path refid="project.class.path" />
+  			<flattenmapper/>
+		</pathconvert>
+	    
+	    
+		<copy todir="${lib.dir}">
+			<fileset dir="${puzzle-io-xml.dir}/lib" />
+		</copy>
+	    <javac srcdir="${puzzle-java-view.dir}/src/main/java" destdir="${build.dir}" includeantruntime="false" >
+	    	<classpath refid="project.class.path"/>
+	    </javac>
+	    <jar destfile="${lib.dir}/puzzle-java-view.jar" basedir="${build.dir}" >
+	         <manifest>
+			    <attribute name="Built-By" value="${user.name}"/>
+			    <attribute name="Main-Class" value="${main.class}"/>
+			    <attribute name="Class-Path" value="${lib.project.manifest.classpath}"/>
+			  </manifest>
+	    </jar>
+	</target>
+	
+	
+	<target name="build_jvm"  >
+		<echo message="Copie des fichiers de la JVM" />
+		<copy todir="install/${jre.name}" >
+				<fileset dir="${jre.path}" >
+					<include name="*"/>
+					<include name="bin/**"/>
+					<include name="lib/**"/>
+					<exclude name="lib/charsets.jar"/>
+					<exclude name="lib/ext/sunjce_provider.jar"/>
+					<exclude name="bin/rmid.exe"/>
+					<exclude name="bin/rmiregistry.exe"/>
+					<exclude name="bin/tnameserv.exe"/>
+					<exclude name="bin/keytool.exe"/>
+					<exclude name="bin/kinit.exe"/>
+					<exclude name="bin/klist.exe"/>
+					<exclude name="bin/ktab.exe"/>
+					<exclude name="bin/policytool.exe"/>
+					<exclude name="bin/orbd.exe"/>
+					<exclude name="bin/servertool.exe"/>
+					<exclude name="bin/java.exe"/>
+					<exclude name="bin/javaws.exe"/>
+					<exclude name="bin/javacpl.exe"/>
+					<exclude name="bin/jucheck.exe"/>
+					<exclude name="bin/jusched.exe"/>
+					<exclude name="bin/wsdetect.dll"/>
+					<exclude name="bin/npjava*.dll"/>
+					<exclude name="bin/npoji610.dll"/>
+					<exclude name="bin/regutils.dll"/>
+					<exclude name="bin/axbridge.dll"/>
+					<exclude name="bin/deploy.dll"/>
+					<exclude name="bin/jpicom.dll"/>
+					<exclude name="bin/javacpl.cpl"/>
+					<exclude name="bin/jpiexp.dll"/>
+					<exclude name="bin/jpinscp.dll"/>
+					<exclude name="bin/jpioji.dll"/>
+					<exclude name="bin/jpishare.dll"/>
+					<exclude name="lib/deploy.jar"/>
+					<exclude name="lib/plugin.jar"/>
+					<exclude name="lib/deploy/messages*.properties"/>
+					<exclude name="lib/deploy/splash.jpg"/>
+				</fileset>
+			</copy>
+	</target>
+	
+	
+	<target name="build-appli"  depends="puzzle-java-view,build_jvm" >
+		<echo message="copies des dépendance" />
+		<copy todir="${install.dir}/lib" >
+			<fileset dir="${lib.dir}" >
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${install.dir}" >
+			<fileset dir="${puzzle-pieces.dir}" >
+				<include name="*/*.*" />
+				<include name="*/*/*.*" />
+			</fileset>
+		</copy>
+	    
+		<echo message="Création du fichier exe avec Launch4j" />
+		<exec executable="${lauch4j.path}">
+			<arg value="${basedir}/installerLaunch4j.xml"/>
+		</exec>
 	</target>
 
 </project>

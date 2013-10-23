@@ -1,0 +1,42 @@
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar></jar>
+  <outfile>install\puzzle.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>true</customProcName>
+  <stayAlive>false</stayAlive>
+  <manifest></manifest>
+  <icon>doppler.ico</icon>
+  <classPath>
+    <mainClass>com.puzzle.view.MainLauncher</mainClass>
+    <cp>lib/jdom-2.0.5.jar</cp>
+    <cp>lib/puzzle-core.jar</cp>
+    <cp>lib/puzzle-io-xml.jar</cp>
+    <cp>lib/puzzle-java-view.jar</cp>
+    <cp>lib/tasManager.jar</cp>
+  </classPath>
+  <jre>
+    <path>jdk1.7.0_45</path>
+    <minVersion></minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>1.0</txtFileVersion>
+    <fileDescription>Puzzle</fileDescription>
+    <copyright>copyright(c)2010 Renaud Genevois</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>1.0</txtProductVersion>
+    <productName>JPuzzle</productName>
+    <companyName></companyName>
+    <internalName>puzzle</internalName>
+    <originalFilename>puzzle.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>
