@@ -23,8 +23,8 @@ public class MainLauncher {
 		int largeur = (int)(36000.0*1.0);
 		int hauteur = (int)(12000.0*1.0);
 
-		String rootPath = System.getProperty("user.dir");
-//		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+//		String rootPath = System.getProperty("user.dir");
+		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 	

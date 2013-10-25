@@ -71,7 +71,7 @@ public class XmlLoader implements PuzzleLoader{
 			}// for
 			
 		} catch (JDOMException | IOException e) {
-			throw new PuzzleIOException("Impossible de charger un fichier de description.", e);
+			throw new PuzzleIOException("Impossible de charger un fichier de description", e);
 		}
 	}
 	
@@ -178,7 +178,7 @@ public class XmlLoader implements PuzzleLoader{
 			List<Element> puzzElmt = this.root.getChildren(XmlSaveTag.puzzle.getName());
 			
 			for(Element puzz : puzzElmt){
-				File file = new File(puzz.getChildText(XmlSaveTag.path.getName()));
+				File file = new File(puzz.getChildText(XmlSaveTag.path.getName())+File.separator+"puzzle.xml");
 				XmlLoader loader = new XmlLoader(file);
 				loader.loadDescriptor();
 				

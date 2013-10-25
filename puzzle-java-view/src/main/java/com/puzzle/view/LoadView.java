@@ -41,7 +41,7 @@ public class LoadView {
 				// les images
 				for(Puzzle puzz : this.tapis.getPuzzles()){
 					File file = new File(puzz.getPath());
-					ImageMemoryManager.getInstance().put(puzz.getId(), new PieceImageProvider(file.getParent()+File.separator+"images"));
+					ImageMemoryManager.getInstance().put(puzz.getId(), new PieceImageProvider(puzz.getPath()+File.separator+"images"));
 					
 				}
 				
