@@ -11,8 +11,11 @@ import java.awt.image.VolatileImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Queue;
+import java.util.concurrent.SynchronousQueue;
 
 import javax.imageio.ImageIO;
 
@@ -24,14 +27,14 @@ public class PieceLoader extends Observable implements Runnable{
 	
 
 	private Thread task;
-	private final List<Piece> file;
+	private final Queue<Piece> file;
 	
 	
 	private static PieceLoader instance;
 	
 	private PieceLoader(){
 		this.task = new Thread(this);
-		this.file = Collections.synchronizedList(new ArrayList<Piece>());
+		this.file =  new LinkedList<Piece>();
 		this.start();
 	}
 	
@@ -43,28 +46,30 @@ public class PieceLoader extends Observable implements Runnable{
 	@Override
 	public void run() {
 		while(true){
-			if(!this.file.isEmpty()){
-				
-				Piece p;
-				
-				synchronized (this.file) {
-					p = this.file.remove(0);
-				}
-				
-				String path = p.getPuzzle().getPath()+File.separator+"images"+File.separator+p.getId()+".png";
-				
-				try {
-					VolatileImage img = this.loadFromFile(path);
-					PieceBufferOperation operation = new PieceBufferOperation(p, img);
+			synchronized (this.file) {
+				if(!this.file.isEmpty()){
 					
-					this.setChanged();
-					this.notifyObservers(operation);
+					Piece p;
 					
-				} catch (ImageLoadException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
+						p = this.file.poll();
+					
+					
+					String path = p.getPuzzle().getPath()+File.separator+"images"+File.separator+p.getId()+".png";
+					
+					try {
+						VolatileImage img = this.loadFromFile(path);
+						PieceBufferOperation operation = new PieceBufferOperation(p, img);
+						
+						this.setChanged();
+						this.notifyObservers(operation);
+						
+					} catch (ImageLoadException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-			}
+			}// synch
 		}
 		
 	}
@@ -76,8 +81,9 @@ public class PieceLoader extends Observable implements Runnable{
 
 	public void load(Piece piece){
 		synchronized (this.file) {
-			if(!this.file.contains(piece))
-				this.file.add(piece);
+			if(!this.file.contains(piece)){
+				this.file.offer(piece);
+			}
 		}
 	}
 	
