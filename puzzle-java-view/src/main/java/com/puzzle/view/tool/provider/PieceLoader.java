@@ -44,9 +44,20 @@ public class PieceLoader extends Observable implements Runnable{
 	public void run() {
 		while(true){
 			if(!this.file.isEmpty()){
-				Piece p = this.file.get(0);
-				String path = p.getPuzzle().getPath()+File.pathSeparator+"images";
+				Piece p = this.file.remove(0);
+				String path = p.getPuzzle().getPath()+File.separator+"images"+p.getId()+".png";
 				
+				try {
+					VolatileImage img = this.loadFromFile(path);
+					PieceBufferOperation operation = new PieceBufferOperation(p, img);
+					
+					this.setChanged();
+					this.notifyObservers(img);
+					
+				} catch (ImageLoadException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		
