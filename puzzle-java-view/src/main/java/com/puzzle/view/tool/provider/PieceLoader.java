@@ -24,7 +24,7 @@ public class PieceLoader extends Observable implements Runnable{
 	
 
 	private Thread task;
-	private List<Piece> file;
+	private final List<Piece> file;
 	
 	
 	private static PieceLoader instance;
@@ -44,15 +44,21 @@ public class PieceLoader extends Observable implements Runnable{
 	public void run() {
 		while(true){
 			if(!this.file.isEmpty()){
-				Piece p = this.file.remove(0);
-				String path = p.getPuzzle().getPath()+File.separator+"images"+p.getId()+".png";
+				
+				Piece p;
+				
+				synchronized (this.file) {
+					p = this.file.remove(0);
+				}
+				
+				String path = p.getPuzzle().getPath()+File.separator+"images"+File.separator+p.getId()+".png";
 				
 				try {
 					VolatileImage img = this.loadFromFile(path);
 					PieceBufferOperation operation = new PieceBufferOperation(p, img);
 					
 					this.setChanged();
-					this.notifyObservers(img);
+					this.notifyObservers(operation);
 					
 				} catch (ImageLoadException e) {
 					// TODO Auto-generated catch block
@@ -69,7 +75,10 @@ public class PieceLoader extends Observable implements Runnable{
 	}
 
 	public void load(Piece piece){
-		this.file.add(piece);
+		synchronized (this.file) {
+			if(!this.file.contains(piece))
+				this.file.add(piece);
+		}
 	}
 	
 	private VolatileImage createVolatileImage(int width, int height, int transparency) {	
