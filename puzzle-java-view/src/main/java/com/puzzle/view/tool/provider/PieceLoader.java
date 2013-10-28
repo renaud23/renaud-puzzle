@@ -14,7 +14,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.SynchronousQueue;
 
 import javax.imageio.ImageIO;
@@ -34,7 +36,7 @@ public class PieceLoader extends Observable implements Runnable{
 	
 	private PieceLoader(){
 		this.task = new Thread(this);
-		this.file =  new LinkedList<Piece>();
+		this.file =  new ConcurrentLinkedQueue<Piece>();
 		this.start();
 	}
 	
@@ -49,10 +51,7 @@ public class PieceLoader extends Observable implements Runnable{
 			synchronized (this.file) {
 				if(!this.file.isEmpty()){
 					
-					Piece p;
-					
-					
-						p = this.file.poll();
+					Piece p  = this.file.poll();
 					
 					
 					String path = p.getPuzzle().getPath()+File.separator+"images"+File.separator+p.getId()+".png";
@@ -128,5 +127,16 @@ public class PieceLoader extends Observable implements Runnable{
 			throw new ImageLoadException("Impossible de charger une image "+filename, e);
 		}
 	}
+
+	@Override
+	public synchronized void addObserver(Observer o) {
+		super.addObserver(o);
+		
+		System.out.println(o);
+	}
+	
+	
+	
+	
 	
 }

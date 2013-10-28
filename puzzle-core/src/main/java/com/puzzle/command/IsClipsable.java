@@ -14,7 +14,7 @@ import com.puzzle.model.Tapis;
 /**
  * la piece doit etre posee sur le tapis.
  * hypothese :
- * dans le puzzle assemble, les piece sont numéroté du haut vers le bas de gauche à droite.
+ * dans le puzzle assemble, les piece sont numï¿½rotï¿½ du haut vers le bas de gauche ï¿½ droite.
  * @author Renaud
  *
  */

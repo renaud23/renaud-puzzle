@@ -87,7 +87,7 @@ public class GeneratorPanel extends JPanel
 		this.nbPiecesLabel.setEnabled(false);
 		this.previewButton = new JButton("Preview!");
 		this.previewButton.addActionListener(this);
-		this.genereButton = new JButton("Génerer!");
+		this.genereButton = new JButton("Gï¿½nerer!");
 		this.genereButton.addActionListener(this);
 		this.choixScale = new Choice();
 		this.choixScale.addItemListener(this);
@@ -99,17 +99,21 @@ public class GeneratorPanel extends JPanel
 		choixScale.add("1.0");
 		choixScale.add("1.5");
 		choixScale.add("2.0");
+		choixScale.add("2.5");
+		choixScale.add("3.0");
+		choixScale.add("3.5");
+		choixScale.add("4.0");
 		
 		for(String idSet : DescriptotFactory.getPieceSetName()){
 			this.choixSetPieces.add(idSet);
 		}
 	
 		
-		this.createZone("Nombre de piéces en largeur :", this.widthSpinner);
-		this.createZone("Nombre de piéces en hauteur :",this.heightLabel);
-		this.createZone("Nombre total de piéces :",this.nbPiecesLabel);
-		this.createZone("Scale des piéces :",this.choixScale);
-		this.createZone("Jeu de piéces utilisées :",this.choixSetPieces);
+		this.createZone("Nombre de piï¿½ces en largeur :", this.widthSpinner);
+		this.createZone("Nombre de piï¿½ces en hauteur :",this.heightLabel);
+		this.createZone("Nombre total de piï¿½ces :",this.nbPiecesLabel);
+		this.createZone("Scale des piï¿½ces :",this.choixScale);
+		this.createZone("Jeu de piï¿½ces utilisï¿½es :",this.choixSetPieces);
 		this.createZone("Nom du puzzle :",this.puzzleName);
 		
 		this.add(this.previewButton);
