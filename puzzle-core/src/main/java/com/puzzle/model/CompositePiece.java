@@ -57,7 +57,7 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	}
 
 	private void addPiece(Piece p){
-		if(this.pieces.isEmpty()) {
+		if(this.pieces.isEmpty()) {// la première pièce.
 			p.getCentre().setX(this.centre.getX());
 			p.getCentre().setY(this.centre.getY());
 		}else{
