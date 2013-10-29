@@ -192,17 +192,18 @@ public class XmlLoader implements PuzzleLoader{
 					puzzle.put(p.getId(), p);
 				}
 				
-				// plaçage
+				// plaï¿½age
 				for(Element cmpElmt : puzz.getChildren(XmlSaveTag.composite.getName())){
 					CompositePiece cmp = new CompositePiece(
 							Double.valueOf(cmpElmt.getChildText(XmlSaveTag.x.getName())),
 							Double.valueOf(cmpElmt.getChildText(XmlSaveTag.y.getName())));
 					for(Element pe : cmpElmt.getChildren(XmlSaveTag.piece.getName())){
 						Piece piece = puzzle.get(Integer.valueOf(pe.getChildText(XmlSaveTag.id.getName())));
+						piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
+						piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
 						piece.setAngleIndex(Integer.valueOf(pe.getChildText(XmlSaveTag.angle.getName())));
-						
-						cmp.addComponent(piece);
-						((MyRect)cmp.getRect()).update();
+					
+						cmp.addQuickPiece(piece);
 					}
 					
 				}
@@ -211,7 +212,7 @@ public class XmlLoader implements PuzzleLoader{
 					piece.getCentre().setX(Double.valueOf(pe.getChildText(XmlSaveTag.x.getName())));
 					piece.getCentre().setY(Double.valueOf(pe.getChildText(XmlSaveTag.y.getName())));
 					piece.setAngleIndex(Integer.valueOf(pe.getChildText(XmlSaveTag.angle.getName())));
-					
+					((MyRect)piece.getRect()).update();
 				}
 				
 				tapis.poser(puzzle);

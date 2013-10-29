@@ -188,11 +188,7 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		
 		double x = this.puzzleX - reference.puzzleX;
 		double y = this.puzzleY - reference.puzzleY;
-//		double r = Math.sqrt(x*x+y*y);
-		
-//		double xi = this.centre.getX() - reference.centre.getX();
-//		double yi = this.centre.getY() - reference.centre.getY();
-//		double h = Math.sqrt(xi*xi+yi*yi);
+
 	
 		// calc 
 		double tx = this.centre.getX() - x;

@@ -128,12 +128,7 @@ public class PieceLoader extends Observable implements Runnable{
 		}
 	}
 
-	@Override
-	public synchronized void addObserver(Observer o) {
-		super.addObserver(o);
-		
-		System.out.println(o);
-	}
+	
 	
 	
 	

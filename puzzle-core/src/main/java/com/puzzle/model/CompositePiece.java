@@ -18,6 +18,12 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 	
 	private double hauteur;
 	
+	public CompositePiece(){
+		this.pieces = new ArrayList<Piece>();
+		this.rect = new RectCompositePiece(this);
+		this.centre = new Point();
+	}
+	
 	public CompositePiece(double x,double y){
 		this.pieces = new ArrayList<Piece>();
 		this.rect = new RectCompositePiece(this);
@@ -66,14 +72,13 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 			p.getCentre().setY(r.getCentre().getY() + y);
 			
 			p.getCentre().tourner(r.getAngle(), r.getCentre());
-			
 		}
 		
 		this.pieces.add(p);
 		p.setComposite(this);
 		
 		((MyRect)p.getRect()).update();
-		// update du composite sans mise en cohérence des pièces.
+		// update du composite sans mise en cohï¿½rence des piï¿½ces.
 		((RectCompositePiece)this.rect).calculTaille();
 		((RectCompositePiece)this.rect).calculCentre();
 		((RectCompositePiece)this.rect).calculRect();
@@ -98,6 +103,18 @@ public class CompositePiece implements ComponentPiece,Iterable<Piece>{
 		}// else
 	}
 	
+	/**
+	 * ajoute la piÃ¨ce sans recalculer sa position, ni celle du composite(pour le chargement
+	 * depuis une save).
+	 * @param p
+	 */
+	public void addQuickPiece(Piece p){
+		this.pieces.add(p);
+		p.setComposite(this);
+		((MyRect)p.getRect()).update();
+		((RectCompositePiece)this.rect).calculTaille();
+		((RectCompositePiece)this.rect).calculRect();
+	}
 	
 	public List<Piece> getPieces(){
 		return this.pieces;
