@@ -25,6 +25,10 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	private TapisConverteur converter;
 	private IState state;
 
+	private int mouseX;
+	private int mouseY;
+	private boolean rightClick;
+	private boolean leftClick;
 	
 
 	public TapisConverteur getConverter() {
@@ -84,13 +88,15 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getButton() == MouseEvent.BUTTON1) this.leftClick = true;
+		else if(e.getButton() == MouseEvent.BUTTON3) this.rightClick = true;
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getButton() == MouseEvent.BUTTON1) this.leftClick = false;
+		else if(e.getButton() == MouseEvent.BUTTON3) this.rightClick = false;
 		
 	}
 	
@@ -103,13 +109,23 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(this.rightClick){
+			int vx = this.mouseX - e.getX();
+			int vy = this.mouseY - e.getY();
+			
+			
+			this.state.dragRight(vx, vy);
+			
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+		}
 		
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
 		
 	}
 	
