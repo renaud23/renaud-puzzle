@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 
 import com.puzzle.model.Tapis;
 import com.puzzle.view.core.IDrawer;
+import com.puzzle.view.core.Lunette;
 import com.puzzle.view.core.Renderer;
 import com.puzzle.view.core.TapisConverteur;
 
@@ -17,6 +18,7 @@ public class JavaRenderer implements Renderer{
 	private TapisConverteur converter;
 	private BufferStrategy strategy;
 	
+	private Lunette lunette;
 	
 
 
@@ -27,6 +29,15 @@ public class JavaRenderer implements Renderer{
 		this.converter = converter;
 		this.strategy = strategy;
 		this.background = background;
+		
+		
+		this.lunette = new Lunette();
+		this.lunette.setTapis(tapis);
+		this.lunette.setScale(0.2);
+		this.lunette.setLargeur(this.drawer.getLargeur() * this.lunette.getScale());
+		this.lunette.setHauteur(this.lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
+		this.lunette.setX(this.drawer.getLargeur() - this.lunette.getLargeur() - 10.0);
+		this.lunette.setY(10.0);
 	}
 
 	public IDrawer getDrawer() {
@@ -41,6 +52,9 @@ public class JavaRenderer implements Renderer{
 	public void Render() {
 		this.clean();
 		
+		// TODO
+		
+		this.drawLunette();
 		
 		this.strategy.show();
 		
@@ -65,6 +79,32 @@ public class JavaRenderer implements Renderer{
 				scalex*converter.getScaleX(), scaley*converter.getScaleY(), 1.0f);
 	}
 
+	
+	private void drawLunette(){
+		this.drawer.drawRect(Color.black, 
+				(int)Math.round(this.lunette.getX()), (int)Math.round(this.lunette.getY()), 
+				(int)Math.round(this.lunette.getLargeur()), (int)Math.round(this.lunette.getHauteur()),1.0f);
+	
+		double sx = this.lunette.getLargeur() / this.lunette.getTapis().getLargeur();
+		
+		double xi = this.converter.getCorner().getX() * sx;
+		xi += this.lunette.getTapis().getLargeur() * sx / 2.0;
+		xi += this.lunette.getX();
+		double yi = -this.converter.getCorner().getY() * sx;
+		yi += this.lunette.getTapis().getHauteur() * sx / 2.0;
+		yi += this.lunette.getY();
+		double l = this.converter.getLargeur() * sx;
+		double h = this.converter.getHauteur() * sx;
+		
+		this.drawer.fillRect(Color.yellow, 
+				(int)Math.round(xi), (int)Math.round(yi), 
+				(int)Math.round(l), (int)Math.round(h),0.2f);
+		
+		this.drawer.drawRect(Color.black, 
+				(int)Math.round(xi), (int)Math.round(yi), 
+				(int)Math.round(l), (int)Math.round(h),1.0f);
+	}
+	
 	
 	
 	public void setBackground(Image background) {

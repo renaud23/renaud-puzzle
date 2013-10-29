@@ -10,6 +10,7 @@ import java.awt.event.MouseWheelListener;
 
 import com.puzzle.model.Tapis;
 import com.puzzle.view.core.Activater;
+import com.puzzle.view.core.Lunette;
 import com.puzzle.view.core.TapisConverteur;
 import com.puzzle.view.state.IState;
 import com.puzzle.view.state.MainVide;
@@ -31,9 +32,7 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	private boolean leftClick;
 	
 
-	public TapisConverteur getConverter() {
-		return converter;
-	}
+	
 
 
 
@@ -47,6 +46,9 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 		this.tapis = tapis;
 		this.converter = converter;
 		this.state = new MainVide(this);
+		
+		
+		
 	}
 
 
@@ -133,7 +135,9 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	/*
 	 * ascesseurs.
 	 */
-	
+	public TapisConverteur getConverter() {
+		return converter;
+	}
 	public IState getState() {
 		return state;
 	}

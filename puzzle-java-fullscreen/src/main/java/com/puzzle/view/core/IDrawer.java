@@ -12,8 +12,11 @@ import java.awt.Image;
  */
 public interface IDrawer {
 	
-	public void drawRect(Color color,int x,int y,int largeur,int hauteur);
+	public void drawRect(Color color,int x,int y,int largeur,int hauteur,float alpha);
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha);
+	public void fillRect(Color color,int x,int y,int width,int height,float alpha);
+	
+	
 	
 	public int getLargeur();
 	

@@ -51,9 +51,17 @@ public class JavaDrawer implements IDrawer{
 		graphics.rotate(theta, xRotation, yRotation);
 
 		graphics.drawImage(image,t,null);
-
 	}
 	
+	public void fillRect(Color color,int x,int y,int width,int height,float alpha){
+		
+		graphics.setColor(color);
+		graphics.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER,alpha )) ;
+		graphics.fillRect(x, y, width, height);
+		
+		
+	}
 	
 	
 	@Override
@@ -62,8 +70,10 @@ public class JavaDrawer implements IDrawer{
 	}
 
 	@Override
-	public void drawRect(Color color, int x, int y, int largeur, int hauteur) {
+	public void drawRect(Color color, int x, int y, int largeur, int hauteur,float alpha) {
 		graphics.setColor(color);
+		graphics.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER,alpha )) ;
 		graphics.drawRect(x, y, largeur, hauteur);
 	}
 
