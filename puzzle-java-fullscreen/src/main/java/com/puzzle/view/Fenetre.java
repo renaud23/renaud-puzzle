@@ -15,21 +15,14 @@ import com.puzzle.view.core.IJouable;
 
 public class Fenetre {
 	private Window window;
-	
-
-	
-	private IJouable game;
 	private BufferStrategy strategy; 
 	private Graphics2D buffer;
-	private TimerTask timerTask;
-	private Timer timer;
+
 	
-	public Fenetre(final IJouable game){
+	public Fenetre(){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsConfiguration gc = ge.getDefaultScreenDevice().getDefaultConfiguration();
 		GraphicsDevice device = ge.getDefaultScreenDevice();
-		
-		this.game = game;
 		
 		
 		if(device.isFullScreenSupported()){
@@ -46,29 +39,11 @@ public class Fenetre {
 			this.strategy = this.window.getBufferStrategy(); 
 		    this.buffer = (Graphics2D) this.strategy.getDrawGraphics();
 		    
-		    
-		    
-		    this.timerTask = new TimerTask() {
-				
-				@Override
-				public void run() {
-					game.activate();
-					game.render();
-					
-					strategy.show();
-				}
-			};
-		    
-		    this.timer = new Timer(); 
-		    this.timer.scheduleAtFixedRate(this.timerTask, 0, 10);
-		    
 		}
 
 	}
 
-	public IJouable getGame() {
-		return game;
-	}
+
 
 	public BufferStrategy getStrategy() {
 		return strategy;
@@ -78,7 +53,9 @@ public class Fenetre {
 		return buffer;
 	}
 	
-	
+	public Window getWindow(){
+		return this.window;
+	}
 	
 	
 }
