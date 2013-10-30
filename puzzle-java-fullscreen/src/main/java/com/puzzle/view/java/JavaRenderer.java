@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -13,12 +15,14 @@ import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.Lunette;
 import com.puzzle.view.core.Renderer;
 import com.puzzle.view.core.TapisConverteur;
+import com.puzzle.view.core.image.CompositeBufferOperation;
 import com.puzzle.view.core.image.ImageMemoryManager;
 import com.puzzle.view.core.image.PieceBufferOperation;
+import com.puzzle.view.core.image.PieceLoader;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
-public class JavaRenderer implements Renderer{
+public class JavaRenderer implements Renderer,Observer{
 	
 	private IDrawer drawer;
 	private Tapis tapis;
@@ -52,7 +56,7 @@ public class JavaRenderer implements Renderer{
 		this.lunette.setX(10.0);
 		this.lunette.setY(10.0);
 		
-		
+		PieceLoader.getInstance().addObserver(this);
 	}
 
 	public IDrawer getDrawer() {
@@ -128,8 +132,8 @@ public class JavaRenderer implements Renderer{
 		
 		for(Piece piece : pieces){
 			if(piece.getRect().isIn(r)){
-				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
-				this.drawPiece(pbo);	
+				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElementDeferred(piece, this);
+				if(pbo != null) this.drawPiece(pbo);	
 			}// if in
 		}
 	}
@@ -186,6 +190,14 @@ public class JavaRenderer implements Renderer{
 	
 	public void setBackground(Image background) {
 		this.background = background;
+	}
+
+	@Override
+	public void update(Observable obs, Object arg) {
+		if(arg instanceof PieceBufferOperation){
+			this.drawPiece((PieceBufferOperation) arg);
+		}
+		
 	}
 	
 	

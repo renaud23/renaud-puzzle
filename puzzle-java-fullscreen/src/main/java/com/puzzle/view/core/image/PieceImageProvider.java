@@ -45,16 +45,10 @@ public class PieceImageProvider implements ImageProvider,ProviderElement<Piece, 
 		
 		if(this.images.get(piece)== null ||
 			this.images.get(piece).get() == null){
-//			LoadImageTask task = new LoadImageTask(piece, this.path);
-//			task.addObserver(observer);
-//			task.addObserver(this);
-//			task.start();
-			
-//			PieceLoader.getInstance().addObserver(this);
-//			PieceLoader.getInstance().addObserver(observer);
+
 			PieceLoader.getInstance().load(piece);
 			
-		}else pbo = this.getElement(piece);
+		}else pbo = this.images.get(piece).get();
 		
 		return pbo;
 	}

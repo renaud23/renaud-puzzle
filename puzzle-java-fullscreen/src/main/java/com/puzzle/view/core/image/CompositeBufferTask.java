@@ -6,7 +6,8 @@ import java.util.Observable;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.RectCompositePiece;
-import com.puzzle.view.java.JImageBuffer;
+import com.puzzle.view.core.IDrawer;
+import com.puzzle.view.java.JavaBuffer;
 
 
 
@@ -52,7 +53,7 @@ public class CompositeBufferTask extends Observable implements Runnable{
 		}
 		
 
-		JImageBuffer buffer = new JImageBuffer(new Color(0,0,0,0),(int) Math.round(l), (int) Math.round(h));
+		IDrawer buffer = new JavaBuffer(new Color(0,0,0,0),(int) Math.round(l), (int) Math.round(h));
 		buffer.transparentClean();
 		
 		RectCompositePiece r =  (RectCompositePiece) composite.getRect();
@@ -83,7 +84,7 @@ public class CompositeBufferTask extends Observable implements Runnable{
 	}
 	
 	
-	private void drawPiece(JImageBuffer buffer,Piece piece,double x,double y,double scale){
+	private void drawPiece(IDrawer buffer,Piece piece,double x,double y,double scale){
 		PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
 		
 		buffer.drawImage(pbo.getImage(), 

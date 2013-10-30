@@ -33,13 +33,13 @@ public class MainLaucher {
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		
 		String rootPath = "/home/renaud/workspace/pieces-puzzle";
-		String name = "floflo";
+		String name = "citrouille_large_704";
 		// création du tapis
 		int largeur = (int)(36000.0*0.5);
 		int hauteur = (int)(12000.0*0.5);
 		Tapis tapis = new Tapis(largeur, hauteur);
 		
-		Puzzle p1 = loadPuzzle(rootPath+"/"+"puzzle"+File.separator+name+"/puzzle.xml", largeur, hauteur);
+		Puzzle p1 = loadPuzzle(rootPath+File.separator+"puzzle"+File.separator+name, largeur, hauteur);
 		tapis.poser(p1);
 		ImageMemoryManager.getInstance().put(p1.getId(),
 				new PieceImageProvider(rootPath+"/"+"puzzle"+File.separator+name+"/images/"));
@@ -73,7 +73,7 @@ public class MainLaucher {
 	
 	public static Puzzle loadPuzzle(String path,int largeur,int hauteur) throws PuzzleIOException{
 		// chargement depuis le descripteur de puzzle
-		File file = new File(path);
+		File file = new File(path+File.separator+"puzzle.xml");
 		XmlLoader ld = new XmlLoader(file);
 		ld.loadDescriptor();
 		List<Piece> pieces = ld.getPieces();

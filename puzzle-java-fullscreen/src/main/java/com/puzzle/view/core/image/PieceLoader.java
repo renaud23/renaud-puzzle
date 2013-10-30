@@ -9,18 +9,10 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.SynchronousQueue;
-
 import javax.imageio.ImageIO;
-
 import com.puzzle.model.Piece;
 import com.puzzle.view.java.ImageLoadException;
 
@@ -127,11 +119,5 @@ public class PieceLoader extends Observable implements Runnable{
 			throw new ImageLoadException("Impossible de charger une image "+filename, e);
 		}
 	}
-
-	
-	
-	
-	
-	
 	
 }

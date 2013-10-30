@@ -70,6 +70,13 @@ public class JavaDrawer implements IDrawer{
 		
 	}
 	
+	public void transparentClean(){
+		Graphics2D g = (Graphics2D) graphics.create();
+		 
+		g.setColor(new Color(0,0,0,0));
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OUT));
+		g.fillRect(0, 0, largeur, hauteur);
+	}
 	
 	public void clean(){
 		Graphics2D gr = (Graphics2D) graphics.create();

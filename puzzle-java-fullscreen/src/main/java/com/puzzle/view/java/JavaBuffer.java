@@ -14,9 +14,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.image.VolatileImage;
 
+import com.puzzle.view.core.IDrawer;
 
 
-public class JImageBuffer{
+
+public class JavaBuffer implements IDrawer{
 	
 	private static GraphicsConfiguration gc = 
 			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
@@ -30,7 +32,7 @@ public class JImageBuffer{
 	
 	
 	
-	public JImageBuffer (Color color,int largeur,int hauteur){
+	public JavaBuffer (Color color,int largeur,int hauteur){
 		this.hauteur = hauteur;
 		this.largeur = largeur;
 
@@ -106,9 +108,11 @@ public class JImageBuffer{
 		
 	}
 	
-	public void drawRect(Color color,int x,int y,int width,int height){
+	public void drawRect(Color color,int x,int y,int width,int height,float alpha){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
+		g.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER,alpha )) ;
 		g.drawRect(x, y, width, height);
 		g.dispose();
 	}
@@ -211,5 +215,11 @@ public class JImageBuffer{
 	
 	public Image getImage(){
 		return this.image;
+	}
+
+
+	@Override
+	public void dispose() {
+		// TODO NOTHING
 	}
 }

@@ -1,7 +1,7 @@
 package com.puzzle.view.core.image;
 
 import com.puzzle.model.CompositePiece;
-import com.puzzle.view.java.JImageBuffer;
+import com.puzzle.view.core.IDrawer;
 
 
 public class CompositeBufferOperation{
@@ -10,10 +10,10 @@ public class CompositeBufferOperation{
 	 */
 	private double scale;
 	private CompositePiece composite;
-	private JImageBuffer buffer;
+	private IDrawer buffer;
 	
 	
-	public CompositeBufferOperation(double scale, JImageBuffer buffer,CompositePiece composite) {
+	public CompositeBufferOperation(double scale, IDrawer buffer,CompositePiece composite) {
 		this.scale = scale;
 		this.buffer = buffer;
 		this.composite = composite;
@@ -27,7 +27,7 @@ public class CompositeBufferOperation{
 	public double getScale() {
 		return scale;
 	}
-	public JImageBuffer getBuffer() {
+	public IDrawer getBuffer() {
 		return buffer;
 	}
 	
