@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
@@ -20,7 +22,6 @@ import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.Lunette;
 import com.puzzle.view.core.Renderer;
 import com.puzzle.view.core.TapisConverteur;
-import com.puzzle.view.core.image.CompositeBufferOperation;
 import com.puzzle.view.core.image.ImageMemoryManager;
 import com.puzzle.view.core.image.PieceBufferOperation;
 import com.puzzle.view.core.image.PieceLoader;
@@ -43,6 +44,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	private double scale;
 	private double largeur;
 	private double hauteur;
+	private List<Piece> candidats = new ArrayList<Piece>();
 	
 
 
@@ -253,8 +255,20 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		this.mousePosition.setX(e.getX());
 		this.mousePosition.setY(e.getY());
 	}
+
+
+
+	public void clearCandidats(){
+		this.candidats.clear();
+	}
 	
+	public void addCandidats(Collection<Piece> pieces){
+		this.candidats.addAll(pieces);
+	}
 	
+	public void addCandidats(Piece piece){
+		this.candidats.add(piece);
+	}
 	
 
 }

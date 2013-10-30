@@ -9,12 +9,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.puzzle.model.Piece;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.core.Activater;
+import com.puzzle.view.core.Renderer;
 import com.puzzle.view.core.TapisConverteur;
 import com.puzzle.view.state.IState;
 import com.puzzle.view.state.MainVide;
@@ -35,6 +38,7 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	private boolean rightClick;
 	private boolean leftClick;
 	
+	
 
 	
 
@@ -54,9 +58,7 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 
 
 
-
-
-
+	
 
 
 	public void activate() {

@@ -16,6 +16,8 @@ import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.context.PuzzleContext;
+import com.puzzle.view.context.PuzzleContext.PuzzleParam;
 import com.puzzle.view.core.Activater;
 import com.puzzle.view.core.GameLoop;
 import com.puzzle.view.core.Renderer;
@@ -57,7 +59,7 @@ public class MainLaucher {
 		
 		TapisConverteur converter = new TapisConverteur(tapis, drw.getLargeur(), drw.getHauteur());
 		
-		Renderer renderer = new JavaRenderer(tapis,converter, drw,f.getStrategy(),background);
+		Renderer renderer = new JavaRenderer(tapis,converter, drw, f.getStrategy(), background);
 		Activater game = new Game(tapis,converter);
 		
 		
@@ -67,6 +69,10 @@ public class MainLaucher {
 		f.getWindow().addMouseWheelListener((MouseWheelListener) game);
 		f.getWindow().addKeyListener((KeyListener) game);
 		
+		PuzzleContext.getInstance().put(PuzzleParam.strategy, f.getStrategy());
+		PuzzleContext.getInstance().put(PuzzleParam.screenLargeur, f.getLargeur());
+		PuzzleContext.getInstance().put(PuzzleParam.screenHauteur, f.getHauteur());
+		PuzzleContext.getInstance().put(PuzzleParam.renderer, renderer);
 		
 		
 		GameLoop loop = new GameLoop(renderer, game);
