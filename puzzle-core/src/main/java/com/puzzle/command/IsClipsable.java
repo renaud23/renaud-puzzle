@@ -58,6 +58,9 @@ public class IsClipsable implements CommandeArgument<IsClipsParam>{
 			this.param.setCandidats(elus);
 			if(!elus.isEmpty()){
 				this.param.setComponent(cmp);
+				
+				this.tapis.change();
+				this.tapis.notifyObservers(this.param);
 			}
 		}// if
 		

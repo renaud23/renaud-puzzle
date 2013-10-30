@@ -2,12 +2,16 @@ package com.puzzle.view.java;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
@@ -23,7 +27,7 @@ import com.puzzle.view.core.image.PieceLoader;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
-public class JavaRenderer implements Renderer,Observer{
+public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	
 	private IDrawer drawer;
 	private Tapis tapis;
@@ -34,7 +38,7 @@ public class JavaRenderer implements Renderer,Observer{
 	
 	private boolean isSelection;
 	
-
+	private Point mousePosition = new Point();
 	private Point corner = new Point();
 	private double scale;
 	private double largeur;
@@ -76,6 +80,7 @@ public class JavaRenderer implements Renderer,Observer{
 		
 		this.clean();
 		this.drawTapis();
+		if(this.isSelection) this.drawSelection();
 		this.drawLunette();
 		
 		this.strategy.show();
@@ -147,8 +152,6 @@ public class JavaRenderer implements Renderer,Observer{
 		p.setX(xi);
 		p.setY(yi);
 		
-		
-		
 		double x = p.getX();
 		x -= pbo.getPiece().getLargeur() / 2.0 * this.scale;
 		
@@ -160,6 +163,33 @@ public class JavaRenderer implements Renderer,Observer{
 				p.getX() , p.getY(), -pbo.getPiece().getAngle(), 
 				this.scale, this.scale, 
 				1.0f);
+	}
+	
+	
+	private void drawSelection(){
+		ComponentPiece compomnent = MainDroite.getInstance().getPiece();
+		Point ancre = MainDroite.getInstance().getAncre();
+		
+		if(compomnent instanceof Piece){
+			Piece piece = (Piece) compomnent;
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
+			
+			double cx = (double)pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
+			double cy = (double)pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
+			
+			double x = this.mousePosition.getX();
+			double y = this.mousePosition.getY();
+			x += ancre.getX() * this.converter.getScaleX();
+			y -= ancre.getY() * this.converter.getScaleY();
+			x -= cx;
+			y -= cy;
+			
+			this.drawer.drawImage(
+					pbo.getImage(), 
+				x,y, 
+				this.mousePosition.getX(), this.mousePosition.getY(), -piece.getAngle(), 
+				this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
+		}
 	}
 	
 	private void clean(){
@@ -205,8 +235,23 @@ public class JavaRenderer implements Renderer,Observer{
 		return drawer;
 	}
 
+	
+	
+	/*
+	 * MouseMotionListener
+	 */
 	public void setDrawer(IDrawer drawer) {
 		this.drawer = drawer;
+	}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		this.mousePosition.setX(e.getX());
+		this.mousePosition.setY(e.getY());
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		this.mousePosition.setX(e.getX());
+		this.mousePosition.setY(e.getY());
 	}
 	
 	

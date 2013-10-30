@@ -28,14 +28,14 @@ public class MainVide implements IState,Observer{
 
 
 	@Override
-	public void wheel(boolean up) {
+	public void wheel(boolean up,boolean shift) {
 		this.game.getConverter().zoom(up);
 	}
 
 
 
 	@Override
-	public void dragRight(int vx, int vy) {
+	public void dragRight(int vx, int vy,boolean shift) {
 		Point p = new Point(vx,vy);
 		this.game.getConverter().moveBy(p);
 	}
@@ -72,6 +72,15 @@ public class MainVide implements IState,Observer{
 				this.game.setState(state);
 			}// if 
 		}// if
+	}
+
+
+
+
+	@Override
+	public void shiftReleased() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

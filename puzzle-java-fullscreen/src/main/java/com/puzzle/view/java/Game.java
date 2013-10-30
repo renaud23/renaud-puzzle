@@ -121,7 +121,7 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		boolean up = e.getPreciseWheelRotation() < 0;
-		this.state.wheel(up);
+		this.state.wheel(up,e.isShiftDown());
 		
 	}
 	
@@ -133,9 +133,7 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 			this.mouseX = e.getX();
 			this.mouseY = e.getY();
 			
-			this.state.dragRight(vx, vy);
-		
-			
+			this.state.dragRight(vx, vy,e.isShiftDown());
 		}
 		
 	}
@@ -176,12 +174,14 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)System.exit(0);	
 		
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)System.exit(0);	
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT)this.state.shiftReleased();	
+		
+		
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {

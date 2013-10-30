@@ -63,8 +63,10 @@ public class MainLaucher {
 		
 		f.getWindow().addMouseListener((MouseListener) game);
 		f.getWindow().addMouseMotionListener((MouseMotionListener) game);
+		f.getWindow().addMouseMotionListener((MouseMotionListener) renderer);
 		f.getWindow().addMouseWheelListener((MouseWheelListener) game);
 		f.getWindow().addKeyListener((KeyListener) game);
+		
 		
 		
 		GameLoop loop = new GameLoop(renderer, game);

@@ -6,13 +6,8 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Window;
 import java.awt.image.BufferStrategy;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.swing.JFrame;
-import javax.swing.JWindow;
 
-import com.puzzle.view.core.IJouable;
 
 
 
@@ -33,6 +28,8 @@ public class Fenetre {
 		
 		if(device.isFullScreenSupported()){
 			this.window = new JFrame();
+			((JFrame)this.window).setUndecorated(true);
+			((JFrame)this.window).setResizable(false);
 			
 			this.window.setPreferredSize(new Dimension(largeur,hauteur));
 			this.window.setVisible(true);
