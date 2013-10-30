@@ -8,20 +8,20 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferStrategy;
 
 import com.puzzle.view.core.IDrawer;
 
 public class JavaDrawer implements IDrawer{
-	private Graphics2D graphics;
-	private Rectangle clipArea;
+	private BufferStrategy strategy;
 	private int largeur;
 	private int hauteur;
 	
 	
-	public JavaDrawer(Graphics2D graphics,int largeur,int hauteur) {
-		this.graphics = graphics;
+	public JavaDrawer(BufferStrategy strategy,int largeur,int hauteur) {
+		this.strategy = strategy;
 	
-		this.clipArea = graphics.getDeviceConfiguration().getBounds();
+		
 		
 		
 		
@@ -34,7 +34,7 @@ public class JavaDrawer implements IDrawer{
 
 
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
-		Graphics2D gr = (Graphics2D) graphics.create();
+		Graphics2D gr = (Graphics2D) strategy.getDrawGraphics();
 		/** D�sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
@@ -61,7 +61,7 @@ public class JavaDrawer implements IDrawer{
 	}
 	
 	public void fillRect(Color color,int x,int y,int width,int height,float alpha){
-		Graphics2D gr = (Graphics2D) graphics.create();
+		Graphics2D gr = (Graphics2D) strategy.getDrawGraphics();
 		gr.setColor(color);
 		gr.setComposite(AlphaComposite.getInstance(
                 AlphaComposite.SRC_OVER,alpha )) ;
@@ -71,7 +71,7 @@ public class JavaDrawer implements IDrawer{
 	}
 	
 	public void transparentClean(){
-		Graphics2D g = (Graphics2D) graphics.create();
+		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 		 
 		g.setColor(new Color(0,0,0,0));
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OUT));
@@ -79,7 +79,7 @@ public class JavaDrawer implements IDrawer{
 	}
 	
 	public void clean(){
-		Graphics2D gr = (Graphics2D) graphics.create();
+		Graphics2D gr = (Graphics2D) strategy.getDrawGraphics();
 		gr.setColor(Color.red);
 		gr.fillRect(0, 0, largeur, hauteur);
 		gr.dispose();
@@ -87,12 +87,12 @@ public class JavaDrawer implements IDrawer{
 	
 	@Override
 	public void dispose() {
-		this.graphics.dispose();
+		
 	}
 
 	@Override
 	public void drawRect(Color color, int x, int y, int largeur, int hauteur,float alpha) {
-		Graphics2D gr = (Graphics2D) graphics.create();
+		Graphics2D gr = (Graphics2D) strategy.getDrawGraphics();
 		gr.setColor(color);
 		gr.setComposite(AlphaComposite.getInstance(
                 AlphaComposite.SRC_OVER,alpha )) ;

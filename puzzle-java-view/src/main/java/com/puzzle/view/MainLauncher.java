@@ -20,11 +20,11 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainLauncher {
 
 	public static void main(String[] args) throws ImageLoadException {
-		int largeur = (int)(36000.0*1.0);
-		int hauteur = (int)(12000.0*1.0);
+		int largeur = (int)(36000.0*0.5);
+		int hauteur = (int)(12000.0*0.5);
 
 //		String rootPath = System.getProperty("user.dir");
-		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 	
@@ -41,21 +41,12 @@ public class MainLauncher {
 		MainGaucheController mgc = new MainGaucheController(tapis, f);
 		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
 		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
-		
-		
+
 		MenuView menu = new MenuView();
 		f.getFrame().setJMenuBar(menu.getMenu());
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle");
 		mc.addObserver(menu);
 		mc.validate();
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		f.getFrame().pack();
 	}

@@ -10,6 +10,7 @@ import java.util.Observer;
 
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.Lunette;
@@ -31,6 +32,8 @@ public class JavaRenderer implements Renderer,Observer{
 	private BufferStrategy strategy;
 	private Lunette lunette;
 	
+	private boolean isSelection;
+	
 
 	private Point corner = new Point();
 	private double scale;
@@ -47,6 +50,7 @@ public class JavaRenderer implements Renderer,Observer{
 		this.strategy = strategy;
 		this.background = background;
 		
+		this.isSelection = false;
 		
 		this.lunette = new Lunette();
 		this.lunette.setTapis(tapis);
@@ -57,20 +61,13 @@ public class JavaRenderer implements Renderer,Observer{
 		this.lunette.setY(10.0);
 		
 		PieceLoader.getInstance().addObserver(this);
+		this.tapis.addObserver(this);
 	}
 
-	public IDrawer getDrawer() {
-		return drawer;
-	}
-
-	public void setDrawer(IDrawer drawer) {
-		this.drawer = drawer;
-	}
+	
 
 	@Override
 	public void Render() {
-		
-		
 		this.corner.setX(this.converter.getCorner().getX());
 		this.corner.setY(this.converter.getCorner().getY());
 		this.scale = this.converter.getScaleX();
@@ -81,10 +78,7 @@ public class JavaRenderer implements Renderer,Observer{
 		this.drawTapis();
 		this.drawLunette();
 		
-		
-		
 		this.strategy.show();
-		
 	}
 	
 	
@@ -196,9 +190,25 @@ public class JavaRenderer implements Renderer,Observer{
 	public void update(Observable obs, Object arg) {
 		if(arg instanceof PieceBufferOperation){
 			this.drawPiece((PieceBufferOperation) arg);
+		}else if(arg instanceof State){
+			State st = (State) arg;
+			if(st == State.MainDroitePleine){
+				this.isSelection = true;
+			}else if(st == State.MainDroiteVide){
+				this.isSelection = false;
+			}
 		}
 		
 	}
+	
+	public IDrawer getDrawer() {
+		return drawer;
+	}
+
+	public void setDrawer(IDrawer drawer) {
+		this.drawer = drawer;
+	}
+	
 	
 	
 

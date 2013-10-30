@@ -1,6 +1,7 @@
 package com.puzzle.view;
 
 import java.awt.Image;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
@@ -32,8 +33,8 @@ public class MainLaucher {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		
-		String rootPath = "/home/renaud/workspace/pieces-puzzle";
-		String name = "citrouille_large_704";
+		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
+		String name = "floflo";
 		// création du tapis
 		int largeur = (int)(36000.0*0.5);
 		int hauteur = (int)(12000.0*0.5);
@@ -52,7 +53,7 @@ public class MainLaucher {
 		
 		
 		
-		JavaDrawer drw = new JavaDrawer(f.getBuffer(),ls,hs);
+		JavaDrawer drw = new JavaDrawer(f.getStrategy(),f.getLargeur(),f.getHauteur());
 		
 		TapisConverteur converter = new TapisConverteur(tapis, drw.getLargeur(), drw.getHauteur());
 		
@@ -63,6 +64,7 @@ public class MainLaucher {
 		f.getWindow().addMouseListener((MouseListener) game);
 		f.getWindow().addMouseMotionListener((MouseMotionListener) game);
 		f.getWindow().addMouseWheelListener((MouseWheelListener) game);
+		f.getWindow().addKeyListener((KeyListener) game);
 		
 		
 		GameLoop loop = new GameLoop(renderer, game);

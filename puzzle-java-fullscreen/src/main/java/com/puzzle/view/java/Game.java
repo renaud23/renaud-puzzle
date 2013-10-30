@@ -2,15 +2,19 @@ package com.puzzle.view.java;
 
 
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.Observable;
+import java.util.Observer;
 
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.core.Activater;
-import com.puzzle.view.core.Lunette;
 import com.puzzle.view.core.TapisConverteur;
 import com.puzzle.view.state.IState;
 import com.puzzle.view.state.MainVide;
@@ -19,7 +23,7 @@ import com.puzzle.view.state.MainVide;
 
 
 
-public class Game implements Activater, MouseListener, MouseMotionListener, MouseWheelListener{
+public class Game implements Activater, MouseListener, MouseMotionListener, MouseWheelListener,KeyListener,Observer{
 	
 	
 	private Tapis tapis;
@@ -42,13 +46,10 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 
 
 	public Game(Tapis tapis, TapisConverteur converter) {
-		
 		this.tapis = tapis;
 		this.converter = converter;
 		this.state = new MainVide(this);
-		
-		
-		
+		tapis.addObserver(this);
 	}
 
 
@@ -63,9 +64,23 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 
 	}
 
-
-
-
+	
+	/*
+	 * 
+	 * Observer
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg instanceof State){
+			State st = (State) arg;
+			if(st == State.MainDroitePleine){
+				
+			}else if(st == State.MainDroiteVide){
+				
+			}
+		}
+		
+	}
 
 	/*
 	 * mouseListener
@@ -90,9 +105,10 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(e.getButton() == MouseEvent.BUTTON1) this.leftClick = true;
-		else if(e.getButton() == MouseEvent.BUTTON3) this.rightClick = true;
-		
+		if(e.getButton() == MouseEvent.BUTTON1){
+			this.leftClick = true;
+			this.state.pressLeft(e.getX(), e.getY(), e.isShiftDown());
+		}else if(e.getButton() == MouseEvent.BUTTON3) this.rightClick = true;
 	}
 
 	@Override
@@ -147,4 +163,38 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	public Tapis getTapis() {
 		return tapis;
 	}
+
+
+
+
+
+
+
+	/*
+	 * KeyListener
+	 * 
+	 */
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)System.exit(0);	
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+
+
+
+	
 }
