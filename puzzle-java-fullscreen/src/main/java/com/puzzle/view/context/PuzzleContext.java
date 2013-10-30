@@ -4,7 +4,9 @@ import java.awt.image.BufferStrategy;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.TapisConverteur;
+import com.puzzle.view.hud.HudRenderer;
 
 public class PuzzleContext {
 	private static PuzzleContext instance;
@@ -27,6 +29,10 @@ public class PuzzleContext {
 		
 	}
 	
+	public <U> void put(Class<U> clazz,U u){
+		
+	}
+	
 	public Object get(PuzzleParam key){
 		return this.parameters.get(key);
 	}
@@ -36,7 +42,9 @@ public class PuzzleContext {
 		converter(TapisConverteur.class),
 		renderer(com.puzzle.view.core.Renderer.class),
 		screenLargeur(Integer.class),
-		screenHauteur(Integer.class);
+		screenHauteur(Integer.class),
+		drawer(IDrawer.class),
+		hudRenderer(HudRenderer.class);
 		
 		private Class<?> clazz;
 		

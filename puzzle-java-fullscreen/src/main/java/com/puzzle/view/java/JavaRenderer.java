@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +19,8 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.context.PuzzleContext;
+import com.puzzle.view.context.PuzzleContext.PuzzleParam;
 import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.Lunette;
 import com.puzzle.view.core.Renderer;
@@ -29,6 +30,7 @@ import com.puzzle.view.core.image.CompositeImageProvider;
 import com.puzzle.view.core.image.ImageMemoryManager;
 import com.puzzle.view.core.image.PieceBufferOperation;
 import com.puzzle.view.core.image.PieceLoader;
+import com.puzzle.view.hud.HudRenderer;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
@@ -40,18 +42,17 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	private Image background;
 	private TapisConverteur converter;
 	private BufferStrategy strategy;
-	private Lunette lunette;
 	
 	private boolean isSelection;
 	
 	private Point mousePosition = new Point();
 	private Point corner = new Point();
-	private double scale;
-	private double largeur;
-	private double hauteur;
+	private double scaleConverter;
+	private double largeurConverter;
+	private double hauteurConverter;
 	private final List<Piece> candidats = Collections.synchronizedList(new ArrayList<Piece>());
 	
-
+	private HudRenderer hudRenderer;
 
 	public JavaRenderer( Tapis tapis, TapisConverteur converter,
 			IDrawer drawer, BufferStrategy strategy,Image background) {
@@ -60,16 +61,10 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		this.converter = converter;
 		this.strategy = strategy;
 		this.background = background;
-		
+		this.hudRenderer = new HudRenderer(tapis, drawer, converter);
+		PuzzleContext.getInstance().put(PuzzleParam.hudRenderer, this.hudRenderer);
 		this.isSelection = false;
 		
-		this.lunette = new Lunette();
-		this.lunette.setTapis(tapis);
-		this.lunette.setScale(0.2);
-		this.lunette.setLargeur(this.drawer.getLargeur() * this.lunette.getScale());
-		this.lunette.setHauteur(this.lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
-		this.lunette.setX(10.0);
-		this.lunette.setY(10.0);
 		
 		PieceLoader.getInstance().addObserver(this);
 		this.tapis.addObserver(this);
@@ -81,48 +76,18 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	public void Render() {
 		this.corner.setX(this.converter.getCorner().getX());
 		this.corner.setY(this.converter.getCorner().getY());
-		this.scale = this.converter.getScaleX();
-		this.largeur = this.converter.getLargeur();
-		this.hauteur = this.converter.getHauteur();
+		this.scaleConverter = this.converter.getScaleX();
+		this.largeurConverter = this.converter.getLargeur();
+		this.hauteurConverter = this.converter.getHauteur();
 		
 		this.clean();
 		this.drawTapis();
 		this.drawClips();
 		if(this.isSelection) this.drawSelection();
 		
-		this.drawLunette();
+		this.hudRenderer.Render();
 		
 		this.strategy.show();
-	}
-	
-	
-	
-	
-
-	
-	private void drawLunette(){
-		this.drawer.drawRect(Color.black, 
-				(int)Math.round(this.lunette.getX()), (int)Math.round(this.lunette.getY()), 
-				(int)Math.round(this.lunette.getLargeur()), (int)Math.round(this.lunette.getHauteur()),1.0f);
-	
-		double sx = this.lunette.getLargeur() / this.lunette.getTapis().getLargeur();
-		
-		double xi = this.corner.getX() * sx;
-		xi += this.lunette.getTapis().getLargeur() * sx / 2.0;
-		xi += this.lunette.getX();
-		double yi = -this.corner.getY() * sx;
-		yi += this.lunette.getTapis().getHauteur() * sx / 2.0;
-		yi += this.lunette.getY();
-		double l = this.largeur * sx;
-		double h = this.hauteur * sx;
-		
-		this.drawer.fillRect(Color.yellow, 
-				(int)Math.round(xi), (int)Math.round(yi), 
-				(int)Math.round(l), (int)Math.round(h),0.2f);
-		
-		this.drawer.drawRect(Color.black, 
-				(int)Math.round(xi), (int)Math.round(yi), 
-				(int)Math.round(l), (int)Math.round(h),1.0f);
 	}
 	
 	
@@ -132,7 +97,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
 		
 		// filtrage des pièce dans la zone.
-		IRect rect = new Rect(corner.getX(), corner.getY(), largeur, hauteur);
+		IRect rect = new Rect(corner.getX(), corner.getY(), largeurConverter, hauteurConverter);
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
 	
@@ -165,23 +130,23 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 
 		// conversion en dur plutot qu'avec le converter Ã  cause du threading
 		double xi = p.getX()  - corner.getX();
-		xi *= this.scale;
+		xi *= this.scaleConverter;
 		double yi = corner.getY() - p.getY();
-		yi *= this.scale;
+		yi *= this.scaleConverter;
 		
 		p.setX(xi);
 		p.setY(yi);
 		
 		double x = p.getX();
-		x -= pbo.getPiece().getLargeur() / 2.0 * this.scale;
+		x -= pbo.getPiece().getLargeur() / 2.0 * this.scaleConverter;
 		
 		double y = p.getY();
-		y -= pbo.getPiece().getHauteur() / 2.0 * this.scale;
+		y -= pbo.getPiece().getHauteur() / 2.0 * this.scaleConverter;
 	
 		this.drawer.drawImage(pbo.getImage(),
 				x,  y, 
 				p.getX() , p.getY(), -pbo.getPiece().getAngle(), 
-				this.scale, this.scale, 
+				this.scaleConverter, this.scaleConverter, 
 				1.0f);
 	}
 	
@@ -192,23 +157,23 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
 		
 		double xi = p.getX()  - corner.getX();
-		xi *= this.scale;
+		xi *= this.scaleConverter;
 		double yi = this.corner.getY() - p.getY();
-		yi *= this.scale;
+		yi *= this.scaleConverter;
 		
 		p.setX(xi);
 		p.setY(yi);
 		
 		double x = p.getX();
-		x -= b.getLargeur() / 2.0 * this.scale / scale;
+		x -= b.getLargeur() / 2.0 * this.scaleConverter / scale;
 		
 		double y = p.getY();
-		y -= b.getHauteur() / 2.0 * this.scale / scale;
+		y -= b.getHauteur() / 2.0 * this.scaleConverter / scale;
 		
 		this.drawer.drawImage(((JavaBuffer)b).getImage(),
 				x,  y, 
 				p.getX() , p.getY(), -cmp.getAngle(), 
-				this.scale/scale, this.scale/scale, 
+				this.scaleConverter/scale, this.scaleConverter/scale, 
 				1.0f);
 	}
 	
@@ -235,18 +200,18 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 					pbo.getImage(), 
 				x,y, 
 				this.mousePosition.getX(), this.mousePosition.getY(), -piece.getAngle(), 
-				this.scale, this.scale, 1.0f);
+				this.scaleConverter, this.scaleConverter, 1.0f);
 		}else if(compomnent instanceof CompositePiece){
 			CompositeBufferOperation sb = CompositeImageProvider.getInstance().getElement((CompositePiece)compomnent);
 			Image img = ((JavaBuffer)sb.getBuffer()).getImage();
 			double scale = sb.getScale();
-			double cx = (double)img.getWidth(null) / 2.0 * this.scale/scale;
-			double cy = (double)img.getHeight(null) / 2.0 * this.scale/scale;
+			double cx = (double)img.getWidth(null) / 2.0 * this.scaleConverter/scale;
+			double cy = (double)img.getHeight(null) / 2.0 * this.scaleConverter/scale;
 			
 			double x = this.mousePosition.getX();
 			double y = this.mousePosition.getY();
-			x += ancre.getX() * this.scale;
-			y -= ancre.getY() * this.scale;
+			x += ancre.getX() * this.scaleConverter;
+			y -= ancre.getY() * this.scaleConverter;
 			x -= cx;
 			y -= cy;
 			
@@ -254,7 +219,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 				img, 
 				x,y, 
 				this.mousePosition.getX(), this.mousePosition.getY(), -compomnent.getAngle(), 
-				this.scale/scale, this.scale/scale, 1.0f);
+				this.scaleConverter/scale, this.scaleConverter/scale, 1.0f);
 		}
 	}
 	
@@ -286,15 +251,15 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		
 		double x = -this.tapis.getLargeur() / 2.0;
 		x -= corner.getX();
-		x *= scale;
+		x *= scaleConverter;
 		double y = -this.tapis.getHauteur() / 2.0;
 		y += corner.getY();
-		y *= scale;
+		y *= scaleConverter;
 
 		this.drawer.drawImage(this.background, 
 				x,y, 
 				0, 0, 0, 
-				scalex*scale, scaley*scale, 1.0f);
+				scalex*scaleConverter, scaley*scaleConverter, 1.0f);
 	}
 	
 	

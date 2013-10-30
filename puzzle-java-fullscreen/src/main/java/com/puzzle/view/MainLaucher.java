@@ -24,6 +24,7 @@ import com.puzzle.view.core.Renderer;
 import com.puzzle.view.core.TapisConverteur;
 import com.puzzle.view.core.image.ImageMemoryManager;
 import com.puzzle.view.core.image.PieceImageProvider;
+import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.java.Game;
 import com.puzzle.view.java.ImageLoadException;
 import com.puzzle.view.java.JavaDrawer;
@@ -38,8 +39,8 @@ public class MainLaucher {
 		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		String name = "floflo";
 		// création du tapis
-		int largeur = (int)(36000.0*0.3);
-		int hauteur = (int)(12000.0*0.3);
+		int largeur = (int)(36000.0*0.4);
+		int hauteur = (int)(12000.0*0.4);
 		Tapis tapis = new Tapis(largeur, hauteur);
 		
 		Puzzle p1 = loadPuzzle(rootPath+File.separator+"puzzle"+File.separator+name, largeur, hauteur);
@@ -51,7 +52,7 @@ public class MainLaucher {
 		
 		int ls = 800;
 		int hs = 600;
-		Fenetre f = new Fenetre();
+		Fenetre f = new Fenetre(ls,hs);
 		
 		
 		
@@ -61,10 +62,10 @@ public class MainLaucher {
 		
 		Renderer renderer = new JavaRenderer(tapis,converter, drw, f.getStrategy(), background);
 		Activater game = new Game(tapis,converter);
+		HudControler hud = new HudControler((Game) game,tapis);
 		
-		
-		f.getWindow().addMouseListener((MouseListener) game);
-		f.getWindow().addMouseMotionListener((MouseMotionListener) game);
+		f.getWindow().addMouseListener((MouseListener) hud);
+		f.getWindow().addMouseMotionListener((MouseMotionListener) hud);
 		f.getWindow().addMouseMotionListener((MouseMotionListener) renderer);
 		f.getWindow().addMouseWheelListener((MouseWheelListener) game);
 		f.getWindow().addKeyListener((KeyListener) game);
@@ -72,6 +73,7 @@ public class MainLaucher {
 		PuzzleContext.getInstance().put(PuzzleParam.strategy, f.getStrategy());
 		PuzzleContext.getInstance().put(PuzzleParam.screenLargeur, f.getLargeur());
 		PuzzleContext.getInstance().put(PuzzleParam.screenHauteur, f.getHauteur());
+		PuzzleContext.getInstance().put(PuzzleParam.drawer, drw);
 		PuzzleContext.getInstance().put(PuzzleParam.renderer, renderer);
 		
 		
