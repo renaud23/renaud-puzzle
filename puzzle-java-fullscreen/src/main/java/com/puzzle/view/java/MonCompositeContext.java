@@ -1,4 +1,4 @@
-package com.puzzle.view.tool;
+package com.puzzle.view.java;
 
 import java.awt.Color;
 import java.awt.CompositeContext;

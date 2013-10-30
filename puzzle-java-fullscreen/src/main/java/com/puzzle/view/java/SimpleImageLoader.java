@@ -1,4 +1,4 @@
-package com.puzzle.view.tool;
+package com.puzzle.view.java;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -47,7 +47,7 @@ public class SimpleImageLoader  {
 		
 			return vimage;
 		}catch (Exception e) {
-			throw new ImageLoadException("Impossible de charger une image à "+filename, e);
+			throw new ImageLoadException("Impossible de charger une image ï¿½ "+filename, e);
 		}
 	}
 	

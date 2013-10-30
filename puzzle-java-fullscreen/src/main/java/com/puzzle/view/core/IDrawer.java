@@ -22,6 +22,8 @@ public interface IDrawer {
 	
 	public int getHauteur();
 	
+	public void clean();
+	
 	public void dispose();
 
 }

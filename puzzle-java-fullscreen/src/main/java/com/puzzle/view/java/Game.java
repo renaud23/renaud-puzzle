@@ -1,4 +1,4 @@
-package com.puzzle.view.tool;
+package com.puzzle.view.java;
 
 
 
@@ -114,12 +114,12 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 		if(this.rightClick){
 			int vx = this.mouseX - e.getX();
 			int vy = this.mouseY - e.getY();
-			
-			
-			this.state.dragRight(vx, vy);
-			
 			this.mouseX = e.getX();
 			this.mouseY = e.getY();
+			
+			this.state.dragRight(vx, vy);
+		
+			
 		}
 		
 	}

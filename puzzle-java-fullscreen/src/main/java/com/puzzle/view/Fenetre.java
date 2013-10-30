@@ -1,4 +1,5 @@
 package com.puzzle.view;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -19,7 +20,7 @@ public class Fenetre {
 	private Graphics2D buffer;
 
 	
-	public Fenetre(){
+	public Fenetre(int largeur,int hauteur){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsConfiguration gc = ge.getDefaultScreenDevice().getDefaultConfiguration();
 		GraphicsDevice device = ge.getDefaultScreenDevice();
@@ -27,9 +28,12 @@ public class Fenetre {
 		
 		if(device.isFullScreenSupported()){
 			this.window = new Window(null);
+			
+			this.window.setPreferredSize(new Dimension(largeur,hauteur));
 			this.window.setVisible(true);
-			device.setFullScreenWindow(this.window);
-			device.setDisplayMode(device.getDisplayMode());
+		    this.window.pack();
+//			device.setFullScreenWindow(this.window);
+//			device.setDisplayMode(device.getDisplayMode());
 			
 			// inhibe la méthode courante d'affichage du composant 
 			this.window.setIgnoreRepaint(true);  
@@ -38,7 +42,7 @@ public class Fenetre {
 			// récupère les buffers graphiques dans la mémoire VRAM
 			this.strategy = this.window.getBufferStrategy(); 
 		    this.buffer = (Graphics2D) this.strategy.getDrawGraphics();
-		    
+		   
 		}
 
 	}
