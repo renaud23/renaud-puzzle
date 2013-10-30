@@ -54,17 +54,7 @@ public class MainPleine implements IState,Observer{
 			
 			cmd.execute();
 		}else{
-			Point p = new Point(x,y);
-			this.game.getConverter().convertScreenToModel(p);
 			
-			this.iscParam.setCentre(p);
-			CommandeArgument<IsClipsParam> cmd = new IsClipsable(this.game.getTapis());
-			cmd.setArgument(this.iscParam);
-			cmd.execute();
-			
-			
-			IState state = new TryClips(this.game, this.iscParam);
-			this.game.setState(state);
 			
 			
 		}
@@ -86,8 +76,24 @@ public class MainPleine implements IState,Observer{
 	}
 
 	@Override
-	public void shiftReleased() {
+	public void shiftReleased(int x,int y) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shiftPressed(int x,int y) {
+		Point p = new Point(x,y);
+		this.game.getConverter().convertScreenToModel(p);
+		
+		this.iscParam.setCentre(p);
+		CommandeArgument<IsClipsParam> cmd = new IsClipsable(this.game.getTapis());
+		cmd.setArgument(this.iscParam);
+		cmd.execute();
+		
+		
+		IState state = new TryClips(this.game, this.iscParam);
+		this.game.setState(state);
 		
 	}
 

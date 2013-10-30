@@ -36,12 +36,9 @@ public class Fenetre {
 		    this.window.pack();
 		    this.largeur = largeur;
 		    this.hauteur = hauteur;
-		    
-			device.setFullScreenWindow(this.window);
-			device.setDisplayMode(device.getDisplayMode());
 			
-			this.largeur = device.getDisplayMode().getWidth();
-			this.hauteur = device.getDisplayMode().getHeight();
+			this.largeur = largeur;
+			this.hauteur = hauteur;
 			
 			this.window.setIgnoreRepaint(true);  
 			this.window.createBufferStrategy(2);

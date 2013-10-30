@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -22,11 +24,14 @@ import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.Lunette;
 import com.puzzle.view.core.Renderer;
 import com.puzzle.view.core.TapisConverteur;
+import com.puzzle.view.core.image.CompositeBufferOperation;
+import com.puzzle.view.core.image.CompositeImageProvider;
 import com.puzzle.view.core.image.ImageMemoryManager;
 import com.puzzle.view.core.image.PieceBufferOperation;
 import com.puzzle.view.core.image.PieceLoader;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
+
 
 public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	
@@ -44,7 +49,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	private double scale;
 	private double largeur;
 	private double hauteur;
-	private List<Piece> candidats = new ArrayList<Piece>();
+	private final List<Piece> candidats = Collections.synchronizedList(new ArrayList<Piece>());
 	
 
 
@@ -82,7 +87,9 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		
 		this.clean();
 		this.drawTapis();
+		this.drawClips();
 		if(this.isSelection) this.drawSelection();
+		
 		this.drawLunette();
 		
 		this.strategy.show();
@@ -121,22 +128,33 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	
 	public void drawTapis(){
 		
-		Rect r = new Rect(this.corner.getX(), this.corner.getY(), 
-				this.largeur, this.hauteur);
+		// dessin tapis
+		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
 		
-		// filtrage des piï¿½ce dans la zone.
-		IRect rect = new Rect(
-				this.corner.getX(), this.corner.getY(),
-				this.largeur, this.hauteur);
+		// filtrage des pièce dans la zone.
+		IRect rect = new Rect(corner.getX(), corner.getY(), largeur, hauteur);
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
-		
+	
 		for(Piece piece : pieces){
-			if(piece.getRect().isIn(r)){
-				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElementDeferred(piece, this);
-				if(pbo != null) this.drawPiece(pbo);	
-			}// if in
-		}
+			if(piece.getComposite() == null){
+				if(piece.getRect().isIn(rect)){
+					PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElementDeferred(piece,this);
+					if(pbo != null) this.drawPiece(pbo);	
+				}// if in
+			}else{
+				if(!alreadyDraw.contains(piece.getComposite())){
+					alreadyDraw.add(piece.getComposite());
+					CompositePiece cmp = piece.getComposite();
+					
+					if(cmp.getRect().isIn(rect)){
+						CompositeBufferOperation sb =  CompositeImageProvider.getInstance().getElementDeferred(cmp, this);
+						if(sb != null) this.drawComposite(sb);
+					}// if isIn	
+				}// if already
+			}// else
+			
+		}// for
 	}
 	
 	
@@ -167,6 +185,33 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 				1.0f);
 	}
 	
+	private void drawComposite(CompositeBufferOperation sb){
+		IDrawer b = sb.getBuffer();
+		double scale = sb.getScale();
+		CompositePiece cmp = sb.getComposite();
+		Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
+		
+		double xi = p.getX()  - corner.getX();
+		xi *= this.scale;
+		double yi = this.corner.getY() - p.getY();
+		yi *= this.scale;
+		
+		p.setX(xi);
+		p.setY(yi);
+		
+		double x = p.getX();
+		x -= b.getLargeur() / 2.0 * this.scale / scale;
+		
+		double y = p.getY();
+		y -= b.getHauteur() / 2.0 * this.scale / scale;
+		
+		this.drawer.drawImage(((JavaBuffer)b).getImage(),
+				x,  y, 
+				p.getX() , p.getY(), -cmp.getAngle(), 
+				this.scale/scale, this.scale/scale, 
+				1.0f);
+	}
+	
 	
 	private void drawSelection(){
 		ComponentPiece compomnent = MainDroite.getInstance().getPiece();
@@ -190,7 +235,48 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 					pbo.getImage(), 
 				x,y, 
 				this.mousePosition.getX(), this.mousePosition.getY(), -piece.getAngle(), 
-				this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
+				this.scale, this.scale, 1.0f);
+		}else if(compomnent instanceof CompositePiece){
+			CompositeBufferOperation sb = CompositeImageProvider.getInstance().getElement((CompositePiece)compomnent);
+			Image img = ((JavaBuffer)sb.getBuffer()).getImage();
+			double scale = sb.getScale();
+			double cx = (double)img.getWidth(null) / 2.0 * this.scale/scale;
+			double cy = (double)img.getHeight(null) / 2.0 * this.scale/scale;
+			
+			double x = this.mousePosition.getX();
+			double y = this.mousePosition.getY();
+			x += ancre.getX() * this.scale;
+			y -= ancre.getY() * this.scale;
+			x -= cx;
+			y -= cy;
+			
+			this.drawer.drawImage(
+				img, 
+				x,y, 
+				this.mousePosition.getX(), this.mousePosition.getY(), -compomnent.getAngle(), 
+				this.scale/scale, this.scale/scale, 1.0f);
+		}
+	}
+	
+	private void drawClips(){
+		synchronized (this.candidats) {
+			for(Piece piece : this.candidats){
+				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
+				Point p = new Point(piece.getCentre().getX(),piece.getCentre().getY());
+				this.converter.convertModelToScreen(p);
+				
+				double xi = p.getX();
+				xi -= pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
+				
+				double yi = p.getY();
+				yi -= pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
+			
+				this.drawer.drawImageMask(pbo.getImage(),
+						xi,  yi, 
+						p.getX() , p.getY(), -piece.getAngle(), 
+						this.converter.getScaleX(), this.converter.getScaleY(), 
+						Color.yellow);
+			}
 		}
 	}
 	
@@ -204,9 +290,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		double y = -this.tapis.getHauteur() / 2.0;
 		y += corner.getY();
 		y *= scale;
-		
 
-		
 		this.drawer.drawImage(this.background, 
 				x,y, 
 				0, 0, 0, 
@@ -221,7 +305,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	@Override
 	public void update(Observable obs, Object arg) {
 		if(arg instanceof PieceBufferOperation){
-			this.drawPiece((PieceBufferOperation) arg);
+//			this.drawPiece((PieceBufferOperation) arg);
 		}else if(arg instanceof State){
 			State st = (State) arg;
 			if(st == State.MainDroitePleine){
@@ -230,7 +314,6 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 				this.isSelection = false;
 			}
 		}
-		
 	}
 	
 	public IDrawer getDrawer() {
@@ -259,11 +342,16 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 
 
 	public void clearCandidats(){
-		this.candidats.clear();
+		synchronized (this) {
+			this.candidats.clear();
+		}
 	}
 	
 	public void addCandidats(Collection<Piece> pieces){
-		this.candidats.addAll(pieces);
+		synchronized (this) {
+			this.candidats.addAll(pieces);
+		}
+		
 	}
 	
 	public void addCandidats(Piece piece){

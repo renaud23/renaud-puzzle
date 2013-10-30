@@ -90,6 +90,31 @@ public class JavaDrawer implements IDrawer{
 		
 	}
 
+	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
+		Graphics2D gr = (Graphics2D) strategy.getDrawGraphics();
+
+		/** D�sactivation de l'anti-aliasing */
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+		/** Demande de rendu rapide */
+		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+	 
+		 gr.setComposite(new MonComposite(color)) ;
+		//
+		 AffineTransform t = new AffineTransform();
+		t.setToIdentity();
+
+		t.translate(x, y);
+		t.scale(scaleX, scaleY);
+		gr.rotate(theta, xRotation, yRotation);
+
+		gr.drawImage(image,t,null);
+		gr.dispose();
+	}
+	
 	@Override
 	public void drawRect(Color color, int x, int y, int largeur, int hauteur,float alpha) {
 		Graphics2D gr = (Graphics2D) strategy.getDrawGraphics();

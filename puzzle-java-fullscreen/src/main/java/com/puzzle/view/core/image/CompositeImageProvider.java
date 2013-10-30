@@ -8,7 +8,11 @@ import java.util.Observer;
 
 import com.puzzle.model.CompositePiece;
 
-
+/**
+ * Cache memoire pour les composites de pièces.
+ * @author Administrateur
+ *
+ */
 public class CompositeImageProvider implements ProviderElement<CompositePiece, CompositeBufferOperation>{
 	private static CompositeImageProvider instance;
 	private double scale = 0.5;

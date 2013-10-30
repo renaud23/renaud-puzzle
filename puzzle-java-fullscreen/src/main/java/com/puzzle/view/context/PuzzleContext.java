@@ -22,8 +22,9 @@ public class PuzzleContext {
 	
 	
 	public void put(PuzzleParam key,Object value){
-		if(value.getClass().equals(key.getClazz())) 
-			this.parameters.put(key, value);
+		
+		this.parameters.put(key, value);
+		
 	}
 	
 	public Object get(PuzzleParam key){

@@ -102,6 +102,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 
 		this.selectionParam.clearCandidats();
 		
+		// Vidage des caches d'images.
 		if(param.getComponent() instanceof CompositePiece){
 			CompositeImageProvider.getInstance().removeBuffer((CompositePiece) param.getComponent());
 		}

@@ -16,6 +16,7 @@ public interface IDrawer {
 	public void fillRect(Color color,int x,int y,int width,int height,float alpha);
 	
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha);
+	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color);
 	
 	public int getLargeur();
 	public int getHauteur();

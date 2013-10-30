@@ -38,8 +38,8 @@ public class MainLaucher {
 		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 		String name = "floflo";
 		// création du tapis
-		int largeur = (int)(36000.0*0.5);
-		int hauteur = (int)(12000.0*0.5);
+		int largeur = (int)(36000.0*0.3);
+		int hauteur = (int)(12000.0*0.3);
 		Tapis tapis = new Tapis(largeur, hauteur);
 		
 		Puzzle p1 = loadPuzzle(rootPath+File.separator+"puzzle"+File.separator+name, largeur, hauteur);
@@ -51,7 +51,7 @@ public class MainLaucher {
 		
 		int ls = 800;
 		int hs = 600;
-		Fenetre f = new Fenetre(ls,hs);
+		Fenetre f = new Fenetre();
 		
 		
 		

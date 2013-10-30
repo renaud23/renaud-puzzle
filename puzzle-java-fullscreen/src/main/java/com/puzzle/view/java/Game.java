@@ -177,11 +177,11 @@ public class Game implements Activater, MouseListener, MouseMotionListener, Mous
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)System.exit(0);	
-		
+		else if(e.getKeyCode() == KeyEvent.VK_SHIFT)this.state.shiftPressed(this.mouseX,this.mouseY);
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_SHIFT)this.state.shiftReleased();	
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT)this.state.shiftReleased(this.mouseX,this.mouseY);	
 		
 		
 	}

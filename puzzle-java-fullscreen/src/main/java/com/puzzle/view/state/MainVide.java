@@ -78,7 +78,16 @@ public class MainVide implements IState,Observer{
 
 
 	@Override
-	public void shiftReleased() {
+	public void shiftReleased(int x,int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void shiftPressed(int x, int y) {
 		// TODO Auto-generated method stub
 		
 	}
