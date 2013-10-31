@@ -36,18 +36,18 @@ public class HudControler implements MouseMotionListener,MouseListener,Observer{
 		
 		
 		// test 
-		HudArea h = new HudArea(new Box(10, 300, 50, 200), new HudTask() {
-			
-			@Override
-			public void execute() {
-				System.out.println("on it !");
-				
-			}
-		});
-		HudRenderer rnd =
-				(HudRenderer) PuzzleContext.getInstance().get(PuzzleParam.hudRenderer);
-		rnd.addRenderer(h);
-		this.addArea(h);
+//		HudArea h = new HudArea(new Box(10, 300, 50, 200), new HudTask() {
+//			
+//			@Override
+//			public void execute() {
+//				System.out.println("on it !");
+//				
+//			}
+//		});
+//		HudRenderer rnd =
+//				(HudRenderer) PuzzleContext.getInstance().get(PuzzleParam.hudRenderer);
+//		rnd.addRenderer(h);
+//		this.addArea(h);
 	}
 
 	private HudArea getCandidat(int x,int y){

@@ -62,7 +62,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		this.strategy = strategy;
 		this.background = background;
 		this.hudRenderer = new HudRenderer(tapis, drawer, converter);
-		PuzzleContext.getInstance().put(PuzzleParam.hudRenderer, this.hudRenderer);
+//		PuzzleContext.getInstance().put(PuzzleParam.hudRenderer, this.hudRenderer);
 		this.isSelection = false;
 		
 		
@@ -85,7 +85,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		this.drawClips();
 		if(this.isSelection) this.drawSelection();
 		
-		this.hudRenderer.Render();
+		if(this.hudRenderer != null) this.hudRenderer.Render();
 		
 		this.strategy.show();
 	}
@@ -316,12 +316,17 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		synchronized (this) {
 			this.candidats.addAll(pieces);
 		}
-		
 	}
 	
 	public void addCandidats(Piece piece){
 		this.candidats.add(piece);
 	}
+	public HudRenderer getHudRenderer() {
+		return hudRenderer;
+	}
+	public void setHudRenderer(HudRenderer hudRenderer) {
+		this.hudRenderer = hudRenderer;
+	}
 	
-
+	
 }

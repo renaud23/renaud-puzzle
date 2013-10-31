@@ -1,20 +1,20 @@
 package com.puzzle.view.hud;
 
-import java.awt.Color;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
-import com.puzzle.view.context.PuzzleContext;
-import com.puzzle.view.context.PuzzleContext.PuzzleParam;
-import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.Renderer;
 
 public class HudArea implements MouseMotionListener,MouseListener,Renderer{
-	private HudShape shape;
-	private HudTask task;
+	protected HudShape shape;
+	protected HudTask task;
 	
-	private boolean in;
+
+	
+	public HudArea() {
+		
+	}
 	
 	public HudArea(HudShape shape, HudTask task) {
 		this.shape = shape;
@@ -36,13 +36,13 @@ public class HudArea implements MouseMotionListener,MouseListener,Renderer{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		in = true;
+		
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		in = false;
+		
 		
 	}
 
@@ -70,14 +70,20 @@ public class HudArea implements MouseMotionListener,MouseListener,Renderer{
 		
 	}
 
+	public void setShape(HudShape shape) {
+		this.shape = shape;
+	}
 
+	public void setTask(HudTask task) {
+		this.task = task;
+	}
 
 	@Override
 	public void Render() {
-		IDrawer dr = (IDrawer) PuzzleContext.getInstance().get(PuzzleParam.drawer);
-		Box b = (Box)this.shape;
-		dr.drawRect(Color.black, b.getX(), b.getY(), b.getLargeur(), b.getHauteur(), 1.0f);
-		
-		if(in)dr.fillRect(Color.blue, b.getX(), b.getY(), b.getLargeur(), b.getHauteur(), 0.2f);
+//		IDrawer dr = (IDrawer) PuzzleContext.getInstance().get(PuzzleParam.drawer);
+//		Box b = (Box)this.shape;
+//		dr.drawRect(Color.black, b.getX(), b.getY(), b.getLargeur(), b.getHauteur(), 1.0f);
+//		
+//		if(in)dr.fillRect(Color.blue, b.getX(), b.getY(), b.getLargeur(), b.getHauteur(), 0.2f);
 	}
 }

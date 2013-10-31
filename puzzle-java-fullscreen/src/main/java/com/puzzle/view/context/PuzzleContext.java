@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.puzzle.view.core.IDrawer;
 import com.puzzle.view.core.TapisConverteur;
+import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudRenderer;
 
 public class PuzzleContext {
@@ -44,7 +45,8 @@ public class PuzzleContext {
 		screenLargeur(Integer.class),
 		screenHauteur(Integer.class),
 		drawer(IDrawer.class),
-		hudRenderer(HudRenderer.class);
+		hudRenderer(HudRenderer.class),
+		hudController(HudControler.class);
 		
 		private Class<?> clazz;
 		

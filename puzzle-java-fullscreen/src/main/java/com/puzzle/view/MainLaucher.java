@@ -25,10 +25,12 @@ import com.puzzle.view.core.TapisConverteur;
 import com.puzzle.view.core.image.ImageMemoryManager;
 import com.puzzle.view.core.image.PieceImageProvider;
 import com.puzzle.view.hud.HudControler;
+import com.puzzle.view.hud.HudRenderer;
 import com.puzzle.view.java.Game;
 import com.puzzle.view.java.ImageLoadException;
 import com.puzzle.view.java.JavaDrawer;
 import com.puzzle.view.java.JavaRenderer;
+import com.puzzle.view.java.PocketArea;
 import com.puzzle.view.java.SimpleImageLoader;
 
 
@@ -37,10 +39,10 @@ public class MainLaucher {
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		
 		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
-		String name = "floflo";
-		// crÃ©ation du tapis
-		int largeur = (int)(36000.0*0.4);
-		int hauteur = (int)(12000.0*0.4);
+		String name = "cheverny_252";
+		// création du tapis
+		int largeur = (int)(36000.0*1.0);
+		int hauteur = (int)(12000.0*1.0);
 		Tapis tapis = new Tapis(largeur, hauteur);
 		
 		Puzzle p1 = loadPuzzle(rootPath+File.separator+"puzzle"+File.separator+name, largeur, hauteur);
@@ -52,30 +54,38 @@ public class MainLaucher {
 		
 		int ls = 800;
 		int hs = 600;
-		Fenetre f = new Fenetre(ls,hs);
+		Fenetre f = new Fenetre(800,600);
 		
 		
 		
 		JavaDrawer drw = new JavaDrawer(f.getStrategy(),f.getLargeur(),f.getHauteur());
-		
 		TapisConverteur converter = new TapisConverteur(tapis, drw.getLargeur(), drw.getHauteur());
-		
 		Renderer renderer = new JavaRenderer(tapis,converter, drw, f.getStrategy(), background);
 		Activater game = new Game(tapis,converter);
-		HudControler hud = new HudControler((Game) game,tapis);
 		
+		// création du hud
+		HudControler hud = new HudControler((Game) game,tapis);
+		HudRenderer hudRenderer = new HudRenderer(tapis, drw, converter);
+		((JavaRenderer)renderer).setHudRenderer(hudRenderer);
+		PocketArea pocket = new PocketArea(drw);
+		hud.addArea(pocket);
+		hudRenderer.addRenderer(pocket);
+		
+		// mise à l'écoute
 		f.getWindow().addMouseListener((MouseListener) hud);
 		f.getWindow().addMouseMotionListener((MouseMotionListener) hud);
 		f.getWindow().addMouseMotionListener((MouseMotionListener) renderer);
 		f.getWindow().addMouseWheelListener((MouseWheelListener) game);
 		f.getWindow().addKeyListener((KeyListener) game);
 		
+		
+		
 		PuzzleContext.getInstance().put(PuzzleParam.strategy, f.getStrategy());
 		PuzzleContext.getInstance().put(PuzzleParam.screenLargeur, f.getLargeur());
 		PuzzleContext.getInstance().put(PuzzleParam.screenHauteur, f.getHauteur());
 		PuzzleContext.getInstance().put(PuzzleParam.drawer, drw);
 		PuzzleContext.getInstance().put(PuzzleParam.renderer, renderer);
-		
+		PuzzleContext.getInstance().put(PuzzleParam.hudController, hud);
 		
 		GameLoop loop = new GameLoop(renderer, game);
 
@@ -107,7 +117,6 @@ public class MainLaucher {
 			
 			((MyRect)p.getRect()).update();
 		}
-		
 		
 		return puzzle;
 	}
