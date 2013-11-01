@@ -81,4 +81,10 @@ public class TryClips implements IState{
 		
 	}
 
+	@Override
+	public void controlPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

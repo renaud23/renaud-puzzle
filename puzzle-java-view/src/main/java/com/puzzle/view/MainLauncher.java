@@ -24,7 +24,7 @@ public class MainLauncher {
 		int hauteur = (int)(12000.0*0.5);
 
 //		String rootPath = System.getProperty("user.dir");
-		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
+		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 	

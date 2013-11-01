@@ -164,7 +164,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 				System.out.println("Fini!!!");
 			}
 		}else{
-			// par défaut, on rafraichit l'affichage.
+			// par dï¿½faut, on rafraichit l'affichage.
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
 			this.tapisDrawer.draw();
@@ -186,9 +186,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionParam.addCandidats(this.isClipsParam.getCandidats());
 			this.clips = true;
 			
-			
 			this.selectionParam.setPosition(new Point(x,y));
-			
 			
 			this.selectionDrawer.clean();
 			this.selectionDrawer.draw();
@@ -214,7 +212,6 @@ public abstract class AbstractTapisController implements IController, Observer{
 			this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
 			
 			this.selectionDrawer.setSelection(true);
-
 
 			this.tapisDrawer.draw();
 			this.selectionDrawer.clean();

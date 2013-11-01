@@ -18,6 +18,9 @@ public class PocketArea  extends HudArea{
 	private int y;
 	private int largeur;
 	private int hauteur;
+	private int limite;
+	private int ecart;
+	private double theta = 0.5;
 	
 
 	public PocketArea(IDrawer drawer){
@@ -38,12 +41,16 @@ public class PocketArea  extends HudArea{
 		this.x = this.margerVerticale;
 		this.y = drawer.getHauteur() - this.hauteur - this.margeHorizontale;
 		
+		double ratio = this.largeur / this.hauteur;
+		this.limite = (int) Math.round((ratio - theta)/(1-theta));
 		
 		this.shape = new Box(x, y, largeur, hauteur);
 	}
 
 	@Override
 	public void Render() {
+		
+		//dev
 		Box b = (Box)this.shape;
 		this.drawer.drawRect(
 				Color.black, 
@@ -55,6 +62,9 @@ public class PocketArea  extends HudArea{
 					Color.blue, 
 					b.getX(), b.getY(), 
 					b.getLargeur(), b.getHauteur(), 0.2f);
+		
+		
+		// piece
 
 	}
 

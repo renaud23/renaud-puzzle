@@ -7,4 +7,5 @@ public interface IState {
 	public void pressLeft(int x,int y,boolean shift);
 	public void shiftReleased(int x,int y);
 	public void shiftPressed(int x,int y);
+	public void controlPressed();
 }

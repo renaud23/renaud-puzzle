@@ -5,8 +5,10 @@ import java.util.Observer;
 
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
+import com.puzzle.command.PasserDansMainGauche;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
+import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
@@ -95,6 +97,19 @@ public class MainPleine implements IState,Observer{
 		IState state = new TryClips(this.game, this.iscParam);
 		this.game.setState(state);
 		
+	}
+
+	@Override
+	public void controlPressed() {
+		ChangerDeMainParam param = new ChangerDeMainParam();
+		CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.game.getTapis());
+		cmd.setArgument(param);
+		cmd.execute();
+		
+		if(param.isReussi()){
+			IState state = new MainVide(this.game);
+			this.game.setState(state);
+		}
 	}
 
 }

@@ -91,6 +91,15 @@ public class MainVide implements IState,Observer{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+
+	@Override
+	public void controlPressed() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
