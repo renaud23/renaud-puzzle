@@ -24,6 +24,7 @@ import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.tool.provider.CompositeBufferOperation;
 import com.puzzle.view.tool.provider.CompositeImageProvider;
 import com.puzzle.view.tool.provider.PieceBufferOperation;
+import com.puzzle.view.tool.provider.PieceLoader;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
@@ -46,6 +47,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		this.converter = converter;
 		this.fenetre = fenetre;
 		this.background = background;
+		PieceLoader.getInstance().addObserver(this);
 		
 	}
 	
@@ -61,7 +63,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		//	 dessin tapis
 		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
 		
-		// filtrage des pièce dans la zone.
+		// filtrage des piï¿½ce dans la zone.
 		IRect rect = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), cvt.getLargeur(), cvt.getHauteur());
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
@@ -155,13 +157,13 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	public synchronized void update(Observable o, Object arg) {
 		if(arg instanceof CompositeBufferOperation){
 			this.drawComposite((CompositeBufferOperation)arg);
-			o.deleteObserver(this);
+//			o.deleteObserver(this);
 			
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		}else if(arg instanceof PieceBufferOperation){
 			this.drawPiece((PieceBufferOperation) arg);
+//			o.deleteObserver(this);
 			
-			o.deleteObserver(this);
 			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		}
 	}

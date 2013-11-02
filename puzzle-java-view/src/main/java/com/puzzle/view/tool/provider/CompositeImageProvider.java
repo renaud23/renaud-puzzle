@@ -71,7 +71,7 @@ public class CompositeImageProvider implements ProviderElement<CompositePiece, C
 		if(arg instanceof CompositeBufferOperation){
 			CompositeBufferOperation sb = (CompositeBufferOperation) arg;
 			this.buffers.put(sb.getComposite(), sb);
-			o.deleteObserver(this);
+			o.deleteObservers();
 		}
 	}	
 }

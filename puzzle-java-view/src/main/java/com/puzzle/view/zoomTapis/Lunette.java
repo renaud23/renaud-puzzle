@@ -9,6 +9,8 @@ public class Lunette {
 	private double largeur;
 	private double hauteur;
 	private double scale;
+	
+	
 	public double getX() {
 		return x;
 	}

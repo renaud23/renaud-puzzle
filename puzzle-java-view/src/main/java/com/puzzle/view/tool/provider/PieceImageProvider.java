@@ -15,41 +15,45 @@ public class PieceImageProvider implements ImageProvider,ProviderElement<Piece, 
 	
 	
 	private String path;
-	private Map<Integer, SoftReference<PieceBufferOperation>> images;
+	private Map<Piece, SoftReference<PieceBufferOperation>> images;
 	
 
 	public PieceImageProvider(String path){
 		this.path = path;
-		this.images = new HashMap<Integer, SoftReference<PieceBufferOperation>>();
+		this.images = new HashMap<Piece, SoftReference<PieceBufferOperation>>();
+		PieceLoader.getInstance().addObserver(this);
 	}
 
 
 	public PieceBufferOperation getElement(Piece piece) {
-		if(this.images.get(piece.getId())== null ||
-			this.images.get(piece.getId()).get() == null){
+		if(this.images.get(piece)== null ||
+			this.images.get(piece).get() == null){
 			
 			LoadImageTask task = new LoadImageTask(piece, this.path);
 			task.run();
 			
 			PieceBufferOperation pb = task.getOperation();
 			SoftReference<PieceBufferOperation> soft = new SoftReference<PieceBufferOperation>(pb);
-			this.images.put(pb.getPiece().getId(), soft);
+			this.images.put(pb.getPiece(), soft);
 			
 		}
-		return this.images.get(piece.getId()).get();
+		return this.images.get(piece).get();
 	}
 
 	public PieceBufferOperation getElementDeferred (Piece piece,Observer observer) {
 		PieceBufferOperation pbo = null;
 		
-		if(this.images.get(piece.getId())== null ||
-			this.images.get(piece.getId()).get() == null){
-			LoadImageTask task = new LoadImageTask(piece, this.path);
-			task.addObserver(observer);
-			task.addObserver(this);
-			task.start();
+		if(this.images.get(piece)== null ||
+			this.images.get(piece).get() == null){
+//			LoadImageTask task = new LoadImageTask(piece, this.path);
+//			task.addObserver(observer);
+//			task.addObserver(this);
+//			task.start();
 			
-		}else pbo = this.getElement(piece);
+
+			PieceLoader.getInstance().load(piece);
+			
+		}else pbo = this.images.get(piece).get();
 		
 		return pbo;
 	}
@@ -73,9 +77,8 @@ public class PieceImageProvider implements ImageProvider,ProviderElement<Piece, 
 			if(arg instanceof PieceBufferOperation){
 				PieceBufferOperation pb = (PieceBufferOperation) arg;
 				SoftReference<PieceBufferOperation> soft = new SoftReference<PieceBufferOperation>(pb);
-				this.images.put(pb.getPiece().getId(), soft);
-				
-				o.deleteObservers();
+				this.images.put(pb.getPiece(), soft);
+
 			}
 		}
 		

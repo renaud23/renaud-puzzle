@@ -40,9 +40,7 @@ public class LoadView {
 				ld.loadSave(this.tapis);
 				// les images
 				for(Puzzle puzz : this.tapis.getPuzzles()){
-					File file = new File(puzz.getPath());
 					ImageMemoryManager.getInstance().put(puzz.getId(), new PieceImageProvider(puzz.getPath()+File.separator+"images"));
-					
 				}
 				
 			} catch (PuzzleIOException e) {

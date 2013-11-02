@@ -55,7 +55,7 @@ public class TapisZoomDrawerDev implements IDrawer {
 		TapisZoomConverteur cvt = (TapisZoomConverteur)this.converter;
 		
 		
-		// filtrage des pièce dans la zone.
+		// filtrage des piï¿½ce dans la zone.
 		IRect rect = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), cvt.getLargeur(), cvt.getHauteur());
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
@@ -64,7 +64,7 @@ public class TapisZoomDrawerDev implements IDrawer {
 			// dev
 			Point cp = new Point(piece.getCentre().getX(), piece.getCentre().getY());
 			this.converter.convertModelToScreen(cp);
-			this.tapisBuffer.drawRect(Color.red, (int)Math.round(cp.getX()), (int)Math.round(cp.getY()), 2, 2);
+			this.tapisBuffer.drawRect(Color.green, (int)Math.round(cp.getX()), (int)Math.round(cp.getY()), 2, 2);
 			
 			Point[] pt = ((MyRect)piece.getRect()).getCoins();
 			Point[] sc = new Point[4];

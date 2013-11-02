@@ -88,7 +88,7 @@ public class MenuController extends Observable {
 
 
 	/**
-	 * chargement d'un puzzle et posage aléatoire sur le tapis.
+	 * chargement d'un puzzle et posage alï¿½atoire sur le tapis.
 	 * @param name
 	 */
 	public void loadPuzzle(String name){
@@ -131,11 +131,7 @@ public class MenuController extends Observable {
 			e.printStackTrace();
 		}
 		
-		
-		
-//		tapis.poser(p1);
-//		ImageMemoryManager.getInstance().put(p1.getId(),
-//				new PieceImageProvider(rootPath+"/"+name+"/images/"));
+
 	}
 
 
