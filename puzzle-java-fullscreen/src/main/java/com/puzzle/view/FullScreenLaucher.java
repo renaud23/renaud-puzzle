@@ -34,12 +34,12 @@ import com.puzzle.view.java.PocketArea;
 import com.puzzle.view.java.SimpleImageLoader;
 
 
-public class MainLaucher {
+public class FullScreenLaucher {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 //		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
-		String rootPath = "/home/renaud/workspace/puzzle-pieces";
-		String name = "floflo";
+		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String name = "floflo_20";
 		// cr�ation du tapis
 		int largeur = (int)(36000.0*0.4);
 		int hauteur = (int)(12000.0*0.4);

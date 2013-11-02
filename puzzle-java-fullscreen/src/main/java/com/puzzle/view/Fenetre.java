@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 public class Fenetre {
 	private Window window;
 	private BufferStrategy strategy; 
-	private Graphics2D buffer;
 	private int largeur;
 	private int hauteur;
 
@@ -43,7 +42,6 @@ public class Fenetre {
 			this.window.setIgnoreRepaint(true);  
 			this.window.createBufferStrategy(2);
 			this.strategy = this.window.getBufferStrategy(); 
-		    this.buffer = (Graphics2D) this.strategy.getDrawGraphics();
 		}
 
 	}
@@ -67,7 +65,6 @@ public class Fenetre {
 			this.window.setIgnoreRepaint(true);  
 			this.window.createBufferStrategy(2);
 			this.strategy = this.window.getBufferStrategy(); 
-		    this.buffer = (Graphics2D) this.strategy.getDrawGraphics();
 		}
 
 	}
@@ -88,9 +85,6 @@ public class Fenetre {
 		return strategy;
 	}
 
-	public Graphics2D getBuffer() {
-		return buffer;
-	}
 	
 	public Window getWindow(){
 		return this.window;
