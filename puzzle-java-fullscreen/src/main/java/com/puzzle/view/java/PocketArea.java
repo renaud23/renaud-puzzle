@@ -43,7 +43,8 @@ public class PocketArea  extends HudArea{
 		
 		double ratio = this.largeur / this.hauteur;
 		this.limite = (int) Math.round((ratio - theta)/(1-theta));
-		
+		this.ecart = (int)(this.theta * this.hauteur);
+		System.out.println(ecart);
 		this.shape = new Box(x, y, largeur, hauteur);
 	}
 
@@ -64,7 +65,8 @@ public class PocketArea  extends HudArea{
 					b.getLargeur(), b.getHauteur(), 0.2f);
 		
 		
-		// piece
+		// pieces
+		
 
 	}
 

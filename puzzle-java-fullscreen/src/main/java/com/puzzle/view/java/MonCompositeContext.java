@@ -15,43 +15,11 @@ public class MonCompositeContext implements CompositeContext{
 
 	
 
-//
-//	public void compose(Raster src, Raster dstIn, WritableRaster dstOut) {
-//		int[] srcPixel = new int[4];
-//		int[] dstPixel = new int[4];
-//
-//		for (int y = dstIn.getMinY(); y < dstIn.getMinY() +
-//			dstIn.getHeight(); y++) {
-//			for (int x = dstIn.getMinX(); x < dstIn.getMinX()
-//				+ dstIn.getWidth(); x++) {
-//				srcPixel = src.getPixel(x, y, srcPixel);
-//				
-//				dstPixel[0] = ((srcPixel[0] * color.getRed()) >> 8) & 0xFF;
-//				dstPixel[1] = ((srcPixel[1] * color.getGreen()) >> 8) & 0xFF;
-//				dstPixel[2] = ((srcPixel[2] * color.getBlue()) >> 8) & 0xFF;
-//
-//				dstPixel[3] = srcPixel[3];
-//				
-//				
-//				if(dstPixel[3] == 255)
-//					dstOut.setPixel(x, y, dstPixel);
-//			}
-//		}
-//	}
-//	
-	private Raster src;
-	private Raster dstIn;
-	private WritableRaster dstOut;
-	private boolean left;
-	private boolean right;
-	private boolean up;
-	private boolean down;
+
 	
 	
 	public void compose(Raster src, Raster dstIn, WritableRaster dstOut) {
-		this.src = src;
-		this.dstIn = dstIn;
-		this.dstOut = dstOut;
+
 		
 		int[] srcPixel = new int[4];
 		int[] dstPixel = new int[4];
@@ -73,55 +41,12 @@ public class MonCompositeContext implements CompositeContext{
 				
 				if(dstPixel[3] == 255)
 					dstOut.setPixel(x, y, dstPixel);
-		
-//				dstPixel[0] = 255;
-//				dstPixel[1] = 0;
-//				dstPixel[2] = 255;
-//				dstPixel[3] = 150;
-//				
-//				if(this.isBord(x, y)){
-//					dstOut.setPixel(x-1, y, dstPixel);
-//					dstOut.setPixel(x+1, y, dstPixel);
-//					dstOut.setPixel(x, y-1, dstPixel);
-//					dstOut.setPixel(x, y+1, dstPixel);
-//					dstOut.setPixel(x, y, dstPixel);
-//				}// if
+
 			}
 		}
 	}
 	
-	private boolean isBord(int x,int y){
-		boolean state = false;
-		int[] pixel = new int[4];
-		
-		this.left = false;
-		this.right = false;
-		this.up = true;
-		this.down = true;
-		
-		this.src.getPixel(x, y, pixel);
-		if(pixel[3] != 0){
-			if(x>0){
-				this.left = true;
-				this.src.getPixel(x-1, y, pixel);
-				if(pixel[3] == 0){
-					state = true;
-					
-				}
-			}
-			
-			if(x < (this.src.getWidth()-1)){
-				this.right = true;
-				this.src.getPixel(x+1, y, pixel);
-				if(pixel[3] == 0){
-					state = true;
-				}
-			}
-			
-		}// if
-		
-		return state;
-	}
+	
 	
 	
 	public void dispose() {

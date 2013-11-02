@@ -62,7 +62,6 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		this.strategy = strategy;
 		this.background = background;
 		this.hudRenderer = new HudRenderer(tapis, drawer, converter);
-//		PuzzleContext.getInstance().put(PuzzleParam.hudRenderer, this.hudRenderer);
 		this.isSelection = false;
 		
 		
@@ -96,7 +95,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		// dessin tapis
 		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
 		
-		// filtrage des pièce dans la zone.
+		// filtrage des piï¿½ce dans la zone.
 		IRect rect = new Rect(corner.getX(), corner.getY(), largeurConverter, hauteurConverter);
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
@@ -235,7 +234,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 				
 				double yi = p.getY();
 				yi -= pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
-			
+	
 				this.drawer.drawImageMask(pbo.getImage(),
 						xi,  yi, 
 						p.getX() , p.getY(), -piece.getAngle(), 
