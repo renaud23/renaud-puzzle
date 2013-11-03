@@ -19,7 +19,7 @@ public class ClipserMainDroite implements CommandeArgument<ClipserParam>{
 	@Override
 	public void execute() {
 		if(!MainDroite.getInstance().isEmpty()){
-			this.param.setComponent(MainDroite.getInstance().getPiece());
+			this.param.setComponent(MainDroite.getInstance().getContenu());
 			this.clipser.setArgument(this.param);
 			this.clipser.execute();
 			

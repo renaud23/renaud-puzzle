@@ -18,7 +18,7 @@ public class DrawSelection implements IDrawer{
 
 	@Override
 	public void draw() {
-		this.component = MainDroite.getInstance().getPiece();
+		this.component = MainDroite.getInstance().getContenu();
 		
 		if(component != null){
 			

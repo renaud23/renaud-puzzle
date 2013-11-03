@@ -78,7 +78,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 	private void resetSelection(){
 		this.selectionParam.setAncre(MainDroite.getInstance().getAncre());
 		this.selectionParam.setPosition(new Point(Double.MAX_VALUE,Double.MAX_VALUE));
-		this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
+		this.selectionParam.setComponent(MainDroite.getInstance().getContenu());
 		this.mainGaucheVide = MainGauche.getInstance().isEmpty();
 		
 		this.selectionDrawer.setSelection(true);
@@ -209,7 +209,7 @@ public abstract class AbstractTapisController implements IController, Observer{
 		if(!this.mainDroiteVide){
 			this.selectionParam.setAncre(this.attraperParam.getAncre());
 			this.selectionParam.setPosition(new Point(x,y));
-			this.selectionParam.setComponent(MainDroite.getInstance().getPiece());
+			this.selectionParam.setComponent(MainDroite.getInstance().getContenu());
 			
 			this.selectionDrawer.setSelection(true);
 

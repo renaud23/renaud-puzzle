@@ -25,12 +25,12 @@ public class PasserDansMainGauche implements CommandeArgument<ChangerDeMainParam
 	public void execute() {
 		boolean reussi = false;
 		if(!MainDroite.getInstance().isEmpty() &&
-			MainDroite.getInstance().getPiece() instanceof Piece &&
+			MainDroite.getInstance().getContenu() instanceof Piece &&
 			!MainGauche.getInstance().isFull()){
 			
 			reussi = true;
-			this.param.setPiece((Piece) MainDroite.getInstance().getPiece());
-			MainGauche.getInstance().addPiece((Piece) MainDroite.getInstance().getPiece());
+			this.param.setPiece((Piece) MainDroite.getInstance().getContenu());
+			MainGauche.getInstance().addPiece((Piece) MainDroite.getInstance().getContenu());
 			
 			MainDroite.getInstance().libere();
 			this.tapis.change();

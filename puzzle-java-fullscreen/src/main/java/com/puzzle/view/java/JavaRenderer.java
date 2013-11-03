@@ -179,7 +179,7 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	
 	
 	private void drawSelection(){
-		ComponentPiece compomnent = MainDroite.getInstance().getPiece();
+		ComponentPiece compomnent = MainDroite.getInstance().getContenu();
 		Point ancre = MainDroite.getInstance().getAncre();
 		
 		if(compomnent instanceof Piece){

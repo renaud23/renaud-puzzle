@@ -31,7 +31,7 @@ public class IsClipsable implements CommandeArgument<IsClipsParam>{
 	@Override
 	public void execute() {
 		if(!MainDroite.getInstance().isEmpty()){
-			ComponentPiece cmp = MainDroite.getInstance().getPiece();
+			ComponentPiece cmp = MainDroite.getInstance().getContenu();
 			// calcul du point selon l'ancre.
 			double x = this.param.getCentre().getX();
 			x += MainDroite.getInstance().getAncre().getX();

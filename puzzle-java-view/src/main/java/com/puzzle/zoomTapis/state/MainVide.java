@@ -2,9 +2,11 @@ package com.puzzle.zoomTapis.state;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.param.AttrapperMainDroiteParam;
+import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.view.zoomTapis.DrawZoomSelection;
@@ -24,8 +26,13 @@ public class MainVide implements IState,Observer{
 	public MainVide(TapisZoomControllerEx controller) {
 		this.controller = controller;
 		this.attrParam = new AttrapperMainDroiteParam();
+		this.controller.getTapis().addObserver(this);
 	}
 
+//	public MainVide(TapisZoomControllerEx controller,double mouseX,double mouseY) {
+//		this.controller = controller;
+//		this.attrParam = new AttrapperMainDroiteParam();
+//	}
 	
 	
 	@Override
@@ -42,7 +49,7 @@ public class MainVide implements IState,Observer{
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-		this.controller.getTapis().addObserver(this);
+		
 		
 		
 		Point p = new Point(x, y);
@@ -147,8 +154,9 @@ public class MainVide implements IState,Observer{
 	public void update(Observable o, Object arg) {
 		if(arg instanceof State){
 			State st = (State) arg;
+			this.controller.getTapis().deleteObserver(this);
 			if(st == State.MainDroitePleine){
-				this.controller.getTapis().deleteObserver(this);
+				
 				this.controller.getDrawSelectionParam().setComponent(this.attrParam.getContenu());
 				this.controller.getDrawSelectionParam().setPosition(new Point(this.mouseX,this.mouseY));
 				this.controller.getDrawSelectionParam().setAncre(this.attrParam.getAncre());
@@ -161,7 +169,23 @@ public class MainVide implements IState,Observer{
 				this.controller.getDrawerSelection().draw();
 				this.controller.getDrawerTapis().draw();
 				
-			}// if 
+			}else if(st == State.gaucheToDroite){
+				this.controller.getDrawSelectionParam().setComponent(MainDroite.getInstance().getContenu());
+				this.controller.getDrawSelectionParam().setPosition(new Point(Double.MAX_VALUE,Double.MAX_VALUE));
+				this.controller.getDrawSelectionParam().setAncre(new Point());
+				
+				this.controller.getDrawerSelection().setSelection(true);
+				
+				IState state = new MainPleine(this.controller,Double.MAX_VALUE,Double.MAX_VALUE);
+				this.controller.setState(state);
+				
+				this.controller.getDrawerSelection().clean();
+				this.controller.getDrawerSelection().draw();
+				this.controller.repaint();
+			}else if(st == State.PuzzleFini){
+				System.out.println("Fini!!!");
+			}
+			
 		}// if
 		
 	}

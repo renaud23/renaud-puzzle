@@ -3,13 +3,18 @@ package com.puzzle.zoomTapis.state;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.SwingUtilities;
+
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
+import com.puzzle.command.PasserDansMainGauche;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
+import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
+import com.puzzle.view.RepaintTask;
 
 
 public class MainPleine implements IState,Observer{
@@ -150,7 +155,21 @@ public class MainPleine implements IState,Observer{
 
 	@Override
 	public void keyControlPressed() {
+		ChangerDeMainParam param = new ChangerDeMainParam();
+		CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.controller.getTapis());
+		cmd.setArgument(param);
+		cmd.execute();
 		
+		if(param.isReussi()){
+			this.controller.getDrawerSelection().setSelection(false);
+		}
+		
+		IState state = new MainVide(this.controller);
+		this.controller.setState(state);
+		
+		this.controller.getDrawerSelection().clean();
+		this.controller.getDrawerSelection().draw();
+		this.controller.repaint();
 	}
 
 	@Override

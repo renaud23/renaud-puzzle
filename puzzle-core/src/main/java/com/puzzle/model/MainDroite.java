@@ -4,7 +4,7 @@ public class MainDroite {
 	
 	private static MainDroite instance;
 	
-	private ComponentPiece piece;
+	private ComponentPiece contenu;
 	private Point ancre;
 	private boolean empty;
 	
@@ -19,8 +19,8 @@ public class MainDroite {
 		return instance;
 	}
 
-	public ComponentPiece getPiece() {
-		return piece;
+	public ComponentPiece getContenu() {
+		return contenu;
 	}
 	
 	
@@ -31,18 +31,18 @@ public class MainDroite {
 	
 	public void libere(){
 		this.empty = true;
-		this.piece = null;
+		this.contenu = null;
 	}
 
 
 	public void setPiece(ComponentPiece piece) {
-		this.piece = piece;
-		if(this.piece != null) this.empty = false;
+		this.contenu = piece;
+		if(this.contenu != null) this.empty = false;
 	}
 	
 	public ComponentPiece poserPiece(){
 		this.empty = true;
-		return this.piece;
+		return this.contenu;
 	}
 
 	public Point getAncre() {

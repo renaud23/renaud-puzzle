@@ -11,7 +11,7 @@ public class tournerMainDroite implements CommandeArgument<Boolean>{
 
 	@Override
 	public void execute() {
-		ComponentPiece cmp = MainDroite.getInstance().getPiece();
+		ComponentPiece cmp = MainDroite.getInstance().getContenu();
 		
 		if(this.gauche)
 			cmp.tournerGauche();

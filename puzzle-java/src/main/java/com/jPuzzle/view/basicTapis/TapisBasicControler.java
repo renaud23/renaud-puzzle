@@ -76,7 +76,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 		
 		if(!this.mainDroiteVide){
 			this.screenParam.setMainDroiteVide(this.mainDroiteVide);
-			this.screenParam.setAngleSelection(MainDroite.getInstance().getPiece().getAngle());
+			this.screenParam.setAngleSelection(MainDroite.getInstance().getContenu().getAngle());
 			
 			this.drawable.drawSelection();
 			this.drawable.drawTapis();
@@ -106,7 +106,7 @@ public class TapisBasicControler implements ITapisControler,MouseListener,MouseM
 			this.tourner.setArgument(false);
 		this.tourner.execute();
 		
-		this.screenParam.setAngleSelection(MainDroite.getInstance().getPiece().getAngle());
+		this.screenParam.setAngleSelection(MainDroite.getInstance().getContenu().getAngle());
 		
 		this.drawable.drawHud();
 		this.drawable.repaint();
