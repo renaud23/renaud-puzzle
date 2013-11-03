@@ -39,7 +39,6 @@ public class PuzzleContext {
 	}
 	
 	public enum PuzzleParam{
-		strategy(BufferStrategy.class),
 		converter(TapisConverteur.class),
 		renderer(com.puzzle.view.core.Renderer.class),
 		screenLargeur(Integer.class),

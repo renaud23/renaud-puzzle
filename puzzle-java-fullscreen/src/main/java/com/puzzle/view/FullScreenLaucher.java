@@ -54,13 +54,14 @@ public class FullScreenLaucher {
 		
 		int ls = 800;
 		int hs = 600;
-		Fenetre f = new Fenetre(800,600);
+		Fenetre f = new Fenetre();
 		
 		
 		
-		JavaDrawer drw = new JavaDrawer(f.getStrategy(),f.getLargeur(),f.getHauteur());
-		TapisConverteur converter = new TapisConverteur(tapis, drw.getLargeur(), drw.getHauteur());
-		Renderer renderer = new JavaRenderer(tapis,converter, drw, f.getStrategy(), background);
+		JavaDrawer drw = new JavaDrawer(f.getBuffer(),f.getLargeur(),f.getHauteur());
+		TapisConverteur converter = new TapisConverteur(tapis, f.getLargeur(), f.getHauteur());
+		Renderer renderer = new JavaRenderer(tapis,converter, drw, background);
+		
 		Activater game = new Game(tapis,converter);
 		
 		// cr�ation du hud
@@ -80,14 +81,14 @@ public class FullScreenLaucher {
 		
 		
 		
-		PuzzleContext.getInstance().put(PuzzleParam.strategy, f.getStrategy());
+//		PuzzleContext.getInstance().put(PuzzleParam.strategy, f.getStrategy());
 		PuzzleContext.getInstance().put(PuzzleParam.screenLargeur, f.getLargeur());
 		PuzzleContext.getInstance().put(PuzzleParam.screenHauteur, f.getHauteur());
 		PuzzleContext.getInstance().put(PuzzleParam.drawer, drw);
 		PuzzleContext.getInstance().put(PuzzleParam.renderer, renderer);
 		PuzzleContext.getInstance().put(PuzzleParam.hudController, hud);
 		
-		GameLoop loop = new GameLoop(renderer, game);
+		GameLoop loop = new GameLoop(renderer, game,f);
 
 	}
 	

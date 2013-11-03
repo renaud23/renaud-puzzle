@@ -41,7 +41,8 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	private Tapis tapis;
 	private Image background;
 	private TapisConverteur converter;
-	private BufferStrategy strategy;
+
+
 	
 	private boolean isSelection;
 	
@@ -55,14 +56,16 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 	private HudRenderer hudRenderer;
 
 	public JavaRenderer( Tapis tapis, TapisConverteur converter,
-			IDrawer drawer, BufferStrategy strategy,Image background) {
+			IDrawer drawer, Image background) {
 		this.drawer = drawer;
 		this.tapis = tapis;
 		this.converter = converter;
-		this.strategy = strategy;
+
 		this.background = background;
 		this.hudRenderer = new HudRenderer(tapis, drawer, converter);
 		this.isSelection = false;
+		
+	
 		
 		
 		PieceLoader.getInstance().addObserver(this);
@@ -83,10 +86,8 @@ public class JavaRenderer implements Renderer,Observer,MouseMotionListener{
 		this.drawTapis();
 		this.drawClips();
 		if(this.isSelection) this.drawSelection();
-		
 		if(this.hudRenderer != null) this.hudRenderer.Render();
 		
-		this.strategy.show();
 	}
 	
 	

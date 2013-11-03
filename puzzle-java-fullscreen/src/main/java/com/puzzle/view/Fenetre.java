@@ -1,4 +1,5 @@
 package com.puzzle.view;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -6,7 +7,10 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Window;
 import java.awt.image.BufferStrategy;
+
 import javax.swing.JFrame;
+
+import com.puzzle.view.java.JavaBuffer;
 
 
 
@@ -15,6 +19,7 @@ import javax.swing.JFrame;
 public class Fenetre {
 	private Window window;
 	private BufferStrategy strategy; 
+	private JavaBuffer buffer;
 	private int largeur;
 	private int hauteur;
 
@@ -29,6 +34,7 @@ public class Fenetre {
 			this.window = new JFrame();
 			((JFrame)this.window).setUndecorated(true);
 			((JFrame)this.window).setResizable(false);
+			this.buffer = new JavaBuffer(Color.black, largeur, hauteur);
 			
 			this.window.setPreferredSize(new Dimension(largeur,hauteur));
 			this.window.setVisible(true);
@@ -36,8 +42,6 @@ public class Fenetre {
 		    this.largeur = largeur;
 		    this.hauteur = hauteur;
 			
-			this.largeur = largeur;
-			this.hauteur = hauteur;
 			
 			this.window.setIgnoreRepaint(true);  
 			this.window.createBufferStrategy(2);
@@ -61,6 +65,7 @@ public class Fenetre {
 			
 			this.largeur = device.getDisplayMode().getWidth();
 			this.hauteur = device.getDisplayMode().getHeight();
+			this.buffer = new JavaBuffer(Color.black, largeur, hauteur);
 
 			this.window.setIgnoreRepaint(true);  
 			this.window.createBufferStrategy(2);
@@ -86,6 +91,10 @@ public class Fenetre {
 	}
 
 	
+	public JavaBuffer getBuffer() {
+		return buffer;
+	}
+
 	public Window getWindow(){
 		return this.window;
 	}
