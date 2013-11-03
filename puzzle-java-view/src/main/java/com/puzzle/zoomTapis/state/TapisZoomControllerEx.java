@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.SwingUtilities;
 
-import sun.swing.SwingUtilities2;
+
 
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
@@ -16,7 +16,7 @@ import com.puzzle.view.zoomTapis.DrawZoomSelection;
 import com.puzzle.view.zoomTapis.Lunette;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
-import com.sun.java.swing.SwingUtilities3;
+
 
 public class TapisZoomControllerEx implements IState{
 	
@@ -27,7 +27,7 @@ public class TapisZoomControllerEx implements IState{
 	private IDrawer drawerTapis;
 	private IDrawerSelection drawerSelection;
 	
-	protected DrawSelectionParam selectionParam;
+	protected DrawSelectionParam drawSelectionParam;
 	
 
 	public TapisZoomControllerEx(Tapis tapis, Image background, Fenetre fenetre) {
@@ -44,8 +44,8 @@ public class TapisZoomControllerEx implements IState{
 		lunette.setX(this.fenetre.getBuffer(1).getLargeur() - lunette.getLargeur() - 10.0);
 		lunette.setY(10.0);
 		this.drawerSelection = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter,lunette);
-		this.selectionParam = new DrawSelectionParam();
-		this.drawerSelection.setParam(this.selectionParam);
+		this.drawSelectionParam = new DrawSelectionParam();
+		this.drawerSelection.setParam(this.drawSelectionParam);
 		
 		this.state = new MainVide(this);
 		
@@ -142,7 +142,7 @@ public class TapisZoomControllerEx implements IState{
 	}
 
 	public DrawSelectionParam getSelectionParam() {
-		return selectionParam;
+		return drawSelectionParam;
 	}
 
 	public void setState(IState state) {
@@ -155,6 +155,16 @@ public class TapisZoomControllerEx implements IState{
 
 	public IDrawerSelection getDrawerSelection() {
 		return drawerSelection;
+	}
+
+
+	public Tapis getTapis() {
+		return tapis;
+	}
+
+
+	public DrawSelectionParam getDrawSelectionParam() {
+		return drawSelectionParam;
 	}
 	
 	

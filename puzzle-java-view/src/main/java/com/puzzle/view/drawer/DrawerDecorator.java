@@ -18,11 +18,7 @@ public abstract class DrawerDecorator implements IDrawerSelection{
 	public void clean() {
 		this.decore.clean();
 	}
-//	@Override
-//	public void createbuffer() {
-//		this.decore.createbuffer();
-//		
-//	}
+
 
 	@Override
 	public void setSelection(boolean selection) {

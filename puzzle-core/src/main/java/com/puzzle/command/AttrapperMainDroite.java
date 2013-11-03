@@ -47,8 +47,7 @@ public class AttrapperMainDroite implements CommandeArgument<AttrapperMainDroite
 					for(Piece p : (CompositePiece)candidatfinal){
 						this.tapis.retirerPiece(p);
 					}
-//					candidatfinal.getCentre().setX(0.0);
-//					candidatfinal.getCentre().setY(0.0);
+
 					((MyRect)candidatfinal.getRect()).update();
 				}else{
 					this.tapis.retirerPiece(candidat);
@@ -64,6 +63,7 @@ public class AttrapperMainDroite implements CommandeArgument<AttrapperMainDroite
 				MainDroite.getInstance().setAncre(this.param.getAncre());
 				
 				MainDroite.getInstance().setPiece(candidatfinal);
+				this.param.setContenu(candidatfinal);
 				this.tapis.change();
 				this.tapis.notifyObservers(State.MainDroitePleine);
 			}
