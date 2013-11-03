@@ -15,6 +15,7 @@ import com.puzzle.view.menu.MenuView;
 import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.TapisZoomController;
+import com.puzzle.zoomTapis.state.TapisZoomControllerEx;
 
 
 public class MainLauncher {
@@ -32,7 +33,7 @@ public class MainLauncher {
 		Fenetre f = new Fenetre(800,600);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
-		IController c = new TapisZoomController(background,f, tapis);
+		IController c = new TapisZoomControllerEx(tapis,background, f);//new TapisZoomController(background,f, tapis);
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
