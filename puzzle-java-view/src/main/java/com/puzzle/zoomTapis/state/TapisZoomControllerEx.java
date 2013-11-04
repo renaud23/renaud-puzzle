@@ -7,9 +7,15 @@ import javax.swing.SwingUtilities;
 
 
 
+
+
+import com.puzzle.model.MainDroite;
+import com.puzzle.model.MainGauche;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
+import com.puzzle.view.LoadView;
 import com.puzzle.view.RepaintTask;
+import com.puzzle.view.SaveView;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
@@ -79,7 +85,7 @@ public class TapisZoomControllerEx implements IController{
 
 	@Override
 	public void mouseLeftReleased(int x, int y) {
-//		this.state.mouseLeftReleased(x, y);
+		this.state.mouseLeftReleased(x, y);
 	}
 
 	@Override
@@ -124,19 +130,29 @@ public class TapisZoomControllerEx implements IController{
 
 	@Override
 	public void keyControlReleased() {
-//		this.state.keyControlReleased();
+		this.state.keyControlReleased();
 	}
 
 	@Override
 	public void controlPlusS() {
-		// TODO Auto-generated method stub
-		
+		if(this.state instanceof MainVide && MainGauche.getInstance().isEmpty()){
+			SaveView sv = new SaveView(this.tapis,this.fenetre.getFrame());
+			sv.save();	
+		}else{
+			System.out.println("Videz vous les mains !");
+		}
 	}
 
 	@Override
 	public void controlPlusL() {
-		// TODO Auto-generated method stub
+		LoadView view = new LoadView(this.tapis,this.fenetre.getFrame());
+		MainDroite.getInstance().libere();
+		MainGauche.getInstance().libere();
+		view.load();
 		
+		this.drawerSelection.clean();
+		this.drawerTapis.clean();
+		this.drawerTapis.draw();
 	}
 
 	public TapisZoomConverteur getConverter() {

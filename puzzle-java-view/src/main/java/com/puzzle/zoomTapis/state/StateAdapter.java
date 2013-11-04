@@ -62,4 +62,40 @@ public abstract class StateAdapter implements IState{
 		
 	}
 
+	@Override
+	public void mouseEntered() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseLeftReleased(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyControlReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void controlPlusS() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void controlPlusL() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
