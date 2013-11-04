@@ -3,18 +3,12 @@ package com.puzzle.zoomTapis.state;
 public abstract class StateAdapter implements IState{
 	
 	
-	protected boolean rightClick;
-	protected boolean leftClick;
-	protected boolean shiftPressed;
-	protected boolean controlPressed;
-	protected double mouseX;
-	protected double mouseY;
+	
 	
 
 	@Override
 	public void mouseMove(int x, int y, boolean isShiftDown) {
-		this.mouseX = x;
-		this.mouseY = y;
+		
 	}
 
 	@Override
@@ -31,18 +25,17 @@ public abstract class StateAdapter implements IState{
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-		this.leftClick = true;
 		
 	}
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
-		this.rightClick = true;
+		
 	}
 
 	@Override
 	public void mouseRightReleased(int x, int y) {
-		this.rightClick = false;
+		
 	}
 
 	@Override
@@ -53,7 +46,7 @@ public abstract class StateAdapter implements IState{
 
 	@Override
 	public void keyShiftReleased() {
-		this.leftClick = false;
+		
 	}
 
 	@Override

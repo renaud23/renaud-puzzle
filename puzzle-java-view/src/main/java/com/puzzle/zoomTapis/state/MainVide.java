@@ -95,7 +95,7 @@ public class MainVide extends StateAdapter implements Observer{
 	public void update(Observable o, Object arg) {
 		if(arg instanceof State){
 			State st = (State) arg;
-			this.controller.getTapis().deleteObserver(this);
+			
 			if(st == State.MainDroitePleine){
 				
 				this.controller.getDrawSelectionParam().setComponent(this.attrParam.getContenu());
@@ -105,6 +105,7 @@ public class MainVide extends StateAdapter implements Observer{
 				
 				IState state = new MainPleine(this.controller,this.mouseX,this.mouseY);
 				this.controller.setState(state);
+				this.controller.getTapis().deleteObserver(this);
 				
 				this.controller.getDrawerSelection().clean();
 				this.controller.getDrawerSelection().draw();
@@ -119,12 +120,11 @@ public class MainVide extends StateAdapter implements Observer{
 				
 				IState state = new MainPleine(this.controller,Double.MAX_VALUE,Double.MAX_VALUE);
 				this.controller.setState(state);
+				this.controller.getTapis().deleteObserver(this);
 				
 				this.controller.getDrawerSelection().clean();
 				this.controller.getDrawerSelection().draw();
 				this.controller.repaint();
-			}else if(st == State.PuzzleFini){
-				System.out.println("Fini!!!");
 			}
 			
 		}// if

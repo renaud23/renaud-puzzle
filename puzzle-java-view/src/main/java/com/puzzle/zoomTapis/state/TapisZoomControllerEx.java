@@ -1,6 +1,8 @@
 package com.puzzle.zoomTapis.state;
 
 import java.awt.Image;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.SwingUtilities;
 
@@ -9,8 +11,13 @@ import javax.swing.SwingUtilities;
 
 
 
+
+
+
+
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
@@ -26,7 +33,7 @@ import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
 
 
-public class TapisZoomControllerEx implements IController{
+public class TapisZoomControllerEx implements IController,Observer{
 	
 	private Tapis tapis;
 	private TapisZoomConverteur converter;
@@ -43,6 +50,8 @@ public class TapisZoomControllerEx implements IController{
 		this.fenetre = fenetre;
 		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(), tapis);
 		this.drawerTapis = new TapisZoomDrawer(fenetre,background,tapis,fenetre.getBuffer(0),this.converter);
+		
+		tapis.addObserver(this);
 		
 		Lunette lunette = new Lunette();
 		lunette.setTapis(tapis);
@@ -183,6 +192,19 @@ public class TapisZoomControllerEx implements IController{
 
 	public DrawSelectionParam getDrawSelectionParam() {
 		return drawSelectionParam;
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg instanceof State){
+			State state = (State) arg;
+			if(state == State.nouveauPuzzle){
+				this.drawerTapis.draw();
+			}else if(state == State.PuzzleFini){
+				System.out.println("Fini!!!");
+			}
+		}
 	}
 	
 	

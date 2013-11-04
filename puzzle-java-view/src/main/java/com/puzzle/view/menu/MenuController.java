@@ -1,27 +1,20 @@
 package com.puzzle.view.menu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 
-import javax.swing.SwingUtilities;
-
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.Fenetre;
-import com.puzzle.view.RepaintTask;
 import com.puzzle.view.menu.MenuView.MenuAction;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.provider.PieceImageProvider;
@@ -124,7 +117,7 @@ public class MenuController extends Observable {
 			ImageMemoryManager.getInstance().put(puzzle.getId(), new PieceImageProvider(rootPuzzlePath+File.separator+"images"));
 			
 			this.tapis.change();
-			this.tapis.notifyObservers();
+			this.tapis.notifyObservers(State.nouveauPuzzle);
 			
 		} catch (PuzzleIOException e) {
 			// TODO Auto-generated catch block
