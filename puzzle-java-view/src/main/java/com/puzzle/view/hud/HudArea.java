@@ -8,7 +8,7 @@ import com.puzzle.view.tool.JImageBuffer;
 
 
 
-public abstract class HudArea implements IController,IDrawer{
+public abstract class HudArea implements IController{
 
 	protected HudShape shape;
 	protected HudTask task;
@@ -134,17 +134,7 @@ public abstract class HudArea implements IController,IDrawer{
 		
 	}
 
-	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void clean() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public int getIndex() {
 		return index;
@@ -153,4 +143,13 @@ public abstract class HudArea implements IController,IDrawer{
 	public void setIndex(int index) {
 		this.index = index;
 	}
+
+
+
+	public HudShape getShape() {
+		return shape;
+	}
+	
+	
+	
 }

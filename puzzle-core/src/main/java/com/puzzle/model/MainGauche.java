@@ -87,6 +87,10 @@ public class MainGauche implements Iterable<Piece>{
 	public int getSize() {
 		return size;
 	}
+	
+	public void setSize(int size){
+		this.size = size;
+	}
 
 	public void libere(){
 		this.focused = -1;

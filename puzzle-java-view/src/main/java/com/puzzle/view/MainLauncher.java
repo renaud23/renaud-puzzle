@@ -54,9 +54,9 @@ public class MainLauncher {
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
 		
-		MainGaucheController mgc = new MainGaucheController(tapis, f);
-		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
-		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
+//		MainGaucheController mgc = new MainGaucheController(tapis, f);
+//		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
+//		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
 
 		MenuView menu = new MenuView();
 		f.getFrame().setJMenuBar(menu.getMenu());

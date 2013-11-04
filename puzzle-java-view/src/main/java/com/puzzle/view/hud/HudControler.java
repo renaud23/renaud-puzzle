@@ -40,8 +40,7 @@ public class HudControler implements IController,Observer{
 	
 		// création des éléments du hud.
 		this.pocket = new Pocket(this,tapis, f);
-		
-		
+		((HudDrawer)this.drawer).addDrawer(this.pocket);
 		
 		this.tapis.addObserver(this);
 		this.drawer.draw();
@@ -71,19 +70,16 @@ public class HudControler implements IController,Observer{
 	
 	public void addArea(HudArea a){
 		this.areas.add(a);
-		((HudDrawer)this.drawer).addDrawer(a);
 	}
 	
 	public void removeArea(HudArea a){
 		this.areas.remove(a);
-		((HudDrawer)this.drawer).addDrawer(a);
 	}
 	
 	public void removeArea(Piece p){
 		PieceInPocket pi = this.pocket.get(p);
 		
 		this.areas.remove(pi);
-		((HudDrawer)this.drawer).removeDrawer(pi);
 		this.pocket.remove(p);
 	}
 

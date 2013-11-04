@@ -44,9 +44,9 @@ public class Fenetre {
 		
 		// tapis
 		this.backBuffers = new ArrayList<JImageBuffer>();
-		this.backBuffers.add(0, new JImageBuffer(new Color(200,50,50,255),(int)(largeur*0.8),this.hauteur));
+		this.backBuffers.add(0, new JImageBuffer(new Color(200,50,50,255),(int)(largeur*1.0),this.hauteur));
 		this.backBuffers.get(0).transparentClean();
-		this.backBuffers.add(1, new JImageBuffer(new Color(0,0,0,0), (int)(largeur*0.8),this.hauteur));
+		this.backBuffers.add(1, new JImageBuffer(new Color(0,0,0,0), (int)(largeur*1.0),this.hauteur));
 		this.backBuffers.get(1).transparentClean();
 		
 		
@@ -54,13 +54,12 @@ public class Fenetre {
 		
 		
 		// main gauche
-		this.mainGauche = new MainGaucheView((int)(largeur*0.2), hauteur);
-		
-		this.mainGauche.getOffscreen().setPreferredSize(new Dimension((int)(largeur*0.2),this.hauteur));
-		this.offscreen.setPreferredSize(new Dimension((int)(largeur*0.8),this.hauteur));
+//		this.mainGauche = new MainGaucheView((int)(largeur*0.2), hauteur);		
+//		this.mainGauche.getOffscreen().setPreferredSize(new Dimension((int)(largeur*0.2),this.hauteur));
+		this.offscreen.setPreferredSize(new Dimension((int)(largeur*1.0),this.hauteur));
 		this.offscreen.validate();
 		
-		this.frame.add(this.mainGauche.getOffscreen(),BorderLayout.WEST);
+//		this.frame.add(this.mainGauche.getOffscreen(),BorderLayout.WEST);
 		this.frame.add(this.offscreen,BorderLayout.EAST);
 		
 		this.frame.addComponentListener(new MyWindowListner(this));
