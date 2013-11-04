@@ -66,8 +66,9 @@ public class TapisZoomControllerEx implements IController,Observer{
 		
 		this.state = new MainVide(this);
 		
-		this.drawerTapis.draw();
 		this.drawerSelection.draw();
+		this.drawerTapis.draw();
+		
 	}
 	
 	
@@ -182,6 +183,11 @@ public class TapisZoomControllerEx implements IController,Observer{
 
 	public IDrawerSelection getDrawerSelection() {
 		return drawerSelection;
+	}
+
+
+	public void setDrawerSelection(IDrawerSelection drawerSelection) {
+		this.drawerSelection = drawerSelection;
 	}
 
 

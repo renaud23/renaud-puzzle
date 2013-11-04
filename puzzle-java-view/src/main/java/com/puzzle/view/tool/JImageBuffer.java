@@ -56,6 +56,15 @@ public class JImageBuffer implements IImageBuffer{
 		g.fillRect(0, 0, image.getWidth(), image.getHeight()); // Clears the image.
 	}
 	
+	public void transparentClean(int x,int y,int largeur, int hauteur){
+		Graphics2D g = image.createGraphics();
+		 
+		// These commands cause the Graphics2D object to clear to (0,0,0,0).
+		g.setColor(new Color(0,0,0,0));
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OUT));
+		g.fillRect(x, y, largeur, hauteur); // Clears the image.
+	}
+	
 	public void clean(){
 		Graphics2D graphics = this.image.createGraphics();
 		graphics.setColor(this.backgroundColor);
@@ -109,6 +118,15 @@ public class JImageBuffer implements IImageBuffer{
 	public void drawRect(Color color,int x,int y,int width,int height){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
+		g.drawRect(x, y, width, height);
+		g.dispose();
+	}
+	
+	public void drawRect(Color color,int x,int y,int width,int height,float alpha){
+		Graphics2D g = this.image.createGraphics();
+		g.setColor(color);
+		g.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER,alpha )) ;
 		g.drawRect(x, y, width, height);
 		g.dispose();
 	}

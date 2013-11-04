@@ -6,23 +6,39 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
+import com.puzzle.view.drawer.IDrawer;
+import com.puzzle.view.mainGauche.PocketArea;
 
 
 public class HudControler implements IController,Observer{
 	private IController controller;
 	private Tapis tapis;
 	private List<HudArea> areas;
+	private int mouseX;
+	private int mouseY;
+	private IDrawer drawer;
 	
 	private HudArea focused;
 	
 
-	public HudControler(IController controller, Tapis tapis) {
+	public HudControler(IController controller, IDrawer drawer,Tapis tapis, Fenetre f) {
 		this.controller = controller;
 		this.tapis = tapis;
+		this.drawer = drawer;
 		this.areas = new ArrayList<HudArea>();
+	
+		
+		// création des éléments du hud.
+		PocketArea pocket = new PocketArea(tapis, f);
+		this.addArea(pocket);
+		
+		
+		
 		
 		this.tapis.addObserver(this);
+		this.drawer.draw();
 	}
 
 	private HudArea getCandidat(int x,int y){
@@ -36,71 +52,6 @@ public class HudControler implements IController,Observer{
 		}
 		return cdt;
 	}
-	
-	
-//	@Override
-//	public void mouseClicked(MouseEvent e) {
-//		HudArea h = this.getCandidat(e.getX(), e.getY());
-//		if(h != null){
-//			h.mouseClicked(e);
-//		}else this.game.mouseClicked(e);
-//		
-//	}
-//
-//	@Override
-//	public void mouseEntered(MouseEvent e) {
-//		this.game.mouseEntered(e);
-//	}
-//
-//	@Override
-//	public void mouseExited(MouseEvent e) {
-//		this.game.mouseExited(e);
-//	}
-//
-//	@Override
-//	public void mousePressed(MouseEvent e) {
-//		HudArea h = this.getCandidat(e.getX(), e.getY());
-//		if(h != null){
-//			h.mousePressed(e);
-//		}else this.game.mousePressed(e);
-//		
-//		
-//	}
-//
-//	@Override
-//	public void mouseReleased(MouseEvent e) {
-//		HudArea h = this.getCandidat(e.getX(), e.getY());
-//		if(h != null){
-//			h.mouseReleased(e);
-//		}else this.game.mouseReleased(e);
-//	}
-//
-//	@Override
-//	public void mouseDragged(MouseEvent e) {
-//		HudArea h = this.getCandidat(e.getX(), e.getY());
-//		if(h != null){
-//			h.mouseDragged(e);
-//		}else this.game.mouseDragged(e);
-//		
-//	}
-//
-//	@Override
-//	public void mouseMoved(MouseEvent e) {
-//		HudArea h = this.getCandidat(e.getX(), e.getY());
-//		if(h != null){
-//			h.mouseMoved(e);
-//			if(focused == null){
-//				focused = h;
-//				focused.mouseEntered(e);
-//			}
-//		}else{
-//			this.game.mouseMoved(e);
-//			if(focused != null){
-//				focused.mouseExited(e);
-//				focused = null;
-//			}
-//		}
-//	}
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -111,10 +62,12 @@ public class HudControler implements IController,Observer{
 	
 	public void addArea(HudArea a){
 		this.areas.add(a);
+		((HudDrawer)this.drawer).addDrawer(a);
 	}
 	
 	public void removeArea(HudArea a){
 		this.areas.remove(a);
+		((HudDrawer)this.drawer).addDrawer(a);
 	}
 
 	@Override
@@ -129,37 +82,71 @@ public class HudControler implements IController,Observer{
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-		this.controller.mouseLeftPressed(x, y);
+		HudArea h = this.getCandidat(x,y);
+		if(h != null){
+			h.mouseLeftPressed(x,y);
+		}else this.controller.mouseLeftPressed(x, y);
+		
 	}
 
 	@Override
 	public void mouseLeftReleased(int x, int y) {
-		this.controller.mouseLeftReleased(x, y);
+		HudArea h = this.getCandidat(x,y);
+		if(h != null){
+			h.mouseLeftReleased(x,y);
+		}else this.controller.mouseLeftReleased(x, y);
 	}
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
-		this.controller.mouseRightPressed(x, y);
+		HudArea h = this.getCandidat(x,y);
+		if(h != null){
+			h.mouseRightPressed(x,y);
+		}else this.controller.mouseRightPressed(x, y);
 	}
 
 	@Override
 	public void mouseRightReleased(int x, int y) {
-		this.controller.mouseRightReleased(x, y);
+		HudArea h = this.getCandidat(x,y);
+		if(h != null){
+			h.mouseRightReleased(x,y);
+		}else this.controller.mouseRightReleased(x, y);
 	}
 
 	@Override
 	public void mouseMove(int x, int y, boolean isShiftDown) {
-		this.controller.mouseMove(x, y, isShiftDown);
+	this.mouseX = x;
+	this.mouseY = y;
+		HudArea h = this.getCandidat(x, y);
+		if(h != null){
+			h.mouseMove(x,y,isShiftDown);
+			if(focused == null){
+				focused = h;
+				focused.mouseEntered();
+			}
+		}else{
+			this.controller.mouseMove(x,y,isShiftDown);
+			if(focused != null){
+				focused.mouseExited();
+				focused = null;
+			}
+		}
 	}
 
 	@Override
 	public void mouseDrag(int x, int y) {
-		this.controller.mouseDrag(x, y);
+		HudArea h = this.getCandidat(x,y);
+		if(h != null){
+			h.mouseDrag(x,y);
+		}else this.controller.mouseDrag(x, y);
 	}
 
 	@Override
 	public void mouseWheel(boolean up) {
-		this.controller.mouseWheel(up);
+		HudArea h = this.getCandidat(this.mouseX,this.mouseY);
+		if(h != null){
+			h.mouseWheel(up);
+		}else this.controller.mouseWheel(up);
 	}
 
 	@Override
@@ -191,5 +178,25 @@ public class HudControler implements IController,Observer{
 	public void controlPlusL() {
 		this.controller.controlPlusL();
 	}
+
+	public IController getController() {
+		return controller;
+	}
+
+	public int getMouseX() {
+		return mouseX;
+	}
+
+	public int getMouseY() {
+		return mouseY;
+	}
+
+	public IDrawer getDrawer() {
+		return drawer;
+	}
+	
+	
+	
+	
 	
 }

@@ -17,6 +17,9 @@ public class DrawZoomSelection extends DrawerDecorator{
 	
 	private Lunette lunette;
 
+	public DrawZoomSelection(){
+		
+	}
 	
 	public DrawZoomSelection(JImageBuffer buffer,TapisZoomConverteur converter,Lunette lunette) {
 		this.decore = new DrawSelection(buffer,converter);
