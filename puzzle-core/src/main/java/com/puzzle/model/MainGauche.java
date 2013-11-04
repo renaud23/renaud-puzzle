@@ -10,6 +10,7 @@ public class MainGauche implements Iterable<Piece>{
 	private int size;
 	private List<Piece> pieces;
 	private int focused;
+	private Piece lastIn;
 	
 	
 	private MainGauche(){
@@ -45,6 +46,7 @@ public class MainGauche implements Iterable<Piece>{
 	public void addPiece(Piece piece){
 		if(this.pieces.size() < this.size){
 			this.pieces.add(piece);
+			this.lastIn = piece;
 			this.focused = -1;
 		}
 	}
@@ -78,6 +80,12 @@ public class MainGauche implements Iterable<Piece>{
 	public void libere(){
 		this.focused = -1;
 		this.pieces.clear();
+	}
+	
+	
+
+	public Piece getLastIn() {
+		return lastIn;
 	}
 
 	@Override

@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
+import com.puzzle.model.MainGauche;
+import com.puzzle.model.Piece;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.mainGauche.PocketArea;
+import com.puzzle.view.mainGauche.Pocket;
 
 
 public class HudControler implements IController,Observer{
@@ -22,6 +26,8 @@ public class HudControler implements IController,Observer{
 	
 	private HudArea focused;
 	
+	private Pocket pocket;
+	
 
 	public HudControler(IController controller, IDrawer drawer,Tapis tapis, Fenetre f) {
 		this.controller = controller;
@@ -29,11 +35,10 @@ public class HudControler implements IController,Observer{
 		this.drawer = drawer;
 		this.areas = new ArrayList<HudArea>();
 	
-		
 		// création des éléments du hud.
-		PocketArea pocket = new PocketArea(tapis, f);
-		this.addArea(pocket);
-		
+//		PocketArea pocket = new PocketArea(tapis, f);
+//		this.addArea(pocket);
+		 this.pocket = new Pocket(this,tapis, f);
 		
 		
 		
@@ -55,7 +60,10 @@ public class HudControler implements IController,Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+		if(arg == State.droiteToGauche){
+			Piece piece = MainGauche.getInstance().getLastIn();
+			this.pocket.add(piece);
+		}
 		
 	}
 	
