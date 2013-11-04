@@ -43,6 +43,17 @@ public class MainGauche implements Iterable<Piece>{
 		}
 	}
 	
+	public void focused(Piece p){
+		if(this.pieces.contains(p)){
+			int i = 0;
+			for(Piece pi : this.pieces){
+				if(p == pi) this.focused = i;
+					
+				i++;
+			}
+		}
+	}
+	
 	public void addPiece(Piece piece){
 		if(this.pieces.size() < this.size){
 			this.pieces.add(piece);

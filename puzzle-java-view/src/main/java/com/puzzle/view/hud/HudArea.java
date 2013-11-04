@@ -59,7 +59,7 @@ public abstract class HudArea implements IController,IDrawer{
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-//		this.task.execute();
+		this.task.execute();
 	}
 
 	@Override

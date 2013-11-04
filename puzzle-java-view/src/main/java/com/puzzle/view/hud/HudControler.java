@@ -13,12 +13,14 @@ import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
+import com.puzzle.view.mainGauche.PieceInPocket;
 import com.puzzle.view.mainGauche.Pocket;
 
 
 public class HudControler implements IController,Observer{
 	private IController controller;
 	private Tapis tapis;
+	private Fenetre fenetre;
 	private List<HudArea> areas;
 	private int mouseX;
 	private int mouseY;
@@ -33,6 +35,7 @@ public class HudControler implements IController,Observer{
 		this.controller = controller;
 		this.tapis = tapis;
 		this.drawer = drawer;
+		this.fenetre = f;
 		this.areas = new ArrayList<HudArea>();
 	
 		// création des éléments du hud.
@@ -74,6 +77,14 @@ public class HudControler implements IController,Observer{
 	public void removeArea(HudArea a){
 		this.areas.remove(a);
 		((HudDrawer)this.drawer).addDrawer(a);
+	}
+	
+	public void removeArea(Piece p){
+		PieceInPocket pi = this.pocket.get(p);
+		
+		this.areas.remove(pi);
+		((HudDrawer)this.drawer).removeDrawer(pi);
+		this.pocket.remove(p);
 	}
 
 	@Override
@@ -123,20 +134,22 @@ public class HudControler implements IController,Observer{
 	public void mouseMove(int x, int y, boolean isShiftDown) {
 	this.mouseX = x;
 	this.mouseY = y;
-		HudArea h = this.getCandidat(x, y);
-		if(h != null){
-			h.mouseMove(x,y,isShiftDown);
-			if(focused == null){
-				focused = h;
-				focused.mouseEntered();
-			}
-		}else{
-			this.controller.mouseMove(x,y,isShiftDown);
-			if(focused != null){
-				focused.mouseExited();
-				focused = null;
-			}
+	
+	HudArea h = this.getCandidat(x, y);
+	if(h != null){
+		h.mouseMove(x,y,isShiftDown);
+		if(focused == null || focused != h){
+			if(focused != null) focused.mouseExited();
+			focused = h;
+			focused.mouseEntered();
 		}
+	}else{
+		this.controller.mouseMove(x,y,isShiftDown);
+		if(focused != null){
+			focused.mouseExited();
+			focused = null;
+		}
+	}
 	}
 
 	@Override
@@ -199,6 +212,14 @@ public class HudControler implements IController,Observer{
 
 	public IDrawer getDrawer() {
 		return drawer;
+	}
+
+	public Tapis getTapis() {
+		return tapis;
+	}
+
+	public Fenetre getFenetre() {
+		return fenetre;
 	}
 	
 	

@@ -53,16 +53,21 @@ public class Pocket {
 		java.awt.Point centre = new java.awt.Point(x,y);
 		
 		FreeBox b = new FreeBox(out,centre);
-		PieceInPocket pi = new PieceInPocket(p,this.tapis, this.fenetre, b);
+		PieceInPocket pi = new PieceInPocket(p,this.controller, b, scale);
 		
 		this.controller.addArea(pi);
 		this.pocket.put(p,pi);
 	}
 	
 	public void remove(Piece p){
-		this.controller.removeArea(this.pocket.get(p));
+//		this.controller.removeArea(this.pocket.get(p));
 		this.pocket.remove(p);
 		
+	}
+	
+	
+	public PieceInPocket get(Piece p){
+		return this.pocket.get(p);
 	}
 	
 }

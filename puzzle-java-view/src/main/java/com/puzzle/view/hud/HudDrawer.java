@@ -1,11 +1,11 @@
 package com.puzzle.view.hud;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.zoomTapis.DrawZoomSelection;
 import com.puzzle.view.zoomTapis.Lunette;
 
@@ -33,6 +33,8 @@ public class HudDrawer  extends DrawZoomSelection{
 
 	@Override
 	public void draw() {
+		
+		this.drawerSelection.clean();
 		this.drawerSelection.draw();
 		for(IDrawer d : this.drawable) d.draw();
 	}
