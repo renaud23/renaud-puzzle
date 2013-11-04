@@ -6,9 +6,11 @@ import javax.swing.SwingUtilities;
 
 
 
+
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.RepaintTask;
+import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
@@ -18,7 +20,7 @@ import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
 
 
-public class TapisZoomControllerEx implements IState{
+public class TapisZoomControllerEx implements IController{
 	
 	private Tapis tapis;
 	private TapisZoomConverteur converter;
@@ -77,7 +79,7 @@ public class TapisZoomControllerEx implements IState{
 
 	@Override
 	public void mouseLeftReleased(int x, int y) {
-		this.state.mouseLeftReleased(x, y);
+//		this.state.mouseLeftReleased(x, y);
 	}
 
 	@Override
@@ -122,7 +124,7 @@ public class TapisZoomControllerEx implements IState{
 
 	@Override
 	public void keyControlReleased() {
-		this.state.keyControlReleased();
+//		this.state.keyControlReleased();
 	}
 
 	@Override

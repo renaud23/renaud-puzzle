@@ -2,9 +2,6 @@ package com.puzzle.zoomTapis.state;
 
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.SwingUtilities;
-
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PasserDansMainGauche;
@@ -14,10 +11,10 @@ import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
-import com.puzzle.view.RepaintTask;
 
 
-public class MainPleine implements IState,Observer{
+
+public class MainPleine extends StateAdapter implements Observer{
 	private TapisZoomControllerEx controller;
 	private Point position;
 	
@@ -37,18 +34,6 @@ public class MainPleine implements IState,Observer{
 	}
 
 	@Override
-	public void mouseEntered() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void mouseLeftPressed(int x, int y) {
 		this.controller.getTapis().addObserver(this);
 		if(!this.isShiftPressed){
@@ -58,19 +43,9 @@ public class MainPleine implements IState,Observer{
 			CommandeArgument<Point> cmd = new PoserMainDroite(this.controller.getTapis());
 			cmd.setArgument(p);
 			cmd.execute();
-		}else{
-			
-			
-			
 		}
-		
 	}
 
-	@Override
-	public void mouseLeftReleased(int x, int y) {
-		
-		
-	}
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
@@ -172,23 +147,6 @@ public class MainPleine implements IState,Observer{
 		this.controller.repaint();
 	}
 
-	@Override
-	public void keyControlReleased() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void controlPlusS() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void controlPlusL() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -207,7 +165,6 @@ public class MainPleine implements IState,Observer{
 				this.controller.getDrawerSelection().draw();
 			}// if
 		}// if 
-		
 	}
 
 }

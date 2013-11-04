@@ -9,7 +9,7 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.view.tool.provider.CompositeImageProvider;
 
 
-public class TryClips implements IState {
+public class TryClips extends StateAdapter {
 	
 	private TapisZoomControllerEx controller;
 	private IsClipsParam iscParam;
@@ -32,18 +32,6 @@ public class TryClips implements IState {
 			this.controller.getDrawerSelection().draw();
 			this.controller.repaint();
 		}
-	}
-
-	@Override
-	public void mouseEntered() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -76,48 +64,6 @@ public class TryClips implements IState {
 	}
 
 	@Override
-	public void mouseLeftReleased(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseRightPressed(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseRightReleased(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseMove(int x, int y, boolean isShiftDown) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseDrag(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseWheel(boolean up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyShiftPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void keyShiftReleased() {
 		this.controller.getDrawSelectionParam().clearCandidats();
 		
@@ -130,28 +76,6 @@ public class TryClips implements IState {
 		
 	}
 
-	@Override
-	public void keyControlPressed() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void keyControlReleased() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void controlPlusS() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void controlPlusL() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -13,7 +13,7 @@ import com.puzzle.view.zoomTapis.DrawZoomSelection;
 
 
 
-public class MainVide implements IState,Observer{
+public class MainVide extends StateAdapter implements Observer{
 	
 	
 	private TapisZoomControllerEx controller;
@@ -29,29 +29,10 @@ public class MainVide implements IState,Observer{
 		this.controller.getTapis().addObserver(this);
 	}
 
-//	public MainVide(TapisZoomControllerEx controller,double mouseX,double mouseY) {
-//		this.controller = controller;
-//		this.attrParam = new AttrapperMainDroiteParam();
-//	}
 	
-	
-	@Override
-	public void mouseEntered() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void mouseLeftPressed(int x, int y) {
-		
-		
-		
 		Point p = new Point(x, y);
 		this.controller.getConverter().convertScreenToModel(p);
 		
@@ -63,11 +44,6 @@ public class MainVide implements IState,Observer{
 		
 	}
 
-	@Override
-	public void mouseLeftReleased(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
@@ -113,42 +89,7 @@ public class MainVide implements IState,Observer{
 		this.controller.getDrawerSelection().draw();
 		this.controller.getDrawerTapis().draw();
 	}
-
-	@Override
-	public void keyShiftPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyShiftReleased() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyControlPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyControlReleased() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void controlPlusS() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void controlPlusL() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void update(Observable o, Object arg) {
