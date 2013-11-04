@@ -17,6 +17,8 @@ public class tournerMainDroite implements CommandeArgument<Boolean>{
 			cmp.tournerGauche();
 		else
 			cmp.tournerDroite();
+		
+		cmp.updateRect();// modif récente becarfull
 	}
 
 	@Override

@@ -6,12 +6,16 @@ public class FreeBox implements HudShape{
 	
 	
 	private Point[] points;
-	
-	
-	
+	private Point centre;
+	private int largeur;
+	private int hauteur;
 
-	public FreeBox(Point[] points) {
+
+	public FreeBox(Point[] points,Point centre) {
 		this.points = points;
+		this.centre = centre;
+		this.largeur = this.getDistance(points[0], points[1]);
+		this.hauteur = this.getDistance(points[1], points[0]);
 	}
 
 	public Point[] getPoints() {
@@ -23,8 +27,28 @@ public class FreeBox implements HudShape{
 		return this.contains(x, y);
 	}
 	
+	public Point getCentre() {
+		return centre;
+	}
+
+	public void setCentre(Point centre) {
+		this.centre = centre;
+	}
 	
-	
+	private int getDistance(Point p1,Point p2){
+		
+		double x = p1.getX();
+		x -= p2.getX();
+		x *= x;
+		double y = p1.getY();
+		y -= p2.getY();
+		y *= y;
+		double d =  Math.sqrt(x+y);
+		int round = (int) Math.round(d);
+		
+		return round;
+	}
+
 	public boolean contains(int x, int y) {
 		boolean state = false;
 		Point p = new Point(x,y);
@@ -50,4 +74,15 @@ public class FreeBox implements HudShape{
 	    return p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
 	}
 
+	public int getLargeur() {
+		return largeur;
+	}
+
+	public int getHauteur() {
+		return hauteur;
+	}
+
+	
+	
+	
 }

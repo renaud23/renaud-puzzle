@@ -19,8 +19,9 @@ public class Pocket {
 	private Fenetre fenetre;
 	private Tapis tapis;
 	
-	private int xRef = 50;
+	private int xRef = 150;
 	private int yRef = 500;
+	private int xVar = 50;
 	
 	private int limite;
 	
@@ -32,7 +33,10 @@ public class Pocket {
 	
 	public void add(Piece p){
 		
-		double scale = 0.1;// TODO
+		double scale = 0.3;// TODO
+		
+		int x = this.xRef + this.xVar * this.pocket.size();
+		int y = this.yRef;
 		
 		RectPiece r = (RectPiece) p.getRect();
 		Point[] in = r.getCoins();
@@ -41,14 +45,14 @@ public class Pocket {
 		
 		for(int i=0;i<4;i++){
 			out[i] = new java.awt.Point();
-			out[i].x = (int) Math.round( (in[i].getX() - c.getX()) *scale);
-			out[i].x += this.xRef;
-			out[i].y = (int) Math.round( (in[i].getY() - c.getY()) *scale);
-			out[i].y *= -1;
-			out[i].y += this.yRef;
+			out[i].x = (int) Math.round( (in[i].getX() - c.getX()) * scale);
+			out[i].x += x;
+			out[i].y = (int) Math.round( (c.getY() - in[i].getY()) * scale);
+			out[i].y += y;
 		}
+		java.awt.Point centre = new java.awt.Point(x,y);
 		
-		FreeBox b = new FreeBox(out);
+		FreeBox b = new FreeBox(out,centre);
 		PieceInPocket pi = new PieceInPocket(p,this.tapis, this.fenetre, b);
 		
 		this.controller.addArea(pi);
@@ -56,7 +60,9 @@ public class Pocket {
 	}
 	
 	public void remove(Piece p){
+		this.controller.removeArea(this.pocket.get(p));
 		this.pocket.remove(p);
+		
 	}
 	
 }

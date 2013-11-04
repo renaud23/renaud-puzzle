@@ -36,9 +36,7 @@ public class HudControler implements IController,Observer{
 		this.areas = new ArrayList<HudArea>();
 	
 		// création des éléments du hud.
-//		PocketArea pocket = new PocketArea(tapis, f);
-//		this.addArea(pocket);
-		 this.pocket = new Pocket(this,tapis, f);
+		this.pocket = new Pocket(this,tapis, f);
 		
 		
 		
