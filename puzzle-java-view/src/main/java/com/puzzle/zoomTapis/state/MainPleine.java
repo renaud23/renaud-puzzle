@@ -137,14 +137,14 @@ public class MainPleine extends StateAdapter implements Observer{
 		
 		if(param.isReussi()){
 			this.controller.getDrawerSelection().setSelection(false);
+		
+			IState state = new MainVide(this.controller);
+			this.controller.setState(state);
+			
+			this.controller.getDrawerSelection().clean();
+			this.controller.getDrawerSelection().draw();
+			this.controller.repaint();
 		}
-		
-		IState state = new MainVide(this.controller);
-		this.controller.setState(state);
-		
-		this.controller.getDrawerSelection().clean();
-		this.controller.getDrawerSelection().draw();
-		this.controller.repaint();
 	}
 
 

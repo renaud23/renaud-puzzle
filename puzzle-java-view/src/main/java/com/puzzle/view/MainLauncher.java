@@ -9,6 +9,7 @@ import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
+import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.mainGauche.MainGaucheController;
 import com.puzzle.view.menu.MenuController;
 import com.puzzle.view.menu.MenuView;
@@ -33,11 +34,12 @@ public class MainLauncher {
 		Fenetre f = new Fenetre(800,600);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
-		IController c = new TapisZoomControllerEx(tapis,background, f);//new TapisZoomController(background,f, tapis);
-		f.getOffscreen().addMouseListener(new MyMouseListener(c));
-		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
-		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
-		f.getFrame().addKeyListener(new MyKeyListener(c));
+		IController c = new TapisZoomControllerEx(tapis,background, f);
+		HudControler hc = new HudControler(c, tapis);
+		f.getOffscreen().addMouseListener(new MyMouseListener(hc));
+		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(hc));
+		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
+		f.getFrame().addKeyListener(new MyKeyListener(hc));
 		
 		MainGaucheController mgc = new MainGaucheController(tapis, f);
 		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
