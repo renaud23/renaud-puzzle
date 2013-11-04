@@ -57,8 +57,11 @@ public class PieceInPocket  extends HudArea implements Observer{
 		//dev
 		FreeBox b = (FreeBox) this.shape;
 		
+		Color c = Color.yellow;
+		if(in) c = Color.red;
+		
 		for(Point p : b.getPoints()){
-			this.buffer.drawRect(Color.yellow, p.x, p.y, 2, 2, 1.0f);
+			this.buffer.drawRect(c, p.x, p.y, 2, 2, 1.0f);
 		}
 			
 			

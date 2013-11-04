@@ -47,13 +47,13 @@ public class Point {
 	}
 	
 	
-	 public boolean IsInsideTriangle(Point a, Point b, Point c) {
+	public boolean IsInsideTriangle(Point a, Point b, Point c) {
 	    double z1 = ComputeZCoordinate(a, b, this);
 	    double z2 = ComputeZCoordinate(b, c, this);
 	    double z3 = ComputeZCoordinate(c, a, this);
 	    
 	    return (z1 > 0 && z2 > 0 && z3 > 0) || (z1 < 0 && z2 < 0 && z3 < 0);
-	  }
+	 }
 	
 	public void tourner(double angle,Point c){
 		this.tourner(angle, c.x, c.y);
