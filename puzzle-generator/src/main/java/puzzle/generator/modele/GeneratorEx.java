@@ -2,6 +2,7 @@ package puzzle.generator.modele;
 
 
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,6 +12,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+
 import puzzle.generator.descriptor.PieceDescripteur;
 import puzzle.generator.memory.ImageProvider;
 import puzzle.generator.memory.TemplateMemoryManager;
@@ -414,6 +416,20 @@ public class GeneratorEx {
 	 */
 	private BufferedImage createImagePieceEx(int tamponY,int tamponX, int i,int j,Rectangle rect){
 		int value = this.frame.getFrame()[i][j];
+		
+		int largeur = 2;
+		int hauteur = 2;
+		boolean fini = false;
+		while(!fini){
+			fini = true;
+			if(largeur < rect.width) largeur *= 2;
+			if(hauteur < rect.height) hauteur *= 2;
+			
+			if(largeur < rect.width || hauteur < rect.height) fini = false;
+		}
+		
+		
+		
 		BufferedImage bfi = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = bfi.createGraphics();
 	
@@ -422,11 +438,14 @@ public class GeneratorEx {
 		g.drawImage(this.tampon, 0, 0, rect.width,rect.height, 
 				rect.x-tamponX, rect.y-tamponY, 
 				rect.x+rect.width-tamponX, rect.y+rect.height-tamponY, null);
+		
+		
 		//
 		Image ref = this.templateProvider.getImage(value);//GeneratorEx.images.get(value).getImage();
 		g.drawImage(ref, 0, 0, rect.width,rect.height, 0, 0,
 				ref.getWidth(null), ref.getHeight(null), null);
 		
+	
 		// alpha
 		Color color = new Color(0,0,0,0);
 		Color red = new Color(255,0,0,255);

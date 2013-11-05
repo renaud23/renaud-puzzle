@@ -18,9 +18,7 @@ import com.puzzle.view.menu.MenuView;
 import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.DrawZoomSelection;
-import com.puzzle.view.zoomTapis.TapisZoomController;
-import com.puzzle.view.zoomTapis.TapisZoomConverteur;
-import com.puzzle.zoomTapis.state.TapisZoomControllerEx;
+import com.puzzle.zoomTapis.state.TapisZoomController;
 
 
 public class MainLauncher {
@@ -40,12 +38,12 @@ public class MainLauncher {
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
 		
 		// controller du tapis
-		IController c = new TapisZoomControllerEx(tapis,background, f);
+		IController c = new TapisZoomController(tapis,background, f);
 		
 		// controller du hud
-		IDrawerSelection drw = new HudDrawer((DrawZoomSelection) ((TapisZoomControllerEx)c).getDrawerSelection());// decore le drawer de TapisZoomControllerEx
+		IDrawerSelection drw = new HudDrawer((DrawZoomSelection) ((TapisZoomController)c).getDrawerSelection());// decore le drawer de TapisZoomControllerEx
 		HudControler hc = new HudControler(c , drw,tapis, f);
-		((TapisZoomControllerEx)c).setDrawerSelection(drw);
+		((TapisZoomController)c).setDrawerSelection(drw);
 		
 		
 		f.getOffscreen().addMouseListener(new MyMouseListener(hc));

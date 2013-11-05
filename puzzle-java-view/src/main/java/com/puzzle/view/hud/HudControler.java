@@ -15,7 +15,7 @@ import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.pocket.PieceInPocket;
 import com.puzzle.view.pocket.Pocket;
-import com.puzzle.zoomTapis.state.TapisZoomControllerEx;
+import com.puzzle.zoomTapis.state.TapisZoomController;
 
 
 public class HudControler implements IController,Observer{
@@ -42,7 +42,7 @@ public class HudControler implements IController,Observer{
 	
 		// création des éléments du hud.
 		this.pocket = new Pocket(this,tapis, f);
-		this.lunette = new LunetteArea((TapisZoomControllerEx) this.controller);
+		this.lunette = new LunetteArea((TapisZoomController) this.controller);
 		((HudDrawer)this.drawer).addDrawer(this.pocket);
 		((HudDrawer)this.drawer).addDrawer(this.lunette);
 		this.addArea(this.lunette);

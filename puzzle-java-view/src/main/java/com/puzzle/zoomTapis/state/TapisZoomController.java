@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 
 
 
+
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
@@ -31,9 +32,10 @@ import com.puzzle.view.zoomTapis.DrawZoomSelection;
 import com.puzzle.view.zoomTapis.Lunette;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
+import com.puzzle.view.zoomTapis.TapisZoomDrawerDev;
 
 
-public class TapisZoomControllerEx implements IController,Observer{
+public class TapisZoomController implements IController,Observer{
 	
 	private Tapis tapis;
 	private TapisZoomConverteur converter;
@@ -45,11 +47,11 @@ public class TapisZoomControllerEx implements IController,Observer{
 	protected DrawSelectionParam drawSelectionParam;
 	
 
-	public TapisZoomControllerEx(Tapis tapis, Image background, Fenetre fenetre) {
+	public TapisZoomController(Tapis tapis, Image background, Fenetre fenetre) {
 		this.tapis = tapis;
 		this.fenetre = fenetre;
 		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(), tapis);
-		this.drawerTapis = new TapisZoomDrawer(fenetre,background,tapis,fenetre.getBuffer(0),this.converter);
+		this.drawerTapis = new TapisZoomDrawerDev(fenetre,background,tapis,fenetre.getBuffer(0),this.converter);
 		
 		tapis.addObserver(this);
 		

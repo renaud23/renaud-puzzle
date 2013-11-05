@@ -7,7 +7,7 @@ import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.Lunette;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
-import com.puzzle.zoomTapis.state.TapisZoomControllerEx;
+import com.puzzle.zoomTapis.state.TapisZoomController;
 
 public class LunetteArea extends HudArea implements IDrawer{
 	private Lunette lunette;
@@ -19,7 +19,7 @@ public class LunetteArea extends HudArea implements IDrawer{
 	
 	
 
-	public LunetteArea(TapisZoomControllerEx controller) {
+	public LunetteArea(TapisZoomController controller) {
 		this.tapis = controller.getTapis();
 		this.buffer = controller.getFenetre().getBuffer(1);
 		this.converter = controller.getConverter();

@@ -16,14 +16,14 @@ import com.puzzle.view.zoomTapis.DrawZoomSelection;
 public class MainVide extends StateAdapter implements Observer{
 	
 	
-	private TapisZoomControllerEx controller;
+	private TapisZoomController controller;
 	private AttrapperMainDroiteParam attrParam;
 	private boolean rightClick;
 	private double mouseX;
 	private double mouseY;
 	
 	
-	public MainVide(TapisZoomControllerEx controller) {
+	public MainVide(TapisZoomController controller) {
 		this.controller = controller;
 		this.attrParam = new AttrapperMainDroiteParam();
 		this.controller.getTapis().addObserver(this);

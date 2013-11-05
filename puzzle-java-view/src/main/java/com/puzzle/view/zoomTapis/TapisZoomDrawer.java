@@ -119,10 +119,10 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		this.converter.convertModelToScreen(p);
 		
 		double x = p.getX();
-		x -= pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
+		x -= pbo.getPiece().getLargeur() / 2.0 * this.converter.getScaleX();
 		
 		double y = p.getY();
-		y -= pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
+		y -= pbo.getPiece().getHauteur() / 2.0 * this.converter.getScaleY();
 	
 		this.tapisBuffer.drawImage(pbo.getImage(),
 				x,  y, 

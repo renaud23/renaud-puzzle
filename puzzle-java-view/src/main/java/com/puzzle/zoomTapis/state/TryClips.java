@@ -11,7 +11,7 @@ import com.puzzle.view.tool.provider.CompositeImageProvider;
 
 public class TryClips extends StateAdapter {
 	
-	private TapisZoomControllerEx controller;
+	private TapisZoomController controller;
 	private IsClipsParam iscParam;
 	private double mouseX;
 	private double mouseY;
@@ -19,7 +19,7 @@ public class TryClips extends StateAdapter {
 	
 	
 
-	public TryClips(TapisZoomControllerEx controller, IsClipsParam iscParam,double mouseX,double mouseY) {
+	public TryClips(TapisZoomController controller, IsClipsParam iscParam,double mouseX,double mouseY) {
 		this.controller = controller;
 		this.iscParam = iscParam;
 		this.mouseX = mouseX;

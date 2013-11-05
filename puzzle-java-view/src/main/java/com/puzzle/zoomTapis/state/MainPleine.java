@@ -15,7 +15,7 @@ import com.puzzle.model.State;
 
 
 public class MainPleine extends StateAdapter implements Observer{
-	private TapisZoomControllerEx controller;
+	private TapisZoomController controller;
 	private Point position;
 	
 	private boolean isShiftPressed;
@@ -25,7 +25,7 @@ public class MainPleine extends StateAdapter implements Observer{
 	private IsClipsParam iscParam;
 	
 
-	public MainPleine(TapisZoomControllerEx controller,double mouseX,double mouseY) {
+	public MainPleine(TapisZoomController controller,double mouseX,double mouseY) {
 		this.controller = controller;
 		this.position = new Point();
 		this.iscParam = new IsClipsParam();

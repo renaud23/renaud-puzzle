@@ -23,7 +23,7 @@ import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.tool.provider.PieceImageProvider;
-import com.puzzle.view.zoomTapis.TapisZoomController;
+import com.puzzle.zoomTapis.state.TapisZoomController;
 import com.renaud.manager.TasStatistique;
 
 
@@ -81,7 +81,7 @@ public class MainZoom {
 		Fenetre f = new Fenetre(800,600);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+"/background/wood_tapis3.jpg");
-		IController c = new TapisZoomController(background,f, tapis);
+		IController c = new TapisZoomController(tapis,background,f );
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
