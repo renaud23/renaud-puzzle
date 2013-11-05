@@ -60,7 +60,7 @@ public class TapisZoomControllerEx implements IController,Observer{
 		lunette.setHauteur(lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
 		lunette.setX(this.fenetre.getBuffer(1).getLargeur() - lunette.getLargeur() - 10.0);
 		lunette.setY(10.0);
-		this.drawerSelection = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter,lunette);
+		this.drawerSelection = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter);
 		this.drawSelectionParam = new DrawSelectionParam();
 		this.drawerSelection.setParam(this.drawSelectionParam);
 		
@@ -211,6 +211,11 @@ public class TapisZoomControllerEx implements IController,Observer{
 				System.out.println("Fini!!!");
 			}
 		}
+	}
+
+
+	public Fenetre getFenetre() {
+		return fenetre;
 	}
 	
 	
