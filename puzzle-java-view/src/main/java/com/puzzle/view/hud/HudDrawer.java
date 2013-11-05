@@ -71,20 +71,6 @@ public class HudDrawer  extends DrawZoomSelection{
 		this.drawerSelection.setZoomScale(zoomScale);
 	}
 
-	@Override
-	public void drawRectZoom() {
-		this.drawerSelection.drawRectZoom();
-	}
-
-	@Override
-	public Lunette getLunette() {
-		return this.drawerSelection.getLunette();
-	}
-
-	@Override
-	public void setLunette(Lunette lunette) {
-		this.drawerSelection.setLunette(lunette);
-	}
 	
 	
 	
