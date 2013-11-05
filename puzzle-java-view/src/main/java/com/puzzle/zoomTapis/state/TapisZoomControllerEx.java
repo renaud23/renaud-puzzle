@@ -3,18 +3,7 @@ package com.puzzle.zoomTapis.state;
 import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.SwingUtilities;
-
-
-
-
-
-
-
-
-
-
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
@@ -28,7 +17,6 @@ import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.zoomTapis.DrawZoomSelection;
-import com.puzzle.view.zoomTapis.Lunette;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
 

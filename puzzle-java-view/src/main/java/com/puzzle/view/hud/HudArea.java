@@ -1,11 +1,7 @@
 package com.puzzle.view.hud;
 
 import com.puzzle.view.controller.IController;
-import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
-
-
-
 
 
 public abstract class HudArea implements IController{

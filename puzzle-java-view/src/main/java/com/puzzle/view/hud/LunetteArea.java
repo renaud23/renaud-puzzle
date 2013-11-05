@@ -43,6 +43,15 @@ public class LunetteArea extends HudArea implements IDrawer{
 	
 
 	@Override
+	public void mouseLeftPressed(int x, int y) {
+		System.out.println("yy");
+	}
+
+
+
+
+
+	@Override
 	public void draw() {
 		this.buffer.drawRect(Color.black, 
 				(int)Math.round(this.lunette.getX()), (int)Math.round(this.lunette.getY()), 

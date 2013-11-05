@@ -43,6 +43,7 @@ public class HudControler implements IController,Observer{
 		// cr�ation des �l�ments du hud.
 		this.pocket = new Pocket(this,tapis, f);
 		this.lunette = new LunetteArea((TapisZoomControllerEx) this.controller);
+		this.addArea(this.lunette);
 		((HudDrawer)this.drawer).addDrawer(this.pocket);
 		((HudDrawer)this.drawer).addDrawer(this.lunette);
 		
