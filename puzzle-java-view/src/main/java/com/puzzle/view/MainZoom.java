@@ -19,7 +19,6 @@ import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
-import com.puzzle.view.mainGauche.MainGaucheController;
 import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.SimpleImageLoader;
@@ -87,10 +86,7 @@ public class MainZoom {
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));
 		f.getFrame().addKeyListener(new MyKeyListener(c));
-		
-		MainGaucheController mgc = new MainGaucheController(tapis, f);
-		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
-		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
+
 		
 		
 		

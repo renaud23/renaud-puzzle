@@ -13,7 +13,6 @@ import com.puzzle.view.drawer.DrawerDecorator;
 import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudDrawer;
-import com.puzzle.view.mainGauche.MainGaucheController;
 import com.puzzle.view.menu.MenuController;
 import com.puzzle.view.menu.MenuView;
 import com.puzzle.view.tool.ImageLoadException;

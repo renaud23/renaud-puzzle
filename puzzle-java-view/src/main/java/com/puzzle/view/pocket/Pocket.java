@@ -1,4 +1,4 @@
-package com.puzzle.view.mainGauche;
+package com.puzzle.view.pocket;
 
 
 import java.util.ArrayList;

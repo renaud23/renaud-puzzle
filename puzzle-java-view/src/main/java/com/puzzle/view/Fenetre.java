@@ -17,7 +17,6 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import com.puzzle.view.listener.MyWindowListner;
-import com.puzzle.view.mainGauche.MainGaucheView;
 import com.puzzle.view.tool.JImageBuffer;
 
 
@@ -29,7 +28,7 @@ public class Fenetre {
 	private JFrame frame;
 	
 	private Offscreen offscreen;
-	private MainGaucheView mainGauche;
+	
 	
 	private List<JImageBuffer> backBuffers;
 	
@@ -79,7 +78,6 @@ public class Fenetre {
 	
 	public void cleanListener(){
 		this.offscreen.cleanListener();
-		this.mainGauche.getOffscreen().cleanListener();
 	}
 	
 	public void resize(){
@@ -87,10 +85,7 @@ public class Fenetre {
 		 
 	}
 
-	
-	public MainGaucheView getMainGauche() {
-		return mainGauche;
-	}
+
 
 
 	public JFrame getFrame() {

@@ -13,8 +13,8 @@ import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.mainGauche.PieceInPocket;
-import com.puzzle.view.mainGauche.Pocket;
+import com.puzzle.view.pocket.PieceInPocket;
+import com.puzzle.view.pocket.Pocket;
 import com.puzzle.zoomTapis.state.TapisZoomControllerEx;
 
 
