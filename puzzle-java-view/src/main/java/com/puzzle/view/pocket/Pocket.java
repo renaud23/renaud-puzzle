@@ -106,18 +106,24 @@ public class Pocket implements IDrawer{
 		return v;
 	}
 	
+	
 	private void refactor(){
 		boolean fini = false;
 		while(!fini){
 			fini = true;
 			for(int i=1;i<this.table.length;i++){
-				if(this.table[i] != null && this.table[i-1] == null){System.out.println(i);
+				if(this.table[i] != null && this.table[i-1] == null){
 					fini = false;
 					
-					// TODO
+					FreeBox b = (FreeBox) this.table[i].getShape();
+					b.getCentre().x -= this.xVar;
+					java.awt.Point[] pt = b.getPoints();
+					for(int j=0;j<4;j++) pt[j].x -= this.xVar;
 					
 					this.table[i-1] = this.table[i];
 					this.table[i] = null;
+					
+					
 				}
 			}
 		}

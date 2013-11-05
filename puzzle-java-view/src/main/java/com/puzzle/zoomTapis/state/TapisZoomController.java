@@ -51,7 +51,7 @@ public class TapisZoomController implements IController,Observer{
 		this.tapis = tapis;
 		this.fenetre = fenetre;
 		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(), tapis);
-		this.drawerTapis = new TapisZoomDrawerDev(fenetre,background,tapis,fenetre.getBuffer(0),this.converter);
+		this.drawerTapis = new TapisZoomDrawer(fenetre,background,tapis,fenetre.getBuffer(0),this.converter);
 		
 		tapis.addObserver(this);
 		

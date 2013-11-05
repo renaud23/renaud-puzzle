@@ -18,7 +18,11 @@ import javax.imageio.ImageIO;
 import com.puzzle.model.Piece;
 import com.puzzle.view.tool.ImageLoadException;
 
-
+/**
+ * singleton de file d'attente de chargement d'image.
+ * @author Renaud
+ *
+ */
 public class PieceLoader extends Observable implements Runnable{
 	
 
