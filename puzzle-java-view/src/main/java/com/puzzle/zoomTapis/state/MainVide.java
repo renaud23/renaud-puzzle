@@ -72,9 +72,8 @@ public class MainVide extends StateAdapter implements Observer{
 		
 			this.controller.getConverter().moveBy(new Point(vx, vy));
 			
-			this.controller.getDrawerSelection().clean();
-			this.controller.getDrawerTapis().draw();
 			this.controller.getDrawerSelection().draw();
+			this.controller.getDrawerTapis().draw();
 		}
 		
 	}
@@ -85,7 +84,6 @@ public class MainVide extends StateAdapter implements Observer{
 		
 		((DrawZoomSelection)this.controller.getDrawerSelection()).setZoomScale(this.controller.getConverter().getScaleX());
 		
-		this.controller.getDrawerSelection().clean();
 		this.controller.getDrawerSelection().draw();
 		this.controller.getDrawerTapis().draw();
 	}
@@ -122,7 +120,6 @@ public class MainVide extends StateAdapter implements Observer{
 				this.controller.setState(state);
 				this.controller.getTapis().deleteObserver(this);
 				
-				this.controller.getDrawerSelection().clean();
 				this.controller.getDrawerSelection().draw();
 				this.controller.repaint();
 			}

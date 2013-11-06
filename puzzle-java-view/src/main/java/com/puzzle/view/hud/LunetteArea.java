@@ -32,7 +32,6 @@ public class LunetteArea extends HudArea implements IDrawer{
 		lunette.setX(this.buffer.getLargeur() - lunette.getLargeur() - 10.0);
 		lunette.setY(10.0);
 		
-		
 		this.shape = new Box( 
 				(int) Math.round(this.lunette.getX()),
 				(int) Math.round(this.lunette.getY()),

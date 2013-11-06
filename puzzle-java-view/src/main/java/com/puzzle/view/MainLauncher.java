@@ -2,14 +2,12 @@ package com.puzzle.view;
 
 import java.awt.Image;
 import java.io.File;
-
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
-import com.puzzle.view.drawer.DrawerDecorator;
 import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudDrawer;
@@ -28,7 +26,7 @@ public class MainLauncher {
 		int hauteur = (int)(12000.0*0.5);
 
 //		String rootPath = System.getProperty("user.dir");
-		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 	
@@ -45,15 +43,10 @@ public class MainLauncher {
 		HudControler hc = new HudControler(c , drw,tapis, f);
 		((TapisZoomController)c).setDrawerSelection(drw);
 		
-		
 		f.getOffscreen().addMouseListener(new MyMouseListener(hc));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(hc));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
-		
-//		MainGaucheController mgc = new MainGaucheController(tapis, f);
-//		f.getMainGauche().getOffscreen().addMouseWheelListener(new MyMouseWheelListener(mgc));
-//		f.getMainGauche().getOffscreen().addMouseListener(new MyMouseListener(mgc));
 
 		MenuView menu = new MenuView();
 		f.getFrame().setJMenuBar(menu.getMenu());

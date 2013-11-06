@@ -68,7 +68,6 @@ public class MainPleine extends StateAdapter implements Observer{
 			this.position.setY(y);
 			this.controller.getDrawSelectionParam().setPosition(this.position);
 			
-			this.controller.getDrawerSelection().clean();
 			this.controller.getDrawerSelection().draw();
 			this.controller.repaint();
 		}
@@ -87,7 +86,7 @@ public class MainPleine extends StateAdapter implements Observer{
 			this.controller.getDrawSelectionParam().setPosition(this.position);
 		
 			this.controller.getConverter().moveBy(new Point(vx, vy));
-			this.controller.getDrawerSelection().clean();
+
 			this.controller.getDrawerTapis().draw();
 			this.controller.getDrawerSelection().draw();
 		}
@@ -100,7 +99,6 @@ public class MainPleine extends StateAdapter implements Observer{
 			cmd.setArgument(!up);
 			cmd.execute();
 			
-			this.controller.getDrawerSelection().clean();
 			this.controller.getDrawerSelection().draw();
 			this.controller.repaint();
 		}
@@ -141,7 +139,6 @@ public class MainPleine extends StateAdapter implements Observer{
 			IState state = new MainVide(this.controller);
 			this.controller.setState(state);
 			
-			this.controller.getDrawerSelection().clean();
 			this.controller.getDrawerSelection().draw();
 			this.controller.repaint();
 		}
@@ -160,7 +157,6 @@ public class MainPleine extends StateAdapter implements Observer{
 				
 				this.controller.getDrawerSelection().setSelection(false);
 				
-				this.controller.getDrawerSelection().clean();
 				this.controller.getDrawerTapis().draw();
 				this.controller.getDrawerSelection().draw();
 			}// if

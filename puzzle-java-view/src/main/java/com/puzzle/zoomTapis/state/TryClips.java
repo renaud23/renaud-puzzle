@@ -28,7 +28,6 @@ public class TryClips extends StateAdapter {
 		if(!this.iscParam.getCandidats().isEmpty()){
 			this.controller.getDrawSelectionParam().setCandidats(iscParam.getCandidats());
 			
-			this.controller.getDrawerSelection().clean();
 			this.controller.getDrawerSelection().draw();
 			this.controller.repaint();
 		}
@@ -57,7 +56,6 @@ public class TryClips extends StateAdapter {
 			this.controller.getDrawSelectionParam().clearCandidats();
 			this.controller.getDrawerSelection().setSelection(false);
 			
-			this.controller.getDrawerSelection().clean();
 			this.controller.getDrawerSelection().draw();
 			this.controller.getDrawerTapis().draw();
 		}
@@ -70,7 +68,6 @@ public class TryClips extends StateAdapter {
 		IState state = new MainPleine(this.controller,this.mouseX,this.mouseY);
 		this.controller.setState(state);
 		
-		this.controller.getDrawerSelection().clean();
 		this.controller.getDrawerSelection().draw();
 		this.controller.repaint();
 		

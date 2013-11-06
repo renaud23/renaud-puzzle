@@ -34,6 +34,7 @@ public class DrawSelection implements IDrawerSelection{
 
 	@Override
 	public void draw() {
+		this.clean();
 		// les candidats
 		for(Piece piece : this.param.getCandidats()){
 			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
