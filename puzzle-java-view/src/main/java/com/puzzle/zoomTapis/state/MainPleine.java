@@ -136,7 +136,7 @@ public class MainPleine extends StateAdapter implements Observer{
 		if(param.isReussi()){
 			this.controller.getDrawerSelection().setSelection(false);
 		
-			IState state = new MainVide(this.controller);
+			IState state = new MainVide(this.controller,this.mouseX,this.mouseY);
 			this.controller.setState(state);
 			
 			this.controller.getDrawerSelection().draw();
@@ -152,7 +152,7 @@ public class MainPleine extends StateAdapter implements Observer{
 			if(st == State.MainDroiteVide){
 				this.controller.getTapis().deleteObserver(this);
 				
-				IState state = new MainVide(this.controller);
+				IState state = new MainVide(this.controller,this.mouseX,this.mouseY);
 				this.controller.setState(state);
 				
 				this.controller.getDrawerSelection().setSelection(false);

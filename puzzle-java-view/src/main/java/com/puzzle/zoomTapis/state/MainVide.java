@@ -23,7 +23,9 @@ public class MainVide extends StateAdapter implements Observer{
 	private double mouseY;
 	
 	
-	public MainVide(TapisZoomController controller) {
+	public MainVide(TapisZoomController controller,double mouseX,double mouseY) {
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
 		this.controller = controller;
 		this.attrParam = new AttrapperMainDroiteParam();
 		this.controller.getTapis().addObserver(this);
@@ -41,7 +43,6 @@ public class MainVide extends StateAdapter implements Observer{
 		cmd.setArgument(this.attrParam);
 		
 		cmd.execute();
-		
 	}
 
 

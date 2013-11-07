@@ -51,7 +51,7 @@ public class TryClips extends StateAdapter {
 				CompositeImageProvider.getInstance().removeBuffer((CompositePiece) param.getDetruit());
 			}
 			
-			IState state = new MainVide(this.controller);
+			IState state = new MainVide(this.controller,this.mouseX,this.mouseY);
 			this.controller.setState(state);
 			this.controller.getDrawSelectionParam().clearCandidats();
 			this.controller.getDrawerSelection().setSelection(false);

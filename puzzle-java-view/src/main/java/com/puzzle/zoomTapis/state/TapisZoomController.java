@@ -3,19 +3,7 @@ package com.puzzle.zoomTapis.state;
 import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.SwingUtilities;
-
-
-
-
-
-
-
-
-
-
-
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
@@ -66,7 +54,7 @@ public class TapisZoomController implements IController,Observer{
 		this.drawSelectionParam = new DrawSelectionParam();
 		this.drawerSelection.setParam(this.drawSelectionParam);
 		
-		this.state = new MainVide(this);
+		this.state = new MainVide(this,0,0);
 		
 		this.drawerSelection.draw();
 		this.drawerTapis.draw();

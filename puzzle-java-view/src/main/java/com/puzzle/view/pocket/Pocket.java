@@ -2,12 +2,7 @@ package com.puzzle.view.pocket;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.swing.JButton;
-
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -23,11 +18,18 @@ import com.puzzle.view.tool.provider.PieceBufferOperation;
 
 
 
+
+
 public class Pocket implements IDrawer{
-	private Map<Piece, Integer> pocket = new HashMap<Piece, Integer>();
-	private PieceInPocket[] table;
-	private JImageBuffer buffer;
 	
+	
+	private PieceInPocket[] table;
+	
+	
+	
+	
+	
+	private JImageBuffer buffer;
 	private HudControler controller;
 	private Fenetre fenetre;
 	private Tapis tapis;
@@ -83,26 +85,34 @@ public class Pocket implements IDrawer{
 		PieceInPocket pi = new PieceInPocket(p,this.controller,this, b, scale);
 		
 		this.controller.addArea(pi);
-		this.putInTable(index,p, pi);
+		this.table[index] = pi;
 		
 	}
 	
 	public void remove(Piece p){
-		Integer index = this.pocket.get(p);
-		if(index != null){
-			this.table[index] = null;
-			this.pocket.remove(p);
-//			this.refactor();
+		for(int i=0;i<this.table.length;i++){
+			if(this.table[i] != null && p == this.table[i].getPiece()){
+				this.table[i] = null;
+			}
 		}
-		
-		
+		this.refactor();
 	}
 	
 	
 	public PieceInPocket get(Piece p){
 		PieceInPocket v = null;
-		Integer index = this.pocket.get(p);
-		if(index != null) v = this.table[index];
+		int i = 0;
+		boolean find = false;
+		
+		while(!find && i<this.table.length){
+			if(this.table[i] != null && p == this.table[i].getPiece()){
+				v = this.table[i];
+				find = true;
+			}
+			
+			i++;
+		}
+		
 		return v;
 	}
 	
@@ -122,8 +132,6 @@ public class Pocket implements IDrawer{
 					
 					this.table[i-1] = this.table[i];
 					this.table[i] = null;
-					
-					
 				}
 			}
 		}
@@ -143,13 +151,7 @@ public class Pocket implements IDrawer{
 		return index;
 	}
 	
-	private void putInTable(int index,Piece p,PieceInPocket pi){
-		if(index != -1 && index < this.table.length){
-			this.table[index] = pi;
-			this.pocket.put(p, index);
-		}
-		
-	}
+	
 	
 	public List<PieceInPocket> getEntry(){
 		List<PieceInPocket> l = new ArrayList<PieceInPocket>();
@@ -187,5 +189,8 @@ public class Pocket implements IDrawer{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	
 	
 }
