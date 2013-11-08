@@ -33,6 +33,7 @@ public class PieceInPocket  extends HudArea implements Observer{
 	private Fenetre fenetre;
 	private HudControler controller;
 	private Pocket pocket;
+	private boolean focused;
 	
 
 	public PieceInPocket(Piece piece,final HudControler controller, Pocket pocket,HudShape shape,double scale){
@@ -65,9 +66,9 @@ public class PieceInPocket  extends HudArea implements Observer{
 	@Override
 	public void mouseEntered() {
 		this.scaleEffectif = this.scale * 2;
-		
+		this.focused = true;
 		MainGauche.getInstance().focused(this.piece);
-//		this.alpha = 1.0f;
+
  		for(PieceInPocket pi : this.pocket.getEntry()){
 			if(pi != this) pi.alpha = 0.4f;
 			
@@ -81,7 +82,7 @@ public class PieceInPocket  extends HudArea implements Observer{
 	@Override
 	public void mouseExited() {
 		this.scaleEffectif = this.scale;
-//		this.alpha = 0.5f;
+		this.focused = false;
 		for(PieceInPocket pi : this.pocket.getEntry()){
 			if(pi != this) pi.alpha = 1.0f;
 		}
@@ -125,5 +126,12 @@ public class PieceInPocket  extends HudArea implements Observer{
 	public double getScaleEffectif() {
 		return scaleEffectif;
 	}
+
+
+	public boolean isFocused() {
+		return focused;
+	}
+	
+	
 
 }

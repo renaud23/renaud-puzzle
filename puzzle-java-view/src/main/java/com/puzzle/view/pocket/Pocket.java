@@ -37,10 +37,12 @@ public class Pocket implements IDrawer{
 	private int xRef = 150;
 	private int yRef = 500;
 	private int xVar = 50;
-	private double scale;
+	private int margeBasse;
+
 	
 	private int limite = MainGauche.getInstance().getSize();
-	private boolean first = true;
+
+
 	
 	public Pocket(HudControler controller, Tapis tapis, Fenetre f){
 		this.controller = controller;
@@ -49,18 +51,15 @@ public class Pocket implements IDrawer{
 		this.table = new PieceInPocket[20];
 		
 		this.buffer = f.getBuffer(1);
+		
 		yRef = (int) (buffer.getHauteur() - 0.1 * buffer.getHauteur());
+		margeBasse = (int)(0.05 * buffer.getHauteur());
 		xRef = (int)(0.1 * buffer.getLargeur());
 		xVar = (buffer.getLargeur() - 2 * xRef) / (limite -1);
-		
 	}
 	
 	public void add(Piece p){
-		if(first){
-			first = false;
-			this.scale = this.buffer.getLargeur() * 0.1;
-			this.scale /= p.getLargeur();
-		}
+		double scale =  (buffer.getHauteur() - this.yRef - this.margeBasse) * 2.0 / Math.max(p.getHauteur(),p.getLargeur());
 		
 		int index = this.getNextIndex();
 		
@@ -164,22 +163,44 @@ public class Pocket implements IDrawer{
 
 	@Override
 	public void draw() {
-		
+		PieceInPocket focused = null;
+		double fx = 0;
+		double fy = 0;
 		for(int i=0;i<this.table.length;i++){
 			if(this.table[i] != null){
 				PieceInPocket pi = this.table[i];
+				
+				
 				FreeBox b = (FreeBox) pi.getShape();
 				Piece piece = pi.getPiece();
 				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
-			
-			double x = (int) Math.round(b.getCentre().getX() - pbo.getImage().getWidth() * pi.getScaleEffectif() / 2.0);
-			double y = (int) Math.round(b.getCentre().getY() - pbo.getImage().getHeight() * pi.getScaleEffectif() / 2.0);
+				double x = (int) Math.round(b.getCentre().getX() - pbo.getImage().getWidth() * pi.getScaleEffectif() / 2.0);
+				double y = (int) Math.round(b.getCentre().getY() - pbo.getImage().getHeight() * pi.getScaleEffectif() / 2.0);
+				if(!pi.isFocused()){
+					
+					
+					this.buffer.drawImage(pbo.getImage(), 
+							x,y,
+							b.getCentre().getX(),b.getCentre().getY(), -piece.getAngle(),
+							pi.getScaleEffectif(), pi.getScaleEffectif(), 
+							1.0f);
+				}else{
+					focused = pi;
+					fx = x;
+					fy = y;
+				}
+			}// if ! null
+		}// for
+		
+		if(focused != null){
+			FreeBox b = (FreeBox) focused.getShape();
+			Piece piece = focused.getPiece();
+			PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
 			this.buffer.drawImage(pbo.getImage(), 
-					x,y,
+					fx,fy,
 					b.getCentre().getX(),b.getCentre().getY(), -piece.getAngle(),
-					pi.getScaleEffectif(), pi.getScaleEffectif(), 
-					pi.getAlpha());
-			}
+					focused.getScaleEffectif(), focused.getScaleEffectif(), 
+					1.0f);
 		}
 		
 	}
