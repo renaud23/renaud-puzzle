@@ -3,7 +3,9 @@ package com.puzzle.zoomTapis.state;
 import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.SwingUtilities;
+
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
@@ -13,10 +15,10 @@ import com.puzzle.view.LoadView;
 import com.puzzle.view.RepaintTask;
 import com.puzzle.view.SaveView;
 import com.puzzle.view.controller.IController;
+import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
-import com.puzzle.view.zoomTapis.DrawZoomSelection;
 import com.puzzle.view.zoomTapis.Lunette;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
@@ -50,7 +52,7 @@ public class TapisZoomController implements IController,Observer{
 		lunette.setHauteur(lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
 		lunette.setX(this.fenetre.getBuffer(1).getLargeur() - lunette.getLargeur() - 10.0);
 		lunette.setY(10.0);
-		this.drawerSelection = new DrawZoomSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter);
+		this.drawerSelection = new DrawSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter);
 		this.drawSelectionParam = new DrawSelectionParam();
 		this.drawerSelection.setParam(this.drawSelectionParam);
 		

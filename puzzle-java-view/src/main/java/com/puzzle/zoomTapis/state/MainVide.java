@@ -9,7 +9,6 @@ import com.puzzle.command.param.AttrapperMainDroiteParam;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
-import com.puzzle.view.zoomTapis.DrawZoomSelection;
 
 
 
@@ -83,7 +82,7 @@ public class MainVide extends StateAdapter implements Observer{
 	public void mouseWheel(boolean up) {
 		this.controller.getConverter().zoom(up);
 		
-		((DrawZoomSelection)this.controller.getDrawerSelection()).setZoomScale(this.controller.getConverter().getScaleX());
+//		((DrawZoomSelection)this.controller.getDrawerSelection()).setZoomScale(this.controller.getConverter().getScaleX());
 		
 		this.controller.getDrawerSelection().draw();
 		this.controller.getDrawerTapis().draw();
@@ -106,7 +105,6 @@ public class MainVide extends StateAdapter implements Observer{
 				this.controller.setState(state);
 				this.controller.getTapis().deleteObserver(this);
 				
-				this.controller.getDrawerSelection().clean();
 				this.controller.getDrawerSelection().draw();
 				this.controller.getDrawerTapis().draw();
 				

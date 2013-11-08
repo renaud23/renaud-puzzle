@@ -2,12 +2,14 @@ package com.puzzle.view;
 
 import java.awt.Image;
 import java.io.File;
+
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
+import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudDrawer;
@@ -15,7 +17,6 @@ import com.puzzle.view.menu.MenuController;
 import com.puzzle.view.menu.MenuView;
 import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.SimpleImageLoader;
-import com.puzzle.view.zoomTapis.DrawZoomSelection;
 import com.puzzle.zoomTapis.state.TapisZoomController;
 
 
@@ -26,7 +27,7 @@ public class MainLauncher {
 		int hauteur = (int)(12000.0*0.5);
 
 //		String rootPath = System.getProperty("user.dir");
-		String rootPath = "C:/Documents and Settings/Administrateur/workspace/puzzle-piece";
+		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
 
 		Tapis tapis = new Tapis(largeur,hauteur);
 	
@@ -39,7 +40,7 @@ public class MainLauncher {
 		IController c = new TapisZoomController(tapis,background, f);
 		
 		// controller du hud
-		IDrawerSelection drw = new HudDrawer((DrawZoomSelection) ((TapisZoomController)c).getDrawerSelection());// decore le drawer de TapisZoomControllerEx
+		IDrawerSelection drw = new HudDrawer((DrawSelection) ((TapisZoomController)c).getDrawerSelection(),f.getBuffer(1),((TapisZoomController)c).getConverter());// decore le drawer de TapisZoomControllerEx
 		HudControler hc = new HudControler(c , drw,tapis, f);
 		((TapisZoomController)c).setDrawerSelection(drw);
 		

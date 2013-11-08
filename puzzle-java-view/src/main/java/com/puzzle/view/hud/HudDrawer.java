@@ -4,23 +4,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.puzzle.view.controller.TapisConverter;
+import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.zoomTapis.DrawZoomSelection;
+import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.Lunette;
 
 
-public class HudDrawer  extends DrawZoomSelection{
+public class HudDrawer  extends DrawSelection{
 	
-	private DrawZoomSelection drawerSelection;
+	
+
+	private DrawSelection drawerSelection;
 	private List<IDrawer> drawable = new ArrayList<IDrawer>();
 	
-	
-	
-	
-	public HudDrawer(DrawZoomSelection drawerSelection) {
+	public HudDrawer(DrawSelection drawerSelection,JImageBuffer buffer, TapisConverter converter) {
+		super(buffer, converter);
 		this.drawerSelection = drawerSelection;
 	}
+	
+//	
+//	public HudDrawer(DrawSelection drawerSelection) {
+//		this.drawerSelection = drawerSelection;
+//	}
 
 	public void addDrawer(IDrawer d){
 		this.drawable.add(d);
@@ -34,13 +41,13 @@ public class HudDrawer  extends DrawZoomSelection{
 	@Override
 	public void draw() {
 		
-		this.drawerSelection.clean();
+//		this.drawerSelection.clean();
 		this.drawerSelection.draw();
 		for(IDrawer d : this.drawable) d.draw();
 	}
 
 	@Override
-	public void clean() {
+	public void clean() {System.out.println("uuu");
 		this.drawerSelection.clean();
 		for(IDrawer d : this.drawable) d.clean();
 	}
@@ -56,20 +63,20 @@ public class HudDrawer  extends DrawZoomSelection{
 		this.drawerSelection.setSelection(selection);
 	}
 
-	@Override
-	public void drawZoom() {
-		this.drawerSelection.drawZoom();
-	}
-
-	@Override
-	public double getZoomScale() {
-		return this.drawerSelection.getZoomScale();
-	}
-
-	@Override
-	public void setZoomScale(double zoomScale) {
-		this.drawerSelection.setZoomScale(zoomScale);
-	}
+//	@Override
+//	public void drawZoom() {
+//		this.drawerSelection.drawZoom();
+//	}
+//
+//	@Override
+//	public double getZoomScale() {
+//		return this.drawerSelection.getZoomScale();
+//	}
+//
+//	@Override
+//	public void setZoomScale(double zoomScale) {
+//		this.drawerSelection.setZoomScale(zoomScale);
+//	}
 
 
 	
