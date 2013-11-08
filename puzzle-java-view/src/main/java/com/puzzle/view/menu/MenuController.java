@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
-
+import javax.swing.JMenuItem;
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
+import com.puzzle.model.MainDroite;
+import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.State;
@@ -23,6 +25,9 @@ public class MenuController extends Observable {
 	
 	private String puzzlePath;
 	private Tapis tapis;
+	/**
+	 * nom et chemin de chaque puzzle.
+	 */
 	private Map<String, String> puzzles;
 
 
@@ -79,9 +84,21 @@ public class MenuController extends Observable {
 		}
 	}
 
+	
+	
+	public void fermerPuzzle(Puzzle p,JMenuItem item){
+		if(MainGauche.getInstance().isEmpty() && MainDroite.getInstance().isEmpty()){
+			this.tapis.oter(p);
+			
+			MenuMessage<JMenuItem> msg = new MenuMessage<JMenuItem>(MenuAction.closePuzzle, item);
+			this.setChanged();
+			this.notifyObservers(msg);
+		}
+	}
+	
 
 	/**
-	 * chargement d'un puzzle et posage alï¿½atoire sur le tapis.
+	 * chargement d'un puzzle et posage aléatoire sur le tapis.
 	 * @param name
 	 */
 	public void loadPuzzle(String name){
@@ -95,6 +112,7 @@ public class MenuController extends Observable {
 			List<Piece> pieces = ld.getPieces();
 			Puzzle puzzle = ld.getPuzzle();
 			puzzle.setPath(rootPuzzlePath);
+			puzzle.setName(name);
 			
 			// placement aletoire des pieces
 			Random rnd = new Random();
@@ -111,13 +129,15 @@ public class MenuController extends Observable {
 			}
 			
 			
-			
-			
 			this.tapis.poser(puzzle);
 			ImageMemoryManager.getInstance().put(puzzle.getId(), new PieceImageProvider(rootPuzzlePath+File.separator+"images"));
 			
 			this.tapis.change();
 			this.tapis.notifyObservers(State.nouveauPuzzle);
+			
+			this.setChanged();
+			MenuMessage<Puzzle> msg = new MenuMessage<Puzzle>(MenuAction.openPuzzle, puzzle);
+			this.notifyObservers(msg);
 			
 		} catch (PuzzleIOException e) {
 			// TODO Auto-generated catch block

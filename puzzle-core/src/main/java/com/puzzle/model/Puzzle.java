@@ -15,6 +15,7 @@ public class Puzzle {
 	private static int nb = 0;
 	
 	private String path;
+	private String name;
 	private int largeur;
 	private int hauteur;
 	private int taille;
@@ -32,49 +33,6 @@ public class Puzzle {
 		this.taille = this.largeur * this.hauteur;
 		this.id = nb++;
 		this.fini = false;
-	}
-	
-	
-	
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
-	public boolean isFini() {
-		return fini;
-	}
-	public void setFini(boolean fini) {
-		this.fini = fini;
-	}
-	public int getLargeur() {
-		return largeur;
-	}
-	public void setLargeur(int largeur) {
-		this.largeur = largeur;
-	}
-	public int getHauteur() {
-		return hauteur;
-	}
-	public void setHauteur(int hauteur) {
-		this.hauteur = hauteur;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public int getTaille() {
-		return taille;
 	}
 	
 	public boolean equals(Object o){
@@ -136,4 +94,54 @@ public class Puzzle {
 		
 		return p;
 	}
+
+
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public boolean isFini() {
+		return fini;
+	}
+	public void setFini(boolean fini) {
+		this.fini = fini;
+	}
+	public int getLargeur() {
+		return largeur;
+	}
+	public void setLargeur(int largeur) {
+		this.largeur = largeur;
+	}
+	public int getHauteur() {
+		return hauteur;
+	}
+	public void setHauteur(int hauteur) {
+		this.hauteur = hauteur;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public int getTaille() {
+		return taille;
+	}
+	
 }

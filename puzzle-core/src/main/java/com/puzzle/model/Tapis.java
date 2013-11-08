@@ -95,7 +95,14 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		this.memoire.remove(piece);
 	}
 	
-	
+	public void oter(Puzzle puzzle){
+		this.puzzles.remove(puzzle);
+		for(Piece p : puzzle.getPieces())
+			this.memoire.remove(p);
+		
+		this.change();
+		this.notifyObservers(State.retirerPuzzle);
+	}
 	
 	
 	

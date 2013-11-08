@@ -199,6 +199,8 @@ public class TapisZoomController implements IController,Observer{
 			State state = (State) arg;
 			if(state == State.nouveauPuzzle){
 				this.drawerTapis.draw();
+			}if(state == State.retirerPuzzle){
+				this.drawerTapis.draw();
 			}else if(state == State.PuzzleFini){
 				System.out.println("Fini!!!");
 			}
