@@ -128,6 +128,9 @@ public class Tapis extends Observable implements Iterable<Piece>{
 		for(Piece p : puzzle.getPieces()){
 			p.poser(this);
 		}
+		
+		this.setChanged();
+		this.notifyObservers(State.nouveauPuzzle);
 	}
 	
 	

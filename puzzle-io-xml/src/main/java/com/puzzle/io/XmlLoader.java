@@ -165,9 +165,10 @@ public class XmlLoader implements PuzzleLoader{
 
 
 	@Override
-	public void loadSave(Tapis tapis) throws PuzzleIOException {
+	public List<Puzzle> loadSave(Tapis tapis) throws PuzzleIOException {
 		tapis.nettoyer();
 		this.sxb = new SAXBuilder();
+		List<Puzzle> puzzles = new ArrayList<Puzzle>();
 		try {
 			this.document = this.sxb.build(this.file);
 			this.root = this.document.getRootElement();	
@@ -192,7 +193,7 @@ public class XmlLoader implements PuzzleLoader{
 					puzzle.put(p.getId(), p);
 				}
 				
-				// plaï¿½age
+				// dépot des pièces
 				for(Element cmpElmt : puzz.getChildren(XmlSaveTag.composite.getName())){
 					CompositePiece cmp = new CompositePiece(
 							Double.valueOf(cmpElmt.getChildText(XmlSaveTag.x.getName())),
@@ -215,9 +216,11 @@ public class XmlLoader implements PuzzleLoader{
 					((MyRect)piece.getRect()).update();
 				}
 				
-				tapis.poser(puzzle);
+//				tapis.poser(puzzle);
+				puzzles.add(puzzle);
 			}	
 			
+			return puzzles;
 		} catch (JDOMException | IOException e) {
 			throw new PuzzleIOException("Impossible de charger une sauvegarde.", e);
 		}

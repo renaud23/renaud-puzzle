@@ -2,6 +2,7 @@ package com.puzzle.view;
 
 import java.awt.Component;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -37,11 +38,13 @@ public class LoadView {
 		
 			XmlLoader ld = new XmlLoader(fc.getSelectedFile());
 			try {
-				ld.loadSave(this.tapis);
+				List<Puzzle> puzzles = ld.loadSave(this.tapis);
 				// les images
-				for(Puzzle puzz : this.tapis.getPuzzles()){
-					ImageMemoryManager.getInstance().put(puzz.getId(), new PieceImageProvider(puzz.getPath()+File.separator+"images"));
+				for(Puzzle puzzle :puzzles){
+					ImageMemoryManager.getInstance().put(puzzle.getId(), new PieceImageProvider(puzzle.getPath()+File.separator+"images"));
+					this.tapis.poser(puzzle);
 				}
+				
 				
 			} catch (PuzzleIOException e) {
 				// TODO Auto-generated catch block

@@ -9,33 +9,37 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-
-
-
-
-
 import com.puzzle.model.Puzzle;
-import com.puzzle.model.State;
 import com.puzzle.view.menu.MenuController.MenuMessage;
+
+
 
 public class MenuView implements Observer{
 	
-	
+	private final MenuController controller;
 	private JMenuBar menu;
 	private JMenu file;
 	private JMenu puzzle;
 	private JMenu ouvert;
+	private JMenuItem importer;
+	private JMenuItem exporter;
 	
-	public MenuView(){
+	public MenuView(MenuController controller){
 		this.menu = new JMenuBar();
-		
+		this.controller = controller;
 		this.file = new JMenu("Fichier");
 		this.puzzle = new JMenu("Puzzle");
 		this.ouvert = new JMenu("Ouvert");
 		this.file.add(this.puzzle);
 		this.file.add(this.ouvert);
+		this.file.addSeparator();
+		
+		this.initImportExport();
+		
 		
 		this.menu.add(this.file);
+		
+		this.controller.addObserver(this);
 	}
 
 
@@ -81,6 +85,28 @@ public class MenuView implements Observer{
 		
 	}
 	
+	
+	private void initImportExport(){
+		this.importer = new JMenuItem("Importer une partie");
+		this.exporter = new JMenuItem("Exporter une partie");
+		
+		this.importer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.importerPartie();
+			}
+		});
+		this.exporter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.exporterPartie();
+			}
+		});
+		
+		
+		this.file.add(this.importer);
+		this.file.add(this.exporter);
+	}
 	
 	
 	public void addPuzzle(String name,MenuController observer){

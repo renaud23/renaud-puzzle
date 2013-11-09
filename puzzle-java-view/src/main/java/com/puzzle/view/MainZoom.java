@@ -23,7 +23,7 @@ import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.tool.provider.PieceImageProvider;
-import com.puzzle.zoomTapis.state.TapisZoomController;
+import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.renaud.manager.TasStatistique;
 
 

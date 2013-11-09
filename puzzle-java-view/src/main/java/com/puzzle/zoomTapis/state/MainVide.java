@@ -9,6 +9,7 @@ import com.puzzle.command.param.AttrapperMainDroiteParam;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
+import com.puzzle.view.zoomTapis.TapisZoomController;
 
 
 

@@ -7,6 +7,7 @@ import com.puzzle.command.param.ClipserParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.view.tool.provider.CompositeImageProvider;
+import com.puzzle.view.zoomTapis.TapisZoomController;
 
 
 public class TryClips extends StateAdapter {

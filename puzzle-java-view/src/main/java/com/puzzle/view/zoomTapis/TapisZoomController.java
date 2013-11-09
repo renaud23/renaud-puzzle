@@ -1,4 +1,4 @@
-package com.puzzle.zoomTapis.state;
+package com.puzzle.view.zoomTapis;
 
 import java.awt.Image;
 import java.util.Observable;
@@ -19,10 +19,8 @@ import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
-import com.puzzle.view.zoomTapis.Lunette;
-import com.puzzle.view.zoomTapis.TapisZoomConverteur;
-import com.puzzle.view.zoomTapis.TapisZoomDrawer;
-import com.puzzle.view.zoomTapis.TapisZoomDrawerDev;
+import com.puzzle.zoomTapis.state.IState;
+import com.puzzle.zoomTapis.state.MainVide;
 
 
 public class TapisZoomController implements IController,Observer{
@@ -152,8 +150,6 @@ public class TapisZoomController implements IController,Observer{
 		MainGauche.getInstance().libere();
 		view.load();
 		
-		this.drawerSelection.clean();
-		this.drawerTapis.clean();
 		this.drawerTapis.draw();
 	}
 

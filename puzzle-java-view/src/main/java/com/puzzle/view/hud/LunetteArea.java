@@ -6,8 +6,8 @@ import com.puzzle.model.Tapis;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.Lunette;
+import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
-import com.puzzle.zoomTapis.state.TapisZoomController;
 
 public class LunetteArea extends HudArea implements IDrawer{
 	private Lunette lunette;
@@ -57,7 +57,7 @@ public class LunetteArea extends HudArea implements IDrawer{
 		double l = this.converter.getLargeur() * sx;
 		double h = this.converter.getHauteur() * sx;
 		
-		this.buffer.fillRect(Color.white, 
+		this.buffer.fillRect(Color.blue, 
 				(int)Math.round(xi), (int)Math.round(yi), 
 				(int)Math.round(l), (int)Math.round(h),0.2f);
 		this.buffer.drawRect(Color.black, 

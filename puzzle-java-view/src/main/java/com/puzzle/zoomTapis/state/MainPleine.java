@@ -2,6 +2,7 @@ package com.puzzle.zoomTapis.state;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PasserDansMainGauche;
@@ -11,6 +12,7 @@ import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.Point;
 import com.puzzle.model.State;
+import com.puzzle.view.zoomTapis.TapisZoomController;
 
 
 

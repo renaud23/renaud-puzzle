@@ -25,14 +25,10 @@ public class Pocket implements IDrawer{
 	
 	private PieceInPocket[] table;
 	
-	
-	
-	
-	
 	private JImageBuffer buffer;
 	private HudControler controller;
-	private Fenetre fenetre;
-	private Tapis tapis;
+//	private Fenetre fenetre;
+//	private Tapis tapis;
 	
 	private int xRef = 150;
 	private int yRef = 500;
@@ -46,8 +42,8 @@ public class Pocket implements IDrawer{
 	
 	public Pocket(HudControler controller, Tapis tapis, Fenetre f){
 		this.controller = controller;
-		this.fenetre = f;
-		this.tapis = tapis;
+//		this.fenetre = f;
+//		this.tapis = tapis;
 		this.table = new PieceInPocket[20];
 		
 		this.buffer = f.getBuffer(1);

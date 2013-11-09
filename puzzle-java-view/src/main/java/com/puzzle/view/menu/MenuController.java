@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
+
 import javax.swing.JMenuItem;
+
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
@@ -17,13 +19,22 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.LoadView;
+import com.puzzle.view.SaveView;
 import com.puzzle.view.menu.MenuView.MenuAction;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.provider.PieceImageProvider;
 
+
 public class MenuController extends Observable {
 	
+	/**
+	 * 
+	 */
 	private String puzzlePath;
+	/**
+	 * 
+	 */
 	private Tapis tapis;
 	/**
 	 * nom et chemin de chaque puzzle.
@@ -43,8 +54,7 @@ public class MenuController extends Observable {
 	}
 	
 	private void checkPuzzlePath(){
-		File file = new File(this.puzzlePath);
-		
+		File file = new File(this.puzzlePath);	
 		
 		if(file.isDirectory()){
 			for(File fld : file.listFiles()){
@@ -83,8 +93,6 @@ public class MenuController extends Observable {
 			this.param = param;
 		}
 	}
-
-	
 	
 	public void fermerPuzzle(Puzzle p,JMenuItem item){
 		if(MainGauche.getInstance().isEmpty() && MainDroite.getInstance().isEmpty()){
@@ -128,12 +136,12 @@ public class MenuController extends Observable {
 				puzzle.put(p.getId(), p);
 			}
 			
-			
-			this.tapis.poser(puzzle);
 			ImageMemoryManager.getInstance().put(puzzle.getId(), new PieceImageProvider(rootPuzzlePath+File.separator+"images"));
+			this.tapis.poser(puzzle);
 			
-			this.tapis.change();
-			this.tapis.notifyObservers(State.nouveauPuzzle);
+			
+//			this.tapis.change();
+//			this.tapis.notifyObservers(State.nouveauPuzzle);
 			
 			this.setChanged();
 			MenuMessage<Puzzle> msg = new MenuMessage<Puzzle>(MenuAction.openPuzzle, puzzle);
@@ -143,9 +151,23 @@ public class MenuController extends Observable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
 	}
 
+	public void importerPartie(){
+		LoadView view = new LoadView(this.tapis,null);
+//		MainDroite.getInstance().libere();
+//		MainGauche.getInstance().libere();
+		view.load();
+		
+	}
+	
+	
+	public void exporterPartie(){
+		if(MainGauche.getInstance().isEmpty() && MainDroite.getInstance().isEmpty()){
+			SaveView sv = new SaveView(this.tapis,null);
+			sv.save();
+		}
+		
+	}
 
 }

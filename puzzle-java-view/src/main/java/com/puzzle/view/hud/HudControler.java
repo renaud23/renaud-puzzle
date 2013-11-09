@@ -15,7 +15,7 @@ import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.pocket.PieceInPocket;
 import com.puzzle.view.pocket.Pocket;
-import com.puzzle.zoomTapis.state.TapisZoomController;
+import com.puzzle.view.zoomTapis.TapisZoomController;
 
 
 public class HudControler implements IController,Observer{
