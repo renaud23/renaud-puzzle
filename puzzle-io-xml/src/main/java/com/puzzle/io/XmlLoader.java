@@ -112,7 +112,7 @@ public class XmlLoader implements PuzzleLoader{
 //		puzzElmt.addContent(new Element(XmlSaveTag.hauteur.getName()).setText(String.valueOf(puzzle.getHauteur())));
 //		puzzElmt.addContent(new Element(XmlSaveTag.taille.getName()).setText(String.valueOf(puzzle.getTaille())));
 		puzzElmt.addContent(new Element(XmlSaveTag.path.getName()).setText(puzzle.getPath()));
-		
+		puzzElmt.addContent(new Element(XmlSaveTag.nom.getName()).setText(puzzle.getName()));
 		
 		Map<CompositePiece, Element> composites = new HashMap<CompositePiece, Element>();
 		for(Piece p : puzzle.getPieces()){
@@ -186,6 +186,7 @@ public class XmlLoader implements PuzzleLoader{
 				List<Piece> pieces = loader.getPieces();
 				Puzzle puzzle = loader.getPuzzle();
 				puzzle.setPath(puzz.getChildText(XmlSaveTag.path.getName()));
+				puzzle.setName(puzz.getChildText(XmlSaveTag.nom.getName()));
 				
 				// liage
 				for(Piece p : pieces){

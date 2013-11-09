@@ -21,7 +21,7 @@ public class Puzzle {
 	private int taille;
 	private boolean fini;
 	private int id;
-	private String nom;
+
 	private Map<Integer, Piece> pieces;
 
 	
@@ -29,7 +29,7 @@ public class Puzzle {
 		this.pieces = new HashMap<Integer,Piece>();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
-		this.nom = nom;
+		this.name = nom;
 		this.taille = this.largeur * this.hauteur;
 		this.id = nb++;
 		this.fini = false;
@@ -132,12 +132,6 @@ public class Puzzle {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
 	}
 
 	public int getTaille() {

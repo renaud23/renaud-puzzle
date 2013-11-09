@@ -157,7 +157,17 @@ public class MenuController extends Observable {
 		LoadView view = new LoadView(this.tapis,null);
 //		MainDroite.getInstance().libere();
 //		MainGauche.getInstance().libere();
-		view.load();
+		try {
+			List<Puzzle> puzzles = view.load();
+			for(Puzzle puzzle : puzzles){
+				this.setChanged();
+				MenuMessage<Puzzle> msg = new MenuMessage<Puzzle>(MenuAction.openPuzzle, puzzle);
+				this.notifyObservers(msg);
+			}
+		} catch (PuzzleIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

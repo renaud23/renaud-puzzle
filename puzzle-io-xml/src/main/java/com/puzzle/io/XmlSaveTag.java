@@ -13,7 +13,8 @@ public enum XmlSaveTag {
 	id("id"), 
 	x("x"),
 	y("y"),
-	angle("angle");
+	angle("angle"),
+	nom("nom");
 	
 	private String name;
 	

@@ -26,8 +26,9 @@ public class LoadView {
 
 
 
-	public void load(){
+	public List<Puzzle> load() throws PuzzleIOException{
 		JFileChooser fc = new JFileChooser();
+		List<Puzzle> puzzles = null;
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers xml de sauvegarde","xml");
 		fc.setFileFilter(filter);
 	
@@ -37,20 +38,16 @@ public class LoadView {
 		
 		
 			XmlLoader ld = new XmlLoader(fc.getSelectedFile());
-			try {
-				List<Puzzle> puzzles = ld.loadSave(this.tapis);
-				// les images
-				for(Puzzle puzzle :puzzles){
-					ImageMemoryManager.getInstance().put(puzzle.getId(), new PieceImageProvider(puzzle.getPath()+File.separator+"images"));
-					this.tapis.poser(puzzle);
-				}
-				
-				
-			} catch (PuzzleIOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			puzzles = ld.loadSave(this.tapis);
+			// les images
+			for(Puzzle puzzle :puzzles){
+				ImageMemoryManager.getInstance().put(puzzle.getId(), new PieceImageProvider(puzzle.getPath()+File.separator+"images"));
+				this.tapis.poser(puzzle);
 			}
+			
+		}//
 		
-		}
+		return puzzles;
 	}
 }

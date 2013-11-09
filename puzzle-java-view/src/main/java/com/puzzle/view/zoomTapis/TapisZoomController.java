@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import javax.swing.SwingUtilities;
 
+import com.puzzle.io.PuzzleIOException;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
@@ -148,7 +149,12 @@ public class TapisZoomController implements IController,Observer{
 		LoadView view = new LoadView(this.tapis,this.fenetre.getFrame());
 		MainDroite.getInstance().libere();
 		MainGauche.getInstance().libere();
-		view.load();
+		try {
+			view.load();
+		} catch (PuzzleIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.drawerTapis.draw();
 	}
