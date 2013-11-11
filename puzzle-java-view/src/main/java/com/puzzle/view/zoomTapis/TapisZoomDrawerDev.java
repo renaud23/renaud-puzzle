@@ -46,7 +46,7 @@ public class TapisZoomDrawerDev implements IDrawer {
 		TapisZoomConverteur cvt = (TapisZoomConverteur)this.converter;
 		
 		
-		// filtrage des pi�ce dans la zone.
+		// filtrage des piece dans la zone.
 		IRect rect = new Rect(cvt.getCorner().getX(), cvt.getCorner().getY(), cvt.getLargeur(), cvt.getHauteur());
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);

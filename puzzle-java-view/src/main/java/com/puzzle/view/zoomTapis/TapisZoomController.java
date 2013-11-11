@@ -3,7 +3,6 @@ package com.puzzle.view.zoomTapis;
 import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.IController;
@@ -27,17 +26,12 @@ public class TapisZoomController implements IController,Observer{
 	protected DrawSelectionParam drawSelectionParam;
 	
 
-	public TapisZoomController(Tapis tapis, Image background, JImageBuffer buffertTapis,JImageBuffer bufferHud) {
+	public TapisZoomController(Tapis tapis, TapisZoomConverteur converter,Image background, JImageBuffer buffertTapis,JImageBuffer bufferHud) {
 		this.tapis = tapis;
 
-		
-		
-
-		this.converter = new TapisZoomConverteur(tapis,buffertTapis.getLargeur(),buffertTapis.getHauteur());
+		this.converter = converter;
 		this.drawerTapis = new TapisZoomDrawer(background,tapis,buffertTapis,this.converter);
 		
-		tapis.addObserver(this);
-
 		this.drawerSelection = new DrawSelection(bufferHud, (TapisZoomConverteur) this.converter);
 		this.drawSelectionParam = new DrawSelectionParam();
 		this.drawerSelection.setParam(this.drawSelectionParam);
@@ -46,6 +40,8 @@ public class TapisZoomController implements IController,Observer{
 		
 		this.drawerSelection.draw();
 		this.drawerTapis.draw();
+		
+		tapis.addObserver(this);
 		
 	}
 	

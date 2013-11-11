@@ -7,7 +7,6 @@ import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectPiece;
-import com.puzzle.model.Tapis;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.hud.FreeBox;
 import com.puzzle.view.hud.HudControler;
@@ -26,8 +25,7 @@ public class Pocket implements IDrawer{
 	
 	private JImageBuffer buffer;
 	private HudControler controller;
-//	private Fenetre fenetre;
-//	private Tapis tapis;
+
 	
 	private int xRef = 150;
 	private int yRef = 500;
@@ -39,10 +37,8 @@ public class Pocket implements IDrawer{
 
 
 	
-	public Pocket(HudControler controller, Tapis tapis, JImageBuffer buffer){
+	public Pocket(HudControler controller, JImageBuffer buffer){
 		this.controller = controller;
-//		this.fenetre = f;
-//		this.tapis = tapis;
 		this.table = new PieceInPocket[20];
 		
 		this.buffer = buffer;

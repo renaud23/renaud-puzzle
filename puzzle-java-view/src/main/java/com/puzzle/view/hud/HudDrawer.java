@@ -24,7 +24,6 @@ public class HudDrawer  extends DrawSelection{
 
 	public void addDrawer(IDrawer d){
 		this.drawable.add(d);
-		
 	}
 	
 	public void removeDrawer(IDrawer d){
@@ -38,7 +37,7 @@ public class HudDrawer  extends DrawSelection{
 	}
 
 	@Override
-	public void clean() {System.out.println("uuu");
+	public void clean() {
 		this.drawerSelection.clean();
 		for(IDrawer d : this.drawable) d.clean();
 	}

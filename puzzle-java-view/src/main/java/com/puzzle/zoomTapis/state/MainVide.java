@@ -2,7 +2,6 @@ package com.puzzle.zoomTapis.state;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.command.AttrapperMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.param.AttrapperMainDroiteParam;
@@ -123,7 +122,6 @@ public class MainVide extends StateAdapter implements Observer{
 				this.controller.getTapis().deleteObserver(this);
 				
 				this.controller.getDrawerSelection().draw();
-//				this.controller.repaint();
 			}
 			
 		}// if

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
-
 import javax.swing.JMenuItem;
-
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
@@ -17,7 +15,6 @@ import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
-import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.LoadView;
 import com.puzzle.view.SaveView;
@@ -138,10 +135,6 @@ public class MenuController extends Observable {
 			
 			ImageMemoryManager.getInstance().put(puzzle.getId(), new PieceImageProvider(rootPuzzlePath+File.separator+"images"));
 			this.tapis.poser(puzzle);
-			
-			
-//			this.tapis.change();
-//			this.tapis.notifyObservers(State.nouveauPuzzle);
 			
 			this.setChanged();
 			MenuMessage<Puzzle> msg = new MenuMessage<Puzzle>(MenuAction.openPuzzle, puzzle);

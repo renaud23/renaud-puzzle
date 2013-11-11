@@ -1,7 +1,6 @@
 package com.puzzle.view.zoomTapis;
 
 import com.puzzle.model.Point;
-import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.TapisConverter;
 
 public class TapisZoomConverteur implements TapisConverter{
@@ -9,13 +8,14 @@ public class TapisZoomConverteur implements TapisConverter{
 	
 	private double scale;
 
-	
-	private Tapis tapis;
+
 	private Point corner;
 	private double largeur;
 	private double hauteur;
 	private double screenLargeur;
 	private double screenHauteur;
+	private double tapisLargeur;
+	private double tapisHauteur;
 
 
 	
@@ -23,11 +23,12 @@ public class TapisZoomConverteur implements TapisConverter{
 	
 
 
-	public TapisZoomConverteur(Tapis tapis,double screenLargeur,double screenHauteur) {
+	public TapisZoomConverteur(double tapisLargeur,double tapisHauteur,double screenLargeur,double screenHauteur) {
 		this.screenLargeur = screenLargeur;
 		this.screenHauteur = screenHauteur;
-
-		this.tapis = tapis;
+		this.tapisLargeur = tapisLargeur;
+		this.tapisHauteur = tapisHauteur;
+	
 		
 
 		// TODO 
@@ -59,14 +60,14 @@ public class TapisZoomConverteur implements TapisConverter{
 		
 		double nextl = this.screenLargeur / next;
 		double nexth = this.screenHauteur / next;// taille obtenue avec cette var
-		double l = Math.min(nextl, this.tapis.getLargeur());
-		double h = Math.min(nexth, this.tapis.getHauteur());// limite impos� par le tapis
+		double l = Math.min(nextl, this.tapisLargeur);
+		double h = Math.min(nexth, this.tapisHauteur);// limite impos� par le tapis
 		
 		double nexts = next;
-		if(l == this.tapis.getLargeur()){
+		if(l == this.tapisLargeur){
 			nexts = this.screenLargeur / l;
 
-		}else if(h == this.tapis.getHauteur()){
+		}else if(h == this.tapisHauteur){
 			nexts = this.screenHauteur / h;
 		}
 		this.scale = nexts;// scale effectif
@@ -83,10 +84,10 @@ public class TapisZoomConverteur implements TapisConverter{
 		y = this.corner.getY() - vy ;
 
 		
-		if(x < -(this.tapis.getLargeur() / 2.0)) x = -(this.tapis.getLargeur() / 2.0);
-		else if((x+this.largeur) > (this.tapis.getLargeur() / 2.0)) x = this.tapis.getLargeur() / 2.0 - this.largeur;
-		if(y > (this.tapis.getHauteur()/2.0)) y = this.tapis.getHauteur()/2.0;
-		else if((y-this.hauteur) < -(this.tapis.getHauteur()/2.0)) y = this.hauteur-this.tapis.getHauteur()/2.0;
+		if(x < -(this.tapisLargeur / 2.0)) x = -(this.tapisLargeur / 2.0);
+		else if((x+this.largeur) > (this.tapisLargeur / 2.0)) x = this.tapisLargeur / 2.0 - this.largeur;
+		if(y > (this.tapisHauteur/2.0)) y = this.tapisHauteur/2.0;
+		else if((y-this.hauteur) < -(this.tapisHauteur/2.0)) y = this.hauteur-this.tapisHauteur/2.0;
 		
 		this.corner.setX(x);
 		this.corner.setY(y);
@@ -124,8 +125,8 @@ public class TapisZoomConverteur implements TapisConverter{
 	
 	public boolean moveBy(Point p){
 		boolean state =true;
-		double ml = this.tapis.getLargeur()/2.0;
-		double mh = this.tapis.getHauteur()/2.0;
+		double ml = this.tapisLargeur/2.0;
+		double mh = this.tapisHauteur/2.0;
 		
 		double x = this.corner.getX() + p.getX() / scale;
 		double y = this.corner.getY() - p.getY() / scale;
@@ -171,8 +172,6 @@ public class TapisZoomConverteur implements TapisConverter{
 	public void setHauteur(double hauteur) {
 		this.hauteur = hauteur;
 	}
-
-	
 	
 	public Point getCorner() {
 		return corner;

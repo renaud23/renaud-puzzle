@@ -2,7 +2,6 @@ package com.puzzle.zoomTapis.state;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PasserDansMainGauche;
@@ -71,7 +70,6 @@ public class MainPleine extends StateAdapter implements Observer{
 			this.controller.getDrawSelectionParam().setPosition(this.position);
 			
 			this.controller.getDrawerSelection().draw();
-//			this.controller.repaint();
 		}
 	}
 
@@ -102,7 +100,6 @@ public class MainPleine extends StateAdapter implements Observer{
 			cmd.execute();
 			
 			this.controller.getDrawerSelection().draw();
-//			this.controller.repaint();
 		}
 		
 	}
@@ -142,7 +139,6 @@ public class MainPleine extends StateAdapter implements Observer{
 			this.controller.setState(state);
 			
 			this.controller.getDrawerSelection().draw();
-//			this.controller.repaint();
 		}
 	}
 

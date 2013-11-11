@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.pocket.PieceInPocket;
@@ -40,7 +38,7 @@ public class HudControler implements IController,Observer{
 		this.areas = new ArrayList<HudArea>();
 	
 		// création des éléments du hud.
-		this.pocket = new Pocket(this,tapis, buffer);
+		this.pocket = new Pocket(this, buffer);
 		this.lunette = new LunetteArea((TapisZoomController) this.controller,buffer);
 		((HudDrawer)this.drawer).addDrawer(this.pocket);
 		((HudDrawer)this.drawer).addDrawer(this.lunette);

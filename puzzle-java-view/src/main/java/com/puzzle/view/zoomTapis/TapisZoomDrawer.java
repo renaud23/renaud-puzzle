@@ -42,7 +42,6 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		this.converter = converter;
 		this.background = background;
 		PieceLoader.getInstance().addObserver(this);
-		
 	}
 	
 
