@@ -105,18 +105,6 @@ public abstract class HudArea implements IController{
 		
 	}
 
-	@Override
-	public void controlPlusS() {
-		
-	}
-
-	@Override
-	public void controlPlusL() {
-		
-	}
-
-	
-
 	public int getIndex() {
 		return index;
 	}

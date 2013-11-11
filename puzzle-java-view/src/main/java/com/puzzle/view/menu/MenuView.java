@@ -18,26 +18,30 @@ public class MenuView implements Observer{
 	
 	private final MenuController controller;
 	private JMenuBar menu;
-	private JMenu file;
+	private JMenu fichier;
+	private JMenu affichage;
 	private JMenu puzzle;
 	private JMenu ouvert;
+	
 	private JMenuItem importer;
 	private JMenuItem exporter;
 	
 	public MenuView(MenuController controller){
 		this.menu = new JMenuBar();
 		this.controller = controller;
-		this.file = new JMenu("Fichier");
+		this.fichier = new JMenu("Fichier");
+		this.affichage = new JMenu("Affichage");
 		this.puzzle = new JMenu("Puzzle");
 		this.ouvert = new JMenu("Ouvert");
-		this.file.add(this.puzzle);
-		this.file.add(this.ouvert);
-		this.file.addSeparator();
+		this.fichier.add(this.puzzle);
+		this.fichier.add(this.ouvert);
+		this.fichier.addSeparator();
 		
 		this.initImportExport();
 		
 		
-		this.menu.add(this.file);
+		this.menu.add(this.fichier);
+		this.menu.add(this.affichage);
 		
 		this.controller.addObserver(this);
 	}
@@ -104,8 +108,8 @@ public class MenuView implements Observer{
 		});
 		
 		
-		this.file.add(this.importer);
-		this.file.add(this.exporter);
+		this.fichier.add(this.importer);
+		this.fichier.add(this.exporter);
 	}
 	
 	

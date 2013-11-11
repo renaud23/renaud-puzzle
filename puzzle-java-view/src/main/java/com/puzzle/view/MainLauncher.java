@@ -37,11 +37,13 @@ public class MainLauncher {
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
 		
 		// controller du tapis
-		IController c = new TapisZoomController(tapis,background, f);
+		IController c = new TapisZoomController(tapis,background, f.getBuffer(0),f.getBuffer(1));
 		
 		// controller du hud
-		IDrawerSelection drw = new HudDrawer((DrawSelection) ((TapisZoomController)c).getDrawerSelection(),f.getBuffer(1),((TapisZoomController)c).getConverter());// decore le drawer de TapisZoomControllerEx
-		HudControler hc = new HudControler(c , drw,tapis, f);
+		IDrawerSelection drw = new HudDrawer(
+				(DrawSelection) ((TapisZoomController)c).getDrawerSelection(),
+				f.getBuffer(1),((TapisZoomController)c).getConverter());// decore le drawer de TapisZoomControllerEx
+		HudControler hc = new HudControler(c , drw,tapis, f.getBuffer(1));
 		((TapisZoomController)c).setDrawerSelection(drw);
 		
 		f.getOffscreen().addMouseListener(new MyMouseListener(hc));
@@ -49,11 +51,10 @@ public class MainLauncher {
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
 
-		
+		// création du menu.
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle");
 		MenuView menu = new MenuView(mc);
 		f.getFrame().setJMenuBar(menu.getMenu());
-//		mc.addObserver(menu);
 		mc.validate();
 		
 		f.getFrame().pack();

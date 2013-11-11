@@ -13,8 +13,6 @@ public class MyKeyListener extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SHIFT) this.controler.keyShiftPressed();
-		else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown()) this.controler.controlPlusS();
-		else if(e.getKeyCode() == KeyEvent.VK_L && e.isControlDown()) this.controler.controlPlusL();
 		else if(e.getKeyCode() == KeyEvent.VK_CONTROL) this.controler.keyControlPressed();
 
 	}
@@ -25,6 +23,4 @@ public class MyKeyListener extends KeyAdapter {
 		else if(e.getKeyCode() == KeyEvent.VK_CONTROL) this.controler.keyControlReleased();
 	}
 	
-	
-
 }

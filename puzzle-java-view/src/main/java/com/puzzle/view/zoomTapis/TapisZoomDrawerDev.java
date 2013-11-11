@@ -3,18 +3,12 @@ package com.puzzle.view.zoomTapis;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.Collections;
-import java.util.List;
-
-import javax.swing.SwingUtilities;
-
-import com.puzzle.model.CompositePiece;
+import java.util.List;import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectCompositePiece;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.Fenetre;
-import com.puzzle.view.RepaintTask;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
@@ -27,7 +21,7 @@ public class TapisZoomDrawerDev implements IDrawer {
 	private IDrawer drawer;
 	private JImageBuffer tapisBuffer;
 	private TapisConverter converter;
-	private Fenetre fenetre;
+
 	
 	
 	/**
@@ -37,20 +31,17 @@ public class TapisZoomDrawerDev implements IDrawer {
 	 * @param tapisBuffer
 	 * @param converter
 	 */
-	public TapisZoomDrawerDev(Fenetre fenetre,Image background,Tapis tapis,JImageBuffer tapisBuffer,
+	public TapisZoomDrawerDev(Image background,Tapis tapis,JImageBuffer tapisBuffer,
 			TapisConverter converter){
 		this.tapis = tapis;
 		this.tapisBuffer = tapisBuffer;
 		this.converter = converter;
-		this.fenetre = fenetre;
-		this.drawer = new TapisZoomDrawer(fenetre,background, tapis, tapisBuffer, converter);
+		this.drawer = new TapisZoomDrawer(background, tapis, tapisBuffer, converter);
 	}
 
 	@Override
 	public void draw() {
 		this.drawer.draw();
-		
-//		this.clean();
 		
 		TapisZoomConverteur cvt = (TapisZoomConverteur)this.converter;
 		
@@ -107,7 +98,6 @@ public class TapisZoomDrawerDev implements IDrawer {
 			
 			
 		}// for
-		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
 	@Override

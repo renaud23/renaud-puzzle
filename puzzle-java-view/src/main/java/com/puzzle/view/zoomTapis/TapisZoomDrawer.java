@@ -8,15 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.SwingUtilities;
-
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.Fenetre;
-import com.puzzle.view.RepaintTask;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.ImageMemoryManager;
@@ -36,16 +31,15 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	private Tapis tapis;
 	private TapisConverter converter;
 	private Image background;
-	private Fenetre fenetre;
+
 	
 	
 
-	public TapisZoomDrawer(Fenetre fenetre,Image background,Tapis tapis,JImageBuffer tapisBuffer,
+	public TapisZoomDrawer(Image background,Tapis tapis,JImageBuffer tapisBuffer,
 			TapisConverter converter) {
 		this.tapisBuffer = tapisBuffer;
 		this.tapis = tapis;
 		this.converter = converter;
-		this.fenetre = fenetre;
 		this.background = background;
 		PieceLoader.getInstance().addObserver(this);
 		

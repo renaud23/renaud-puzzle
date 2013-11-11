@@ -1,8 +1,6 @@
 package com.puzzle.view.hud;
 
-import java.awt.Color;
-
-import com.puzzle.model.Tapis;
+import java.awt.Color;import com.puzzle.model.Tapis;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.Lunette;
@@ -19,9 +17,9 @@ public class LunetteArea extends HudArea implements IDrawer{
 	
 	
 
-	public LunetteArea(TapisZoomController controller) {
+	public LunetteArea(TapisZoomController controller, JImageBuffer buffer) {
 		this.tapis = controller.getTapis();
-		this.buffer = controller.getFenetre().getBuffer(1);
+		this.buffer = buffer;
 		this.converter = controller.getConverter();
 		
 		lunette = new Lunette();

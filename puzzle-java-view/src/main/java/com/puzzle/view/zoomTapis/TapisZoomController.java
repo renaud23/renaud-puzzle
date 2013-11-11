@@ -2,19 +2,16 @@ package com.puzzle.view.zoomTapis;
 
 import java.awt.Image;
 import java.util.Observable;
-import java.util.Observer;import com.puzzle.io.PuzzleIOException;
-import com.puzzle.model.MainDroite;
-import com.puzzle.model.MainGauche;
+import java.util.Observer;
+
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.Fenetre;
-import com.puzzle.view.LoadView;
-import com.puzzle.view.SaveView;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
+import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.zoomTapis.state.IState;
 import com.puzzle.zoomTapis.state.MainVide;
 
@@ -24,42 +21,34 @@ public class TapisZoomController implements IController,Observer{
 	private Tapis tapis;
 	private TapisZoomConverteur converter;
 	private IState state;
-	private Fenetre fenetre;
 	private IDrawer drawerTapis;
 	private IDrawerSelection drawerSelection;
 	
 	protected DrawSelectionParam drawSelectionParam;
 	
 
-	public TapisZoomController(Tapis tapis, Image background, Fenetre fenetre) {
+	public TapisZoomController(Tapis tapis, Image background, JImageBuffer buffertTapis,JImageBuffer bufferHud) {
 		this.tapis = tapis;
-		this.fenetre = fenetre;
-		this.converter = new TapisZoomConverteur(fenetre.getOffscreen(), tapis);
-		this.drawerTapis = new TapisZoomDrawer(fenetre,background,tapis,fenetre.getBuffer(0),this.converter);
+
+		
+		
+
+		this.converter = new TapisZoomConverteur(tapis,buffertTapis.getLargeur(),buffertTapis.getHauteur());
+		this.drawerTapis = new TapisZoomDrawer(background,tapis,buffertTapis,this.converter);
 		
 		tapis.addObserver(this);
-		
-		Lunette lunette = new Lunette();
-		lunette.setTapis(tapis);
-		lunette.setScale(0.2);
-		lunette.setLargeur(this.fenetre.getBuffer(1).getLargeur() * lunette.getScale());
-		lunette.setHauteur(lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
-		lunette.setX(this.fenetre.getBuffer(1).getLargeur() - lunette.getLargeur() - 10.0);
-		lunette.setY(10.0);
-		this.drawerSelection = new DrawSelection(this.fenetre.getBuffer(1), (TapisZoomConverteur) this.converter);
+
+		this.drawerSelection = new DrawSelection(bufferHud, (TapisZoomConverteur) this.converter);
 		this.drawSelectionParam = new DrawSelectionParam();
 		this.drawerSelection.setParam(this.drawSelectionParam);
 		
-		this.state = new MainVide(this,0,0);
+		this.state = new MainVide(this);
 		
 		this.drawerSelection.draw();
 		this.drawerTapis.draw();
 		
 	}
 	
-	
-//	
-
 	@Override
 	public void mouseEntered() {
 		// TODO Auto-generated method stub
@@ -126,32 +115,7 @@ public class TapisZoomController implements IController,Observer{
 	public void keyControlReleased() {
 		this.state.keyControlReleased();
 	}
-
-	@Override
-	public void controlPlusS() {
-		if(this.state instanceof MainVide && MainGauche.getInstance().isEmpty()){
-			SaveView sv = new SaveView(this.tapis,this.fenetre.getFrame());
-			sv.save();	
-		}else{
-			System.out.println("Videz vous les mains !");
-		}
-	}
-
-	@Override
-	public void controlPlusL() {
-		LoadView view = new LoadView(this.tapis,this.fenetre.getFrame());
-		MainDroite.getInstance().libere();
-		MainGauche.getInstance().libere();
-		try {
-			view.load();
-		} catch (PuzzleIOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		this.drawerTapis.draw();
-	}
-
+	
 	public TapisZoomConverteur getConverter() {
 		return converter;
 	}
@@ -172,16 +136,13 @@ public class TapisZoomController implements IController,Observer{
 		return drawerSelection;
 	}
 
-
 	public void setDrawerSelection(IDrawerSelection drawerSelection) {
 		this.drawerSelection = drawerSelection;
 	}
 
-
 	public Tapis getTapis() {
 		return tapis;
 	}
-
 
 	public DrawSelectionParam getDrawSelectionParam() {
 		return drawSelectionParam;
@@ -203,12 +164,5 @@ public class TapisZoomController implements IController,Observer{
 	}
 
 
-	public Fenetre getFenetre() {
-		return fenetre;
-	}
 	
-	
-	
-	
-
 }

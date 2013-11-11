@@ -4,13 +4,9 @@ import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
-
-import com.puzzle.command.Assemblage;
-import com.puzzle.command.Commande;
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
-import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
@@ -81,7 +77,7 @@ public class MainZoom {
 		Fenetre f = new Fenetre(800,600);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+"/background/wood_tapis3.jpg");
-		IController c = new TapisZoomController(tapis,background,f );
+		IController c = new TapisZoomController(tapis,background,f.getBuffer(0) ,f.getBuffer(1));
 		f.getOffscreen().addMouseListener(new MyMouseListener(c));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(c));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(c));

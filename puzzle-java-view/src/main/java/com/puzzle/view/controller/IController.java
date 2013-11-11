@@ -15,7 +15,5 @@ public interface IController {
 	public void keyShiftReleased();
 	public void keyControlPressed();
 	public void keyControlReleased();
-	public void controlPlusS();
-	public void controlPlusL();
 	
 }

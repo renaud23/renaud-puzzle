@@ -79,16 +79,5 @@ public abstract class StateAdapter implements IState{
 		
 	}
 
-	@Override
-	public void controlPlusS() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void controlPlusL() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

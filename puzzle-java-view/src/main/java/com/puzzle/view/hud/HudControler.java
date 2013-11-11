@@ -15,13 +15,13 @@ import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.pocket.PieceInPocket;
 import com.puzzle.view.pocket.Pocket;
+import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 
 
 public class HudControler implements IController,Observer{
 	private IController controller;
 	private Tapis tapis;
-	private Fenetre fenetre;
 	private List<HudArea> areas;
 	private int mouseX;
 	private int mouseY;
@@ -33,18 +33,18 @@ public class HudControler implements IController,Observer{
 	private LunetteArea lunette;
 	
 
-	public HudControler(IController controller, IDrawer drawer,Tapis tapis, Fenetre f) {
+	public HudControler(IController controller, IDrawer drawer,Tapis tapis, JImageBuffer buffer) {
 		this.controller = controller;
 		this.tapis = tapis;
 		this.drawer = drawer;
-		this.fenetre = f;
 		this.areas = new ArrayList<HudArea>();
 	
 		// création des éléments du hud.
-		this.pocket = new Pocket(this,tapis, f);
-		this.lunette = new LunetteArea((TapisZoomController) this.controller);
+		this.pocket = new Pocket(this,tapis, buffer);
+		this.lunette = new LunetteArea((TapisZoomController) this.controller,buffer);
 		((HudDrawer)this.drawer).addDrawer(this.pocket);
 		((HudDrawer)this.drawer).addDrawer(this.lunette);
+		
 		this.addArea(this.lunette);
 		
 		this.tapis.addObserver(this);
@@ -193,16 +193,6 @@ public class HudControler implements IController,Observer{
 		this.controller.keyControlReleased();
 	}
 
-	@Override
-	public void controlPlusS() {
-		this.controller.controlPlusS();
-	}
-
-	@Override
-	public void controlPlusL() {
-		this.controller.controlPlusL();
-	}
-
 	public IController getController() {
 		return controller;
 	}
@@ -223,10 +213,7 @@ public class HudControler implements IController,Observer{
 		return tapis;
 	}
 
-	public Fenetre getFenetre() {
-		return fenetre;
-	}
-	
+
 	
 	
 	

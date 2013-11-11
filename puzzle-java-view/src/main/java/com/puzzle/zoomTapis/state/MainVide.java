@@ -23,6 +23,12 @@ public class MainVide extends StateAdapter implements Observer{
 	private double mouseY;
 	
 	
+	public MainVide(TapisZoomController controller) {
+		this.controller = controller;
+		this.attrParam = new AttrapperMainDroiteParam();
+		this.controller.getTapis().addObserver(this);
+	}
+	
 	public MainVide(TapisZoomController controller,double mouseX,double mouseY) {
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
@@ -60,7 +66,6 @@ public class MainVide extends StateAdapter implements Observer{
 	public void mouseMove(int x, int y, boolean isShiftDown) {
 		this.mouseX = x;
 		this.mouseY = y;
-		
 	}
 
 	@Override
@@ -82,9 +87,6 @@ public class MainVide extends StateAdapter implements Observer{
 	@Override
 	public void mouseWheel(boolean up) {
 		this.controller.getConverter().zoom(up);
-		
-//		((DrawZoomSelection)this.controller.getDrawerSelection()).setZoomScale(this.controller.getConverter().getScaleX());
-		
 		this.controller.getDrawerSelection().draw();
 		this.controller.getDrawerTapis().draw();
 	}

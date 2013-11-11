@@ -8,7 +8,6 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectPiece;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.Fenetre;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.hud.FreeBox;
 import com.puzzle.view.hud.HudControler;
@@ -40,13 +39,13 @@ public class Pocket implements IDrawer{
 
 
 	
-	public Pocket(HudControler controller, Tapis tapis, Fenetre f){
+	public Pocket(HudControler controller, Tapis tapis, JImageBuffer buffer){
 		this.controller = controller;
 //		this.fenetre = f;
 //		this.tapis = tapis;
 		this.table = new PieceInPocket[20];
 		
-		this.buffer = f.getBuffer(1);
+		this.buffer = buffer;
 		
 		yRef = (int) (buffer.getHauteur() - 0.1 * buffer.getHauteur());
 		margeBasse = (int)(0.05 * buffer.getHauteur());
