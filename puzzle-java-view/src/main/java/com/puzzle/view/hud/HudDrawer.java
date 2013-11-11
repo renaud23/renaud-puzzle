@@ -1,15 +1,12 @@
 package com.puzzle.view.hud;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
-import com.puzzle.view.zoomTapis.Lunette;
 
 
 public class HudDrawer  extends DrawSelection{
@@ -23,11 +20,7 @@ public class HudDrawer  extends DrawSelection{
 		super(buffer, converter);
 		this.drawerSelection = drawerSelection;
 	}
-	
-//	
-//	public HudDrawer(DrawSelection drawerSelection) {
-//		this.drawerSelection = drawerSelection;
-//	}
+
 
 	public void addDrawer(IDrawer d){
 		this.drawable.add(d);
@@ -40,8 +33,6 @@ public class HudDrawer  extends DrawSelection{
 
 	@Override
 	public void draw() {
-		
-//		this.drawerSelection.clean();
 		this.drawerSelection.draw();
 		for(IDrawer d : this.drawable) d.draw();
 	}
@@ -62,25 +53,5 @@ public class HudDrawer  extends DrawSelection{
 	public void setSelection(boolean selection) {
 		this.drawerSelection.setSelection(selection);
 	}
-
-//	@Override
-//	public void drawZoom() {
-//		this.drawerSelection.drawZoom();
-//	}
-//
-//	@Override
-//	public double getZoomScale() {
-//		return this.drawerSelection.getZoomScale();
-//	}
-//
-//	@Override
-//	public void setZoomScale(double zoomScale) {
-//		this.drawerSelection.setZoomScale(zoomScale);
-//	}
-
-
-	
-	
-	
 
 }

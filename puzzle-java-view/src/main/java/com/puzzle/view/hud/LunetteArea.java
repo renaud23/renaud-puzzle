@@ -57,6 +57,8 @@ public class LunetteArea extends HudArea implements IDrawer{
 		double l = this.converter.getLargeur() * sx;
 		double h = this.converter.getHauteur() * sx;
 		
+
+		
 		this.buffer.fillRect(Color.blue, 
 				(int)Math.round(xi), (int)Math.round(yi), 
 				(int)Math.round(l), (int)Math.round(h),0.2f);

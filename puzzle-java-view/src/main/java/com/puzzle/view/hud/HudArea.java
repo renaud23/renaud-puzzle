@@ -1,12 +1,7 @@
 package com.puzzle.view.hud;
 
 import com.puzzle.view.controller.IController;
-import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
-
-
-
-
 
 public abstract class HudArea implements IController{
 
@@ -47,13 +42,11 @@ public abstract class HudArea implements IController{
 
 	@Override
 	public void mouseEntered() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -64,73 +57,61 @@ public abstract class HudArea implements IController{
 
 	@Override
 	public void mouseLeftReleased(int x, int y) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseRightReleased(int x, int y) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseMove(int x, int y, boolean isShiftDown) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseDrag(int x, int y) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseWheel(boolean up) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyShiftPressed() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyShiftReleased() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyControlPressed() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyControlReleased() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void controlPlusS() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void controlPlusL() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -143,13 +124,9 @@ public abstract class HudArea implements IController{
 	public void setIndex(int index) {
 		this.index = index;
 	}
-
-
-
+	
 	public HudShape getShape() {
 		return shape;
 	}
-	
-	
-	
+
 }

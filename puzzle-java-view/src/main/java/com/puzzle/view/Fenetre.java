@@ -155,14 +155,25 @@ public class Fenetre {
 		TimerTask task = new TimerTask() {
 			
 			
+			private long count;
+			private int nbSec = 1;
+			private long ellapsed = System.currentTimeMillis();
+			
 			@Override
 			public void run() {
 				SwingUtilities.invokeLater(rt);
+				
+				this.count++;
+				long current = System.currentTimeMillis();
+				if((current - ellapsed)>=1000){
+					nbSec++;
+					ellapsed = current;
+				}
+//				System.out.println(count+" "+nbSec+" "+(count/nbSec));
 			}
 		};
 		
 		this.timer.schedule(task, 0, 10);
-		
 	}
 
 	
