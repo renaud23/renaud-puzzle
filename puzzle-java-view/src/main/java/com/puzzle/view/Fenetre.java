@@ -13,8 +13,11 @@ import java.awt.Rectangle;
 import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import com.puzzle.view.listener.MyWindowListner;
 import com.puzzle.view.tool.JImageBuffer;
@@ -35,6 +38,7 @@ public class Fenetre {
 	private int largeur;
 	private int hauteur;
 	
+	private final Timer timer;	
 	
 	public Fenetre(int largeur,int hauteur){
 		this.frame = new JFrame("JPuzzle");
@@ -53,12 +57,9 @@ public class Fenetre {
 		
 		
 		// main gauche
-//		this.mainGauche = new MainGaucheView((int)(largeur*0.2), hauteur);		
-//		this.mainGauche.getOffscreen().setPreferredSize(new Dimension((int)(largeur*0.2),this.hauteur));
 		this.offscreen.setPreferredSize(new Dimension((int)(largeur*1.0),this.hauteur));
 		this.offscreen.validate();
-		
-//		this.frame.add(this.mainGauche.getOffscreen(),BorderLayout.WEST);
+
 		this.frame.add(this.offscreen,BorderLayout.EAST);
 		
 		this.frame.addComponentListener(new MyWindowListner(this));
@@ -69,9 +70,11 @@ public class Fenetre {
 		this.frame.pack();
 		this.frame.setVisible(true);
 		
+		this.timer = new Timer();
+		this.start();
+		
 		this.frame.repaint();
 		
-//		this.toggleToFullScreen();
 		
 	}
 	
@@ -142,6 +145,24 @@ public class Fenetre {
 		
 		tr.start();
 				   
+	}
+	
+	
+	private void start(){
+		
+		
+		final RepaintTask rt = new RepaintTask(this);
+		TimerTask task = new TimerTask() {
+			
+			
+			@Override
+			public void run() {
+				SwingUtilities.invokeLater(rt);
+			}
+		};
+		
+		this.timer.schedule(task, 0, 10);
+		
 	}
 
 	

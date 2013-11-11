@@ -4,15 +4,12 @@ package com.puzzle.view.pocket;
 
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.SwingUtilities;
 import com.puzzle.command.Commande;
 import com.puzzle.command.PasserDansMainDroite;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.State;
-import com.puzzle.view.Fenetre;
-import com.puzzle.view.RepaintTask;
 import com.puzzle.view.hud.HudArea;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudShape;
@@ -30,14 +27,13 @@ public class PieceInPocket  extends HudArea implements Observer{
 	private double scaleEffectif;
 	
 
-	private Fenetre fenetre;
+
 	private HudControler controller;
 	private Pocket pocket;
 	private boolean focused;
 	
 
 	public PieceInPocket(Piece piece,final HudControler controller, Pocket pocket,HudShape shape,double scale){
-		this.fenetre = controller.getFenetre();
 		this.shape = shape;
 		this.piece = piece;
 		this.scale = scale;
@@ -75,7 +71,6 @@ public class PieceInPocket  extends HudArea implements Observer{
 		}
 
 		this.controller.getDrawer().draw();
-		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
 
@@ -88,7 +83,6 @@ public class PieceInPocket  extends HudArea implements Observer{
 		}
 
 		this.controller.getDrawer().draw();
-		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 
 
@@ -100,7 +94,6 @@ public class PieceInPocket  extends HudArea implements Observer{
 				this.controller.removeArea(this.piece);
 				
 				this.controller.getDrawer().draw();
-				SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 			}
 			
 		}

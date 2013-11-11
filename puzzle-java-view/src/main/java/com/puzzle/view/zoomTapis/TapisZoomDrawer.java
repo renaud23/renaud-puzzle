@@ -89,7 +89,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 			
 		}// for
 		
-		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+//		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
 	
@@ -159,12 +159,12 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 			this.drawComposite((CompositeBufferOperation)arg);
 //			o.deleteObserver(this);
 			
-			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+//			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		}else if(arg instanceof PieceBufferOperation){
 			this.drawPiece((PieceBufferOperation) arg);
 //			o.deleteObserver(this);
 			
-			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+//			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 		}
 	}
 

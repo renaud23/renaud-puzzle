@@ -121,7 +121,7 @@ public class MainVide extends StateAdapter implements Observer{
 				this.controller.getTapis().deleteObserver(this);
 				
 				this.controller.getDrawerSelection().draw();
-				this.controller.repaint();
+//				this.controller.repaint();
 			}
 			
 		}// if

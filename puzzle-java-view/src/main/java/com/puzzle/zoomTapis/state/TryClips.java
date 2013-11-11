@@ -30,7 +30,7 @@ public class TryClips extends StateAdapter {
 			this.controller.getDrawSelectionParam().setCandidats(iscParam.getCandidats());
 			
 			this.controller.getDrawerSelection().draw();
-			this.controller.repaint();
+//			this.controller.repaint();
 		}
 	}
 
@@ -70,7 +70,7 @@ public class TryClips extends StateAdapter {
 		this.controller.setState(state);
 		
 		this.controller.getDrawerSelection().draw();
-		this.controller.repaint();
+//		this.controller.repaint();
 		
 	}
 

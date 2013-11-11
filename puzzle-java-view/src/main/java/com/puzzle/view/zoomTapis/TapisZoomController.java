@@ -2,18 +2,13 @@ package com.puzzle.view.zoomTapis;
 
 import java.awt.Image;
 import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.SwingUtilities;
-
-import com.puzzle.io.PuzzleIOException;
+import java.util.Observer;import com.puzzle.io.PuzzleIOException;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
-import com.puzzle.view.RepaintTask;
 import com.puzzle.view.SaveView;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.DrawSelection;
@@ -63,9 +58,7 @@ public class TapisZoomController implements IController,Observer{
 	}
 	
 	
-	public void repaint(){
-		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
-	}
+//	
 
 	@Override
 	public void mouseEntered() {
