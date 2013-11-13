@@ -61,13 +61,4 @@ public class DrawSelectionParam {
 	public void setPosition(Point position) {
 		this.position = position;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

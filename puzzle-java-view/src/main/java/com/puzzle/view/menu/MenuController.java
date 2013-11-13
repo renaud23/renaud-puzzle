@@ -98,6 +98,9 @@ public class MenuController extends Observable {
 			MenuMessage<JMenuItem> msg = new MenuMessage<JMenuItem>(MenuAction.closePuzzle, item);
 			this.setChanged();
 			this.notifyObservers(msg);
+		}else{
+			this.setChanged();
+			this.notifyObservers(new MenuMessage<String>(MenuAction.afficherMsg, "Reposer toutes les pièces sur le tapis svp."));
 		}
 	}
 	
@@ -169,6 +172,9 @@ public class MenuController extends Observable {
 		if(MainGauche.getInstance().isEmpty() && MainDroite.getInstance().isEmpty()){
 			SaveView sv = new SaveView(this.tapis,null);
 			sv.save();
+		}else{
+			this.setChanged();
+			this.notifyObservers(new MenuMessage<String>(MenuAction.afficherMsg, "Reposer toutes les pièces sur le tapis svp."));
 		}
 		
 	}

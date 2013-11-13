@@ -32,7 +32,7 @@ public class TapisZoomController implements IController,Observer{
 		this.converter = converter;
 		this.drawerTapis = new TapisZoomDrawer(background,tapis,buffertTapis,this.converter);
 		
-		this.drawerSelection = new DrawSelection(bufferHud, (TapisZoomConverteur) this.converter);
+		this.drawerSelection = new DrawSelection(bufferHud, this.converter);
 		this.drawSelectionParam = new DrawSelectionParam();
 		this.drawerSelection.setParam(this.drawSelectionParam);
 		

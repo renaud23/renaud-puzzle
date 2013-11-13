@@ -57,7 +57,7 @@ public class MainLauncher {
 
 		// création du menu.
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle");
-		MenuView menu = new MenuView(mc);
+		MenuView menu = new MenuView(mc,f.getFrame());
 		f.getFrame().setJMenuBar(menu.getMenu());
 		mc.validate();
 		

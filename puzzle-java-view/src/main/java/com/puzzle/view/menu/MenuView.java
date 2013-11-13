@@ -1,5 +1,6 @@
 package com.puzzle.view.menu;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -8,6 +9,7 @@ import java.util.Observer;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import com.puzzle.model.Puzzle;
 import com.puzzle.view.menu.MenuController.MenuMessage;
@@ -17,16 +19,19 @@ import com.puzzle.view.menu.MenuController.MenuMessage;
 public class MenuView implements Observer{
 	
 	private final MenuController controller;
+	private Component root;
 	private JMenuBar menu;
 	private JMenu fichier;
 	private JMenu affichage;
 	private JMenu puzzle;
 	private JMenu ouvert;
 	
+	
 	private JMenuItem importer;
 	private JMenuItem exporter;
 	
-	public MenuView(MenuController controller){
+	public MenuView(MenuController controller,Component root){
+		this.root = root;
 		this.menu = new JMenuBar();
 		this.controller = controller;
 		this.fichier = new JMenu("Fichier");
@@ -38,6 +43,7 @@ public class MenuView implements Observer{
 		this.fichier.addSeparator();
 		
 		this.initImportExport();
+		this.initQuit();
 		
 		
 		this.menu.add(this.fichier);
@@ -77,6 +83,8 @@ public class MenuView implements Observer{
 			}else if(mm.getMessage() == MenuAction.closePuzzle){
 				// on retire l'option correspondante.
 				this.ouvert.remove((JMenuItem) mm.getParam());
+			}if(mm.getMessage() == MenuAction.afficherMsg){
+				JOptionPane.showMessageDialog(this.root, (String)mm.getParam(), "Attention!", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		
@@ -84,9 +92,7 @@ public class MenuView implements Observer{
 	
 	
 	public enum MenuAction{
-		addPuzzle,closePuzzle,openPuzzle;
-		
-		
+		addPuzzle,closePuzzle,openPuzzle,afficherMsg;
 	}
 	
 	
@@ -113,12 +119,37 @@ public class MenuView implements Observer{
 	}
 	
 	
+	private void initQuit(){
+		this.fichier.addSeparator();
+		JMenuItem iq = new JMenuItem("Quitter");
+		iq.addActionListener(new ActionListener() {
+			
+			@Override 
+			public void actionPerformed(ActionEvent e) {
+				int n = JOptionPane.showConfirmDialog(
+					    root,
+					    "Voulez-vous quitter l'application ?",
+					    "Quitter",
+					    JOptionPane.YES_NO_OPTION);
+				
+				if(n == 0) System.exit(0);
+				
+			}
+		});
+		
+		this.fichier.add(iq);
+	}
+	
+	
+	
 	public void addPuzzle(String name,MenuController observer){
 		JMenuItem puzz = new JMenuItem(name);
 		puzz.addActionListener(new PuzzleLoadListener(observer,name));
 		
 		this.puzzle.add(puzz);
 	}
+	
+	
 	
 
 	public JMenuBar getMenu() {
