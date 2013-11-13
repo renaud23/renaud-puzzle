@@ -29,10 +29,12 @@ public class MenuController extends Observable {
 	 * 
 	 */
 	private String puzzlePath;
+	
 	/**
 	 * 
 	 */
 	private Tapis tapis;
+	
 	/**
 	 * nom et chemin de chaque puzzle.
 	 */
