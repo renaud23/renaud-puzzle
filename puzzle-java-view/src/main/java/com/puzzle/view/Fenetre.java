@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import com.puzzle.view.PuzzleCursor.CursorType;
 import com.puzzle.view.listener.MyWindowListner;
 import com.puzzle.view.tool.JImageBuffer;
 
@@ -54,7 +55,7 @@ public class Fenetre {
 		
 		
 		this.offscreen = new Offscreen(this.backBuffers);
-		
+		this.offscreen.setCursor(PuzzleCursor.getInstance().get(CursorType.mainVide));
 		
 		// main gauche
 		this.offscreen.setPreferredSize(new Dimension((int)(largeur*1.0),this.hauteur));

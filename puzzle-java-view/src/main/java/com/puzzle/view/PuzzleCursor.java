@@ -47,8 +47,9 @@ public class PuzzleCursor {
 	
 	public void loadCursor(String path,Point hotspot,CursorType type){
 		Toolkit kit = Toolkit.getDefaultToolkit();
-		Image image = kit.getImage(path); 
+		Image image = kit.getImage(path);//.getScaledInstance(32, 32, Image.SCALE_AREA_AVERAGING); 
 		Cursor cursor = kit.createCustomCursor(image, hotspot, type.getName());
+		
 		
 		curseurs.put(type,cursor);
 	}

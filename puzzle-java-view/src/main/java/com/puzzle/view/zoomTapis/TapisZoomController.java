@@ -1,10 +1,14 @@
 package com.puzzle.view.zoomTapis;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.PuzzleCursor;
+import com.puzzle.view.PuzzleCursor.CursorType;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
@@ -22,13 +26,14 @@ public class TapisZoomController implements IController,Observer{
 	private IState state;
 	private IDrawer drawerTapis;
 	private IDrawerSelection drawerSelection;
+	private Component component;
 	
 	protected DrawSelectionParam drawSelectionParam;
 	
 
-	public TapisZoomController(Tapis tapis, TapisZoomConverteur converter,Image background, JImageBuffer buffertTapis,JImageBuffer bufferHud) {
+	public TapisZoomController(Tapis tapis, TapisZoomConverteur converter,Image background, JImageBuffer buffertTapis,JImageBuffer bufferHud,Component component) {
 		this.tapis = tapis;
-
+		this.component = component;
 		this.converter = converter;
 		this.drawerTapis = new TapisZoomDrawer(background,tapis,buffertTapis,this.converter);
 		
@@ -151,7 +156,15 @@ public class TapisZoomController implements IController,Observer{
 			State state = (State) arg;
 			if(state == State.nouveauPuzzle){
 				this.drawerTapis.draw();
-			}if(state == State.retirerPuzzle){
+			}else if(state == State.MainDroitePleine){
+				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainPleine));
+			}else if(state == State.MainDroiteVide){
+				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainVide));
+			}else if(state == State.gaucheToDroite){
+				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainPleine));
+			}else if(state == State.droiteToGauche){
+				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainVide));
+			}else if(state == State.retirerPuzzle){
 				this.drawerTapis.draw();
 			}else if(state == State.PuzzleFini){
 				System.out.println("Fini!!!");

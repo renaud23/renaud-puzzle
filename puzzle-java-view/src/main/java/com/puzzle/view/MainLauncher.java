@@ -1,8 +1,11 @@
 package com.puzzle.view;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.io.File;
+
 import com.puzzle.model.Tapis;
+import com.puzzle.view.PuzzleCursor.CursorType;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
@@ -29,18 +32,20 @@ public class MainLauncher {
 		int hauteurScreen = 600;
 
 //		String rootPath = System.getProperty("user.dir");
+		String cursorPath = System.getProperty("user.dir")+"/src/main/resources/cursor/";
 		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
 
 		Tapis tapis = new Tapis(largeurTapis,hauteurTapis);
 	
-		
+		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainPleine.png", new Point(13,1), CursorType.mainPleine);
+		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainVide.png", new Point(13,1), CursorType.mainVide);
 		Fenetre f = new Fenetre(largeurScreen,hauteurScreen);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
 		
 		// controller du tapis
 		TapisZoomConverteur cv = new TapisZoomConverteur(largeurTapis,hauteurTapis,largeurScreen,hauteurScreen);
-		IController c = new TapisZoomController(tapis, cv,background, f.getBuffer(0),f.getBuffer(1));
+		IController c = new TapisZoomController(tapis, cv,background, f.getBuffer(0),f.getBuffer(1),f.getOffscreen());
 		
 		// controller du hud
 		IDrawerSelection drw = new HudDrawer(
