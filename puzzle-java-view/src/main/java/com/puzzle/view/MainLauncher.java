@@ -37,8 +37,8 @@ public class MainLauncher {
 
 		Tapis tapis = new Tapis(largeurTapis,hauteurTapis);
 	
-		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainPleine.png", new Point(13,1), CursorType.mainPleine);
-		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainVide.png", new Point(13,1), CursorType.mainVide);
+		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainPleine.png", new Point(2,2), CursorType.mainPleine);
+		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainVide.png", new Point(2,2), CursorType.mainVide);
 		Fenetre f = new Fenetre(largeurScreen,hauteurScreen);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
