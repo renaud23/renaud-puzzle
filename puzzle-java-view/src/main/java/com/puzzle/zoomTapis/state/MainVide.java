@@ -74,7 +74,7 @@ public class MainVide extends StateAdapter implements Observer{
 			double vy = this.mouseY - y;
 			this.mouseX = x;
 			this.mouseY = y;
-		
+
 			this.controller.getConverter().moveBy(new Point(vx, vy));
 			
 			this.controller.getDrawerSelection().draw();

@@ -3,6 +3,8 @@ package com.puzzle.view.menu;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -10,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 import com.puzzle.model.Puzzle;
 import com.puzzle.view.menu.MenuController.MenuMessage;
@@ -23,6 +26,7 @@ public class MenuView implements Observer{
 	private JMenuBar menu;
 	private JMenu fichier;
 	private JMenu affichage;
+	private JMenu tailleEcran;
 	private JMenu puzzle;
 	private JMenu ouvert;
 	
@@ -99,6 +103,10 @@ public class MenuView implements Observer{
 	private void initImportExport(){
 		this.importer = new JMenuItem("Importer une partie");
 		this.exporter = new JMenuItem("Exporter une partie");
+		this.importer.setMnemonic(KeyEvent.VK_I);
+		this.importer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
+		this.exporter.setMnemonic(KeyEvent.VK_E);
+		this.exporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK));
 		
 		this.importer.addActionListener(new ActionListener() {
 			@Override
@@ -122,6 +130,8 @@ public class MenuView implements Observer{
 	private void initQuit(){
 		this.fichier.addSeparator();
 		JMenuItem iq = new JMenuItem("Quitter");
+		iq.setMnemonic(KeyEvent.VK_Q);
+		iq.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
 		iq.addActionListener(new ActionListener() {
 			
 			@Override 
@@ -140,6 +150,10 @@ public class MenuView implements Observer{
 		this.fichier.add(iq);
 	}
 	
+	private void initTailleEcran(){
+		this.tailleEcran = new JMenu("Taille de l'écran");
+		this.affichage.add(this.tailleEcran);
+	}
 	
 	
 	public void addPuzzle(String name,MenuController observer){

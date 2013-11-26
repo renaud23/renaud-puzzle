@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -31,7 +32,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	private Tapis tapis;
 	private TapisConverter converter;
 	private Image background;
-
+//	private Thread thread;
 	
 	
 
@@ -42,11 +43,34 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		this.converter = converter;
 		this.background = background;
 		PieceLoader.getInstance().addObserver(this);
+		
+//		this.thread = new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				draw();
+//			}
+//		});
+//		
+//		this.thread.start();
 	}
 	
-
-	@Override
-	public void draw() {
+//	@Override
+//	public void draw(){
+//		if(this.thread.getState() == State.TERMINATED){
+//			this.thread = new Thread(new Runnable() {
+//				
+//				@Override
+//				public void run() {
+//					drawEx();
+//				}
+//			});
+//			this.thread.start();
+//		}
+//	}
+	
+	
+	public void draw(){
 		this.clean();
 		
 		TapisZoomConverteur cvt = (TapisZoomConverteur)this.converter;
@@ -81,83 +105,84 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 			}// else
 			
 		}// for
-		
-//		SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
 	}
 	
 	
 	private void drawComposite(CompositeBufferOperation sb){
-		JImageBuffer b = sb.getBuffer();
-		double scale = sb.getScale();
-		CompositePiece cmp = sb.getComposite();
-		Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
-		this.converter.convertModelToScreen(p);
-		
-		double x = p.getX();
-		x -= b.getImage().getWidth(null) / 2.0 * this.converter.getScaleX() / scale;
-		
-		double y = p.getY();
-		y -= b.getImage().getHeight(null) / 2.0 * this.converter.getScaleY() / scale;
-		
-		this.tapisBuffer.drawImage(b.getImage(),
-				x,  y, 
-				p.getX() , p.getY(), -cmp.getAngle(), 
-				this.converter.getScaleX()/scale, this.converter.getScaleY()/scale, 
-				1.0f);
+		synchronized (this.tapisBuffer) {
+			JImageBuffer b = sb.getBuffer();
+			double scale = sb.getScale();
+			CompositePiece cmp = sb.getComposite();
+			Point p = new Point(cmp.getCentre().getX(),cmp.getCentre().getY());
+			this.converter.convertModelToScreen(p);
+			
+			double x = p.getX();
+			x -= b.getImage().getWidth(null) / 2.0 * this.converter.getScaleX() / scale;
+			
+			double y = p.getY();
+			y -= b.getImage().getHeight(null) / 2.0 * this.converter.getScaleY() / scale;
+			
+			this.tapisBuffer.drawImage(b.getImage(),
+					x,  y, 
+					p.getX() , p.getY(), -cmp.getAngle(), 
+					this.converter.getScaleX()/scale, this.converter.getScaleY()/scale, 
+					1.0f);
+		}
 	}
 	
 	
 	private void drawPiece(PieceBufferOperation pbo){
-		Point p = new Point(pbo.getPiece().getCentre().getX(),pbo.getPiece().getCentre().getY());
-		this.converter.convertModelToScreen(p);
+		synchronized (this.tapisBuffer) {
+			
+			Point p = new Point(pbo.getPiece().getCentre().getX(),pbo.getPiece().getCentre().getY());
+			this.converter.convertModelToScreen(p);
+			
+			double x = p.getX();
+			x -= pbo.getPiece().getLargeur() / 2.0 * this.converter.getScaleX();
+			
+			double y = p.getY();
+			y -= pbo.getPiece().getHauteur() / 2.0 * this.converter.getScaleY();
 		
-		double x = p.getX();
-		x -= pbo.getPiece().getLargeur() / 2.0 * this.converter.getScaleX();
+			this.tapisBuffer.drawImage(pbo.getImage(),
+					x,  y, 
+					p.getX() , p.getY(), -pbo.getPiece().getAngle(), 
+					this.converter.getScaleX(), this.converter.getScaleY(), 
+					1.0f);
 		
-		double y = p.getY();
-		y -= pbo.getPiece().getHauteur() / 2.0 * this.converter.getScaleY();
-	
-		this.tapisBuffer.drawImage(pbo.getImage(),
-				x,  y, 
-				p.getX() , p.getY(), -pbo.getPiece().getAngle(), 
-				this.converter.getScaleX(), this.converter.getScaleY(), 
-				1.0f);
+		}
 	}
 	
 	
 
 	@Override
 	public void clean() {
-	
-		double scalex = tapis.getLargeur() / background.getWidth(null);
-		double scaley = tapis.getHauteur() / background.getHeight(null);
-		
-		double x = -this.tapis.getLargeur() / 2.0;
-		x -= ((TapisZoomConverteur)converter).getCorner().getX();
-		x *= converter.getScaleX();
-		double y = -this.tapis.getHauteur() / 2.0;
-		y += ((TapisZoomConverteur)converter).getCorner().getY();
-		y *= converter.getScaleY();
-		
-		this.tapisBuffer.drawImage(this.background, 
-				x, y, 
-				0, 0, 0, 
-				scalex*converter.getScaleX(), scaley*converter.getScaleY(), 1.0f);
+		synchronized (this.tapisBuffer) {
+			double scalex = tapis.getLargeur() / background.getWidth(null);
+			double scaley = tapis.getHauteur() / background.getHeight(null);
+			
+			double x = -this.tapis.getLargeur() / 2.0;
+			x -= ((TapisZoomConverteur)converter).getCorner().getX();
+			x *= converter.getScaleX();
+			double y = -this.tapis.getHauteur() / 2.0;
+			y += ((TapisZoomConverteur)converter).getCorner().getY();
+			y *= converter.getScaleY();
+			
+			this.tapisBuffer.drawImage(this.background, 
+					x, y, 
+					0, 0, 0, 
+					scalex*converter.getScaleX(), scaley*converter.getScaleY(), 1.0f);
+		}
 	}
 
 
 	@Override
-	public synchronized void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) {
 		if(arg instanceof CompositeBufferOperation){
 			this.drawComposite((CompositeBufferOperation)arg);
-//			o.deleteObserver(this);
-			
-//			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+
 		}else if(arg instanceof PieceBufferOperation){
 			this.drawPiece((PieceBufferOperation) arg);
-//			o.deleteObserver(this);
-			
-//			SwingUtilities.invokeLater(new RepaintTask(this.fenetre));
+
 		}
 	}
 
