@@ -33,7 +33,7 @@ public class MainLauncher {
 
 //		String rootPath = System.getProperty("user.dir");
 		String cursorPath = System.getProperty("user.dir")+"/src/main/resources/cursor/";
-		String rootPath = "E:/workspaceEclipse/puzzle-pieces";
+		String rootPath = "/home/renaud/workspace/puzzle-pieces";
 
 		Tapis tapis = new Tapis(largeurTapis,hauteurTapis);
 	
@@ -60,7 +60,7 @@ public class MainLauncher {
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
 
-		// création du menu.
+		// crÃ©ation du menu.
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle");
 		MenuView menu = new MenuView(mc,f.getFrame());
 		f.getFrame().setJMenuBar(menu.getMenu());
