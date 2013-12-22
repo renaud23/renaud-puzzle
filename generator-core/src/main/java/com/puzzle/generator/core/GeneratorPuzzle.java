@@ -90,7 +90,7 @@ public class GeneratorPuzzle {
 	 */
 	public void genereAndSave(String buildPath){
 		this.loadTemplate();
-		this.cleanDirectory(buildPath);
+//		this.cleanDirectory(buildPath);
 		int tamponY = 0;
 		for(int j=0;j<this.frame.getHauteur();j++){
 			int tamponX = 0;
