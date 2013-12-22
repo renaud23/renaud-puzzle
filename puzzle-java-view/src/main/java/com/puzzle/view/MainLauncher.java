@@ -33,7 +33,7 @@ public class MainLauncher {
 
 //		String rootPath = System.getProperty("user.dir");
 		String cursorPath = System.getProperty("user.dir")+"/src/main/resources/cursor/";
-		String rootPath = "/home/renaud/workspace/puzzle-pieces";
+		String rootPath = "D:/workspace/puzzle-piece";
 
 		Tapis tapis = new Tapis(largeurTapis,hauteurTapis);
 	

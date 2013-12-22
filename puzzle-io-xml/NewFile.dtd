@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT puzzle (nom,largeur,hauteur,taille)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT largeur (#PCDATA)>
+<!ELEMENT hauteur (#PCDATA)>
+<!ELEMENT taille (#PCDATA)>

@@ -103,6 +103,8 @@ public class GeneratorPanel extends JPanel
 		choixScale.add("3.0");
 		choixScale.add("3.5");
 		choixScale.add("4.0");
+		choixScale.add("5.0");
+		choixScale.add("6.0");
 		
 		for(String idSet : DescriptotFactory.getPieceSetName()){
 			this.choixSetPieces.add(idSet);
