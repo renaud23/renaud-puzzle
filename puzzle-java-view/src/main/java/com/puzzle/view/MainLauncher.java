@@ -80,9 +80,10 @@ public class MainLauncher {
 		f.addObserver(lunette);
 		f.addObserver(pocket);
 		
+		
 
 		// creation du menu.
-		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle");
+		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle",f);
 		MenuView menu = new MenuView(mc,f.getFrame());
 		f.getFrame().setJMenuBar(menu.getMenu());
 		mc.validate();

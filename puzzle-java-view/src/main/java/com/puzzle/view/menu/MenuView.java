@@ -48,6 +48,7 @@ public class MenuView implements Observer{
 		
 		this.initImportExport();
 		this.initQuit();
+		this.initTailleEcran();
 		
 		
 		this.menu.add(this.fichier);
@@ -151,8 +152,24 @@ public class MenuView implements Observer{
 	}
 	
 	private void initTailleEcran(){
-		this.tailleEcran = new JMenu("Taille de l'Ã©cran");
+		this.tailleEcran = new JMenu("Taille de l'écran");
 		this.affichage.add(this.tailleEcran);
+		
+		this.tailleEcran.add(this.addTaille(200, 200));
+		this.tailleEcran.add(this.addTaille(400, 400));
+		this.tailleEcran.add(this.addTaille(600, 600));
+	}
+	
+	private JMenuItem addTaille(final int l,final int h){
+		JMenuItem it = new JMenuItem(l+"x"+h);
+		it.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.resize(l, h);
+			}
+		});
+		
+		return it;
 	}
 	
 	

@@ -138,6 +138,8 @@ public class DrawSelection implements IDrawerSelection,Observer{
 		if(o instanceof Fenetre){
 			Fenetre f = (Fenetre)o;
 			this.buffer = f.getBuffer(1);
+			
+			this.draw();
 		}
 		
 	}	

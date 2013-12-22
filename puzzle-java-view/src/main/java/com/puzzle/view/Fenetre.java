@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -42,6 +43,7 @@ public class Fenetre extends Observable{
 	
 	public Fenetre(int largeur,int hauteur){
 		this.frame = new JFrame("JPuzzle");
+//		this.frame.setLayout(null);
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
@@ -56,19 +58,25 @@ public class Fenetre extends Observable{
 		this.offscreen = new Offscreen(this.backBuffers);
 		this.offscreen.setCursor(PuzzleCursor.getInstance().get(CursorType.mainVide));
 		
-		// main gauche
-		this.offscreen.setPreferredSize(new Dimension((int)(largeur*1.0),this.hauteur));
-		this.offscreen.validate();
+//		this.offscreen.setBounds(new Rectangle(0, 0, largeur, hauteur));
+		this.offscreen.setPreferredSize(new Dimension(this.largeur,this.hauteur));
+		
 
-		this.frame.add(this.offscreen,BorderLayout.EAST);
+		this.frame.add(this.offscreen);
+//		this.offscreen.setLocation(0, 0);
+//		this.offscreen.setSize(largeur, hauteur);
+//		this.frame.add(this.offscreen,BorderLayout.EAST);
 		
 		this.frame.addComponentListener(new MyWindowListner(this));
 		
 		
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setResizable(false);
+		
+		this.offscreen.validate();
+		this.frame.validate();
 		this.frame.pack();
 		this.frame.setVisible(true);
+		this.frame.setResizable(false);
 		
 		this.timer = new Timer();
 		this.start();
@@ -87,15 +95,28 @@ public class Fenetre extends Observable{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.backBuffers = new ArrayList<JImageBuffer>();
-		this.backBuffers.add(0, new JImageBuffer(new Color(200,50,50,255),(int)(largeur*1.0),this.hauteur));
+		this.backBuffers.add(0, new JImageBuffer(new Color(200,50,50,255),largeur,hauteur));
 		this.backBuffers.get(0).transparentClean();
-		this.backBuffers.add(1, new JImageBuffer(new Color(0,0,0,0), (int)(largeur*1.0),this.hauteur));
+		this.backBuffers.add(1, new JImageBuffer(new Color(0,0,0,0), largeur,hauteur));
 		this.backBuffers.get(1).transparentClean();
 		
 		this.offscreen.setBackBuffer(this.backBuffers);
+		
+		
 		 
 		this.setChanged();
 		this.notifyObservers(FenetreMessage.resize);
+		
+		this.frame.setResizable(true);
+		this.offscreen.setPreferredSize(new Dimension(this.largeur,this.hauteur));
+		this.offscreen.validate();
+		this.frame.revalidate();
+		this.repaint();
+		this.frame.pack();
+		
+		this.frame.setResizable(false);
+		
+		
 	}
 
 	public enum FenetreMessage{

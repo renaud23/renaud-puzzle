@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
+
 import javax.swing.JMenuItem;
+
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
@@ -16,6 +18,7 @@ import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
 import com.puzzle.view.SaveView;
 import com.puzzle.view.menu.MenuView.MenuAction;
@@ -35,6 +38,8 @@ public class MenuController extends Observable {
 	 */
 	private Tapis tapis;
 	
+	private Fenetre fenetre;
+	
 	/**
 	 * nom et chemin de chaque puzzle.
 	 */
@@ -42,10 +47,11 @@ public class MenuController extends Observable {
 
 
 
-	public MenuController(Tapis tapis,String puzzlePath) {
+	public MenuController(Tapis tapis,String puzzlePath,Fenetre fenetre) {
 		this.tapis = tapis;
 		this.puzzlePath = puzzlePath;
 		this.puzzles = new HashMap<String, String>();
+		this.fenetre = fenetre;
 	}
 	
 	public void validate(){
@@ -167,6 +173,15 @@ public class MenuController extends Observable {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void resize(int largeur,int hauteur){
+		if(MainGauche.getInstance().isEmpty() && MainDroite.getInstance().isEmpty()){
+			this.fenetre.resize(largeur, hauteur);
+		}else{
+			this.setChanged();
+			this.notifyObservers(new MenuMessage<String>(MenuAction.afficherMsg, "Reposer toutes les pièces sur le tapis svp."));
+		}
 	}
 	
 	

@@ -31,8 +31,8 @@ public class LunetteArea extends HudArea implements IDrawer,Observer{
 		lunette.setScale(0.2);
 		lunette.setLargeur(this.buffer.getLargeur() * lunette.getScale());
 		lunette.setHauteur(lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
-		lunette.setX(this.buffer.getLargeur() - lunette.getLargeur() - 10.0);
-		lunette.setY(10.0);
+		lunette.setX(this.buffer.getLargeur() - lunette.getLargeur() - 0.01*buffer.getLargeur());
+		lunette.setY(0.01*buffer.getHauteur());
 		
 		this.shape = new Box( 
 				(int) Math.round(this.lunette.getX()),
@@ -75,15 +75,15 @@ public class LunetteArea extends HudArea implements IDrawer,Observer{
 		if(o instanceof Fenetre){
 			Fenetre f = (Fenetre)o;
 			
-			int oldLargeur = this.buffer.getLargeur();
-			this.buffer = f.getBuffer(1);
 			
-			double scale =  this.buffer.getLargeur() / oldLargeur;
+			this.buffer = f.getBuffer(1);
 	
 			lunette.setLargeur(this.buffer.getLargeur() * lunette.getScale());
 			lunette.setHauteur(lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
-			lunette.setX(this.buffer.getLargeur() - lunette.getLargeur() - 10.0 * scale);
-			lunette.setY(10.0 * scale);
+			lunette.setX(this.buffer.getLargeur() - lunette.getLargeur() - 0.01*buffer.getLargeur());
+			lunette.setY(0.01*buffer.getHauteur());
+			
+			this.draw();
 		}
 	}
 	

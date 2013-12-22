@@ -165,6 +165,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		}else if(o instanceof Fenetre){
 			Fenetre f = (Fenetre)o;
 			this.tapisBuffer = f.getBuffer(0);
+			this.draw();
 		}
 	}
 
