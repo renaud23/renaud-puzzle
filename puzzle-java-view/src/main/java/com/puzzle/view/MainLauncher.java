@@ -12,6 +12,7 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.DrawSelection;
+import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudDrawer;
@@ -21,6 +22,7 @@ import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
+import com.puzzle.view.zoomTapis.TapisZoomDrawer;
 
 
 public class MainLauncher {
@@ -45,7 +47,13 @@ public class MainLauncher {
 		
 		// controller du tapis
 		TapisZoomConverteur cv = new TapisZoomConverteur(largeurTapis,hauteurTapis,largeurScreen,hauteurScreen);
-		IController c = new TapisZoomController(tapis, cv,background, f.getBuffer(0),f.getBuffer(1),f.getOffscreen());
+		
+		TapisZoomDrawer tapisDrawer = new TapisZoomDrawer(background,tapis,f.getBuffer(0),cv);
+		IDrawerSelection selectionDrawer = new DrawSelection(f.getBuffer(1), cv);
+		
+		
+//		IController c = new TapisZoomController(tapis, cv,background, f.getBuffer(0),f.getBuffer(1),f.getOffscreen());
+		IController c = new TapisZoomController(tapis, cv, tapisDrawer,selectionDrawer,f.getOffscreen());
 		
 		// controller du hud
 		IDrawerSelection drw = new HudDrawer(
@@ -60,7 +68,7 @@ public class MainLauncher {
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
 
-		// création du menu.
+		// creation du menu.
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle");
 		MenuView menu = new MenuView(mc,f.getFrame());
 		f.getFrame().setJMenuBar(menu.getMenu());

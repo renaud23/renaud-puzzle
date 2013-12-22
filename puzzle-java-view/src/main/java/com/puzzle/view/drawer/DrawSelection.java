@@ -106,6 +106,10 @@ public class DrawSelection implements IDrawerSelection{
 	
 
 
+	public void setBuffer(JImageBuffer buffer) {
+		this.buffer = buffer;
+	}
+
 	public boolean isSelection() {
 		return selection;
 	}

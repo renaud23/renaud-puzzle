@@ -1,24 +1,17 @@
 package com.puzzle.view;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
 import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
 import com.puzzle.view.PuzzleCursor.CursorType;
 import com.puzzle.view.listener.MyWindowListner;
 import com.puzzle.view.tool.JImageBuffer;

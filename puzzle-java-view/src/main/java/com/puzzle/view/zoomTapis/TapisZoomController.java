@@ -47,7 +47,29 @@ public class TapisZoomController implements IController,Observer{
 		this.drawerTapis.draw();
 		
 		tapis.addObserver(this);
+	}
+	
+	public TapisZoomController(
+			Tapis tapis, 
+			TapisZoomConverteur converter,
+			TapisZoomDrawer tapisDrawer,
+			IDrawerSelection drawerSelection,
+			Component component) {
+		this.tapis = tapis;
+		this.component = component;
+		this.converter = converter;
+		this.drawerTapis = tapisDrawer;
 		
+		this.drawerSelection = drawerSelection;
+		this.drawSelectionParam = new DrawSelectionParam();
+		this.drawerSelection.setParam(this.drawSelectionParam);
+		
+		this.state = new MainVide(this);
+		
+		this.drawerSelection.draw();
+		this.drawerTapis.draw();
+		
+		tapis.addObserver(this);
 	}
 	
 	@Override
