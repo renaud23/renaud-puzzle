@@ -157,7 +157,11 @@ public class MenuView implements Observer{
 		
 		this.tailleEcran.add(this.addTaille(200, 200));
 		this.tailleEcran.add(this.addTaille(400, 400));
+		this.tailleEcran.add(this.addTaille(600, 400));
 		this.tailleEcran.add(this.addTaille(600, 600));
+		this.tailleEcran.add(this.addTaille(800, 600));
+		this.tailleEcran.add(this.addTaille(800, 800));
+		
 	}
 	
 	private JMenuItem addTaille(final int l,final int h){

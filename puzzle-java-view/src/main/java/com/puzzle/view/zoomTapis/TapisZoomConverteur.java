@@ -187,11 +187,11 @@ public class TapisZoomConverteur implements TapisConverter,Observer{
 			Fenetre f = (Fenetre)o;
 			this.screenHauteur = f.getHauteur();
 			this.screenLargeur = f.getLargeur();
+		
+			this.scale = 0.2;
 			this.largeur = this.screenLargeur / this.scale;
 			this.hauteur = this.screenLargeur / this.scale;
-			
-			this.zoom(true);
-			this.zoom(false);
+			this.corner = new Point(-this.largeur / 2.0,this.hauteur / 2.0);
 		}
 	}
 	
