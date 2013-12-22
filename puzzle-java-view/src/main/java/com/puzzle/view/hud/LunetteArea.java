@@ -77,8 +77,12 @@ public class LunetteArea extends HudArea implements IDrawer{
 
 	@Override
 	public void clean() {
-		// TODO Auto-generated method stub
-		
+		this.buffer.clean();
+	}
+
+	@Override
+	public void setBuffer(JImageBuffer buffer) {
+		this.buffer = buffer;
 	}
 
 

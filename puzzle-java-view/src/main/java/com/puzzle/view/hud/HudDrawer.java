@@ -45,7 +45,6 @@ public class HudDrawer  extends DrawSelection{
 	@Override
 	public void setParam(DrawSelectionParam param) {
 		this.drawerSelection.setParam(param);
-		
 	}
 
 	@Override

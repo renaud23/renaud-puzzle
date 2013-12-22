@@ -3,11 +3,7 @@ package com.puzzle.view.hud;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
-import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
@@ -17,7 +13,7 @@ import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 
 
-public class HudControler implements IController,Observer{
+public class HudControler implements IController{
 	private IController controller;
 	private Tapis tapis;
 	private List<HudArea> areas;
@@ -27,8 +23,8 @@ public class HudControler implements IController,Observer{
 	
 	private HudArea focused;
 	
-	private Pocket pocket;
-	private LunetteArea lunette;
+//	private Pocket pocket;
+//	private LunetteArea lunette;
 	
 
 	public HudControler(IController controller, IDrawer drawer,Tapis tapis, JImageBuffer buffer) {
@@ -38,14 +34,15 @@ public class HudControler implements IController,Observer{
 		this.areas = new ArrayList<HudArea>();
 	
 		// création des éléments du hud.
-		this.pocket = new Pocket(this, buffer);
-		this.lunette = new LunetteArea((TapisZoomController) this.controller,buffer);
-		((HudDrawer)this.drawer).addDrawer(this.pocket);
-		((HudDrawer)this.drawer).addDrawer(this.lunette);
+//		this.pocket = new Pocket(this, buffer);
+//		this.tapis.addObserver(this.pocket);
+//		this.lunette = new LunetteArea((TapisZoomController) this.controller,buffer);
+//		((HudDrawer)this.drawer).addDrawer(this.pocket);
+//		((HudDrawer)this.drawer).addDrawer(this.lunette);
 		
-		this.addArea(this.lunette);
+//		this.addArea(this.lunette);
 		
-		this.tapis.addObserver(this);
+//		this.tapis.addObserver(this);
 		this.drawer.draw();
 	}
 
@@ -65,15 +62,6 @@ public class HudControler implements IController,Observer{
 		return cdt;
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		if(arg == State.droiteToGauche){
-			Piece piece = MainGauche.getInstance().getLastIn();
-			this.pocket.add(piece);
-		}
-		
-	}
-	
 	
 	public void addArea(HudArea a){
 		this.areas.add(a);
@@ -83,12 +71,6 @@ public class HudControler implements IController,Observer{
 		this.areas.remove(a);
 	}
 	
-	public void removeArea(Piece p){
-		PieceInPocket pi = this.pocket.get(p);
-		
-		this.areas.remove(pi);
-		this.pocket.remove(p);
-	}
 
 	@Override
 	public void mouseEntered() {

@@ -91,7 +91,9 @@ public class PieceInPocket  extends HudArea implements Observer{
 		if(arg == State.gaucheToDroite){
 			if(this.piece == MainDroite.getInstance().getContenu()){
 				this.controller.getTapis().deleteObserver(this);
-				this.controller.removeArea(this.piece);
+
+				this.controller.removeArea(this.pocket.get(this.piece));
+				this.pocket.remove(this.piece);
 				
 				this.controller.getDrawer().draw();
 			}

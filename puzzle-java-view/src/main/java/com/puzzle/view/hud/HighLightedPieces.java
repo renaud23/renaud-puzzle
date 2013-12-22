@@ -9,6 +9,7 @@ import com.puzzle.view.controller.ControllerMessage;
 import com.puzzle.view.controller.ControllerMessage.Message;
 import com.puzzle.view.controller.ControllerMessage.TypeMessage;
 import com.puzzle.view.drawer.IDrawer;
+import com.puzzle.view.tool.JImageBuffer;
 
 public class HighLightedPieces implements IDrawer{
 	private List<Piece> candidats;
@@ -21,6 +22,12 @@ public class HighLightedPieces implements IDrawer{
 
 	@Override
 	public void clean() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setBuffer(JImageBuffer buffer) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -104,4 +104,10 @@ public class TapisZoomDrawerDev implements IDrawer {
 	public void clean() {
 		this.drawer.clean();
 	}
+
+	@Override
+	public void setBuffer(JImageBuffer buffer) {
+		this.tapisBuffer = buffer;
+		
+	}
 }

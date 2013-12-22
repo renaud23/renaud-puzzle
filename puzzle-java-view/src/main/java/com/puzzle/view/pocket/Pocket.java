@@ -3,10 +3,14 @@ package com.puzzle.view.pocket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectPiece;
+import com.puzzle.model.State;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.hud.FreeBox;
 import com.puzzle.view.hud.HudControler;
@@ -18,7 +22,7 @@ import com.puzzle.view.tool.provider.PieceBufferOperation;
 
 
 
-public class Pocket implements IDrawer{
+public class Pocket  implements IDrawer,Observer{
 	
 	
 	private PieceInPocket[] table;
@@ -198,8 +202,21 @@ public class Pocket implements IDrawer{
 
 	@Override
 	public void clean() {
+		this.buffer.clean();
 		
-		
+	}
+
+	@Override
+	public void setBuffer(JImageBuffer buffer) {
+		this.buffer = buffer;
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg) {
+		if(arg == State.droiteToGauche){
+			Piece piece = MainGauche.getInstance().getLastIn();
+			this.add(piece);
+		}
 	}
 	
 	

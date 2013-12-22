@@ -12,12 +12,13 @@ import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.DrawSelection;
-import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudDrawer;
+import com.puzzle.view.hud.LunetteArea;
 import com.puzzle.view.menu.MenuController;
 import com.puzzle.view.menu.MenuView;
+import com.puzzle.view.pocket.Pocket;
 import com.puzzle.view.tool.ImageLoadException;
 import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.TapisZoomController;
@@ -45,23 +46,25 @@ public class MainLauncher {
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
 		
-		// controller du tapis
 		TapisZoomConverteur cv = new TapisZoomConverteur(largeurTapis,hauteurTapis,largeurScreen,hauteurScreen);
 		
+		// Drawer
 		TapisZoomDrawer tapisDrawer = new TapisZoomDrawer(background,tapis,f.getBuffer(0),cv);
-		IDrawerSelection selectionDrawer = new DrawSelection(f.getBuffer(1), cv);
+		DrawSelection selectionDrawer = new DrawSelection(f.getBuffer(1), cv);
+		HudDrawer hudDrawer = new HudDrawer(selectionDrawer,f.getBuffer(1),cv);// decore le drawer de TapisZoomControllerEx
 		
+		// Controller
+		TapisZoomController c = new TapisZoomController(tapis, cv, tapisDrawer,selectionDrawer,f.getOffscreen());
 		
-//		IController c = new TapisZoomController(tapis, cv,background, f.getBuffer(0),f.getBuffer(1),f.getOffscreen());
-		IController c = new TapisZoomController(tapis, cv, tapisDrawer,selectionDrawer,f.getOffscreen());
+		HudControler hc = new HudControler(c , hudDrawer,tapis, f.getBuffer(1));
+		c.setDrawerSelection(hudDrawer);
 		
-		// controller du hud
-		IDrawerSelection drw = new HudDrawer(
-				(DrawSelection) ((TapisZoomController)c).getDrawerSelection(),
-				f.getBuffer(1),
-				cv);// decore le drawer de TapisZoomControllerEx
-		HudControler hc = new HudControler(c , drw,tapis, f.getBuffer(1));
-		((TapisZoomController)c).setDrawerSelection(drw);
+		Pocket pocket = new Pocket(hc, f.getBuffer(1));
+		LunetteArea lunette = new LunetteArea(c,f.getBuffer(1));
+		tapis.addObserver(pocket);
+		hudDrawer.addDrawer(pocket);
+		hudDrawer.addDrawer(lunette);
+		hc.addArea(lunette);
 		
 		f.getOffscreen().addMouseListener(new MyMouseListener(hc));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(hc));
