@@ -2,10 +2,13 @@ package com.puzzle.view.drawer;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.JImageBuffer;
@@ -15,7 +18,7 @@ import com.puzzle.view.tool.provider.PieceBufferOperation;
 
 
 
-public class DrawSelection implements IDrawerSelection{
+public class DrawSelection implements IDrawerSelection,Observer{
 	private JImageBuffer buffer;
 	private TapisConverter converter;
 	private DrawSelectionParam param;
@@ -126,6 +129,17 @@ public class DrawSelection implements IDrawerSelection{
 	@Override
 	public void clean() {
 		this.buffer.transparentClean();
+	}
+
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof Fenetre){
+			Fenetre f = (Fenetre)o;
+			this.buffer = f.getBuffer(1);
+		}
+		
 	}	
 	
 }

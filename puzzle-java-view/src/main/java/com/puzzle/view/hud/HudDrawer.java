@@ -9,7 +9,7 @@ import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
 
 
-public class HudDrawer  extends DrawSelection{
+public class HudDrawer  extends DrawSelection {
 	
 	
 
@@ -52,4 +52,5 @@ public class HudDrawer  extends DrawSelection{
 		this.drawerSelection.setSelection(selection);
 	}
 
+	
 }

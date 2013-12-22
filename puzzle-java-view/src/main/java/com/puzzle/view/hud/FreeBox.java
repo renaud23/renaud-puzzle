@@ -82,6 +82,12 @@ public class FreeBox implements HudShape{
 		return hauteur;
 	}
 
+	@Override
+	public void scale(double scale) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 	

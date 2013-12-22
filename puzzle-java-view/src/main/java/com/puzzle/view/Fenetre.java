@@ -8,17 +8,20 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
 import com.puzzle.view.PuzzleCursor.CursorType;
 import com.puzzle.view.listener.MyWindowListner;
 import com.puzzle.view.tool.JImageBuffer;
 
 
 
-public class Fenetre {
+public class Fenetre extends Observable{
 	
 	
 
@@ -32,6 +35,9 @@ public class Fenetre {
 	private int largeur;
 	private int hauteur;
 	
+	
+
+
 	private final Timer timer;	
 	
 	public Fenetre(int largeur,int hauteur){
@@ -77,12 +83,24 @@ public class Fenetre {
 		this.offscreen.cleanListener();
 	}
 	
-	public void resize(){
-		// TODO
+	public void resize(int largeur,int hauteur){
+		this.largeur = largeur;
+		this.hauteur = hauteur;
+		this.backBuffers = new ArrayList<JImageBuffer>();
+		this.backBuffers.add(0, new JImageBuffer(new Color(200,50,50,255),(int)(largeur*1.0),this.hauteur));
+		this.backBuffers.get(0).transparentClean();
+		this.backBuffers.add(1, new JImageBuffer(new Color(0,0,0,0), (int)(largeur*1.0),this.hauteur));
+		this.backBuffers.get(1).transparentClean();
+		
+		this.offscreen.setBackBuffer(this.backBuffers);
 		 
+		this.setChanged();
+		this.notifyObservers(FenetreMessage.resize);
 	}
 
-
+	public enum FenetreMessage{
+		resize;
+	}
 
 
 	public JFrame getFrame() {
@@ -170,5 +188,12 @@ public class Fenetre {
 		this.timer.schedule(task, 0, 10);
 	}
 
-	
+	public int getLargeur() {
+		return largeur;
+	}
+
+
+	public int getHauteur() {
+		return hauteur;
+	}
 }

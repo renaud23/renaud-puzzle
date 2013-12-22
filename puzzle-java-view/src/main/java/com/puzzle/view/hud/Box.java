@@ -56,4 +56,10 @@ public class Box implements HudShape {
 		return state;
 	}
 
+	@Override
+	public void scale(double scale) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

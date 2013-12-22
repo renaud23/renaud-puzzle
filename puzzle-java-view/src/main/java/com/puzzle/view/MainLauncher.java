@@ -55,21 +55,31 @@ public class MainLauncher {
 		
 		// Controller
 		TapisZoomController c = new TapisZoomController(tapis, cv, tapisDrawer,selectionDrawer,f.getOffscreen());
-		
-		HudControler hc = new HudControler(c , hudDrawer,tapis, f.getBuffer(1));
+		HudControler hc = new HudControler(c , hudDrawer,tapis);
 		c.setDrawerSelection(hudDrawer);
 		
+		// les éléments du hud
 		Pocket pocket = new Pocket(hc, f.getBuffer(1));
 		LunetteArea lunette = new LunetteArea(c,f.getBuffer(1));
 		tapis.addObserver(pocket);
 		hudDrawer.addDrawer(pocket);
 		hudDrawer.addDrawer(lunette);
 		hc.addArea(lunette);
+		hudDrawer.draw();
 		
+		
+		// les listeners
 		f.getOffscreen().addMouseListener(new MyMouseListener(hc));
 		f.getOffscreen().addMouseMotionListener(new MyMouseMotionListener(hc));
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
+		
+		f.addObserver(tapisDrawer);
+		f.addObserver(selectionDrawer);
+		f.addObserver(cv);
+		f.addObserver(lunette);
+		f.addObserver(pocket);
+		
 
 		// creation du menu.
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle");
@@ -78,6 +88,7 @@ public class MainLauncher {
 		mc.validate();
 		
 		f.getFrame().pack();
+
 	}
 	
 	

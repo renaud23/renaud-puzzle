@@ -28,7 +28,7 @@ public class MyWindowListner implements ComponentListener{
 
 	@Override
 	public void componentResized(ComponentEvent e) {
-			this.fenetre.resize();
+//			this.fenetre.resize();
 	
 	}
 

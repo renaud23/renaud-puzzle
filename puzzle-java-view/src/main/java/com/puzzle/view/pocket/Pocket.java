@@ -11,6 +11,7 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectPiece;
 import com.puzzle.model.State;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.hud.FreeBox;
 import com.puzzle.view.hud.HudControler;
@@ -212,10 +213,28 @@ public class Pocket  implements IDrawer,Observer{
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg) {
+	public void update(Observable o, Object arg) {
 		if(arg == State.droiteToGauche){
 			Piece piece = MainGauche.getInstance().getLastIn();
 			this.add(piece);
+		}if(o instanceof Fenetre){
+			Fenetre f = (Fenetre)o;
+//			JImageBuffer newBuffer = f.getBuffer(1);
+//			
+//			double scaleX = newBuffer.getLargeur() / this.buffer.getLargeur();
+//			double scaleY = newBuffer.getHauteur() / this.buffer.getHauteur();
+//			
+//			for()
+//			
+//					
+//			this.buffer = newBuffer;
+			
+			this.buffer = f.getBuffer(1);
+			
+			yRef = (int) (buffer.getHauteur() - 0.1 * buffer.getHauteur());
+			margeBasse = (int)(0.05 * buffer.getHauteur());
+			xRef = (int)(0.1 * buffer.getLargeur());
+			xVar = (buffer.getLargeur() - 2 * xRef) / (limite -1);
 		}
 	}
 	

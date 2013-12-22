@@ -24,7 +24,7 @@ public abstract class HudArea implements IController{
 	public HudArea(HudShape shape, HudTask task, JImageBuffer buffer) {
 		this.shape = shape;
 		this.task = task;
-		this.buffer = buffer;
+		this.buffer = null;
 	}
 
 	public boolean isIn(int x,int y){

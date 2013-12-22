@@ -1,9 +1,13 @@
 package com.puzzle.view.zoomTapis;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import com.puzzle.model.Point;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.TapisConverter;
 
-public class TapisZoomConverteur implements TapisConverter{
+public class TapisZoomConverteur implements TapisConverter,Observer{
 
 	
 	private double scale;
@@ -175,6 +179,17 @@ public class TapisZoomConverteur implements TapisConverter{
 	
 	public Point getCorner() {
 		return corner;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof Fenetre){
+			Fenetre f = (Fenetre)o;
+			this.screenHauteur = f.getHauteur();
+			this.screenLargeur = f.getLargeur();
+			this.largeur = this.screenLargeur / this.scale;
+			this.hauteur = this.screenLargeur / this.scale;
+		}
 	}
 	
 	

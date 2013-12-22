@@ -1,13 +1,17 @@
 package com.puzzle.view.hud;
 
-import java.awt.Color;import com.puzzle.model.Tapis;
+import java.awt.Color;import java.util.Observable;
+import java.util.Observer;
+
+import com.puzzle.model.Tapis;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.Lunette;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 
-public class LunetteArea extends HudArea implements IDrawer{
+public class LunetteArea extends HudArea implements IDrawer,Observer{
 	private Lunette lunette;
 	private Tapis tapis;
 	private JImageBuffer buffer;
@@ -66,7 +70,22 @@ public class LunetteArea extends HudArea implements IDrawer{
 	}
 
 	
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof Fenetre){
+			Fenetre f = (Fenetre)o;
+			
+			int oldLargeur = this.buffer.getLargeur();
+			this.buffer = f.getBuffer(1);
+			
+			double scale =  this.buffer.getLargeur() / oldLargeur;
 	
+			lunette.setLargeur(this.buffer.getLargeur() * lunette.getScale());
+			lunette.setHauteur(lunette.getLargeur() * tapis.getHauteur() / tapis.getLargeur());
+			lunette.setX(this.buffer.getLargeur() - lunette.getLargeur() - 10.0 * scale);
+			lunette.setY(10.0 * scale);
+		}
+	}
 	
 	
 	@Override
@@ -85,10 +104,5 @@ public class LunetteArea extends HudArea implements IDrawer{
 		this.buffer = buffer;
 	}
 
-
-	
-	
-	
-	
 
 }

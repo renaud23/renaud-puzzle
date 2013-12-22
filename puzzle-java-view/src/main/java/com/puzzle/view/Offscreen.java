@@ -67,6 +67,10 @@ public class Offscreen extends JPanel{
 	}
 	
 	
+	public void setBackBuffer(List<JImageBuffer> backBuffer) {
+		this.backBuffer = backBuffer;
+	}
+
 	public int getLargeur(){
 		return this.backBuffer.get(0).getLargeur();
 	}

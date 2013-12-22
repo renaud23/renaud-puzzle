@@ -13,6 +13,7 @@ import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
+import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.IDrawer;
 import com.puzzle.view.tool.ImageMemoryManager;
@@ -43,31 +44,9 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		this.converter = converter;
 		this.background = background;
 		PieceLoader.getInstance().addObserver(this);
-		
-//		this.thread = new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				draw();
-//			}
-//		});
-//		
-//		this.thread.start();
 	}
 	
-//	@Override
-//	public void draw(){
-//		if(this.thread.getState() == State.TERMINATED){
-//			this.thread = new Thread(new Runnable() {
-//				
-//				@Override
-//				public void run() {
-//					drawEx();
-//				}
-//			});
-//			this.thread.start();
-//		}
-//	}
+
 	
 	
 	public void draw(){
@@ -183,6 +162,9 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		}else if(arg instanceof PieceBufferOperation){
 			this.drawPiece((PieceBufferOperation) arg);
 
+		}else if(o instanceof Fenetre){
+			Fenetre f = (Fenetre)o;
+			this.tapisBuffer = f.getBuffer(0);
 		}
 	}
 
