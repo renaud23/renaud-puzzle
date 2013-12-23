@@ -479,7 +479,7 @@ public class GeneratorPuzzle {
 	/**
 	 * Nettoie le r�pertoire de destination.
 	 */
-	private void cleanDirectory(String path){
+	public void cleanDirectory(String path){
 		FileUtils.cleanDirectory(path);
 	}
 	
