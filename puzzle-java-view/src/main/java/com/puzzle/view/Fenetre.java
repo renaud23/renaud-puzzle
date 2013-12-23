@@ -3,6 +3,7 @@ package com.puzzle.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -43,7 +44,7 @@ public class Fenetre extends Observable{
 	
 	public Fenetre(int largeur,int hauteur){
 		this.frame = new JFrame("JPuzzle");
-//		this.frame.setLayout(null);
+		this.frame.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		

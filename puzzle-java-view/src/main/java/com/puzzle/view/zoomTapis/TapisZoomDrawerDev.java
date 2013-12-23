@@ -15,7 +15,7 @@ import com.puzzle.view.tool.JImageBuffer;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
-public class TapisZoomDrawerDev implements IDrawer {
+public class TapisZoomDrawerDev extends TapisZoomDrawer implements IDrawer {
 	
 	private Tapis tapis;
 	private IDrawer drawer;
@@ -33,6 +33,7 @@ public class TapisZoomDrawerDev implements IDrawer {
 	 */
 	public TapisZoomDrawerDev(Image background,Tapis tapis,JImageBuffer tapisBuffer,
 			TapisConverter converter){
+		super(background,tapis,tapisBuffer,converter);
 		this.tapis = tapis;
 		this.tapisBuffer = tapisBuffer;
 		this.converter = converter;

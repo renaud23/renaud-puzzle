@@ -24,6 +24,7 @@ import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
+import com.puzzle.view.zoomTapis.TapisZoomDrawerDev;
 
 
 public class MainLauncher {
