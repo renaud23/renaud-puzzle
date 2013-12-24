@@ -2,10 +2,6 @@ package com.puzzle.view.hud;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
-import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;

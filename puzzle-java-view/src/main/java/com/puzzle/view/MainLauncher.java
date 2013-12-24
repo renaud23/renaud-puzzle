@@ -3,16 +3,13 @@ package com.puzzle.view;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
-
 import com.puzzle.model.Tapis;
 import com.puzzle.view.PuzzleCursor.CursorType;
-import com.puzzle.view.controller.IController;
 import com.puzzle.view.controller.MyKeyListener;
 import com.puzzle.view.controller.MyMouseListener;
 import com.puzzle.view.controller.MyMouseMotionListener;
 import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.DrawSelection;
-import com.puzzle.view.drawer.IDrawerSelection;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudDrawer;
 import com.puzzle.view.hud.LunetteArea;
@@ -24,7 +21,6 @@ import com.puzzle.view.tool.SimpleImageLoader;
 import com.puzzle.view.zoomTapis.TapisZoomController;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
-import com.puzzle.view.zoomTapis.TapisZoomDrawerDev;
 
 
 public class MainLauncher {
@@ -45,7 +41,7 @@ public class MainLauncher {
 		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainVide.png", new Point(2,2), CursorType.mainVide);
 		Fenetre f = new Fenetre(largeurScreen,hauteurScreen);
 		
-		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"wood_tapis3.jpg");
+		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"moquette3.jpg");
 		
 		TapisZoomConverteur cv = new TapisZoomConverteur(largeurTapis,hauteurTapis,largeurScreen,hauteurScreen);
 		
@@ -75,13 +71,12 @@ public class MainLauncher {
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
 		
+		// pour le redim
 		f.addObserver(tapisDrawer);
 		f.addObserver(selectionDrawer);
 		f.addObserver(cv);
 		f.addObserver(lunette);
 		f.addObserver(pocket);
-		
-		
 
 		// creation du menu.
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle",f);

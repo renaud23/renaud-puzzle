@@ -3,20 +3,9 @@ package com.puzzle.view.hud;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
-import com.puzzle.model.MainGauche;
-import com.puzzle.model.Piece;
-import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
-import com.puzzle.view.Fenetre;
 import com.puzzle.view.controller.IController;
 import com.puzzle.view.drawer.IDrawer;
-import com.puzzle.view.pocket.PieceInPocket;
-import com.puzzle.view.pocket.Pocket;
-import com.puzzle.view.tool.JImageBuffer;
-import com.puzzle.view.zoomTapis.TapisZoomController;
 
 
 public class HudControler implements IController{
