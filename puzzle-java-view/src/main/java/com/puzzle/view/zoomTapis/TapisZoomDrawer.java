@@ -169,10 +169,6 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 		}
 	}
 
-	@Override
-	public void setBuffer(JImageBuffer buffer) {
-		this.tapisBuffer = buffer;
-	}
 
 
 }

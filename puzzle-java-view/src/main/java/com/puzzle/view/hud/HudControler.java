@@ -184,6 +184,7 @@ public class HudControler implements IController{
 	@Override
 	public void keyZPressed() {
 		this.controller.keyZPressed();
+		for(HudArea h : this.areas) h.keyZPressed();
 	}
 
 
@@ -193,6 +194,7 @@ public class HudControler implements IController{
 	@Override
 	public void keyZReleased() {
 		this.controller.keyZReleased();
+		for(HudArea h : this.areas) h.keyZReleased();
 	}
 
 

@@ -207,27 +207,14 @@ public class Pocket  implements IDrawer,Observer{
 		
 	}
 
-	@Override
-	public void setBuffer(JImageBuffer buffer) {
-		this.buffer = buffer;
-	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if(arg == State.droiteToGauche){
 			Piece piece = MainGauche.getInstance().getLastIn();
 			this.add(piece);
-		}if(o instanceof Fenetre){
+		}else if(o instanceof Fenetre){
 			Fenetre f = (Fenetre)o;
-//			JImageBuffer newBuffer = f.getBuffer(1);
-//			
-//			double scaleX = newBuffer.getLargeur() / this.buffer.getLargeur();
-//			double scaleY = newBuffer.getHauteur() / this.buffer.getHauteur();
-//			
-//			for()
-//			
-//					
-//			this.buffer = newBuffer;
 			
 			this.buffer = f.getBuffer(1);
 			

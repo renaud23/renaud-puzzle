@@ -99,10 +99,10 @@ public class LunetteArea extends HudArea implements IDrawer,Observer{
 		this.buffer.clean();
 	}
 
-	@Override
-	public void setBuffer(JImageBuffer buffer) {
-		this.buffer = buffer;
-	}
+//	@Override
+//	public void setBuffer(JImageBuffer buffer) {
+//		this.buffer = buffer;
+//	}
 
 	
 

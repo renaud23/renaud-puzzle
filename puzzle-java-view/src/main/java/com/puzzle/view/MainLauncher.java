@@ -3,6 +3,7 @@ package com.puzzle.view;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
+
 import com.puzzle.model.Tapis;
 import com.puzzle.view.PuzzleCursor.CursorType;
 import com.puzzle.view.controller.MyKeyListener;
@@ -12,6 +13,7 @@ import com.puzzle.view.controller.MyMouseWheelListener;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.hud.HudControler;
 import com.puzzle.view.hud.HudDrawer;
+import com.puzzle.view.hud.Loupe;
 import com.puzzle.view.hud.LunetteArea;
 import com.puzzle.view.menu.MenuController;
 import com.puzzle.view.menu.MenuView;
@@ -58,10 +60,13 @@ public class MainLauncher {
 		// les éléments du hud
 		Pocket pocket = new Pocket(hc, f.getBuffer(1));
 		LunetteArea lunette = new LunetteArea(c,f.getBuffer(1));
+		Loupe loupe = new Loupe(hc,tapis,f.getBuffer(1),f.getBuffer(0));
 		tapis.addObserver(pocket);
 		hudDrawer.addDrawer(pocket);
 		hudDrawer.addDrawer(lunette);
+		hudDrawer.addDrawer(loupe);
 		hc.addArea(lunette);
+		hc.addArea(loupe);
 		hudDrawer.draw();
 		
 		
@@ -71,12 +76,13 @@ public class MainLauncher {
 		f.getOffscreen().addMouseWheelListener(new MyMouseWheelListener(hc));
 		f.getFrame().addKeyListener(new MyKeyListener(hc));
 		
-		// pour le redim
+		// pour le redim de la fenêtre
 		f.addObserver(tapisDrawer);
 		f.addObserver(selectionDrawer);
 		f.addObserver(cv);
 		f.addObserver(lunette);
 		f.addObserver(pocket);
+		f.addObserver(loupe);
 
 		// creation du menu.
 		MenuController mc = new MenuController(tapis,rootPath+File.separator+"puzzle",f);
