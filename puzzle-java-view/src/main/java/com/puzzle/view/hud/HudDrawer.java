@@ -2,6 +2,7 @@ package com.puzzle.view.hud;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.puzzle.view.controller.TapisConverter;
 import com.puzzle.view.drawer.DrawSelection;
 import com.puzzle.view.drawer.DrawSelectionParam;
@@ -53,7 +54,10 @@ public class HudDrawer  extends DrawSelection {
 	}
 
 
-
+	@Override
+	public void setZoom(double zoom) {
+		this.drawerSelection.setZoom(zoom);
+	}
 
 	
 }

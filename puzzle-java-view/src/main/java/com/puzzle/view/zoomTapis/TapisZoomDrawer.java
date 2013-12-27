@@ -33,7 +33,7 @@ public class TapisZoomDrawer implements IDrawer,Observer{
 	private Tapis tapis;
 	private TapisConverter converter;
 	private Image background;
-//	private Thread thread;
+
 	
 	
 

@@ -194,6 +194,17 @@ public class TapisZoomController implements IController,Observer{
 		}
 	}
 
+	@Override
+	public void keyZPressed() {
+		this.state.keyZPressed();
+	}
+
+	@Override
+	public void keyZReleased() {
+		this.state.keyZReleased();
+		
+	}
+
 
 	
 }

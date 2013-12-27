@@ -79,5 +79,17 @@ public abstract class StateAdapter implements IState{
 		
 	}
 
+	@Override
+	public void keyZPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyZReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

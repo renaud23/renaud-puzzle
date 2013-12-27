@@ -178,6 +178,24 @@ public class HudControler implements IController{
 	}
 
 
+
+
+
+	@Override
+	public void keyZPressed() {
+		this.controller.keyZPressed();
+	}
+
+
+
+
+
+	@Override
+	public void keyZReleased() {
+		this.controller.keyZReleased();
+	}
+
+
 	
 	
 	

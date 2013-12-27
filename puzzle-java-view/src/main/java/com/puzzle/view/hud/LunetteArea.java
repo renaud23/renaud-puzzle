@@ -104,5 +104,7 @@ public class LunetteArea extends HudArea implements IDrawer,Observer{
 		this.buffer = buffer;
 	}
 
+	
+
 
 }

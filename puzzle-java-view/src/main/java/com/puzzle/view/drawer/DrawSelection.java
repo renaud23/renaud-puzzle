@@ -23,6 +23,7 @@ public class DrawSelection implements IDrawerSelection,Observer{
 	private TapisConverter converter;
 	private DrawSelectionParam param;
 	private boolean selection;
+	private double zoom;
 	
 	
 
@@ -31,6 +32,7 @@ public class DrawSelection implements IDrawerSelection,Observer{
 		this.buffer = buffer;
 		this.converter = converter;
 		this.selection = false;
+		this.zoom = 1.0;
 	}
 
 	
@@ -72,12 +74,12 @@ public class DrawSelection implements IDrawerSelection,Observer{
 				y -= this.param.getAncre().getY() * this.converter.getScaleY();
 				x -= cx;
 				y -= cy;
-				
+		
 				this.buffer.drawImage(
 						pbo.getImage(), 
 					x,y, 
 					this.param.getPosition().getX(), this.param.getPosition().getY(), -this.param.getComponent().getAngle(), 
-					this.converter.getScaleX(), this.converter.getScaleY(), 1.0f);
+					this.converter.getScaleX()*this.zoom, this.converter.getScaleY()*this.zoom, 1.0f);
 			}else if(this.param.getComponent() instanceof CompositePiece){
 				CompositeBufferOperation sb = CompositeImageProvider.getInstance().getElement((CompositePiece)this.param.getComponent());
 				Image img = sb.getBuffer().getImage();
@@ -142,6 +144,16 @@ public class DrawSelection implements IDrawerSelection,Observer{
 			this.draw();
 		}
 		
-	}	
+	}
+
+
+
+	@Override
+	public void setZoom(double zoom) {
+		this.zoom = zoom;
+	}
+
+
+
 	
 }

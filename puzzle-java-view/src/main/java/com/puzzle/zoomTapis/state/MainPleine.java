@@ -18,7 +18,8 @@ import com.puzzle.view.zoomTapis.TapisZoomController;
 public class MainPleine extends StateAdapter implements Observer{
 	private TapisZoomController controller;
 	private Point position;
-	
+
+	private boolean isZPressed;
 	private boolean isShiftPressed;
 	private boolean isRightClick;
 	private double mouseX;
@@ -50,7 +51,7 @@ public class MainPleine extends StateAdapter implements Observer{
 
 	@Override
 	public void mouseRightPressed(int x, int y) {
-		this.isRightClick = true;
+		this.isRightClick = true;		
 	}
 
 	@Override
@@ -127,6 +128,7 @@ public class MainPleine extends StateAdapter implements Observer{
 
 	@Override
 	public void keyControlPressed() {
+		
 		ChangerDeMainParam param = new ChangerDeMainParam();
 		CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.controller.getTapis());
 		cmd.setArgument(param);
@@ -141,7 +143,11 @@ public class MainPleine extends StateAdapter implements Observer{
 			this.controller.getDrawerSelection().draw();
 		}
 	}
+	
+	
 
+
+	
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -154,11 +160,35 @@ public class MainPleine extends StateAdapter implements Observer{
 				this.controller.setState(state);
 				
 				this.controller.getDrawerSelection().setSelection(false);
+				this.controller.getDrawerSelection().setZoom(1.0);
 				
 				this.controller.getDrawerTapis().draw();
 				this.controller.getDrawerSelection().draw();
 			}// if
 		}// if 
 	}
+
+	@Override
+	public void keyZPressed() {
+		
+		if(!this.isZPressed){
+			this.isZPressed = true;
+			this.controller.getDrawerSelection().setZoom(2.0);
+			this.controller.getDrawerSelection().draw();
+		}
+		
+
+	}
+
+	@Override
+	public void keyZReleased() {
+		this.isZPressed = false;
+		this.controller.getDrawerSelection().setZoom(1.0);
+		this.controller.getDrawerSelection().draw();
+	}
+	
+	
+	
+	
 
 }

@@ -41,7 +41,7 @@ public class MainLauncher {
 		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainVide.png", new Point(2,2), CursorType.mainVide);
 		Fenetre f = new Fenetre(largeurScreen,hauteurScreen);
 		
-		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"moquette3.jpg");
+		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"parquet1.jpg");
 		
 		TapisZoomConverteur cv = new TapisZoomConverteur(largeurTapis,hauteurTapis,largeurScreen,hauteurScreen);
 		
