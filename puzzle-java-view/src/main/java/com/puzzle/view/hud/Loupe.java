@@ -23,7 +23,7 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	private boolean isMainVide;
 	private boolean isActive;
 	
-	private double scale = 2.0;
+	private double scale = 3.0;
 	private double rayon;
 	
 	
@@ -60,7 +60,7 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	
 	private void initDrawer(){
 		this.rayon = tapisBuffer.getHauteur() * 0.05;
-		this.tmpBuffer = new JImageBuffer(Color.black, (int)(this.rayon * 2.0 * this.scale), (int) (this.rayon * 2.0 * this.scale));
+		this.tmpBuffer = new JImageBuffer(Color.black, (int)(this.rayon * 2.0 ), (int) (this.rayon * 2.0 ));
 		this.converter = new TapisZoomConverteur(tapis.getLargeur(), tapis.getHauteur(), this.tmpBuffer.getLargeur(), this.tmpBuffer.getHauteur());
 		this.tapisDrawer = new TapisZoomDrawer(background, tapis, this.tmpBuffer, this.converter);
 		
@@ -102,8 +102,8 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	@Override
 	public void draw() {
 		if(this.isActive){
-			double sx = this.mouseX - this.rayon;
-			double sy = this.mouseY - this.rayon;
+			double sx = this.mouseX - this.rayon / scale;
+			double sy = this.mouseY - this.rayon / scale;
 			Point p = new Point(sx,sy);
 			this.converterScreen.convertScreenToModel(p);
 			
@@ -115,8 +115,8 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 			this.tapisDrawer.draw();
 			
 			this.buffer.drawImage(this.tmpBuffer.getImage(), 
-					this.mouseX - this.rayon * this.scale, 
-					this.mouseY - this.rayon * this.scale, 0.0, 0.0, 0.0, 1.0, 1.0f);
+					this.mouseX - this.rayon , 
+					this.mouseY - this.rayon , 0.0, 0.0, 0.0, 1.0, 1.0f);
 		}	
 	}
 
