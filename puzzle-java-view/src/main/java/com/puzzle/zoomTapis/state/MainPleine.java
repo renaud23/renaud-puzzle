@@ -173,7 +173,7 @@ public class MainPleine extends StateAdapter implements Observer{
 		
 		if(!this.isZPressed){
 			this.isZPressed = true;
-			this.controller.getDrawerSelection().setZoom(2.0);
+			this.controller.getDrawerSelection().setZoom(3.0);
 			this.controller.getDrawerSelection().draw();
 		}
 		

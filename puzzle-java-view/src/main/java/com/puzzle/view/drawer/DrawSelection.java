@@ -65,13 +65,13 @@ public class DrawSelection implements IDrawerSelection,Observer{
 				Piece piece = (Piece) this.param.getComponent();
 				PieceBufferOperation pbo = ImageMemoryManager.getInstance().get(piece.getPuzzle().getId()).getElement(piece);
 				
-				double cx = (double)pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX();
-				double cy = (double)pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY();
+				double cx = (double)pbo.getImage().getWidth(null) / 2.0 * this.converter.getScaleX() * this.zoom;
+				double cy = (double)pbo.getImage().getHeight(null) / 2.0 * this.converter.getScaleY() * this.zoom;
 				
 				double x = this.param.getPosition().getX();
 				double y = this.param.getPosition().getY();
-				x += this.param.getAncre().getX() * this.converter.getScaleX();
-				y -= this.param.getAncre().getY() * this.converter.getScaleY();
+				x += this.param.getAncre().getX() * this.converter.getScaleX() * this.zoom;
+				y -= this.param.getAncre().getY() * this.converter.getScaleY() * this.zoom;
 				x -= cx;
 				y -= cy;
 		
@@ -84,13 +84,13 @@ public class DrawSelection implements IDrawerSelection,Observer{
 				CompositeBufferOperation sb = CompositeImageProvider.getInstance().getElement((CompositePiece)this.param.getComponent());
 				Image img = sb.getBuffer().getImage();
 				double scale = sb.getScale();
-				double cx = (double)img.getWidth(null) / 2.0 * this.converter.getScaleX()/scale;
-				double cy = (double)img.getHeight(null) / 2.0 * this.converter.getScaleY()/scale;
+				double cx = (double)img.getWidth(null) / 2.0 * this.converter.getScaleX()/scale * this.zoom;
+				double cy = (double)img.getHeight(null) / 2.0 * this.converter.getScaleY()/scale * this.zoom;
 				
 				double x = this.param.getPosition().getX();
 				double y = this.param.getPosition().getY();
-				x += this.param.getAncre().getX() * this.converter.getScaleX();
-				y -= this.param.getAncre().getY() * this.converter.getScaleY();
+				x += this.param.getAncre().getX() * this.converter.getScaleX() * this.zoom;
+				y -= this.param.getAncre().getY() * this.converter.getScaleY() * this.zoom;
 				x -= cx;
 				y -= cy;
 				
@@ -98,7 +98,7 @@ public class DrawSelection implements IDrawerSelection,Observer{
 					img, 
 					x,y, 
 					this.param.getPosition().getX(), this.param.getPosition().getY(), -this.param.getComponent().getAngle(), 
-					this.converter.getScaleX()/scale, this.converter.getScaleY()/scale, 1.0f);
+					this.converter.getScaleX()/scale*this.zoom, this.converter.getScaleY()/scale*this.zoom, 1.0f);
 			}
 		
 		}
