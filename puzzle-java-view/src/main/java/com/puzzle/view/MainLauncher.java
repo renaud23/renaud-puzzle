@@ -60,7 +60,7 @@ public class MainLauncher {
 		// les éléments du hud
 		Pocket pocket = new Pocket(hc, f.getBuffer(1));
 		LunetteArea lunette = new LunetteArea(c,f.getBuffer(1));
-		Loupe loupe = new Loupe(hc,tapis,f.getBuffer(1),f.getBuffer(0));
+		Loupe loupe = new Loupe(hc,cv,background,tapis,f.getBuffer(1),f.getBuffer(0));
 		tapis.addObserver(pocket);
 		hudDrawer.addDrawer(pocket);
 		hudDrawer.addDrawer(lunette);

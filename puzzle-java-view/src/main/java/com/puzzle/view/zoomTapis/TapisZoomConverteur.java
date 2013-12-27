@@ -23,10 +23,6 @@ public class TapisZoomConverteur implements TapisConverter,Observer{
 
 
 	
-	
-	
-
-
 	public TapisZoomConverteur(double tapisLargeur,double tapisHauteur,double screenLargeur,double screenHauteur) {
 		this.screenLargeur = screenLargeur;
 		this.screenHauteur = screenHauteur;
@@ -99,6 +95,12 @@ public class TapisZoomConverteur implements TapisConverter,Observer{
 	}
 	
 	
+	
+	
+	public void setScale(double scale) {
+		this.scale = scale;
+	}
+
 	@Override
 	public void convertModelToScreen(Point p) {
 		double x = p.getX()  - corner.getX();

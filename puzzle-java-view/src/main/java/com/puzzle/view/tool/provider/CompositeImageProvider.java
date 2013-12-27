@@ -11,7 +11,7 @@ import com.puzzle.model.CompositePiece;
 
 public class CompositeImageProvider implements ProviderElement<CompositePiece, CompositeBufferOperation>{
 	private static CompositeImageProvider instance;
-	private double scale = 0.5;
+//	private double scale = 0.5;
 	private static double limite = 2048.0;
 	
 	private Map<CompositePiece, CompositeBufferOperation> buffers;
@@ -57,13 +57,13 @@ public class CompositeImageProvider implements ProviderElement<CompositePiece, C
 	}
 
 
-	public double getScale() {
-		return this.scale;
-	}
-
-	public void setScale(double scale) {
-		this.scale = scale;
-	}
+//	public double getScale() {
+//		return this.scale;
+//	}
+//
+//	public void setScale(double scale) {
+//		this.scale = scale;
+//	}
 
 
 	@Override
