@@ -2,6 +2,7 @@ package com.puzzle.view.tool;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -105,6 +106,41 @@ public class JImageBuffer implements IImageBuffer{
 
 	}
 
+	public void drawImage(Image image,
+			double x,double y,
+			double xRotation,double yRotation,double theta,
+			double scale,float alpha,Composite composite){
+		
+		Graphics2D gr = this.image.createGraphics();
+
+		/** D�sactivation de l'anti-aliasing */
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+		/** Demande de rendu rapide */
+		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+
+
+		 gr.setComposite(composite) ;
+		 
+		 if(this.image.contentsLost())
+			 this.image.validate(gc);
+
+		//
+		AffineTransform t = new AffineTransform();
+		t.setToIdentity();
+
+		t.translate(x, y);
+		t.scale(scale, scale);
+		gr.rotate(theta, xRotation*scale, yRotation*scale);
+
+		gr.drawImage(image,t,null);
+		gr.dispose();
+
+	}
+	
 	
 	public void drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, Color bgcolor){
 		Graphics gr = this.image.getGraphics();
