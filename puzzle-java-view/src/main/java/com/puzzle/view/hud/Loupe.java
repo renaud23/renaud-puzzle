@@ -10,6 +10,7 @@ import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.drawer.IDrawer;
+import com.puzzle.view.tool.CircleComposite;
 import com.puzzle.view.tool.JImageBuffer;
 import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
@@ -114,9 +115,12 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 			
 			this.tapisDrawer.draw();
 			
+			boolean nord = this.mouseY < (this.buffer.getHauteur()/2);
+			boolean ouest = this.mouseX < (this.buffer.getLargeur()/2);
+			
 			this.buffer.drawImage(this.tmpBuffer.getImage(), 
 					this.mouseX - this.rayon , 
-					this.mouseY - this.rayon , 0.0, 0.0, 0.0, 1.0, 1.0f);
+					this.mouseY - this.rayon , 0.0, 0.0, 0.0, 1.0, 1.0f, new CircleComposite((int) this.rayon,nord,ouest));
 		}	
 	}
 
