@@ -59,7 +59,7 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	
 	
 	private void initDrawer(){
-		this.rayon = tapisBuffer.getHauteur() * 0.05;
+		this.rayon = tapisBuffer.getHauteur() * 0.15;
 		this.tmpBuffer = new JImageBuffer(Color.black, (int)(this.rayon * 2.0 ), (int) (this.rayon * 2.0 ));
 		this.converter = new TapisZoomConverteur(tapis.getLargeur(), tapis.getHauteur(), this.tmpBuffer.getLargeur(), this.tmpBuffer.getHauteur());
 		this.tapisDrawer = new TapisZoomDrawer(background, tapis, this.tmpBuffer, this.converter);
