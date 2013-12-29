@@ -137,6 +137,13 @@
 				<include name="*/*/*/*.*" />
 			</fileset>
 		</copy>
+		
+		<copy todir="${install.dir}/ressources/curseur" >
+			<fileset dir="${puzzle-java-view.dir}/src/main/resources/cursor" >
+				<include name="*.png" />
+				
+			</fileset>
+		</copy>
 	    
 		<echo message="Création du fichier exe avec Launch4j" />
 		<exec executable="${lauch4j.path}">
