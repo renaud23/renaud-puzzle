@@ -10,9 +10,12 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.VolatileImage;
 
 
@@ -151,10 +154,32 @@ public class JImageBuffer implements IImageBuffer{
 		
 	}
 	
+	public void drawCircle(double x,double y,double rayon,Color color){
+		Graphics2D g = this.image.createGraphics();
+		double v = rayon; v /= 2.0;
+		double xi = x; xi -= v;
+		double yi = y; yi -= v;
+		
+		g.setColor(color);
+		Shape s = new Ellipse2D.Double(xi, yi, rayon, rayon);
+		
+		g.draw(s);
+		g.dispose();
+	}
+	
 	public void drawRect(Color color,int x,int y,int width,int height){
 		Graphics2D g = this.image.createGraphics();
 		g.setColor(color);
 		g.drawRect(x, y, width, height);
+		g.dispose();
+	}
+	
+	public void drawRect(Color color,double x,double y,double width,double height){
+		Graphics2D g = this.image.createGraphics();
+		g.setColor(color);
+		Shape s = new Rectangle2D.Double(x,y,width,height);
+		
+		g.draw(s);
 		g.dispose();
 	}
 	
