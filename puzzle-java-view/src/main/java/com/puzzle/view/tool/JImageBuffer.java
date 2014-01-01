@@ -91,7 +91,7 @@ public class JImageBuffer implements IImageBuffer{
 
 
 		 gr.setComposite(AlphaComposite.getInstance(
-	                AlphaComposite.SRC_OVER,alpha )) ;
+	                AlphaComposite.SRC_OVER,alpha ));
 		 
 		 if(this.image.contentsLost())
 			 this.image.validate(gc);
@@ -180,6 +180,27 @@ public class JImageBuffer implements IImageBuffer{
 		Shape s = new Rectangle2D.Double(x,y,width,height);
 		
 		g.draw(s);
+		g.dispose();
+	}
+	
+	public void fillRect(Color color,double x,double y,double width,double height,float alpha){
+		Graphics2D g = this.image.createGraphics();
+		/** D�sactivation de l'anti-aliasing */
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+		/** Demande de rendu rapide */
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+		g.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+
+
+		g.setComposite(AlphaComposite.getInstance(
+	                AlphaComposite.SRC_OVER,alpha ));
+		g.setColor(color);
+		Shape s = new Rectangle2D.Double(x,y,width,height);
+		
+		g.fill(s);
 		g.dispose();
 	}
 	

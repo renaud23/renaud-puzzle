@@ -119,6 +119,9 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 			boolean nord = this.mouseY < (this.buffer.getHauteur()/2);
 			boolean ouest = this.mouseX < (this.buffer.getLargeur()/2);
 			
+			
+			
+			this.buffer.fillRect(Color.black, 0, 0, this.buffer.getLargeur(), this.buffer.getHauteur(),0.5f);
 			if(circulaire){
 				this.buffer.drawImage(this.tmpBuffer.getImage(), 
 						this.mouseX - this.rayon , 
