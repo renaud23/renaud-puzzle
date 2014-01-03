@@ -23,6 +23,7 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	private int mouseY;
 	private boolean isMainVide;
 	private boolean isActive;
+	private boolean circulaire = true;
 	
 	private double scale = 3.0;
 	private double rayon;
@@ -118,9 +119,18 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 			boolean nord = this.mouseY < (this.buffer.getHauteur()/2);
 			boolean ouest = this.mouseX < (this.buffer.getLargeur()/2);
 			
-			this.buffer.drawImage(this.tmpBuffer.getImage(), 
-					this.mouseX - this.rayon , 
-					this.mouseY - this.rayon , 0.0, 0.0, 0.0, 1.0, 1.0f, new CircleComposite((int) this.rayon,nord,ouest));
+			this.buffer.fillRect(Color.black, 0, 0, this.buffer.getLargeur(), this.buffer.getHauteur(),0.3f);
+			if(circulaire){
+				this.buffer.drawImage(this.tmpBuffer.getImage(), 
+						this.mouseX - this.rayon , 
+						this.mouseY - this.rayon , 0.0, 0.0, 0.0, 1.0, 1.0f, new CircleComposite((int) this.rayon,nord,ouest));
+				this.buffer.drawCircle(this.mouseX, this.mouseY, this.rayon*2, Color.white);
+			}else{
+				this.buffer.drawImage(this.tmpBuffer.getImage(), 
+						this.mouseX - this.rayon , 
+						this.mouseY - this.rayon , 0.0, 0.0, 0.0, 1.0, 1.0f);
+				this.buffer.drawRect(Color.white, this.mouseX-rayon, this.mouseY-rayon, this.rayon*2, this.rayon*2);
+			}
 		}	
 	}
 

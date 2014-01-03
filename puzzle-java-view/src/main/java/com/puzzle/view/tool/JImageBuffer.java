@@ -10,9 +10,12 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.VolatileImage;
 
 
@@ -77,7 +80,7 @@ public class JImageBuffer implements IImageBuffer{
 		
 		Graphics2D gr = this.image.createGraphics();
 
-		/** D�sactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -113,7 +116,7 @@ public class JImageBuffer implements IImageBuffer{
 		
 		Graphics2D gr = this.image.createGraphics();
 
-		/** D�sactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -175,12 +178,45 @@ public class JImageBuffer implements IImageBuffer{
 		g.fillRect(x, y, width, height);
 		g.dispose();
 	}
+	
+	public void drawCircle(double x,double y,double rayon,Color color){
+		Graphics2D g = this.image.createGraphics();
+		double v = rayon; v /= 2.0;
+		double xi = x; xi -= v;
+		double yi = y; yi -= v;
+		
+		g.setColor(color);
+		Shape s = new Ellipse2D.Double(xi, yi, rayon, rayon);
+		
+		g.draw(s);
+	}
+	
+	public void fillRect(Color color,double x,double y,double width,double height,float alpha){
+		Graphics2D g = this.image.createGraphics();
+		/** D�sactivation de l'anti-aliasing */
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+		/** Demande de rendu rapide */
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+		g.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+
+
+		g.setComposite(AlphaComposite.getInstance(
+	                AlphaComposite.SRC_OVER,alpha ));
+		g.setColor(color);
+		Shape s = new Rectangle2D.Double(x,y,width,height);
+		
+		g.fill(s);
+		g.dispose();
+	}
 
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
 		
 		Graphics2D gr = this.image.createGraphics();
 
-		/** D�sactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -212,7 +248,7 @@ public class JImageBuffer implements IImageBuffer{
 	public void drawImageMask(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,Color color){
 		Graphics2D gr = this.image.createGraphics();
 
-		/** D�sactivation de l'anti-aliasing */
+		/** Dï¿½sactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -259,6 +295,15 @@ public class JImageBuffer implements IImageBuffer{
 	    gr.drawString(text, x, y); 
 		
 		gr.dispose();
+	}
+	
+	public void drawRect(Color color,double x,double y,double width,double height){
+		Graphics2D g = this.image.createGraphics();
+		g.setColor(color);
+		Shape s = new Rectangle2D.Double(x,y,width,height);
+		
+		g.draw(s);
+		g.dispose();
 	}
 	
 	public int getHauteur(){

@@ -64,10 +64,10 @@ public class CircleComposite implements Composite,CompositeContext{
 				int vx = 2*rayon - dstIn.getWidth();
 				int vy = 2*rayon - dstIn.getHeight();
 	
-				if(nord)vy *= -1;
-				if(ouest)vx *= -1;
+				if(!nord)vy =0;
+				if(!ouest)vx =0;
 				
-				double dist = Math.pow(x-vx-cx, 2)+Math.pow(y-vy-cy, 2);
+				double dist = Math.pow(x+vx-cx, 2)+Math.pow(y+vy-cy, 2);
 				dist = Math.sqrt(dist);
 				
 				if(dist <= rayon){
@@ -82,11 +82,14 @@ public class CircleComposite implements Composite,CompositeContext{
 					
 					dstOut.setPixel(x, y, dstPixel);
 				}else{
-//					dstPixel[3] = 0;
+//					dstPixel[0] = ((srcPixel[0] * color.getRed()) >> 8) & 0xFF;
+//					dstPixel[1] = ((srcPixel[1] * color.getGreen()) >> 8) & 0xFF;
+//					dstPixel[2] = ((srcPixel[2] * color.getBlue()) >> 8) & 0xFF;
+//					dstPixel[3] = srcPixel[3];
+//					
+//					dstOut.setPixel(x, y, dstPixel);
 				}
 				
-				
-//				if(dstPixel[3] == 255)
 				
 		
 			}
