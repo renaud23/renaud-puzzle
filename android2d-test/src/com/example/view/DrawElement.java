@@ -26,7 +26,7 @@ public class DrawElement implements IDrawable{
     private float y;
     private float largeur;
     private float hauteur;
-    private int texture;
+    private int textureName;
     
     
     public DrawElement(float x, float y, float largeur, float hauteur) {
