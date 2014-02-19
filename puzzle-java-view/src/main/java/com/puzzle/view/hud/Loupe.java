@@ -23,7 +23,7 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	private int mouseY;
 	private boolean isMainVide;
 	private boolean isActive;
-	private boolean circulaire = true;
+	private boolean circulaire = false;
 	
 	private double scale = 3.0;
 	private double rayon;
