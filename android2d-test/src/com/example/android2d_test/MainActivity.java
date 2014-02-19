@@ -1,4 +1,4 @@
-package com.example.test2;
+package com.example.android2d_test;
 
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
