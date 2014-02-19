@@ -1,6 +1,7 @@
 package com.example.android2d_test;
  
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
  
 public class GLSurf extends GLSurfaceView {
@@ -19,6 +20,9 @@ public class GLSurf extends GLSurfaceView {
  
         // Render the view only when there is a change in the drawing data
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+        
+//        setEGLConfigChooser(8, 8, 8, 8, 0, 0); 
+        getHolder().setFormat(PixelFormat.RGBA_8888); 
     }
  
     @Override

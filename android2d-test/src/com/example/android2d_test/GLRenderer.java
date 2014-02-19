@@ -30,7 +30,7 @@ public class GLRenderer implements Renderer {
     private final float[] mtrxProjectionAndView = new float[16];
  
     // Geometric variables
- // Geometric variables
+    // Geometric variables
     public static float vertices[];
     public static short indices[];
     public static float uvs[];
@@ -47,19 +47,16 @@ public class GLRenderer implements Renderer {
     long mLastTime;
     int mProgram;
  
-    public GLRenderer(Context c)
-    {
+    public GLRenderer(Context c){
         mContext = c;
         mLastTime = System.currentTimeMillis() + 100;
     }
  
-    public void onPause()
-    {
+    public void onPause(){
         /* Do stuff to pause the renderer */
     }
  
-    public void onResume()
-    {
+    public void onResume() {
         /* Do stuff to resume the renderer */
         mLastTime = System.currentTimeMillis();
     }
@@ -146,8 +143,7 @@ public class GLRenderer implements Renderer {
         GLES20.glViewport(0, 0, (int)mScreenWidth, (int)mScreenHeight);
  
         // Clear our matrices
-        for(int i=0;i<16;i++)
-        {
+        for(int i=0;i<16;i++){
             mtrxProjection[i] = 0.0f;
             mtrxView[i] = 0.0f;
             mtrxProjectionAndView[i] = 0.0f;
@@ -161,7 +157,6 @@ public class GLRenderer implements Renderer {
  
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mtrxProjectionAndView, 0, mtrxProjection, 0, mtrxView, 0);
- 
     }
  
     @Override
@@ -172,7 +167,10 @@ public class GLRenderer implements Renderer {
         SetupImage();
  
         // Set the clear color to black
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1);
+        GLES20.glClearColor(1.0f, 0.0f, 0.0f, 1);
+        
+        gl.glEnable(GL10.GL_BLEND); 
+        gl.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA); 
  
         // Create the shaders, solid color
         int vertexShader = riGraphicTools.loadShader(GLES20.GL_VERTEX_SHADER, riGraphicTools.vs_SolidColor);
@@ -196,8 +194,7 @@ public class GLRenderer implements Renderer {
         GLES20.glUseProgram(riGraphicTools.sp_Image);
     }
     
-    public void SetupImage()
-    {
+    public void SetupImage(){
         // Create our UV coordinates.
         uvs = new float[] {
                 0.0f, 0.0f,
@@ -242,10 +239,10 @@ public class GLRenderer implements Renderer {
     public void SetupTriangle(){
     	// We have to create the vertices of our triangle.
         vertices = new float[]
-           {10.0f, 200f, 0.0f,
+           {10.0f, 400f, 0.0f,
             10.0f, 100f, 0.0f,
             100f, 100f, 0.0f,
-            100f, 200f, 0.0f,
+            100f, 400f, 0.0f,
            };
  
         indices = new short[] {0, 1, 2, 0, 2, 3}; // The order of vertexrendering.
