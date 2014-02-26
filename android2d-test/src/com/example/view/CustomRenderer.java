@@ -20,7 +20,7 @@ import android.util.Log;
 
 public class CustomRenderer implements Renderer{
 	
-	private List<IDrawable> drawable;
+	private List<GLDrawable> drawable;
 	
 	
 	 // Our matrices
@@ -28,8 +28,8 @@ public class CustomRenderer implements Renderer{
     private final float[] mtrxView = new float[16];
     private final float[] mtrxProjectionAndView = new float[16];
 	
-	private float screenLargeur = 1280;
-	private float screenHauteur = 768;
+	private float screenLargeur;
+	private float screenHauteur;
  
 	private Context context;
 	private long lastTime;
@@ -42,17 +42,17 @@ public class CustomRenderer implements Renderer{
         this.lastTime = System.currentTimeMillis() + 100;
         
         
-        this.drawable = new ArrayList<IDrawable>();
+        this.drawable = new ArrayList<GLDrawable>();
         
         
      // for test
         for(int i=0;i<10;i++){
         	Random rnd = new Random();
-        	float x = rnd.nextInt(400);
-        	float y = rnd.nextInt(600);
+        	float x = rnd.nextInt((int) this.screenLargeur-100)+50;
+        	float y = rnd.nextInt((int) this.screenHauteur-100)+50;
 //        	float largeur = 10.0f;
         	
-        	DrawElement e = new DrawElement(x, y, 50.0f, 50.0f);
+        	DrawElement e = new DrawElement(0,x, y, 50.0f, 50.0f);
         	this.drawable.add(e);
         }
         
@@ -91,7 +91,7 @@ public class CustomRenderer implements Renderer{
 		// clear Screen and Depth Buffer, we have set the clear color as black.
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         
-        for(IDrawable dr : this.drawable){
+        for(GLDrawable dr : this.drawable){
         	// get handle to vertex shader's vPosition member
             int positionHandle = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "vPosition");
      
@@ -126,7 +126,7 @@ public class CustomRenderer implements Renderer{
             int mSamplerLoc = GLES20.glGetUniformLocation (riGraphicTools.sp_Image, "s_texture" );
      
             // Set the sampler texture unit to 0, where we have saved the texture.
-            GLES20.glUniform1i ( mSamplerLoc, 0);
+            GLES20.glUniform1i ( mSamplerLoc, dr.getTextureIndice());
      
             // Draw the triangle
             GLES20.glDrawElements(GLES20.GL_TRIANGLES, dr.getIndices().length,

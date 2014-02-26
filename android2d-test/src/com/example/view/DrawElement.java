@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 
-public class DrawElement implements IDrawable{
+public class DrawElement implements GLDrawable{
 	
 	
 	
@@ -22,14 +22,15 @@ public class DrawElement implements IDrawable{
     private float y;
     private float largeur;
     private float hauteur;
-    private int textureName;
+    private int textureIndice;
     
     
-    public DrawElement(float x, float y, float largeur, float hauteur) {
+    public DrawElement(int textureIndice,float x, float y, float largeur, float hauteur) {
 		this.x = x;
 		this.y = y;
 		this.largeur = largeur;
 		this.hauteur = hauteur;
+		this.textureIndice = textureIndice;
 		
 		// We have to create the vertices of our triangle.
         vertices = new float[]{
@@ -113,6 +114,16 @@ public class DrawElement implements IDrawable{
 
 	public void setDrawListBuffer(ShortBuffer drawListBuffer) {
 		this.drawListBuffer = drawListBuffer;
+	}
+
+
+	public int getTextureIndice() {
+		return textureIndice;
+	}
+
+
+	public void setTextureIndice(int textureIndice) {
+		this.textureIndice = textureIndice;
 	}
 
 
