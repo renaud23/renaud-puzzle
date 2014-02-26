@@ -53,7 +53,7 @@ public class DrawElement implements IDrawable{
         dlb.order(ByteOrder.nativeOrder());
         drawListBuffer = dlb.asShortBuffer();
         drawListBuffer.put(indices);
-        
+        drawListBuffer.position(0);
         
         uvs = new float[] {
                 0.0f, 0.0f,
@@ -68,6 +68,51 @@ public class DrawElement implements IDrawable{
         uvBuffer = bb2.asFloatBuffer();
         uvBuffer.put(uvs);
         uvBuffer.position(0);
+        
+        
+ 
+        
+	}
+
+
+    
+    
+    
+    
+    
+    
+    
+	public FloatBuffer getUvBuffer() {
+		return uvBuffer;
+	}
+
+	public void setUvBuffer(FloatBuffer uvBuffer) {
+		this.uvBuffer = uvBuffer;
+	}
+
+
+	public FloatBuffer getVertexBuffer() {
+		return vertexBuffer;
+	}
+
+	public void setVertexBuffer(FloatBuffer vertexBuffer) {
+		this.vertexBuffer = vertexBuffer;
+	}
+
+	public short[] getIndices() {
+		return indices;
+	}
+
+	public void setIndices(short[] indices) {
+		this.indices = indices;
+	}
+
+	public ShortBuffer getDrawListBuffer() {
+		return drawListBuffer;
+	}
+
+	public void setDrawListBuffer(ShortBuffer drawListBuffer) {
+		this.drawListBuffer = drawListBuffer;
 	}
 
 

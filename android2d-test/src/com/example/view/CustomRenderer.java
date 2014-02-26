@@ -1,6 +1,8 @@
 package com.example.view;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -8,7 +10,10 @@ import javax.microedition.khronos.opengles.GL10;
 import com.example.android2d_test.riGraphicTools;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
+import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.Log;
@@ -35,6 +40,23 @@ public class CustomRenderer implements Renderer{
         this.screenLargeur = largeur;
         this.screenHauteur = hauteur;
         this.lastTime = System.currentTimeMillis() + 100;
+        
+        
+        this.drawable = new ArrayList<IDrawable>();
+        
+        
+     // for test
+        for(int i=0;i<10;i++){
+        	Random rnd = new Random();
+        	float x = rnd.nextInt(400);
+        	float y = rnd.nextInt(600);
+//        	float largeur = 10.0f;
+        	
+        	DrawElement e = new DrawElement(x, y, 50.0f, 50.0f);
+        	this.drawable.add(e);
+        }
+        
+//        this.loadTexture(context);
     }
     
     public void onPause(){
@@ -68,7 +90,52 @@ public class CustomRenderer implements Renderer{
 	private void render(){
 		// clear Screen and Depth Buffer, we have set the clear color as black.
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
- 
+        
+        for(IDrawable dr : this.drawable){
+        	// get handle to vertex shader's vPosition member
+            int positionHandle = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "vPosition");
+     
+            // Enable generic vertex attribute array
+            GLES20.glEnableVertexAttribArray(positionHandle);
+     
+            // Prepare the triangle coordinate data
+            GLES20.glVertexAttribPointer(positionHandle, 3,
+                                         GLES20.GL_FLOAT, false,
+                                         0, dr.getVertexBuffer());
+     
+            // Get handle to texture coordinates location
+            int mTexCoordLoc = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "a_texCoord" );
+     
+            // Enable generic vertex attribute array
+            GLES20.glEnableVertexAttribArray ( mTexCoordLoc );
+     
+            // Prepare the texturecoordinates
+            GLES20.glVertexAttribPointer ( mTexCoordLoc, 2, GLES20.GL_FLOAT,
+                    false,
+                    0, dr.getUvBuffer());
+            
+           
+     
+            // Get handle to shape's transformation matrix
+            int mtrxhandle = GLES20.glGetUniformLocation(riGraphicTools.sp_Image, "uMVPMatrix");
+     
+            // Apply the projection and view transformation
+            GLES20.glUniformMatrix4fv(mtrxhandle, 1, false, mtrxProjectionAndView, 0);
+     
+            // Get handle to textures locations
+            int mSamplerLoc = GLES20.glGetUniformLocation (riGraphicTools.sp_Image, "s_texture" );
+     
+            // Set the sampler texture unit to 0, where we have saved the texture.
+            GLES20.glUniform1i ( mSamplerLoc, 0);
+     
+            // Draw the triangle
+            GLES20.glDrawElements(GLES20.GL_TRIANGLES, dr.getIndices().length,
+                    GLES20.GL_UNSIGNED_SHORT, dr.getDrawListBuffer());
+     
+            // Disable vertex array
+            GLES20.glDisableVertexAttribArray(positionHandle);
+            GLES20.glDisableVertexAttribArray(mTexCoordLoc);
+        }
        
 	}
 
@@ -101,6 +168,9 @@ public class CustomRenderer implements Renderer{
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+
+		this.loadTexture(context);
+		
 		 // Set the clear color to black
         GLES20.glClearColor(1.0f, 0.0f, 0.0f, 1);
         
@@ -129,4 +199,31 @@ public class CustomRenderer implements Renderer{
         GLES20.glUseProgram(riGraphicTools.sp_Image);
 	}
 
+	
+	
+	
+	private void loadTexture(Context context){
+    	int[] texturenames = new int[1];
+        GLES20.glGenTextures(1, texturenames, 0);
+ 
+        // Retrieve our image from resources.
+        int id = context.getResources().getIdentifier("drawable/ic_launcher", null, context.getPackageName());
+ 
+        // Temporary create a bitmap
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), id);
+ 
+        // Bind texture to texturename
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texturenames[0]);
+ 
+        // Set filtering
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+ 
+        // Load the bitmap into the bound texture.
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bmp, 0);
+ 
+        // We are done using the bitmap so we should recycle it.
+        bmp.recycle();
+    }
 }

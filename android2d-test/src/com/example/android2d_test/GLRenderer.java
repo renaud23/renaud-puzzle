@@ -31,25 +31,25 @@ public class GLRenderer implements Renderer {
  
     // Geometric variables
     // Geometric variables
-    public static float vertices[];
-    public static short indices[];
-    public static float uvs[];
-    public FloatBuffer vertexBuffer;
-    public ShortBuffer drawListBuffer;
-    public FloatBuffer uvBuffer;
+    private static float vertices[];
+    private static short indices[];
+    private static float uvs[];
+    private FloatBuffer vertexBuffer;
+    private ShortBuffer drawListBuffer;
+    private FloatBuffer uvBuffer;
  
     // Our screenresolution
-    float   mScreenWidth = 1280;
-    float   mScreenHeight = 768;
+    private float   screenWidth = 1280;
+    private float   screenHeight = 768;
  
     // Misc
-    Context mContext;
-    long mLastTime;
-    int mProgram;
+    private Context mContext;
+    private long lastTime;
+    private int mProgram;
  
     public GLRenderer(Context c){
         mContext = c;
-        mLastTime = System.currentTimeMillis() + 100;
+        lastTime = System.currentTimeMillis() + 100;
     }
  
     public void onPause(){
@@ -58,7 +58,7 @@ public class GLRenderer implements Renderer {
  
     public void onResume() {
         /* Do stuff to resume the renderer */
-        mLastTime = System.currentTimeMillis();
+        lastTime = System.currentTimeMillis();
     }
  
     @Override
@@ -68,18 +68,17 @@ public class GLRenderer implements Renderer {
         long now = System.currentTimeMillis();
  
         // We should make sure we are valid and sane
-        if (mLastTime > now) return;
+        if (lastTime > now) return;
  
         // Get the amount of time the last frame took.
-        long elapsed = now - mLastTime;
+        long elapsed = now - lastTime;
  
         // Update our example
  
         // Render our example
         Render(mtrxProjectionAndView);
- 
-        // Save the current time to see how long it took <img src="http://androidblog.reindustries.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley"> .
-        mLastTime = now;
+
+        lastTime = now;
  
     }
  
@@ -136,11 +135,11 @@ public class GLRenderer implements Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
  
         // We need to know the current width and height.
-        mScreenWidth = width;
-        mScreenHeight = height;
+        screenWidth = width;
+        screenHeight = height;
  
         // Redo the Viewport, making it fullscreen.
-        GLES20.glViewport(0, 0, (int)mScreenWidth, (int)mScreenHeight);
+        GLES20.glViewport(0, 0, (int)screenWidth, (int)screenHeight);
  
         // Clear our matrices
         for(int i=0;i<16;i++){
@@ -150,7 +149,7 @@ public class GLRenderer implements Renderer {
         }
  
         // Setup our screen width and height for normal sprite translation.
-        Matrix.orthoM(mtrxProjection, 0, 0f, mScreenWidth, 0.0f, mScreenHeight, 0, 50);
+        Matrix.orthoM(mtrxProjection, 0, 0f, screenWidth, 0.0f, screenHeight, 0, 50);
  
         // Set the camera position (View matrix)
         Matrix.setLookAtM(mtrxView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
