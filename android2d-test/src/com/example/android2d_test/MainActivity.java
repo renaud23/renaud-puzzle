@@ -3,8 +3,8 @@ package com.example.android2d_test;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.android2d_test.test.Test;
 import com.example.view.CustomRenderer;
-import com.example.view.Test;
 
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
         // for test
         Timer timer = new Timer();
         TimerTask task = new Test(renderer, largeur, hauteur);
-		timer.scheduleAtFixedRate(task, 0, 1000);
+		timer.scheduleAtFixedRate(task, 0, 10);
      
     }
 	

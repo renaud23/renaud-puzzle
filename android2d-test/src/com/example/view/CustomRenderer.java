@@ -20,7 +20,7 @@ import android.util.Log;
 
 public class CustomRenderer implements Renderer{
 	
-	private List<GLDrawable> drawable;
+	private List<GLRenderable> drawable;
 	
 	
 	 // Our matrices
@@ -42,7 +42,7 @@ public class CustomRenderer implements Renderer{
         this.lastTime = System.currentTimeMillis() + 100;
         
         
-        this.drawable = new ArrayList<GLDrawable>();    
+        this.drawable = new ArrayList<GLRenderable>();    
     }
     
     public void onPause(){
@@ -77,7 +77,7 @@ public class CustomRenderer implements Renderer{
 		// clear Screen and Depth Buffer, we have set the clear color as black.
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         
-        for(GLDrawable dr : this.drawable){
+        for(GLRenderable dr : this.drawable){
         	// get handle to vertex shader's vPosition member
             int positionHandle = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "vPosition");
      
@@ -214,11 +214,11 @@ public class CustomRenderer implements Renderer{
     }
 	
 	
-	public void addRenderable(GLDrawable drawable){
+	public void addRenderable(GLRenderable drawable){
 		this.drawable.add(drawable);
 	}
 	
-	public void removeRenderable(GLDrawable drawable){
+	public void removeRenderable(GLRenderable drawable){
 		this.drawable.remove(drawable);
 	}
 }
