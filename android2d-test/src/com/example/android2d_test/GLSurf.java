@@ -1,6 +1,10 @@
 package com.example.android2d_test;
  
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.example.view.CustomRenderer;
+import com.example.view.Test;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,20 +17,24 @@ import android.util.DisplayMetrics;
  
 public class GLSurf extends GLSurfaceView {
  
-    private final CustomRenderer renderer;
+    private final Renderer renderer;
+    private final Context context;
+    
  
-    public GLSurf(Context context) {
+    public GLSurf(Context context,Renderer renderer) {
         super(context);
+        this.renderer = renderer;
+        this.context = context;
 
         // Create an OpenGL ES 2.0 context.
         setEGLContextClientVersion(2);
  
         // Set the Renderer for drawing on the GLSurfaceView
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        float largeur = metrics.widthPixels;
-        float hauteur = metrics.heightPixels;
-        renderer = new CustomRenderer(context,largeur,hauteur);
-        setRenderer(renderer);
+//        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+//        float largeur = metrics.widthPixels;
+//        float hauteur = metrics.heightPixels;
+//        this.renderer = new CustomRenderer(context,largeur,hauteur);
+        this.setRenderer(renderer);
  
         // Render the view only when there is a change in the drawing data
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
@@ -34,21 +42,24 @@ public class GLSurf extends GLSurfaceView {
 //        setEGLConfigChooser(8, 8, 8, 8, 0, 0); 
         getHolder().setFormat(PixelFormat.RGBA_8888); 
         
+        
+        // for Test
+//        Timer timer = new Timer();
+//        TimerTask task = new Test(largeur,hauteur);
+//		timer.scheduleAtFixedRate(task, 0, 10);
        
     }
  
     @Override
     public void onPause() {
-        // TODO Auto-generated method stub
         super.onPause();
-        renderer.onPause();
+//        renderer.onPause();
     }
  
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
-        renderer.onResume();
+//        renderer.onResume();
     }
     
     

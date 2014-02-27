@@ -1,8 +1,16 @@
 package com.example.android2d_test;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.example.view.CustomRenderer;
+import com.example.view.Test;
+
 import android.opengl.GLSurfaceView;
+import android.opengl.GLSurfaceView.Renderer;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -24,7 +32,11 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
  
         // We create our Surfaceview for our OpenGL here.
-        glSurfaceView = new GLSurf(this);
+        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+        float largeur = metrics.widthPixels;
+        float hauteur = metrics.heightPixels;
+        CustomRenderer renderer =  new CustomRenderer(this,largeur,hauteur);
+        this.glSurfaceView = new GLSurf(this,renderer);
  
         // Set our view.
         setContentView(R.layout.activity_main);
@@ -35,6 +47,12 @@ public class MainActivity extends Activity {
         // Attach our surfaceview to our relative layout from our main layout.
         RelativeLayout.LayoutParams glParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         layout.addView(glSurfaceView, glParams);
+        
+        // for test
+        Timer timer = new Timer();
+        TimerTask task = new Test(renderer, largeur, hauteur);
+		timer.scheduleAtFixedRate(task, 0, 1000);
+     
     }
 	
 	

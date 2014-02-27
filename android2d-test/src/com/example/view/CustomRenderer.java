@@ -42,21 +42,7 @@ public class CustomRenderer implements Renderer{
         this.lastTime = System.currentTimeMillis() + 100;
         
         
-        this.drawable = new ArrayList<GLDrawable>();
-        
-        
-     // for test
-        for(int i=0;i<10;i++){
-        	Random rnd = new Random();
-        	float x = rnd.nextInt((int) this.screenLargeur-100)+50;
-        	float y = rnd.nextInt((int) this.screenHauteur-100)+50;
-//        	float largeur = 10.0f;
-        	
-        	DrawElement e = new DrawElement(0,x, y, 50.0f, 50.0f);
-        	this.drawable.add(e);
-        }
-        
-//        this.loadTexture(context);
+        this.drawable = new ArrayList<GLDrawable>();    
     }
     
     public void onPause(){
@@ -226,4 +212,13 @@ public class CustomRenderer implements Renderer{
         // We are done using the bitmap so we should recycle it.
         bmp.recycle();
     }
+	
+	
+	public void addRenderable(GLDrawable drawable){
+		this.drawable.add(drawable);
+	}
+	
+	public void removeRenderable(GLDrawable drawable){
+		this.drawable.remove(drawable);
+	}
 }
