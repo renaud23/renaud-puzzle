@@ -201,43 +201,6 @@ public class RenderableElement implements GLRenderable,RenderableOperation{
     }
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public float getX() {
 		return x;
 	}
