@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.android2d_test.test.Test;
-import com.example.view.CustomRenderer;
+import com.example.view.MyRenderer;
 
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
         DisplayMetrics metrics = this.getResources().getDisplayMetrics();
         float largeur = metrics.widthPixels;
         float hauteur = metrics.heightPixels;
-        CustomRenderer renderer =  new CustomRenderer(this,largeur,hauteur);
+        MyRenderer renderer =  new MyRenderer(this,largeur,hauteur);
         this.glSurfaceView = new GLSurf(this,renderer);
  
         // Set our view.

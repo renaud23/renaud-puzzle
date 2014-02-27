@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.android2d_test.test.Test;
-import com.example.view.CustomRenderer;
+import com.example.view.MyRenderer;
 
 import android.content.Context;
 import android.graphics.Bitmap;

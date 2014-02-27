@@ -18,7 +18,7 @@ import android.opengl.Matrix;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.Log;
 
-public class CustomRenderer implements Renderer{
+public class MyRenderer implements Renderer{
 	
 	private List<GLRenderable> drawable;
 	
@@ -35,7 +35,7 @@ public class CustomRenderer implements Renderer{
 	private long lastTime;
 	private int program;
  
-    public CustomRenderer(Context c,float largeur,float hauteur){
+    public MyRenderer(Context c,float largeur,float hauteur){
         this.context = c;
         this.screenLargeur = largeur;
         this.screenHauteur = hauteur;

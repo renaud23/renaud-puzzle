@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.TimerTask;
 
-import com.example.view.CustomRenderer;
+import com.example.view.MyRenderer;
 import com.example.view.RenderableElement;
 
 public class Test extends TimerTask{
@@ -14,7 +14,7 @@ public class Test extends TimerTask{
 	private float screenHauteur;
 	private List<Bot> bots = new ArrayList<Bot>();
 	
-	public Test(CustomRenderer renderer,float screenLargeur,float screenHauteur){
+	public Test(MyRenderer renderer,float screenLargeur,float screenHauteur){
 		
 	this.screenLargeur = screenLargeur;
 	this.screenHauteur = screenHauteur;
