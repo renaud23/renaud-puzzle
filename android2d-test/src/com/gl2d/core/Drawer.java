@@ -1,4 +1,4 @@
-package com.example.android2d_test;
+package com.gl2d.core;
 
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;

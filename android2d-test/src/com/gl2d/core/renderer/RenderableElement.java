@@ -1,4 +1,4 @@
-package com.example.view;
+package com.gl2d.core.renderer;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

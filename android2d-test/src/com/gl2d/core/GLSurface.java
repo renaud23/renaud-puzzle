@@ -1,10 +1,10 @@
-package com.example.android2d_test;
+package com.gl2d.core;
  
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.android2d_test.test.Test;
-import com.example.view.MyRenderer;
+import com.gl2d.core.renderer.MyRenderer;
+import com.gl2d.core.test.Test;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,13 +15,13 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.util.DisplayMetrics;
  
-public class GLSurf extends GLSurfaceView {
+public class GLSurface extends GLSurfaceView {
  
     private final Renderer renderer;
     private final Context context;
     
  
-    public GLSurf(Context context,Renderer renderer) {
+    public GLSurface(Context context,Renderer renderer) {
         super(context);
         this.renderer = renderer;
         this.context = context;

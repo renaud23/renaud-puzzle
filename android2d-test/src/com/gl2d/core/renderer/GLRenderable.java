@@ -1,4 +1,4 @@
-package com.example.view;
+package com.gl2d.core.renderer;
 
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;

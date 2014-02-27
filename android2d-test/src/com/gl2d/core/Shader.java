@@ -1,8 +1,8 @@
-package com.example.android2d_test;
+package com.gl2d.core;
  
 import android.opengl.GLES20;
  
-public class riGraphicTools {
+public class Shader {
  
 	// Program variables
 		public static int sp_SolidColor;

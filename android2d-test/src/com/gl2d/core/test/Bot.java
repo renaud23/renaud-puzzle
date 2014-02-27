@@ -1,8 +1,8 @@
-package com.example.android2d_test.test;
+package com.gl2d.core.test;
 
-import com.example.view.RenderableElement;
-import com.example.view.GLRenderable;
-import com.example.view.RenderableOperation;
+import com.gl2d.core.renderer.GLRenderable;
+import com.gl2d.core.renderer.RenderableElement;
+import com.gl2d.core.renderer.RenderableOperation;
 
 public class Bot implements RenderableOperation{
 	private GLRenderable drawble;

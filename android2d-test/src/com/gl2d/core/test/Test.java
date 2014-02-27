@@ -1,12 +1,12 @@
-package com.example.android2d_test.test;
+package com.gl2d.core.test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.TimerTask;
 
-import com.example.view.MyRenderer;
-import com.example.view.RenderableElement;
+import com.gl2d.core.renderer.MyRenderer;
+import com.gl2d.core.renderer.RenderableElement;
 
 public class Test extends TimerTask{
 	

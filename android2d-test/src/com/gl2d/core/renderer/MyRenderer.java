@@ -1,4 +1,4 @@
-package com.example.view;
+package com.gl2d.core.renderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Random;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.android2d_test.riGraphicTools;
+import com.gl2d.core.Shader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -91,7 +91,7 @@ public class MyRenderer implements Renderer{
         
         	
         	// get handle to vertex shader's vPosition member
-            int positionHandle = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "vPosition");
+            int positionHandle = GLES20.glGetAttribLocation(Shader.sp_Image, "vPosition");
      
             // Enable generic vertex attribute array
             GLES20.glEnableVertexAttribArray(positionHandle);
@@ -102,7 +102,7 @@ public class MyRenderer implements Renderer{
                                          0, dr.getVertexBuffer());
      
             // Get handle to texture coordinates location
-            int mTexCoordLoc = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "a_texCoord" );
+            int mTexCoordLoc = GLES20.glGetAttribLocation(Shader.sp_Image, "a_texCoord" );
      
             // Enable generic vertex attribute array
             GLES20.glEnableVertexAttribArray (mTexCoordLoc);
@@ -114,17 +114,17 @@ public class MyRenderer implements Renderer{
             
            
             // alpha *****
-            int mAlpha = GLES20.glGetUniformLocation(riGraphicTools.sp_Image, "alpha" );
+            int mAlpha = GLES20.glGetUniformLocation(Shader.sp_Image, "alpha" );
             GLES20.glUniform1f(mAlpha, 1.0f);
             
             // Get handle to shape's transformation matrix
-            int mtrxhandle = GLES20.glGetUniformLocation(riGraphicTools.sp_Image, "uMVPMatrix");
+            int mtrxhandle = GLES20.glGetUniformLocation(Shader.sp_Image, "uMVPMatrix");
      
             // Apply the projection and view transformation
             GLES20.glUniformMatrix4fv(mtrxhandle, 1, false, mtrxProjectionAndView, 0);
      
             // Get handle to textures locations
-            int mSamplerLoc = GLES20.glGetUniformLocation (riGraphicTools.sp_Image, "s_texture" );
+            int mSamplerLoc = GLES20.glGetUniformLocation (Shader.sp_Image, "s_texture" );
      
             // Set the sampler texture unit to 0, where we have saved the texture.
             GLES20.glUniform1i ( mSamplerLoc, dr.getTextureIndice());
@@ -179,25 +179,25 @@ public class MyRenderer implements Renderer{
         gl.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA); 
  
         // Create the shaders, solid color
-        int vertexShader = riGraphicTools.loadShader(GLES20.GL_VERTEX_SHADER, riGraphicTools.vs_SolidColor);
-        int fragmentShader = riGraphicTools.loadShader(GLES20.GL_FRAGMENT_SHADER, riGraphicTools.fs_SolidColor);
+        int vertexShader = Shader.loadShader(GLES20.GL_VERTEX_SHADER, Shader.vs_SolidColor);
+        int fragmentShader = Shader.loadShader(GLES20.GL_FRAGMENT_SHADER, Shader.fs_SolidColor);
  
-        riGraphicTools.sp_SolidColor = GLES20.glCreateProgram();             // create empty OpenGL ES Program
-        GLES20.glAttachShader(riGraphicTools.sp_SolidColor, vertexShader);   // add the vertex shader to program
-        GLES20.glAttachShader(riGraphicTools.sp_SolidColor, fragmentShader); // add the fragment shader to program
-        GLES20.glLinkProgram(riGraphicTools.sp_SolidColor);                  // creates OpenGL ES program executables
+        Shader.sp_SolidColor = GLES20.glCreateProgram();             // create empty OpenGL ES Program
+        GLES20.glAttachShader(Shader.sp_SolidColor, vertexShader);   // add the vertex shader to program
+        GLES20.glAttachShader(Shader.sp_SolidColor, fragmentShader); // add the fragment shader to program
+        GLES20.glLinkProgram(Shader.sp_SolidColor);                  // creates OpenGL ES program executables
  
         // Create the shaders, images
-        vertexShader = riGraphicTools.loadShader(GLES20.GL_VERTEX_SHADER, riGraphicTools.vs_Image);
-        fragmentShader = riGraphicTools.loadShader(GLES20.GL_FRAGMENT_SHADER, riGraphicTools.fs_Image);
+        vertexShader = Shader.loadShader(GLES20.GL_VERTEX_SHADER, Shader.vs_Image);
+        fragmentShader = Shader.loadShader(GLES20.GL_FRAGMENT_SHADER, Shader.fs_Image);
  
-        riGraphicTools.sp_Image = GLES20.glCreateProgram();             // create empty OpenGL ES Program
-        GLES20.glAttachShader(riGraphicTools.sp_Image, vertexShader);   // add the vertex shader to program
-        GLES20.glAttachShader(riGraphicTools.sp_Image, fragmentShader); // add the fragment shader to program
-        GLES20.glLinkProgram(riGraphicTools.sp_Image);                  // creates OpenGL ES program executables
+        Shader.sp_Image = GLES20.glCreateProgram();             // create empty OpenGL ES Program
+        GLES20.glAttachShader(Shader.sp_Image, vertexShader);   // add the vertex shader to program
+        GLES20.glAttachShader(Shader.sp_Image, fragmentShader); // add the fragment shader to program
+        GLES20.glLinkProgram(Shader.sp_Image);                  // creates OpenGL ES program executables
  
         // Set our shader programm
-        GLES20.glUseProgram(riGraphicTools.sp_Image);
+        GLES20.glUseProgram(Shader.sp_Image);
 	}
 
 	

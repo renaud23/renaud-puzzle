@@ -1,10 +1,11 @@
-package com.example.android2d_test;
+package com.gl2d.core;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.android2d_test.test.Test;
-import com.example.view.MyRenderer;
+import com.example.android2d_test.R;
+import com.gl2d.core.renderer.MyRenderer;
+import com.gl2d.core.test.Test;
 
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
@@ -36,7 +37,7 @@ public class MainActivity extends Activity {
         float largeur = metrics.widthPixels;
         float hauteur = metrics.heightPixels;
         MyRenderer renderer =  new MyRenderer(this,largeur,hauteur);
-        this.glSurfaceView = new GLSurf(this,renderer);
+        this.glSurfaceView = new GLSurface(this,renderer);
  
         // Set our view.
         setContentView(R.layout.activity_main);
