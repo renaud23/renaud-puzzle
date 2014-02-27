@@ -271,5 +271,15 @@ public class RenderableElement implements GLRenderable,RenderableOperation{
 	public void setHauteur(float hauteur) {
 		this.hauteur = hauteur;
 	}
+
+
+	@Override
+	public void setTextCoord(float[] coord) {
+		 ByteBuffer bb = ByteBuffer.allocateDirect(coord.length * 4);
+        bb.order(ByteOrder.nativeOrder());
+        this.uvBuffer = bb.asFloatBuffer();
+        this.uvBuffer.put(coord);
+        this.uvBuffer.position(0); 
+	}
     
 }

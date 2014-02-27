@@ -12,4 +12,6 @@ public interface GLRenderable {
 	
 	public float getX();
 	public float getY();
+	
+	public void setTextCoord(float[] coord);
 }

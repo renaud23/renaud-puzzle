@@ -2,13 +2,9 @@ package com.gl2d.core.renderer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
 import com.gl2d.core.Shader;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +12,10 @@ import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.opengl.GLSurfaceView.Renderer;
-import android.util.Log;
+
+
+
+
 
 public class MyRenderer implements Renderer{
 	
