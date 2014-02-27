@@ -19,14 +19,14 @@ public class Test extends TimerTask{
 	this.screenLargeur = screenLargeur;
 	this.screenHauteur = screenHauteur;
 	
-      for(int i=0;i<3;i++){
+      for(int i=0;i<30;i++){
     	Random rnd = new Random();
     	
     	float x = rnd.nextInt((int) screenLargeur-100)+50;
     	float y = rnd.nextInt((int) screenHauteur-100)+50;
     	float angle = rnd.nextInt(628) / 100.0f;
     	
-    	Bot e = new Bot(x, y);
+    	Bot e = new Bot(x,y);
     	e.turn(angle);
     	this.bots.add(e);
     	renderer.addRenderable(e.getDrawble());

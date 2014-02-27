@@ -77,7 +77,19 @@ public class CustomRenderer implements Renderer{
 		// clear Screen and Depth Buffer, we have set the clear color as black.
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         
+        // No culling of back faces
+        GLES20.glDisable(GLES20.GL_CULL_FACE);
+         
+        // No depth testing
+        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+         
+        // Enable blending
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        
         for(GLRenderable dr : this.drawable){
+        
+        	
         	// get handle to vertex shader's vPosition member
             int positionHandle = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "vPosition");
      
@@ -93,7 +105,7 @@ public class CustomRenderer implements Renderer{
             int mTexCoordLoc = GLES20.glGetAttribLocation(riGraphicTools.sp_Image, "a_texCoord" );
      
             // Enable generic vertex attribute array
-            GLES20.glEnableVertexAttribArray ( mTexCoordLoc );
+            GLES20.glEnableVertexAttribArray (mTexCoordLoc);
      
             // Prepare the texturecoordinates
             GLES20.glVertexAttribPointer ( mTexCoordLoc, 2, GLES20.GL_FLOAT,
@@ -101,7 +113,10 @@ public class CustomRenderer implements Renderer{
                     0, dr.getUvBuffer());
             
            
-     
+            // alpha *****
+            int mAlpha = GLES20.glGetUniformLocation(riGraphicTools.sp_Image, "alpha" );
+            GLES20.glUniform1f(mAlpha, 1.0f);
+            
             // Get handle to shape's transformation matrix
             int mtrxhandle = GLES20.glGetUniformLocation(riGraphicTools.sp_Image, "uMVPMatrix");
      

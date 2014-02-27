@@ -42,11 +42,6 @@ public class GLSurf extends GLSurfaceView {
 //        setEGLConfigChooser(8, 8, 8, 8, 0, 0); 
         getHolder().setFormat(PixelFormat.RGBA_8888); 
         
-        
-        // for Test
-//        Timer timer = new Timer();
-//        TimerTask task = new Test(largeur,hauteur);
-//		timer.scheduleAtFixedRate(task, 0, 10);
        
     }
  

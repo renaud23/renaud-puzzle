@@ -8,7 +8,7 @@ public class riGraphicTools {
 		public static int sp_SolidColor;
 		public static int sp_Image;
 		
-		
+			
 		/* SHADER Solid
 		 * 
 		 * This shader is for rendering a colored primitive.
@@ -47,8 +47,10 @@ public class riGraphicTools {
 			"precision mediump float;" +
 		    "varying vec2 v_texCoord;" +
 	        "uniform sampler2D s_texture;" +
+		    "uniform float alpha;"+
 		    "void main() {" +
 		    "  gl_FragColor = texture2D( s_texture, v_texCoord );" +
+		    "  gl_FragColor.a *= alpha;"+
 		    "}"; 
 		
 		
