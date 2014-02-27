@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import com.example.android2d_test.R;
 import com.gl2d.core.renderer.MyRenderer;
 import com.gl2d.core.test.Test;
+import com.puzzle.android.GameLoop;
 
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
@@ -51,7 +52,7 @@ public class MainActivity extends Activity {
         
         // for test
         Timer timer = new Timer();
-        TimerTask task = new Test(renderer, largeur, hauteur);
+        TimerTask task = new GameLoop(renderer, largeur, hauteur);
 		timer.scheduleAtFixedRate(task, 0, 10);
      
     }

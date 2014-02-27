@@ -2,9 +2,14 @@ package com.gl2d.core.renderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
 import com.gl2d.core.Shader;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +24,7 @@ import android.opengl.GLSurfaceView.Renderer;
 
 public class MyRenderer implements Renderer{
 	
-	private List<GLRenderable> drawable;
+	private Set<GLRenderable> drawable;
 	
 	
 	 // Our matrices
@@ -32,7 +37,7 @@ public class MyRenderer implements Renderer{
  
 	private Context context;
 	private long lastTime;
-	private int program;
+
  
     public MyRenderer(Context c,float largeur,float hauteur){
         this.context = c;
@@ -41,7 +46,7 @@ public class MyRenderer implements Renderer{
         this.lastTime = System.currentTimeMillis() + 100;
         
         
-        this.drawable = new ArrayList<GLRenderable>();    
+        this.drawable = new TreeSet<GLRenderable>();    
     }
     
     public void onPause(){
@@ -60,9 +65,6 @@ public class MyRenderer implements Renderer{
  
         // We should make sure we are valid and sane
         if (this.lastTime > now) return;
- 
-        // Get the amount of time the last frame took.
-        long elapsed = now - this.lastTime;
 
         this.render();
  
@@ -207,7 +209,7 @@ public class MyRenderer implements Renderer{
         GLES20.glGenTextures(1, texturenames, 0);
  
         // Retrieve our image from resources.
-        int id = context.getResources().getIdentifier("drawable/im1", null, context.getPackageName());
+        int id = context.getResources().getIdentifier("drawable/background", null, context.getPackageName());
  
         // Temporary create a bitmap
         Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), id);

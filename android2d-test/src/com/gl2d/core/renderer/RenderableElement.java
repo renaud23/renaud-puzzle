@@ -8,7 +8,7 @@ import java.nio.ShortBuffer;
 import android.graphics.PointF;
 
 
-public class RenderableElement implements GLRenderable,RenderableOperation{
+public class RenderableElement implements GLRenderable,RenderableOperation,Comparable<RenderableElement>{
 	
 	
 	
@@ -26,7 +26,14 @@ public class RenderableElement implements GLRenderable,RenderableOperation{
     private PointF p3;
     private float x;
     private float y;
-    private float angle;
+    private float z = 1;
+  
+
+
+
+
+
+	private float angle;
     private float largeur;
     private float hauteur;
     private int textureIndice;
@@ -120,7 +127,13 @@ public class RenderableElement implements GLRenderable,RenderableOperation{
 		this.textureIndice = textureIndice;
 	}
 
-	
+	public float getZ() {
+		return z;
+	}
+
+	public void setZ(float z) {
+		this.z = z;
+	}
 
 	/*
 	 * RenderableOperation
@@ -243,6 +256,18 @@ public class RenderableElement implements GLRenderable,RenderableOperation{
         this.uvBuffer = bb.asFloatBuffer();
         this.uvBuffer.put(coord);
         this.uvBuffer.position(0); 
+	}
+
+
+
+
+
+	@Override
+	public int compareTo(RenderableElement o) {
+		int val = 1;
+
+		if(this.z < o.z) val = -1;// attention on utilise un treeset, faut jamais dire == sinon l'objet n'entrera pas 
+		return val;
 	}
     
 }
