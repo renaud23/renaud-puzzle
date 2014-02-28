@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import com.gl2d.core.renderer.MyRenderer;
 import com.gl2d.core.test.Test;
+import com.puzzle.android.controller.IController;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,12 +15,16 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
  
 public class GLSurface extends GLSurfaceView {
  
     private final Renderer renderer;
     private final Context context;
+    private IController controller;
     
+    
+    private float screenHauteur;
  
     public GLSurface(Context context,Renderer renderer) {
         super(context);
@@ -30,9 +35,9 @@ public class GLSurface extends GLSurfaceView {
         setEGLContextClientVersion(2);
  
         // Set the Renderer for drawing on the GLSurfaceView
-//        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-//        float largeur = metrics.widthPixels;
-//        float hauteur = metrics.heightPixels;
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        float largeur = metrics.widthPixels;
+        this.screenHauteur = metrics.heightPixels;
 //        this.renderer = new CustomRenderer(context,largeur,hauteur);
         this.setRenderer(renderer);
  
@@ -58,6 +63,24 @@ public class GLSurface extends GLSurfaceView {
     }
     
     
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+    		float x = e.getX();
+    		float y = e.getY();
+    		
+    		if(this.controller != null) this.controller.onTouchEvent(x, this.screenHauteur - y);
+    	
+            return true;
+    }
+    
+    
+    
 
- 
+	public IController getController() {
+		return controller;
+	}
+
+	public void setController(IController controller) {
+		this.controller = controller;
+	}
 }

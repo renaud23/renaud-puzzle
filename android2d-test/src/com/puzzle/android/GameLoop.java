@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import android.graphics.RectF;
 
+import com.gl2d.core.GLSurface;
 import com.gl2d.core.renderer.MyRenderer;
 import com.gl2d.core.test.Bot;
 
@@ -14,6 +15,7 @@ public class GameLoop  extends TimerTask{
 	private float screenLargeur;
 	private float screenHauteur;
 	private MyRenderer renderer;
+	
 	
 
 
