@@ -1,7 +1,7 @@
 package com.gl2d.core.test;
 
 import com.gl2d.core.renderer.GLRenderable;
-import com.gl2d.core.renderer.RenderableElement;
+import com.gl2d.core.renderer.RenderableTexture;
 import com.gl2d.core.renderer.RenderableOperation;
 
 public class Bot implements RenderableOperation{
@@ -22,7 +22,7 @@ public class Bot implements RenderableOperation{
 		this.x = x;
 		this.y = y;
 		
-		this.drawble = new RenderableElement(0, 
+		this.drawble = new RenderableTexture(0, 
 				x-this.largeur/2.0f, 
 				y-this.hauteur/2.0f, 
 				this.largeur, this.hauteur);

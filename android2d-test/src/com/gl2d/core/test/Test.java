@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.TimerTask;
 
 import com.gl2d.core.renderer.MyRenderer;
-import com.gl2d.core.renderer.RenderableElement;
+import com.gl2d.core.renderer.RenderableTexture;
 
 public class Test extends TimerTask{
 	

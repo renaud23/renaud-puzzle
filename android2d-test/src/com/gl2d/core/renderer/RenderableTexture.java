@@ -5,10 +5,13 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
+import com.gl2d.core.Shader;
+
 import android.graphics.PointF;
+import android.opengl.GLES20;
 
 
-public class RenderableElement implements GLRenderable,RenderableOperation,Comparable<RenderableElement>{
+public class RenderableTexture implements GLRenderable,RenderableOperation{
 	
 	
 	
@@ -39,7 +42,7 @@ public class RenderableElement implements GLRenderable,RenderableOperation,Compa
     private int textureIndice;
     
     
-    public RenderableElement(int textureIndice,float x, float y, float largeur, float hauteur) {
+    public RenderableTexture(int textureIndice,float x, float y, float largeur, float hauteur) {
 		this.x = x;
 		this.y = y;
 		
@@ -80,52 +83,7 @@ public class RenderableElement implements GLRenderable,RenderableOperation,Compa
 	}
 
 
-    
-    
-    
-	public FloatBuffer getUvBuffer() {
-		return uvBuffer;
-	}
 
-	public void setUvBuffer(FloatBuffer uvBuffer) {
-		this.uvBuffer = uvBuffer;
-	}
-
-
-	public FloatBuffer getVertexBuffer() {
-		this.checkTransform();
-		this.makeVerticeBuffer();
-		
-		return vertexBuffer;
-	}
-
-	public void setVertexBuffer(FloatBuffer vertexBuffer) {
-		this.vertexBuffer = vertexBuffer;
-	}
-
-	public short[] getIndices() {
-		return indices;
-	}
-
-	public void setIndices(short[] indices) {
-		this.indices = indices;
-	}
-
-	public ShortBuffer getDrawListBuffer() {
-		return drawListBuffer;
-	}
-
-	public void setDrawListBuffer(ShortBuffer drawListBuffer) {
-		this.drawListBuffer = drawListBuffer;
-	}
-	
-	public int getTextureIndice() {
-		return textureIndice;
-	}
-
-	public void setTextureIndice(int textureIndice) {
-		this.textureIndice = textureIndice;
-	}
 
 	public float getZ() {
 		return z;
@@ -259,14 +217,66 @@ public class RenderableElement implements GLRenderable,RenderableOperation,Compa
 	}
 
 
+	public void render(float[] mtrxProjectionAndView){
+		this.checkTransform();
+		this.makeVerticeBuffer();
+		
+		
+		// get handle to vertex shader's vPosition member
+        int positionHandle = GLES20.glGetAttribLocation(Shader.sp_Image, "vPosition");
+ 
+        // Enable generic vertex attribute array
+        GLES20.glEnableVertexAttribArray(positionHandle);
+ 
+        // Prepare the triangle coordinate data
+        GLES20.glVertexAttribPointer(positionHandle, 3,
+                                     GLES20.GL_FLOAT, false,
+                                     0, vertexBuffer);
+ 
+        // Get handle to texture coordinates location
+        int mTexCoordLoc = GLES20.glGetAttribLocation(Shader.sp_Image, "a_texCoord" );
+ 
+        // Enable generic vertex attribute array
+        GLES20.glEnableVertexAttribArray (mTexCoordLoc);
+ 
+        // Prepare the texturecoordinates
+        GLES20.glVertexAttribPointer ( mTexCoordLoc, 2, GLES20.GL_FLOAT,
+                false,
+                0, uvBuffer);
+        
+       
+        // alpha *****
+        int mAlpha = GLES20.glGetUniformLocation(Shader.sp_Image, "alpha" );
+        GLES20.glUniform1f(mAlpha, 1.0f);
+        
+        // Get handle to shape's transformation matrix
+        int mtrxhandle = GLES20.glGetUniformLocation(Shader.sp_Image, "uMVPMatrix");
+ 
+        // Apply the projection and view transformation
+        GLES20.glUniformMatrix4fv(mtrxhandle, 1, false, mtrxProjectionAndView, 0);
+ 
+        // Get handle to textures locations
+        int mSamplerLoc = GLES20.glGetUniformLocation (Shader.sp_Image, "s_texture" );
+ 
+        // Set the sampler texture unit to 0, where we have saved the texture.
+        GLES20.glUniform1i ( mSamplerLoc, textureIndice);
+ 
+        // Draw the triangle
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.length,
+                GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
+ 
+        // Disable vertex array
+        GLES20.glDisableVertexAttribArray(positionHandle);
+        GLES20.glDisableVertexAttribArray(mTexCoordLoc);
+	}
 
 
 
 	@Override
-	public int compareTo(RenderableElement o) {
+	public int compareTo(GLRenderable o) {
 		int val = 1;
 
-		if(this.z < o.z) val = -1;// attention on utilise un treeset, faut jamais dire == sinon l'objet n'entrera pas 
+		if(this.z < ((RenderableTexture)o).z) val = -1;// attention on utilise un treeset, faut jamais dire == sinon l'objet n'entrera pas 
 		return val;
 	}
     

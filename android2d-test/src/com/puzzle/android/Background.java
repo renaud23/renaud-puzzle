@@ -3,10 +3,10 @@ package com.puzzle.android;
 import android.graphics.RectF;
 
 import com.gl2d.core.renderer.MyRenderer;
-import com.gl2d.core.renderer.RenderableElement;
+import com.gl2d.core.renderer.RenderableTexture;
 
 public class Background {
-	private RenderableElement renderable;
+	private RenderableTexture renderable;
 	
 	private float screenLargeur;
 	private float screenHauteur;
@@ -20,7 +20,7 @@ public class Background {
 		this.screenHauteur = screenHauteur;
 		this.texLargeur = 1000.0f;
 		this.texHauteur = 1000.0f;
-		this.renderable = new RenderableElement(0, 0, 0, screenLargeur, screenHauteur);
+		this.renderable = new RenderableTexture(0, 0, 0, screenLargeur, screenHauteur);
 		this.renderable.setZ(0);
 		
 		
