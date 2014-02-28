@@ -9,10 +9,17 @@ public class Carte implements IController,Widget{
 	
 	private RenderableTexture texCarte;
 	
+	/**
+	 * position à l'écran
+	 */
 	private float x;
 	private float y;
+	/**
+	 * largeur à l'écran
+	 */
 	private float largeur;
 	private float hauteur;
+	
 	private TapisVue vue;
 	
 	
@@ -67,7 +74,7 @@ public class Carte implements IController,Widget{
 
 	@Override
 	public void onTouchDown(float x, float y) {
-		System.out.println("****");
+		this.checkCarte(x, y);
 		
 	}
 
@@ -75,7 +82,7 @@ public class Carte implements IController,Widget{
 
 	@Override
 	public void onTouchUp(float x, float y) {
-		// TODO Auto-generated method stub
+		this.checkCarte(x, y);
 		
 	}
 
@@ -83,8 +90,18 @@ public class Carte implements IController,Widget{
 
 	@Override
 	public void onTouchMove(float x, float y) {
-		// TODO Auto-generated method stub
+		this.checkCarte(x, y);
 		
+	}
+	
+	
+	private void checkCarte(float x, float y){
+		float px = x - this.x;
+		px /= this.largeur;
+		float py = y - this.y;
+		py /= this.hauteur;
+		
+		this.vue.moveVue(px, py);
 	}
 
 }

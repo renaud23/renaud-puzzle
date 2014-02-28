@@ -31,12 +31,21 @@ public class Background {
 	
 	
 	public void setRect(RectF pl){
+//		float[] coord = {
+//			pl.left,pl.bottom,
+//			pl.left,pl.top,
+//			pl.right,pl.top,
+//			pl.right,pl.bottom
+//		};
+		
 		float[] coord = {
-			pl.left,pl.bottom,
-			pl.left,pl.top,
-			pl.right,pl.top,
-			pl.right,pl.bottom
-		};
+				0.0f,0.0f,
+				0.0f,0.2f,
+				0.5f,0.2f,
+				0.5f,0.0f
+			};
+		
+	
 		
 		this.renderable.setTextCoord(coord);
 	}

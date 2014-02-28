@@ -29,8 +29,8 @@ public class GameLoop  extends TimerTask{
 		this.screenHauteur = screenHauteur;
 		this.renderer = renderer;
 		
-		Background bck = new Background(renderer, screenLargeur, screenHauteur);
-		bck.setRect(new RectF(0.2f, 0.4f, 0.3f, 0.2f));
+//		Background bck = new Background(renderer, screenLargeur, screenHauteur);
+//		bck.setRect(new RectF(0.2f, 0.4f, 0.3f, 0.2f));
 	}
 
 

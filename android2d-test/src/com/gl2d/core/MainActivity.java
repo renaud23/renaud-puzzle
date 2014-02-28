@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import com.example.android2d_test.R;
 import com.gl2d.core.renderer.MyRenderer;
+import com.puzzle.android.Background;
 import com.puzzle.android.GameLoop;
 import com.puzzle.android.controller.Carte;
 import com.puzzle.android.controller.GameController;
@@ -69,16 +70,25 @@ public class MainActivity extends Activity {
         float largeurVue = 0.1f * largeurTapis;
         float hauteurVue =  largeurVue *hauteurEcran/largeurEcran;
            
+        // modéle
         Tapis tapis = new Tapis(largeurTapis, hauteurTapis);
-        TapisVue vue = new TapisVue(tapis,
+        Background bck = new Background(renderer, largeurEcran, hauteurEcran);
+        
+        TapisVue vue = new TapisVue(
+        		bck,
+        		tapis,
         		(largeurTapis-largeurVue)/2.0f,(hauteurTapis-hauteurVue) / 2.0f,
-        		largeurVue, hauteurVue);  
+        		largeurVue, hauteurVue); 
+        
         Carte carte = new Carte(renderer,vue,0.1f*largeurEcran,0.89f * hauteurEcran, 0.3f*largeurEcran);
         GameController game = new GameController();
         RootController root = new RootController();
         root.addController(game);
         root.addController(carte);
         ((GLSurface)this.glSurfaceView).setController(root);
+        
+		
+//		bck.setRect(new RectF(0.2f, 0.4f, 0.3f, 0.2f));
         
         Timer timer = new Timer();
         TimerTask task = new GameLoop(renderer, largeurEcran, hauteurEcran);
