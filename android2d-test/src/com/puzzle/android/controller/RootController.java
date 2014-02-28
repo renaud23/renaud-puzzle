@@ -3,6 +3,8 @@ package com.puzzle.android.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gl2d.core.renderer.MyRenderer;
+
 public class RootController implements IController{
 	
 	private List<IController> controllers = new ArrayList<IController>();
@@ -39,6 +41,12 @@ public class RootController implements IController{
 	
 	public void removeController(IController c){
 		this.controllers.remove(c);
+	}
+
+	@Override
+	public void removeRenderable(MyRenderer renderer) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

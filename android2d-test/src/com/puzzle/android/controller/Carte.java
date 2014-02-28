@@ -1,22 +1,37 @@
 package com.puzzle.android.controller;
 
-public class Carte implements IController{
+import com.gl2d.core.renderer.MyRenderer;
+import com.gl2d.core.renderer.RenderableTexture;
+import com.puzzle.android.game.TapisVue;
+
+public class Carte implements IController,Widget{
+	
+	
+	private RenderableTexture texCarte;
 	
 	private float x;
 	private float y;
 	private float largeur;
 	private float hauteur;
-	
+	private TapisVue vue;
 	
 	
 
-	public Carte(float x, float y, float largeur, float hauteur) {
+	public Carte(MyRenderer renderer,TapisVue vue,float x, float y, float largeur) {
 		this.x = x;
 		this.y = y;
 		this.largeur = largeur;
-		this.hauteur = hauteur;
+		this.hauteur = largeur;
+		this.vue = vue;
 		
+		float ratioTapis = (float) vue.getTapis().getHauteur();
+		ratioTapis /= vue.getTapis().getLargeur();
 		
+		this.hauteur *= ratioTapis;
+		
+		this.texCarte = new RenderableTexture(0, x, y, largeur, this.hauteur);
+		
+		renderer.addRenderable(this.texCarte);
 	}
 
 	@Override
@@ -42,6 +57,12 @@ public class Carte implements IController{
 	
 	
 	public void remove(){
+		
+	}
+
+	@Override
+	public void removeRenderable(MyRenderer renderer) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -5,17 +5,13 @@ import java.util.TimerTask;
 
 import com.example.android2d_test.R;
 import com.gl2d.core.renderer.MyRenderer;
-import com.gl2d.core.test.Test;
 import com.puzzle.android.GameLoop;
 import com.puzzle.android.controller.Carte;
 import com.puzzle.android.controller.GameController;
-import com.puzzle.android.controller.IController;
 import com.puzzle.android.controller.RootController;
 import com.puzzle.android.game.TapisVue;
 import com.puzzle.model.Tapis;
-
 import android.opengl.GLSurfaceView;
-import android.opengl.GLSurfaceView.Renderer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.DisplayMetrics;
@@ -57,23 +53,21 @@ public class MainActivity extends Activity {
         layout.addView(glSurfaceView, glParams);
         
         // for test
-        RootController root = new RootController();
-        ((GLSurface)this.glSurfaceView).setController(root);
-        
-        Carte carte = new Carte(0.1f*largeurEcran,0.89f * hauteurEcran, 0.3f*largeurEcran,0.1f * hauteurEcran);
-        GameController game = new GameController();
-        root.addController(game);
-        root.addController(carte);
-        
-        
         float largeurTapis = 10000.0f;
         float hauteurTapis = 5000.0f;
-        Tapis tapis = new Tapis(largeurTapis, hauteurTapis);
         float largeurVue = 0.1f * largeurTapis;
         float hauteurVue =  largeurVue *hauteurEcran/largeurEcran;
+           
+        Tapis tapis = new Tapis(largeurTapis, hauteurTapis);
         TapisVue vue = new TapisVue(tapis,
         		(largeurTapis-largeurVue)/2.0f,(hauteurTapis-hauteurVue) / 2.0f,
-        		largeurVue, hauteurVue);
+        		largeurVue, hauteurVue);  
+        Carte carte = new Carte(renderer,vue,0.1f*largeurEcran,0.89f * hauteurEcran, 0.3f*largeurEcran);
+        GameController game = new GameController();
+        RootController root = new RootController();
+        root.addController(game);
+        root.addController(carte);
+        ((GLSurface)this.glSurfaceView).setController(root);
         
         Timer timer = new Timer();
         TimerTask task = new GameLoop(renderer, largeurEcran, hauteurEcran);
