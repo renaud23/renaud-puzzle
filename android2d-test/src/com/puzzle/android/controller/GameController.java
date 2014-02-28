@@ -4,11 +4,7 @@ import com.gl2d.core.renderer.MyRenderer;
 
 public class GameController implements IController {
 
-	@Override
-	public void onTouchEvent(float x, float y) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public boolean isIn(float x, float y) {
@@ -22,6 +18,24 @@ public class GameController implements IController {
 
 	@Override
 	public void removeRenderable(MyRenderer renderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTouchDown(float x, float y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTouchUp(float x, float y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTouchMove(float x, float y) {
 		// TODO Auto-generated method stub
 		
 	}

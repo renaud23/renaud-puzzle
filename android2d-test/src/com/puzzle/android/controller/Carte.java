@@ -34,10 +34,7 @@ public class Carte implements IController,Widget{
 		renderer.addRenderable(this.texCarte);
 	}
 
-	@Override
-	public void onTouchEvent(float x, float y) {
-		System.out.println(x+" "+y);
-	}
+
 
 	@Override
 	public boolean isIn(float x, float y) {
@@ -62,6 +59,30 @@ public class Carte implements IController,Widget{
 
 	@Override
 	public void removeRenderable(MyRenderer renderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void onTouchDown(float x, float y) {
+		System.out.println("****");
+		
+	}
+
+
+
+	@Override
+	public void onTouchUp(float x, float y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void onTouchMove(float x, float y) {
 		// TODO Auto-generated method stub
 		
 	}

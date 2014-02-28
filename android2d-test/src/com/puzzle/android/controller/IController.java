@@ -2,10 +2,13 @@ package com.puzzle.android.controller;
 
 import com.gl2d.core.renderer.MyRenderer;
 
-import android.graphics.PointF;
 
 public interface IController {
-	public void onTouchEvent(float x,float y);
+
+	
+	public void onTouchDown(float x,float y);
+	public void onTouchUp(float x,float y);
+	public void onTouchMove(float x,float y);
 	
 	
 	

@@ -8,9 +8,11 @@ import com.gl2d.core.renderer.MyRenderer;
 import com.puzzle.android.GameLoop;
 import com.puzzle.android.controller.Carte;
 import com.puzzle.android.controller.GameController;
+import com.puzzle.android.controller.MyGesture;
 import com.puzzle.android.controller.RootController;
 import com.puzzle.android.game.TapisVue;
 import com.puzzle.model.Tapis;
+
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.app.Activity;
@@ -41,6 +43,9 @@ public class MainActivity extends Activity {
         float hauteurEcran = metrics.heightPixels;
         MyRenderer renderer =  new MyRenderer(this,largeurEcran,hauteurEcran);
         this.glSurfaceView = new GLSurface(this,renderer);
+        
+        
+      
  
         // Set our view.
         setContentView(R.layout.activity_main);
@@ -51,6 +56,12 @@ public class MainActivity extends Activity {
         // Attach our surfaceview to our relative layout from our main layout.
         RelativeLayout.LayoutParams glParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         layout.addView(glSurfaceView, glParams);
+        
+        
+//        // Gesture
+//        MyGesture g = new MyGesture();
+//        this.glSurfaceView.setOnTouchListener(g);
+        
         
         // for test
         float largeurTapis = 10000.0f;
@@ -72,6 +83,7 @@ public class MainActivity extends Activity {
         Timer timer = new Timer();
         TimerTask task = new GameLoop(renderer, largeurEcran, hauteurEcran);
 		timer.scheduleAtFixedRate(task, 0, 10);
+		
      
     }
 	

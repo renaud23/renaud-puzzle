@@ -15,6 +15,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
  
 public class GLSurface extends GLSurfaceView {
@@ -65,12 +66,19 @@ public class GLSurface extends GLSurfaceView {
     
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-    		float x = e.getX();
-    		float y = e.getY();
-    		
-    		if(this.controller != null) this.controller.onTouchEvent(x, this.screenHauteur - y);
-    	
-            return true;
+    	float x = e.getX();
+		float y = e.getY();
+	
+		
+    	if(e.getAction() == MotionEvent.ACTION_DOWN){	
+    		if(this.controller != null) this.controller.onTouchDown(x, this.screenHauteur - y);
+    	}else if(e.getAction() == MotionEvent.ACTION_UP){
+    		if(this.controller != null) this.controller.onTouchUp(x, this.screenHauteur - y);
+    	}else if(e.getAction() == MotionEvent.ACTION_MOVE){
+    		if(this.controller != null) this.controller.onTouchMove(x, this.screenHauteur - y);
+    	}
+   
+        return true;
     }
     
     
