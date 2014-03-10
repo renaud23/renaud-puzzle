@@ -68,20 +68,19 @@ public class MainActivity extends Activity {
         float largeurTapis = 10000.0f;
         float hauteurTapis = 5000.0f;
         float largeurVue = 0.1f * largeurTapis;
-        float hauteurVue =  largeurVue *hauteurEcran/largeurEcran;
+        float hauteurVue =  largeurVue * hauteurEcran/largeurEcran;
            
         // modéle
         Tapis tapis = new Tapis(largeurTapis, hauteurTapis);
-        Background bck = new Background(renderer, largeurEcran, hauteurEcran);
         
+        Background bck = new Background(renderer, largeurEcran, hauteurEcran);
         TapisVue vue = new TapisVue(
         		bck,
         		tapis,
         		0,0,
-        		//(largeurTapis-largeurVue)/2.0f,(hauteurTapis-hauteurVue) / 2.0f,
         		largeurVue, hauteurVue); 
         
-        Carte carte = new Carte(renderer,vue,0.1f*largeurEcran,0.89f * hauteurEcran, 0.3f*largeurEcran);
+        Carte carte = new Carte(renderer,vue,0.05f*largeurEcran,0.05f*largeurEcran, 0.3f*largeurEcran);
         GameController game = new GameController();
         RootController root = new RootController();
         root.addController(game);

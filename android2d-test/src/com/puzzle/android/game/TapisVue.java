@@ -12,14 +12,22 @@ import com.puzzle.model.Tapis;
  */
 public class TapisVue {
 	
+	/**
+	 * 
+	 */
 	private float largeurVue;
+	
+	/**
+	 * 
+	 */
 	private float hauteurVue;
 	/**
-	 * position dans le tapis
+	 * position en abscice dans le tapis
 	 */
+	
 	private float x;
 	/**
-	 * position dans le tapis
+	 * position en ordonnée dans le tapis
 	 */
 	private float y;
 	
@@ -40,7 +48,9 @@ public class TapisVue {
 	}
 
 
-	
+	/*
+	 * attention dans les calcul, le tapis est centré en 0,0 pas le reste !
+	 */
 	public void moveVue(float px,float py){
 		this.x = (float) (this.tapis.getLargeur() * px - tapis.getLargeur() / 2.0f);
 		this.y = (float) (this.tapis.getHauteur() * py - tapis.getHauteur() / 2.0f);
@@ -54,6 +64,12 @@ public class TapisVue {
 		
 		float rx = (float) ((this.x + tapis.getLargeur() / 2.0f) / this.tapis.getLargeur()) - rl / 2.0f;
 		float ry = (float) ((this.y + tapis.getHauteur() / 2.0f) / this.tapis.getHauteur()) - rh / 2.0f;
+		
+		// control des bords
+		if(rx < 0)	rx = 0;
+		else if((rx+rl) > 1.0f) rx = 1.0f - rl;
+		if(ry < 0)	ry = 0;
+		else if((ry+rh) > 1.0f) ry = 1.0f - rh;
 		
 		RectF r = new RectF(rx, ry+rh, rx+rl, ry);
 		
