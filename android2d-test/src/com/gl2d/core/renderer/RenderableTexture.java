@@ -207,7 +207,7 @@ public class RenderableTexture implements GLRenderable,RenderableOperation{
 	}
 
 
-	@Override
+
 	public void setTextCoord(float[] coord) {
 		 ByteBuffer bb = ByteBuffer.allocateDirect(coord.length * 4);
         bb.order(ByteOrder.nativeOrder());
@@ -218,6 +218,8 @@ public class RenderableTexture implements GLRenderable,RenderableOperation{
 
 
 	public void render(float[] mtrxProjectionAndView){
+		GLES20.glUseProgram(Shader.sp_Image);
+		
 		this.checkTransform();
 		this.makeVerticeBuffer();
 		

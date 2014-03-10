@@ -2,11 +2,8 @@ package com.gl2d.core;
  
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com.gl2d.core.renderer.MyRenderer;
-import com.gl2d.core.test.Test;
 import com.puzzle.android.controller.IController;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

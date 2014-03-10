@@ -1,7 +1,6 @@
 package com.gl2d.core.renderer;
 
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
+
 
 public class RenderableRect implements GLRenderable,RenderableOperation{
 
@@ -35,23 +34,7 @@ public class RenderableRect implements GLRenderable,RenderableOperation{
 		
 	}
 
-	@Override
-	public float getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public float getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setTextCoord(float[] coord) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 

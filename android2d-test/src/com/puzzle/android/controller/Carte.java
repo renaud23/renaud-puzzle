@@ -1,6 +1,7 @@
 package com.puzzle.android.controller;
 
 import com.gl2d.core.renderer.MyRenderer;
+import com.gl2d.core.renderer.RenderableLine;
 import com.gl2d.core.renderer.RenderableTexture;
 import com.puzzle.android.game.TapisVue;
 
@@ -39,6 +40,12 @@ public class Carte implements IController,Widget{
 		this.texCarte = new RenderableTexture(0, x, y, largeur, this.hauteur);
 		
 		renderer.addRenderable(this.texCarte);
+		
+		
+		RenderableLine line = new RenderableLine();
+		line.SetVerts(100f, 100f, 0f, 300f, 300f, 0f);
+		
+		renderer.addRenderable(line);
 	}
 
 

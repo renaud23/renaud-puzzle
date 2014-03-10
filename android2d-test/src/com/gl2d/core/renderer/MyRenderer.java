@@ -150,8 +150,17 @@ public class MyRenderer implements Renderer{
         GLES20.glAttachShader(Shader.sp_Image, fragmentShader); // add the fragment shader to program
         GLES20.glLinkProgram(Shader.sp_Image);                  // creates OpenGL ES program executables
  
-        // Set our shader programm
-        GLES20.glUseProgram(Shader.sp_Image);
+        // Create the shaders line
+        vertexShader = Shader.loadShader(GLES20.GL_VERTEX_SHADER, Shader.vs_line);
+        fragmentShader = Shader.loadShader(GLES20.GL_FRAGMENT_SHADER, Shader.fs_line);
+ 
+        Shader.sp_line = GLES20.glCreateProgram();             // create empty OpenGL ES Program
+        GLES20.glAttachShader(Shader.sp_line, vertexShader);   // add the vertex shader to program
+        GLES20.glAttachShader(Shader.sp_line, fragmentShader); // add the fragment shader to program
+        GLES20.glLinkProgram(Shader.sp_line);                  // creates OpenGL ES program executables
+ 
+        
+        
 	}
 
 	

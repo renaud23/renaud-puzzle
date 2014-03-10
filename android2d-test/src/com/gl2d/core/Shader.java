@@ -7,6 +7,7 @@ public class Shader {
 	// Program variables
 		public static int sp_SolidColor;
 		public static int sp_Image;
+		public static int sp_line;
 		
 			
 		/* SHADER Solid
@@ -52,6 +53,27 @@ public class Shader {
 		    "  gl_FragColor = texture2D( s_texture, v_texCoord );" +
 		    "  gl_FragColor.a *= alpha;"+
 		    "}"; 
+		
+		/*
+		 * line shader
+		 */
+		public static final String vs_line =
+		        // This matrix member variable provides a hook to manipulate
+		        // the coordinates of the objects that use this vertex shader
+		        "uniform mat4 uMVPMatrix;" +
+		        "attribute vec4 vPosition;" +
+		        "void main() {" +
+		        // the matrix must be included as a modifier of gl_Position
+		        "  gl_Position = uMVPMatrix * vPosition;" +
+		        "}";
+
+		public static final String fs_line =
+		        "precision mediump float;" +
+		        "uniform vec4 vColor;" +
+		        "void main() {" +
+		        "  gl_FragColor = vColor;" +
+		        "}";
+		
 		
 		
 		
