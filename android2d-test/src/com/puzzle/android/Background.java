@@ -38,11 +38,6 @@ public class Background {
 			pl.right,1.0f-pl.top
 		};
 		
-		
-
-		
-	
-		
 		this.renderable.setTextCoord(coord);
 	}
 }

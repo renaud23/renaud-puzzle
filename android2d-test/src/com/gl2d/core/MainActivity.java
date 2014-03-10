@@ -77,7 +77,8 @@ public class MainActivity extends Activity {
         TapisVue vue = new TapisVue(
         		bck,
         		tapis,
-        		(largeurTapis-largeurVue)/2.0f,(hauteurTapis-hauteurVue) / 2.0f,
+        		0,0,
+        		//(largeurTapis-largeurVue)/2.0f,(hauteurTapis-hauteurVue) / 2.0f,
         		largeurVue, hauteurVue); 
         
         Carte carte = new Carte(renderer,vue,0.1f*largeurEcran,0.89f * hauteurEcran, 0.3f*largeurEcran);
@@ -86,9 +87,6 @@ public class MainActivity extends Activity {
         root.addController(game);
         root.addController(carte);
         ((GLSurface)this.glSurfaceView).setController(root);
-        
-		
-//		bck.setRect(new RectF(0.2f, 0.4f, 0.3f, 0.2f));
         
         Timer timer = new Timer();
         TimerTask task = new GameLoop(renderer, largeurEcran, hauteurEcran);

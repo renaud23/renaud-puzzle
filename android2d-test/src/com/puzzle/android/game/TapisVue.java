@@ -31,7 +31,7 @@ public class TapisVue {
 	public TapisVue(Background background, Tapis tapis,float x, float y,float largeurVue, float hauteurVue) {
 		this.largeurVue = largeurVue;
 		this.hauteurVue = hauteurVue;
-		this.x = x;
+		this.x =  x;
 		this.y = y;
 		this.tapis = tapis;
 		
@@ -42,8 +42,8 @@ public class TapisVue {
 
 	
 	public void moveVue(float px,float py){
-		this.x = (float) (this.tapis.getLargeur() * px);
-		this.y = (float) (this.tapis.getHauteur() * py);
+		this.x = (float) (this.tapis.getLargeur() * px - tapis.getLargeur() / 2.0f);
+		this.y = (float) (this.tapis.getHauteur() * py - tapis.getHauteur() / 2.0f);
 	
 		this.checkVue();
 	}
@@ -52,8 +52,8 @@ public class TapisVue {
 		float rl = (float) (this.largeurVue / this.tapis.getLargeur());
 		float rh = (float) (this.hauteurVue / this.tapis.getHauteur());
 		
-		float rx = (float) (this.x / this.tapis.getLargeur());
-		float ry = (float) (this.y / this.tapis.getHauteur());
+		float rx = (float) ((this.x + tapis.getLargeur() / 2.0f) / this.tapis.getLargeur()) - rl / 2.0f;
+		float ry = (float) ((this.y + tapis.getHauteur() / 2.0f) / this.tapis.getHauteur()) - rh / 2.0f;
 		
 		RectF r = new RectF(rx, ry+rh, rx+rl, ry);
 		
