@@ -31,19 +31,15 @@ public class Background {
 	
 	
 	public void setRect(RectF pl){
-//		float[] coord = {
-//			pl.left,pl.bottom,
-//			pl.left,pl.top,
-//			pl.right,pl.top,
-//			pl.right,pl.bottom
-//		};
+		float[] coord = {// attention, l'image est à l'envers dans la texture
+			pl.left,1.0f-pl.top,
+			pl.left,1.0f-pl.bottom,
+			pl.right,1.0f-pl.bottom,
+			pl.right,1.0f-pl.top
+		};
 		
-		float[] coord = {
-				0.0f,0.0f,
-				0.0f,0.2f,
-				0.5f,0.2f,
-				0.5f,0.0f
-			};
+		
+
 		
 	
 		
