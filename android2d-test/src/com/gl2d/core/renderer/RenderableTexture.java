@@ -29,7 +29,7 @@ public class RenderableTexture implements GLRenderable,RenderableOperation{
     private PointF p3;
     private float x;
     private float y;
-    private float z = 1;
+    private int z = 1;
   
 
 
@@ -89,9 +89,7 @@ public class RenderableTexture implements GLRenderable,RenderableOperation{
 		return z;
 	}
 
-	public void setZ(float z) {
-		this.z = z;
-	}
+	
 
 	/*
 	 * RenderableOperation
@@ -112,7 +110,6 @@ public class RenderableTexture implements GLRenderable,RenderableOperation{
 	@Override
 	public void turn(float delta) {
 		this.angle += delta;
-		
 	}
 
 	private void checkTransform(){
@@ -278,8 +275,24 @@ public class RenderableTexture implements GLRenderable,RenderableOperation{
 	public int compareTo(GLRenderable o) {
 		int val = 1;
 
-		if(this.z < ((RenderableTexture)o).z) val = -1;// attention on utilise un treeset, faut jamais dire == sinon l'objet n'entrera pas 
+		if(this.z < o.getZIndex()) val = -1;// attention on utilise un treeset, faut jamais dire == sinon l'objet n'entrera pas 
 		return val;
+	}
+
+
+
+
+	@Override
+	public int getZIndex() {
+		return this.z;
+	}
+
+
+
+
+	@Override
+	public void setZIndex(int index) {
+		this.z = index;
 	}
     
 }

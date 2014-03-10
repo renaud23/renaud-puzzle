@@ -21,7 +21,7 @@ public class Background {
 		this.texLargeur = 1000.0f;
 		this.texHauteur = 1000.0f;
 		this.renderable = new RenderableTexture(0, 0, 0, screenLargeur, screenHauteur);
-		this.renderable.setZ(0);
+		this.renderable.setZIndex(0);
 		
 		
 		this.rect = new RectF();
