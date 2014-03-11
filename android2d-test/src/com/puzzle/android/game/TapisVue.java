@@ -22,14 +22,14 @@ public class TapisVue {
 	 */
 	private float hauteurVue;
 	/**
-	 * position en abscice dans le tapis
+	 * position en abscice dans le tapis (gauche)
 	 */
 	
 
 	
 	private float x;
 	/**
-	 * position en ordonnée dans le tapis
+	 * position en ordonnée dans le tapis (bas)
 	 */
 	private float y;
 	
@@ -89,21 +89,13 @@ public class TapisVue {
 		
 	}
 	
-	private void validate(){
-		
-	}
 	
 	
 	public void scaleUp(float scale){
 		float nh = this.hauteurInitiale / (1.0f+scale);
 		float nl = this.largeurInitiale / (1.0f+scale);
 		
-		
-		
-		
-
-		
-		
+			
 		this.hauteurVue = nh;
 		this.largeurVue = nl;
 
@@ -139,8 +131,6 @@ public class TapisVue {
 			}
 			
 		}
-		
-		
 		
 		this.hauteurVue = nh;
 		this.largeurVue = nl;
