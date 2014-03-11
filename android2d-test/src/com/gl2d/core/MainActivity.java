@@ -11,6 +11,7 @@ import com.puzzle.android.controller.Carte;
 import com.puzzle.android.controller.GameController;
 import com.puzzle.android.controller.MyGesture;
 import com.puzzle.android.controller.RootController;
+import com.puzzle.android.controller.Zoom;
 import com.puzzle.android.game.TapisVue;
 import com.puzzle.model.Tapis;
 
@@ -81,10 +82,12 @@ public class MainActivity extends Activity {
         		largeurVue, hauteurVue); 
         
         Carte carte = new Carte(renderer,vue,0.05f*largeurEcran,0.05f*largeurEcran, 0.3f*largeurEcran);
+        Zoom zoom = new Zoom(renderer, vue,largeurEcran - 0.1f * largeurEcran, 0.05f*largeurEcran, 0.05f*largeurEcran, 0.2f*hauteurEcran);
         GameController game = new GameController();
         RootController root = new RootController();
         root.addController(game);
         root.addController(carte);
+        root.addController(zoom);
         ((GLSurface)this.glSurfaceView).setController(root);
         
         Timer timer = new Timer();

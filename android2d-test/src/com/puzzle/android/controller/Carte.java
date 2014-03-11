@@ -42,12 +42,12 @@ public class Carte implements IController,Widget{
 		renderer.addRenderable(this.texCarte);
 		
 		
-		RenderableLine line = new RenderableLine(100.0f,500.0f,300.0f,500.0f);
-		line.SetColor(0.8f, 0.0f, 0f, 0.1f);
-		line.setCentreRotation(200.0f, 500.0f);
-		line.turn((float) (Math.PI/4.0));
-		
-		renderer.addRenderable(line);
+//		RenderableLine line = new RenderableLine(100.0f,500.0f,300.0f,500.0f);
+//		line.SetColor(0.8f, 0.0f, 0f, 0.1f);
+//		line.setCentreRotation(200.0f, 500.0f);
+//		line.turn((float) (Math.PI/4.0));
+//		
+//		renderer.addRenderable(line);
 	}
 
 
