@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         		largeurVue, hauteurVue); 
         
         Carte carte = new Carte(renderer,vue,0.05f*largeurEcran,0.05f*largeurEcran, 0.3f*largeurEcran);
-        Zoom zoom = new Zoom(renderer, vue,largeurEcran - 0.1f * largeurEcran, 0.05f*largeurEcran, 0.05f*largeurEcran, 0.4f*hauteurEcran);
+        Zoom zoom = new Zoom(renderer, vue,largeurEcran - 0.2f * largeurEcran, 0.05f*largeurEcran, 0.1f*largeurEcran, 0.4f*hauteurEcran);
         GameController game = new GameController();
         RootController root = new RootController();
         root.addController(game);

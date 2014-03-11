@@ -167,28 +167,36 @@ public class MyRenderer implements Renderer{
 	
 	
 	private void loadTexture(Context context){
-    	int[] texturenames = new int[1];
-        GLES20.glGenTextures(1, texturenames, 0);
+		int size = 2;
+    	int[] texturenames = new int[size];
+        GLES20.glGenTextures(size, texturenames, 0);
  
-        // Retrieve our image from resources.
-        int id = context.getResources().getIdentifier("drawable/background", null, context.getPackageName());
- 
-        // Temporary create a bitmap
-        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), id);
- 
-        // Bind texture to texturename
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texturenames[0]);
- 
-        // Set filtering
-        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
-        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
- 
-        // Load the bitmap into the bound texture.
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bmp, 0);
- 
-        // We are done using the bitmap so we should recycle it.
-        bmp.recycle();
+
+        int[] id = new int[size];
+        Bitmap[] bmpTab = new Bitmap[size];
+        
+        id[0] = context.getResources().getIdentifier("drawable/background", null, context.getPackageName());
+        bmpTab[0] = BitmapFactory.decodeResource(context.getResources(), id[0]);
+        
+        id[1] = context.getResources().getIdentifier("drawable/echelle", null, context.getPackageName());
+        bmpTab[1] = BitmapFactory.decodeResource(context.getResources(), id[1]);
+        
+        for(int i=0;i<bmpTab.length;i++){
+	        // Bind texture to texturename
+	        GLES20.glActiveTexture(GLES20.GL_TEXTURE0+i);
+	        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texturenames[i]);
+	 
+	        // Set filtering
+	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+	 
+	        // Load the bitmap into the bound texture.
+	        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bmpTab[i], 0);
+	        
+	 
+	        // We are done using the bitmap so we should recycle it.
+	        bmpTab[i].recycle();
+        }
     }
 	
 	

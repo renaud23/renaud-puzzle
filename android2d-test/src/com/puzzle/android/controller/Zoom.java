@@ -9,6 +9,7 @@ import com.puzzle.android.game.TapisVue;
 public class Zoom extends RectangularController{
 	
 	private RenderableTexture texture;
+	private RenderableTexture curseur;
 	private TapisVue vue;
 	
 	
@@ -22,12 +23,37 @@ public class Zoom extends RectangularController{
 	public Zoom(MyRenderer renderer,TapisVue vue,float x, float y, float largeur,float hauteur){
 		super(x,y,largeur,hauteur);
 		this.vue = vue;
-	
-		
-		this.texture = new RenderableTexture(0, x, y, largeur, hauteur);
-		renderer.addRenderable(this.texture);
-	
 		this.gradeHeight = hauteur / this.nbGrade;
+		
+		this.texture = new RenderableTexture(1, x, y, largeur, hauteur);
+		this.curseur = new RenderableTexture(1, x, y+ hauteur /2.0f - gradeHeight / 2.0f, largeur, gradeHeight);
+		float[] tab = {
+						0,0,
+						0,0.62f,
+						1.0f,0.62f,
+						1.0f,0};
+		this.texture.setTextCoord(tab);
+		
+		float[] tab2 = {
+				0,0.64f,
+				0,0.62f,
+				1.0f,0.62f,
+				1.0f,0.64f};
+		this.curseur.setTextCoord(tab2);
+		
+		
+		
+		renderer.addRenderable(this.texture);
+		renderer.addRenderable(this.curseur);
+	
+		texture.setZIndex(1000);
+		curseur.setZIndex(1001);
+		
+		
+		
+		
+		
+		
 	}
 
 	@Override
