@@ -37,6 +37,8 @@ public class TapisVue {
 	
 	private float largeurInitiale;
 	
+	private float ratioOriginal;
+	
 	private Background background;
 	
 	private Tapis tapis;
@@ -47,6 +49,7 @@ public class TapisVue {
 		this.hauteurVue = hauteurVue;
 		this.largeurInitiale = largeurVue;
 		this.hauteurInitiale = hauteurVue;
+		this.ratioOriginal = largeurVue / hauteurVue;
 		this.x = x;
 		this.y = y;
 		this.tapis = tapis;
@@ -83,6 +86,7 @@ public class TapisVue {
 		RectF r = new RectF(rx, ry+rh, rx+rl, ry);
 		
 		this.background.setRect(r);
+		
 	}
 	
 	private void validate(){
@@ -90,20 +94,13 @@ public class TapisVue {
 	}
 	
 	
-	public void scaleUp(float scale){//System.out.println("up "+scale);
-		float var = 1.0f + scale;
-		float nh = this.hauteurInitiale * var;
-		float nl = this.largeurInitiale * var;
+	public void scaleUp(float scale){
+		float nh = this.hauteurInitiale / (1.0f+scale);
+		float nl = this.largeurInitiale / (1.0f+scale);
 		
 		
-	
 		
-		if(nh > this.tapis.getHauteur()){
-			nh = (float) this.tapis.getHauteur();
-			this.y = 0;
-			
-		}
-
+		
 
 		
 		
@@ -114,12 +111,34 @@ public class TapisVue {
 		this.checkVue();
 	}
 	
-	
-	public void scaleDown(float scale){//System.out.println("down "+scale);
-		float var = 1.0f - scale;
-		float nh = this.hauteurInitiale * var;
-		float nl = this.largeurInitiale * var;
+	/**
+	 * agrandi le champ de vue, donc agrandi largeur et hauteur de vue.
+	 * @param scale
+	 */
+	public void scaleDown(float scale){
+		float nh = this.hauteurInitiale * (1.0f+scale);
+		float nl = this.largeurInitiale * (1.0f+scale);
 		
+		boolean fini = false;
+		
+		while(!fini){
+			fini = true;
+			if(nh > this.tapis.getHauteur()){
+				nh = (float) this.tapis.getHauteur();
+				nl = this.ratioOriginal * nh;
+				this.y = 0;
+				
+				fini = false;
+			}
+			if(nl > this.tapis.getLargeur()){
+				nl = (float) this.tapis.getLargeur();
+				nh = nl / this.ratioOriginal;
+				this.x = 0;
+				
+				fini = false;
+			}
+			
+		}
 		
 		
 		

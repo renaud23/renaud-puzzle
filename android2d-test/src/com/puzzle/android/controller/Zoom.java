@@ -14,8 +14,9 @@ public class Zoom extends RectangularController{
 	
 	private float relativeY;
 	private int currentGrade = 6;
-	private float intensity = 0.1f;
-	private int nbGrade;
+	private float intensity = 0.2f;
+	private int nbGrade = 27;
+	
 	private float gradeHeight;
 	
 	public Zoom(MyRenderer renderer,TapisVue vue,float x, float y, float largeur,float hauteur){
@@ -25,8 +26,7 @@ public class Zoom extends RectangularController{
 		
 		this.texture = new RenderableTexture(0, x, y, largeur, hauteur);
 		renderer.addRenderable(this.texture);
-		
-		this.nbGrade = 21;
+	
 		this.gradeHeight = hauteur / this.nbGrade;
 	}
 
@@ -72,7 +72,7 @@ public class Zoom extends RectangularController{
 			}
 		}// for
 		
-		int var = (this.nbGrade / 2) - candidat;
+		int var = candidat - (this.nbGrade / 2) ;
 		float scale = this.intensity * Math.abs(var);
 		
 		if(var < 0) this.vue.scaleDown(scale);
