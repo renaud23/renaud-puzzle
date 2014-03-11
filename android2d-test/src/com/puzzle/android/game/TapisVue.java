@@ -25,11 +25,17 @@ public class TapisVue {
 	 * position en abscice dans le tapis
 	 */
 	
+
+	
 	private float x;
 	/**
 	 * position en ordonnée dans le tapis
 	 */
 	private float y;
+	
+	private float hauteurInitiale;
+	
+	private float largeurInitiale;
 	
 	private Background background;
 	
@@ -39,7 +45,9 @@ public class TapisVue {
 	public TapisVue(Background background, Tapis tapis,float x, float y,float largeurVue, float hauteurVue) {
 		this.largeurVue = largeurVue;
 		this.hauteurVue = hauteurVue;
-		this.x =  x;
+		this.largeurInitiale = largeurVue;
+		this.hauteurInitiale = hauteurVue;
+		this.x = x;
 		this.y = y;
 		this.tapis = tapis;
 		
@@ -58,7 +66,8 @@ public class TapisVue {
 		this.checkVue();
 	}
 	
-	public void checkVue(){
+	private void checkVue(){
+		// calcul de la position de la texture
 		float rl = (float) (this.largeurVue / this.tapis.getLargeur());
 		float rh = (float) (this.hauteurVue / this.tapis.getHauteur());
 		
@@ -76,13 +85,49 @@ public class TapisVue {
 		this.background.setRect(r);
 	}
 	
+	private void validate(){
+		
+	}
 	
 	
+	public void scaleUp(float scale){//System.out.println("up "+scale);
+		float var = 1.0f + scale;
+		float nh = this.hauteurInitiale * var;
+		float nl = this.largeurInitiale * var;
+		
+		
+	
+		
+		if(nh > this.tapis.getHauteur()){
+			nh = (float) this.tapis.getHauteur();
+			this.y = 0;
+			
+		}
+
+
+		
+		
+		this.hauteurVue = nh;
+		this.largeurVue = nl;
+
+		
+		this.checkVue();
+	}
 	
 	
-	
-	
-	
+	public void scaleDown(float scale){//System.out.println("down "+scale);
+		float var = 1.0f - scale;
+		float nh = this.hauteurInitiale * var;
+		float nl = this.largeurInitiale * var;
+		
+		
+		
+		
+		this.hauteurVue = nh;
+		this.largeurVue = nl;
+		
+		this.checkVue();
+	}
 	
 	
 	

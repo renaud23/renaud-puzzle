@@ -1,27 +1,32 @@
 package com.puzzle.android.controller;
 
 import com.gl2d.core.renderer.MyRenderer;
-import com.gl2d.core.renderer.RenderableRect;
 import com.gl2d.core.renderer.RenderableTexture;
 import com.puzzle.android.game.TapisVue;
+
+
 
 public class Zoom extends RectangularController{
 	
 	private RenderableTexture texture;
+	private TapisVue vue;
+	
 	
 	private float relativeY;
 	private int currentGrade = 6;
-	private float intensity = 0.05f;
+	private float intensity = 0.1f;
 	private int nbGrade;
 	private float gradeHeight;
 	
 	public Zoom(MyRenderer renderer,TapisVue vue,float x, float y, float largeur,float hauteur){
 		super(x,y,largeur,hauteur);
+		this.vue = vue;
+	
 		
 		this.texture = new RenderableTexture(0, x, y, largeur, hauteur);
 		renderer.addRenderable(this.texture);
 		
-		this.nbGrade = 11;
+		this.nbGrade = 21;
 		this.gradeHeight = hauteur / this.nbGrade;
 	}
 
@@ -66,6 +71,12 @@ public class Zoom extends RectangularController{
 				distMin = e;
 			}
 		}// for
+		
+		int var = (this.nbGrade / 2) - candidat;
+		float scale = this.intensity * Math.abs(var);
+		
+		if(var < 0) this.vue.scaleDown(scale);
+		else if(var > 0) this.vue.scaleUp(scale);
 		
 		this.currentGrade = candidat;
 	}
