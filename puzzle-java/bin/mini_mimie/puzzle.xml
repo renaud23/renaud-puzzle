@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<puzzle>
+  <nom>Puzzle</nom>
+  <largeur>2</largeur>
+  <hauteur>2</hauteur>
+  <taille>4</taille>
+  <scaleApercu>0.5</scaleApercu>
+  <tapis>
+    <largeur>2000</largeur>
+    <hauteur>2000</hauteur>
+    <color>
+      <r>100</r>
+      <g>100</g>
+      <b>100</b>
+    </color>
+  </tapis>
+  <set>
+    <cote>80</cote>
+    <varMin>6</varMin>
+    <varMax>20</varMax>
+    <scale>2.0</scale>
+  </set>
+  <pieces>
+    <piece>
+      <id>1</id>
+      <x>0</x>
+      <y>0</y>
+      <largeur>100</largeur>
+      <hauteur>86</hauteur>
+    </piece>
+    <piece>
+      <id>2</id>
+      <x>74</x>
+      <y>0</y>
+      <largeur>86</largeur>
+      <hauteur>86</hauteur>
+    </piece>
+    <piece>
+      <id>3</id>
+      <x>0</x>
+      <y>60</y>
+      <largeur>86</largeur>
+      <hauteur>100</hauteur>
+    </piece>
+    <piece>
+      <id>4</id>
+      <x>60</x>
+      <y>60</y>
+      <largeur>100</largeur>
+      <hauteur>100</hauteur>
+    </piece>
+  </pieces>
+</puzzle>
+
