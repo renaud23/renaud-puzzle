@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
@@ -18,13 +17,14 @@ import javax.imageio.ImageIO;
 public class ImageFileTool  {
 
 	public void savePng(BufferedImage img,String path,String name){
-		String pathComplet = path + name + ".png";
+		String pathComplet = path + name;// + ".png";
 		File pathFile = new File(path);
 		if(!pathFile.isDirectory()) pathFile.mkdir();
 			
 		try {
 			ImageIO.setUseCache(false);
-			ImageIO.write(img, "png", new File(pathComplet));
+			File f = new File(pathComplet);
+			ImageIO.write(img, "png", f);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

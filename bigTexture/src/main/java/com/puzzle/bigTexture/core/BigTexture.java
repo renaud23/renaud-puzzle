@@ -6,22 +6,22 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.puzzle.bigTexture.tool.ImageLoadException;
 import com.puzzle.bigTexture.tool.JImageBuffer;
 import com.puzzle.bigTexture.tool.ImageFileTool;
 
 public class BigTexture {
 	
-	private OutputStream out = System.out;
+	private PrintStream out = System.out;
 	private File input;
 	private File output;
 	private int largeurTexture;
 	private int hauteurTexture;
 	
+	private String nameText;
 	private int nbImages;
 	private JImageBuffer textureBuffer;
 	private int textureIndex = 1;
@@ -39,6 +39,11 @@ public class BigTexture {
 
 
 	public void execute(){
+		out.println("--debut--");
+		
+		out.println("largeur texture : "+this.largeurTexture);
+		out.println("hauteur texture : "+this.hauteurTexture);
+		
 		this.compterImage();
 		
 		int x = 0, y = 0;
@@ -61,7 +66,7 @@ public class BigTexture {
 				this.textureBuffer.transparentClean();
 			}
 			
-			this.pieces.add(new Piece(i, x, y, img.getWidth(null), img.getHeight(null)));
+			this.pieces.add(new Piece(i, this.nameText,x, y, img.getWidth(null), img.getHeight(null)));
 			this.textureBuffer.drawImage(img, x, y, 0, 0, 0, 1.0, 1.0f);
 			
 			
@@ -74,14 +79,17 @@ public class BigTexture {
 		
 		this.saveTexture();
 		
-		System.out.println(this.pieces.toString());
+		out.println("--fin--");
 	}
 	
 	
 	
 	private void createTexture(){
+		this.nameText = "texture_"+this.textureIndex+".png";
 		this.textureBuffer = new JImageBuffer(Color.black, this.largeurTexture, this.hauteurTexture);
 		this.textureBuffer.transparentClean();
+		
+		this.textureIndex++;
 	}
 	
 	private void saveTexture(){
@@ -95,11 +103,15 @@ public class BigTexture {
 		
 		ImageFileTool il = new ImageFileTool();
 		String path = output.getAbsolutePath()+File.separator;
-		il.savePng(img, path, "texture_"+this.textureIndex+".png");
-		this.textureIndex++;
+		il.savePng(img, path, this.nameText);
+		
 		
 		g.dispose();
+		
+		out.println("Sauvegarde : "+path);
 	}
+	
+	
 	
 	private Image loadImage(int i){
 		ImageFileTool il = new ImageFileTool();
@@ -109,7 +121,6 @@ public class BigTexture {
 		} catch (ImageLoadException e) {
 			return null;
 		}
-		
 	}
 	
 	
@@ -129,4 +140,11 @@ public class BigTexture {
 			
 		}
 	}
+
+
+	public List<Piece> getPieces() {
+		return pieces;
+	}
+	
+	
 }
