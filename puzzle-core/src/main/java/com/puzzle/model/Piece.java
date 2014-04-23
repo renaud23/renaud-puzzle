@@ -6,6 +6,8 @@ import com.renaud.manager.IRect;
 
 public class Piece implements ComponentPiece,Comparable<Piece>{
 	
+	
+
 	private int id;
 	
 	private double largeur;
@@ -86,7 +88,9 @@ public class Piece implements ComponentPiece,Comparable<Piece>{
 		this.id = id;
 	}
 
-
+	public void setRect(MyRect rect) {
+		this.rect = rect;
+	}
 
 	@Override
 	public int getZIndex() {

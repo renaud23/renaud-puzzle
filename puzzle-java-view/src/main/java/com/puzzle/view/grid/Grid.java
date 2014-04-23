@@ -18,7 +18,7 @@ import java.io.PrintStream;
  */
 public class Grid {
 	
-	private int[][] matrice;
+	private byte[][] matrice;
 	
 	private int lImg;
 	private int hImg;
@@ -39,7 +39,7 @@ public class Grid {
 		this.hImg = image.getHeight(null);
 		
 		// en largeur
-		double rl = 0.05;
+		double rl = 0.02;
 		this.lCarreau = (int) (lImg * rl);
 		lMat = lImg / lCarreau;
 		
@@ -53,7 +53,7 @@ public class Grid {
 //		System.out.println(hCarreau*hMat+" "+hImg);
 		
 //		
-		this.matrice = new int[lMat][hMat];
+		this.matrice = new byte[lMat][hMat];
 		
 		int nbCarreaux = lMat * hMat;
 		int pixPerC = lCarreau * hCarreau;
@@ -65,14 +65,20 @@ public class Grid {
 				int xi = j * lCarreau;
 				int yi = i * hCarreau;
 				int count = 0;
-				for(int x=0;x<lCarreau;x++){
-					for(int y=0;y<hCarreau;y++){
+				
+				int limX = lCarreau;
+				int limY = hCarreau;
+				if(i == (hMat-1)) limY = hImg - hCarreau * (hMat-1);
+				if(j == (lMat-1)) limX = lImg - lCarreau * (lMat-1);	
+				
+				for(int x=0;x<limX;x++){
+					for(int y=0;y<limY;y++){
 						
 						int c = buff.getRGB(xi+x, yi+y);
 						if(c == 0) count++;
 					}
 				}
-				if( count > (pixPerC/2)){
+				if( count > ((double)pixPerC*0.5)){
 					this.matrice[j][i] = 0;
 				}else this.matrice[j][i] = 1;
 				
