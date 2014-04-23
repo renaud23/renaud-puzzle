@@ -28,14 +28,14 @@ import com.puzzle.view.zoomTapis.TapisZoomDrawer;
 public class MainLauncher {
 
 	public static void main(String[] args) throws ImageLoadException {
-		int largeurTapis = (int)(36000.0*0.5);
-		int hauteurTapis = (int)(12000.0*0.5);
+		int largeurTapis = (int)(36000.0*1.5);
+		int hauteurTapis = (int)(12000.0*1.5);
 		int largeurScreen = 800;
 		int hauteurScreen = 600;
 
 //		String rootPath = System.getProperty("user.dir");
 		String cursorPath = System.getProperty("user.dir")+"/src/main/resources/cursor/";
-		String rootPath = "C:/Users/Renaud/git/renaud-puzzle/puzzle-pieces";
+		String rootPath = "E:/git/renaud-puzzle/puzzle-pieces";
 
 		Tapis tapis = new Tapis(largeurTapis,hauteurTapis);
 	

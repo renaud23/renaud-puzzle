@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.puzzle.model.MainGauche;
+import com.puzzle.model.MyRect;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.RectPiece;
@@ -62,7 +63,7 @@ public class Pocket  implements IDrawer,Observer{
 		int x = this.xRef + this.xVar * index;
 		int y = this.yRef;
 		
-		RectPiece r = (RectPiece) p.getRect();
+		MyRect r = (MyRect) p.getRect();
 		Point[] in = r.getCoins();
 		java.awt.Point[] out = new java.awt.Point[4];
 		Point c = p.getCentre();

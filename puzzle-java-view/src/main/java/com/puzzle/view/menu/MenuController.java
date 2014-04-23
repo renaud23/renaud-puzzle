@@ -21,6 +21,7 @@ import com.puzzle.model.Tapis;
 import com.puzzle.view.Fenetre;
 import com.puzzle.view.LoadView;
 import com.puzzle.view.SaveView;
+import com.puzzle.view.grid.RectGridPiece;
 import com.puzzle.view.menu.MenuView.MenuAction;
 import com.puzzle.view.tool.ImageMemoryManager;
 import com.puzzle.view.tool.provider.PieceImageProvider;
@@ -135,6 +136,8 @@ public class MenuController extends Observable {
 			int tx = (int) (tapis.getLargeur() - 200);
 			int ty = (int) (tapis.getHauteur() - 200);
 			for(Piece p : pieces){
+				RectGridPiece grid = new RectGridPiece(p);
+				p.setRect(grid);
 				p.setX(rnd.nextInt(tx)-tx/2);
 				p.setY(rnd.nextInt(ty)-ty/2);
 				p.setAngle(new Angle());
