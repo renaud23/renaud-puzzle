@@ -1,9 +1,9 @@
 package com.puzzle.view.grid;
 
-import java.awt.Image;
+
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
-import java.io.File;
 import java.io.PrintStream;
 
 
@@ -29,17 +29,19 @@ public class Grid {
 	private int lCarreau;
 	private int hCarreau;
 	
-	private VolatileImage image;
+
+	private int red;
+	private int green;
+	private int blue;
 	
 
 	
 	public Grid(VolatileImage image){
-		this.image = image;
 		this.lImg = image.getWidth(null);
 		this.hImg = image.getHeight(null);
 		
 		// en largeur
-		double rl = 0.02;
+		double rl = 0.03;
 		this.lCarreau = (int) (lImg * rl);
 		lMat = lImg / lCarreau;
 		
@@ -47,18 +49,21 @@ public class Grid {
 		
 		double rImg = (double)hImg/(double)lImg;
 		hMat = (int) ((double)lMat * rImg);
-		double rh = (double)hMat / (double)hImg;
+//		double rh = (double)hMat / (double)hImg;
 		this.hCarreau = (int) (hImg / hMat);
 		
 //		System.out.println(hCarreau*hMat+" "+hImg);
 		
 //		
 		this.matrice = new byte[lMat][hMat];
-		
-		int nbCarreaux = lMat * hMat;
 		int pixPerC = lCarreau * hCarreau;
 		
 		BufferedImage buff = image.getSnapshot();
+		
+		
+		red = 0;
+		green = 0;
+		blue = 0;
 		
 		for(int i=0;i<hMat;i++){
 			for(int j=0;j<lMat;j++){
@@ -68,14 +73,22 @@ public class Grid {
 				
 				int limX = lCarreau;
 				int limY = hCarreau;
+				
 				if(i == (hMat-1)) limY = hImg - hCarreau * (hMat-1);
 				if(j == (lMat-1)) limX = lImg - lCarreau * (lMat-1);	
 				
+				 
 				for(int x=0;x<limX;x++){
 					for(int y=0;y<limY;y++){
 						
 						int c = buff.getRGB(xi+x, yi+y);
 						if(c == 0) count++;
+						else{
+							Color col = new Color(c);
+							red += col.getRed();
+							blue += col.getBlue();
+							green += col.getGreen();
+						}
 					}
 				}
 				if( count > ((double)pixPerC*0.5)){
@@ -84,6 +97,11 @@ public class Grid {
 				
 			}
 		}
+		
+		int t = lImg * hImg;
+		red /= t;
+		blue /= t;
+		green /= t;
 		
 		
 	}
@@ -115,14 +133,36 @@ public class Grid {
 			out.println();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+	public int getRed() {
+		return red;
+	}
+
+
+	public void setRed(int red) {
+		this.red = red;
+	}
+
+
+	public int getGreen() {
+		return green;
+	}
+
+
+	public void setGreen(int green) {
+		this.green = green;
+	}
+
+
+	public int getBlue() {
+		return blue;
+	}
+
+
+	public void setBlue(int blue) {
+		this.blue = blue;
+	}
 	
 	
 }

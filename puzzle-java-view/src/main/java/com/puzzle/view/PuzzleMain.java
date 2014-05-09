@@ -25,23 +25,26 @@ import com.puzzle.view.zoomTapis.TapisZoomConverteur;
 import com.puzzle.view.zoomTapis.TapisZoomDrawer;
 
 
-public class MainLauncher {
+public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException {
-		int largeurTapis = (int)(36000.0*1.5);
-		int hauteurTapis = (int)(12000.0*1.5);
+		int largeurTapis = (int)(36000.0*1.0);
+		int hauteurTapis = (int)(12000.0*1.0);
 		int largeurScreen = 800;
 		int hauteurScreen = 600;
 
 //		String rootPath = System.getProperty("user.dir");
 		String cursorPath = System.getProperty("user.dir")+"/src/main/resources/cursor/";
+		String iconPath = System.getProperty("user.dir")+"/src/main/resources/icon/";
 		String rootPath = "E:/git/renaud-puzzle/puzzle-pieces";
 
 		Tapis tapis = new Tapis(largeurTapis,hauteurTapis);
 	
 		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainPleine.png", new Point(2,2), CursorType.mainPleine);
 		PuzzleCursor.getInstance().loadCursor(cursorPath+"mainVide.png", new Point(2,2), CursorType.mainVide);
+		Image iconImage = new SimpleImageLoader().getImage(iconPath+"Basic-Puzzle-icon.png");
 		Fenetre f = new Fenetre(largeurScreen,hauteurScreen);
+		f.setIconImage(iconImage);
 		
 		Image background = new SimpleImageLoader().getImage(rootPath+File.separator+"background"+File.separator+"default.jpg");
 		
@@ -59,7 +62,7 @@ public class MainLauncher {
 		
 		// les éléments du hud
 		Pocket pocket = new Pocket(hc, f.getBuffer(1));
-		LunetteArea lunette = new LunetteArea(c,f.getBuffer(1));
+		LunetteArea lunette = new LunetteArea(tapisDrawer,hudDrawer,c,f.getBuffer(1));
 		Loupe loupe = new Loupe(hc,cv,background,tapis,f.getBuffer(1),f.getBuffer(0));
 		tapis.addObserver(pocket);
 		hudDrawer.addDrawer(pocket);
@@ -89,6 +92,7 @@ public class MainLauncher {
 		MenuView menu = new MenuView(mc,f.getFrame());
 		f.getFrame().setJMenuBar(menu.getMenu());
 		mc.validate();
+		
 		
 		f.getFrame().pack();
 

@@ -154,6 +154,29 @@ public class TapisZoomConverteur implements TapisConverter,Observer{
 		return state;
 	}
 	
+	public void moveTo(double x,double y){
+		double xi = x;
+		double yi = y;
+		
+		xi -= this.largeur / 2.0;
+		yi += this.hauteur / 2.0;
+		
+		double limX = this.tapisLargeur / 2.0;
+		double limY = this.tapisHauteur / 2.0;
+		
+		if(xi <  -limX) xi = -limX;
+		else if((xi+this.largeur) > limX) xi = limX - this.largeur;
+		if(yi >  limY) yi = limY;
+		else if((yi-this.hauteur) < -limY) yi = -limY + this.hauteur;
+		
+		
+		
+		this.corner.setX(xi);
+		this.corner.setY(yi);
+		
+		
+	}
+	
 	/* *** */
 	public Point getCentre() {
 		return corner;

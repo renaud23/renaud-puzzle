@@ -23,7 +23,7 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	private int mouseY;
 	private boolean isMainVide;
 	private boolean isActive;
-	private boolean circulaire = false;
+	private boolean circulaire = true;
 	
 	private double scale = 3.0;
 	private double rayon;
@@ -61,7 +61,7 @@ public class Loupe extends HudArea implements IDrawer,Observer,HudShape{
 	
 	
 	private void initDrawer(){
-		this.rayon = tapisBuffer.getHauteur() * 0.2;
+		this.rayon = tapisBuffer.getHauteur() * 0.3;
 		this.tmpBuffer = new JImageBuffer(Color.black, (int)(this.rayon * 2.0 ), (int) (this.rayon * 2.0 ));
 		this.converter = new TapisZoomConverteur(tapis.getLargeur(), tapis.getHauteur(), this.tmpBuffer.getLargeur(), this.tmpBuffer.getHauteur());
 		this.tapisDrawer = new TapisZoomDrawer(background, tapis, this.tmpBuffer, this.converter);

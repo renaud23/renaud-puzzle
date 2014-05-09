@@ -15,6 +15,7 @@ public class RectGridPiece implements MyRect{
 	
 	private Piece p;
 	
+	
 	private Grid g;
 	
 	public RectGridPiece(Piece p){
@@ -46,7 +47,7 @@ public class RectGridPiece implements MyRect{
 				p.tourner(this.p.getAngle()*-1.0);
 				
 				double xf = p.getX();
-				xf += + this.p.getLargeur()/2.0;
+				xf += + this.p.getLargeur() / 2.0;
 				
 				double yf = this.p.getHauteur() / 2.0 - p.getY();
 				
@@ -97,5 +98,6 @@ public class RectGridPiece implements MyRect{
 //		this.g.print(System.out);
 //		System.out.println();
 	}
+
 
 }

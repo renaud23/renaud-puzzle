@@ -6,12 +6,15 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.swing.JFrame;
+
 import com.puzzle.view.PuzzleCursor.CursorType;
 import com.puzzle.view.listener.MyWindowListner;
 import com.puzzle.view.tool.JImageBuffer;
@@ -74,12 +77,17 @@ public class Fenetre extends Observable{
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
 		
+		
 		this.timer = new Timer();
 		this.start();
 		
 		this.frame.repaint();
 		
 		
+	}
+	
+	public void setIconImage(Image image){
+		this.frame.setIconImage(image);
 	}
 	
 	
@@ -106,7 +114,7 @@ public class Fenetre extends Observable{
 		this.frame.setResizable(true);
 		this.offscreen.setPreferredSize(new Dimension(this.largeur,this.hauteur));
 		this.offscreen.validate();
-		this.frame.revalidate();
+		this.frame.validate();
 		this.repaint();
 		this.frame.pack();
 		

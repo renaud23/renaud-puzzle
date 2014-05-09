@@ -16,7 +16,7 @@ public class MyMouseWheelListener implements MouseWheelListener{
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		boolean up = e.getPreciseWheelRotation() < 0;
+		boolean up = e.getWheelRotation() < 0;
 		this.controller.mouseWheel(up);
 	}
 
