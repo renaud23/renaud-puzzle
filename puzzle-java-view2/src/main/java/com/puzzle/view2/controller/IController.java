@@ -23,4 +23,5 @@ public interface IController extends Comparable<IController>{
 	public void mouseDragged(MouseEvent e);
 	public void mouseWheelMoved(MouseWheelEvent e);
 	public void mousePressed(MouseEvent e);
+	public void mouseReleased(MouseEvent e);
 }

@@ -2,11 +2,10 @@ package com.puzzle.view2;
 
 import java.awt.Image;
 import java.io.File;
-
 import com.puzzle.view2.controller.RootController;
-import com.puzzle.view2.controller.TapisController;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.HudLayer;
+import com.puzzle.view2.layer.TapisLayer;
 import com.puzzle.view2.tools.ImageLoadException;
 import com.puzzle.view2.tools.SimpleImageLoader;
 import com.puzzle.view2.widget.MiniMap;
@@ -42,7 +41,7 @@ public class PuzzleMain {
 		
 		
 		RootController controller = new RootController();
-		TapisController tapisController = new TapisController(gameSpace, screenLargeur, screenHauteur);
+		TapisLayer tapisLayer = new TapisLayer(gameSpace, screenLargeur, screenHauteur);
 		
 		
 		
@@ -50,7 +49,7 @@ public class PuzzleMain {
 		MiniMap map = new MiniMap(gameSpace, backgroundImage, 10, 10, 0.006);
 		
 		// injection des controllers au root
-		controller.addController(tapisController);
+		controller.addController(tapisLayer);
 		controller.addController(map);
 		
 		// injection des drawables
