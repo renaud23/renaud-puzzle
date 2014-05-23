@@ -2,6 +2,7 @@ package com.puzzle.view2.controller;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public abstract class ControllerAdaptater implements IController{
 	
@@ -57,6 +58,12 @@ public abstract class ControllerAdaptater implements IController{
 	 */
 	
 	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub

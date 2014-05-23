@@ -13,7 +13,7 @@ import com.puzzle.view2.widget.MiniMap;
 public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException {
-		String pathResources = "E:/workspace/puzzle-java-view2/src/main/resources";
+		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
 		
 		
 		int screenLargeur = 800;
@@ -36,7 +36,7 @@ public class PuzzleMain {
 		Fenetre f = new Fenetre(screenLargeur, screenHauteur);
 		RootController controller = new RootController();
 		
-		BackgroundLayer gameSpace = new BackgroundLayer(backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 0.8);
+		BackgroundLayer gameSpace = new BackgroundLayer(backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 0.1);
 		gameSpace.setxVue(-tapisLargeur/2.0);
 		gameSpace.setyVue(tapisHauteur/2.0);
 		

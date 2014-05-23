@@ -26,6 +26,10 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	
 	private double scale;
 	
+	/**
+	 * pas de variation du zoom
+	 */
+	private double zoomVar = 0.01;
 		
 	
 
@@ -54,12 +58,26 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	}
 	
 	public void zoomIn(){
-	
+		double a = zoomVar /(scale*scale+scale*zoomVar);
+		double vx = this.largeurScreen * a / 2.0;
+		double vy = this.hauteurScreen * a / 2.0;
+		this.xVue += vx;
+		this.yVue -= vy;
+		
+		this.scale += zoomVar;
+		this.validate();
 		
 	}
 	
 	public void zoomOut(){
+		double a = zoomVar /(scale*scale+scale*zoomVar);
+		double vx = this.largeurScreen * a / 2.0;
+		double vy = this.hauteurScreen * a / 2.0;
+		this.xVue -= vx;
+		this.yVue += vy;
 		
+		this.scale -= zoomVar;
+		this.validate();
 		
 	}
 

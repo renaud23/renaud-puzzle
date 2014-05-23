@@ -2,6 +2,7 @@ package com.puzzle.view2.controller;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public interface IController extends Comparable<IController>{
 	
@@ -20,4 +21,5 @@ public interface IController extends Comparable<IController>{
 	public void mouseExited(MouseEvent e);
 	public void mouseMoved(MouseEvent e);
 	public void mouseDragged(MouseEvent e);
+	public void mouseWheelMoved(MouseWheelEvent e);
 }

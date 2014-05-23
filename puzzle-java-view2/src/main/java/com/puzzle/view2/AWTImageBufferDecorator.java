@@ -95,6 +95,11 @@ public class AWTImageBufferDecorator extends JPanel implements IDrawOperation{
 	public void drawRect(Color color, int x, int y, int width, int height) {
 		this.backBuffer.drawRect(color, x, y, width, height);
 	}
+
+	@Override
+	public void fillRect(Color color, double x, double y, double width, double height, float alpha) {
+		this.backBuffer.fillRect(color, x, y, width, height, alpha);
+	}
 	
 	
 }

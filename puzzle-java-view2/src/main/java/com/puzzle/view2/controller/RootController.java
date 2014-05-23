@@ -88,7 +88,10 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
+		IController cdt = this.getCandidat(e.getX(), e.getY());
+		if(cdt != null){
+			cdt.mouseWheelMoved(e);
+		}
 		
 	}
 	

@@ -3,6 +3,7 @@ package com.puzzle.view2.widget;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
@@ -25,6 +26,8 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 	
 	private IDrawOperation op;
 	
+	private boolean over;
+	private float alphaZoom = 0.0f;
 	
 
 	public MiniMap(BackgroundLayer background,int x, int y,double scale) {
@@ -60,7 +63,7 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 
 	@Override
 	public void draw() {
-		this.op.drawRect(Color.black, x, y, largeur, hauteur);
+		
 		
 		int xi = x;
 		xi += (int)((background.getLargeurTapis() / 2.0 + background.getxVue()) * scale); 
@@ -69,7 +72,21 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		int l = (int) (background.getLargeurVue() * scale);
 		int h = (int) (background.getHauteurVue() * scale);
 		
+		
+		//
+		this.op.fillRect(Color.gray, x, y, xi - x, hauteur, alphaZoom);
+		this.op.fillRect(Color.gray, xi + l, y, largeur - xi - l + x, hauteur, alphaZoom);
+		this.op.fillRect(Color.gray, xi, y, l, yi - y, alphaZoom);
+		this.op.fillRect(Color.gray, xi, yi+h, l, hauteur - yi - h + y, alphaZoom);
+		
+		//
+		this.op.drawRect(Color.black, x, y, largeur, hauteur);
 		this.op.drawRect(Color.black, xi, yi, l, h);
+		
+		//
+		
+		
+		
 	}
 
 	
@@ -84,15 +101,28 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("entered");
+		over = true;
+		alphaZoom = 0.5f;
 	}
 
 
 	
 	
 	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if(e.getWheelRotation()>0){
+			background.zoomOut();
+		}else{
+			background.zoomIn();
+		}
+	}
+
+
+
+	@Override
 	public void mouseExited(MouseEvent e) {
-		System.out.println("exit");
+		over = false;
+		alphaZoom = 0.0f;
 	}
 
 
