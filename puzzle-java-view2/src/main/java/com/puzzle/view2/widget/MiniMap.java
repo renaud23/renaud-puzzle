@@ -1,6 +1,7 @@
 package com.puzzle.view2.widget;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -23,18 +24,21 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 	
 	private double scale;
 	private BackgroundLayer background;
+	private Image backgroundImage;
 	
 	private IDrawOperation op;
 	
 	private boolean over;
 	private float alphaZoom = 0.0f;
+	private Color zoomColor = Color.black;
 	
 
-	public MiniMap(BackgroundLayer background,int x, int y,double scale) {
+	public MiniMap(BackgroundLayer background, Image backgroundImage,int x, int y,double scale) {
 		this.x = x;
 		this.y = y;
 		this.scale = scale;
 		this.background = background;
+		this.backgroundImage = backgroundImage;
 		
 		this.largeur = (int) (background.getLargeurTapis() * scale);
 		this.hauteur = (int) (background.getHauteurTapis() * scale);
@@ -74,12 +78,15 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		
 		
 		//
-		this.op.fillRect(Color.gray, x, y, xi - x, hauteur, alphaZoom);
-		this.op.fillRect(Color.gray, xi + l, y, largeur - xi - l + x, hauteur, alphaZoom);
-		this.op.fillRect(Color.gray, xi, y, l, yi - y, alphaZoom);
-		this.op.fillRect(Color.gray, xi, yi+h, l, hauteur - yi - h + y, alphaZoom);
-		
+		if(over){
+			this.op.drawPart(this.backgroundImage, x, y, x+largeur, y+hauteur, 0, 0, this.backgroundImage.getWidth(null), this.backgroundImage.getHeight(null));
+			this.op.fillRect(zoomColor, x, y, xi - x, hauteur, alphaZoom);
+			this.op.fillRect(zoomColor, xi + l, y, largeur - xi - l + x, hauteur, alphaZoom);
+			this.op.fillRect(zoomColor, xi, y, l, yi - y, alphaZoom);
+			this.op.fillRect(zoomColor, xi, yi+h, l, hauteur - yi - h + y, alphaZoom);
+		}
 		//
+		
 		this.op.drawRect(Color.black, x, y, largeur, hauteur);
 		this.op.drawRect(Color.black, xi, yi, l, h);
 		
@@ -99,11 +106,7 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 	 * 
 	 */
 	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		over = true;
-		alphaZoom = 0.5f;
-	}
+	
 
 
 	
@@ -117,7 +120,11 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		}
 	}
 
-
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		over = true;
+		alphaZoom = 0.6f;
+	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {

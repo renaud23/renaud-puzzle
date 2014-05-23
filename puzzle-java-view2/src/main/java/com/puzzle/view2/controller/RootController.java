@@ -23,10 +23,16 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 		
 	}
 
+	
+	
+	
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		IController cdt = this.getCandidat(e.getX(), e.getY());
+		if(cdt != null){
+			cdt.mousePressed(e);
+		}
 	}
 
 	@Override
@@ -123,7 +129,7 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 				if(o.getZIndex() > zIndex) zIndex = o.getZIndex();
 			}
 		}
-		c.setZIndex(zIndex);
+		c.setZIndex(zIndex+1);
 		
 		this.controllers.add(c);
 		if(this.focused == c)this.focused = null; 

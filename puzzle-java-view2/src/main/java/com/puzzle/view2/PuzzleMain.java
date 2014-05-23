@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.File;
 
 import com.puzzle.view2.controller.RootController;
+import com.puzzle.view2.controller.TapisController;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.HudLayer;
 import com.puzzle.view2.tools.ImageLoadException;
@@ -34,16 +35,22 @@ public class PuzzleMain {
 		
 		
 		Fenetre f = new Fenetre(screenLargeur, screenHauteur);
-		RootController controller = new RootController();
-		
 		BackgroundLayer gameSpace = new BackgroundLayer(backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 0.1);
 		gameSpace.setxVue(-tapisLargeur/2.0);
 		gameSpace.setyVue(tapisHauteur/2.0);
 		
+		
+		
+		RootController controller = new RootController();
+		TapisController tapisController = new TapisController(gameSpace, screenLargeur, screenHauteur);
+		
+		
+		
 		HudLayer hud = new HudLayer();
-		MiniMap map = new MiniMap(gameSpace,10,10,0.006);
+		MiniMap map = new MiniMap(gameSpace, backgroundImage, 10, 10, 0.006);
 		
 		// injection des controllers au root
+		controller.addController(tapisController);
 		controller.addController(map);
 		
 		// injection des drawables
