@@ -15,8 +15,8 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 
 import com.puzzle.view2.controller.RootController;
-import com.puzzle.view2.draw.IDrawOperation;
-import com.puzzle.view2.draw.IDrawable;
+import com.puzzle.view2.image.IDrawOperation;
+import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.Vue;
 
@@ -36,17 +36,14 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	private int hauteur;
 	
 	private List<IDrawable> drawables = new ArrayList<>();
-	
 
-	private Vue vue;
 	private Timer timer;	
 	
-	public Fenetre(Vue vue,int largeur,int hauteur){
+	public Fenetre(int largeur,int hauteur){
 		this.frame = new JFrame("JPuzzle");
 		this.frame.setLayout(new FlowLayout());
 		this.largeur = largeur;
 		this.hauteur = hauteur;
-		this.vue = vue;
 		
 		
 	
@@ -95,10 +92,7 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	public JFrame getFrame() {
 		return frame;
 	}
-	
-	public Vue getVue() {
-		return vue;
-	}
+
 
 
 
@@ -131,12 +125,12 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				Vue vue = f.getVue().clone();
+				
 				f.getDrawOperation().clean();
 				for(IDrawable drw : f){
 					if(drw instanceof DrawOperationAware) 
 						((DrawOperationAware)drw).setDrawOperation(f.getDrawOperation());
-					drw.draw(vue);
+					drw.draw();
 				}
 				f.repaint();
 			

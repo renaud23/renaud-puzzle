@@ -12,20 +12,20 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.controller.RootController;
+import com.puzzle.view2.image.ImageProvider;
+import com.puzzle.view2.image.tool.ImageLoadException;
+import com.puzzle.view2.image.tool.SimpleImageLoader;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.HudLayer;
 import com.puzzle.view2.layer.TapisLayer;
 import com.puzzle.view2.layer.Vue;
-import com.puzzle.view2.tools.ImageLoadException;
-import com.puzzle.view2.tools.ImageProvider;
-import com.puzzle.view2.tools.SimpleImageLoader;
 import com.puzzle.view2.widget.MiniMap;
 
 public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
-		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/floflo_20";
+		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/Carcassone_3150";
 		ImageProvider.getInstance().setPath(rootPuzzlePath);
 		
 		
@@ -36,7 +36,8 @@ public class PuzzleMain {
 		double tapisHauteur = 12000.0;
 		
 		Image backgroundImage = new SimpleImageLoader().getImage(pathResources+File.separator+"background"+File.separator+"default-background.jpg"); 
-		
+		Image redCrossImage = new SimpleImageLoader().getImage(pathResources+File.separator+"red-cross.png"); 
+		ImageProvider.getInstance().setImageWaiting(redCrossImage);
 		
 		Tapis tapis = new Tapis(tapisLargeur, tapisHauteur);
 		PuzzleMain.load(rootPuzzlePath,tapis);
@@ -47,7 +48,7 @@ public class PuzzleMain {
 		
 		
 		Vue vue = new Vue();
-		Fenetre f = new Fenetre(vue,screenLargeur, screenHauteur);
+		Fenetre f = new Fenetre(screenLargeur, screenHauteur);
 		
 		RootController controller = new RootController();
 		
@@ -100,10 +101,10 @@ public class PuzzleMain {
 		for(Piece p : pieces){
 //			RectGridPiece grid = new RectGridPiece(p);
 //			p.setRect(grid);
-//			p.setX(rnd.nextInt(tx)-tx/2);
-//			p.setY(rnd.nextInt(ty)-ty/2);
-			p.setX(400 * i);
-			p.setY(0);
+			p.setX(rnd.nextInt(tx)-tx/2);
+			p.setY(rnd.nextInt(ty)-ty/2);
+//			p.setX(400 * i);
+//			p.setY(0);
 			p.setAngle(new Angle());
 			
 			// liage des pieces au puzzle

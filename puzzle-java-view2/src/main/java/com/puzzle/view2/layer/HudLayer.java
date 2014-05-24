@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.puzzle.view2.DrawOperationAware;
-import com.puzzle.view2.draw.IDrawOperation;
-import com.puzzle.view2.draw.IDrawable;
+import com.puzzle.view2.image.IDrawOperation;
+import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.widget.Widget;
 
 public class HudLayer implements IDrawable,DrawOperationAware{
@@ -31,10 +31,10 @@ public class HudLayer implements IDrawable,DrawOperationAware{
 	}
 
 	@Override
-	public void draw(Vue vue) {
+	public void draw() {
 		for(Widget w : this.widgets){
 			if(w instanceof DrawOperationAware)((DrawOperationAware)w).setDrawOperation(op);
-			if(w instanceof IDrawable)((IDrawable)w).draw(vue);
+			if(w instanceof IDrawable)((IDrawable)w).draw();
 		}
 	}
 	

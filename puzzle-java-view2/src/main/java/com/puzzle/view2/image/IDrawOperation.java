@@ -1,4 +1,4 @@
-package com.puzzle.view2.draw;
+package com.puzzle.view2.image;
 
 import java.awt.Color;
 import java.awt.Image;

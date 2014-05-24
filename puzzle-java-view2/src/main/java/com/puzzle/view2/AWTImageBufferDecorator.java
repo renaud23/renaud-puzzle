@@ -13,8 +13,8 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
-import com.puzzle.view2.draw.IDrawOperation;
-import com.puzzle.view2.draw.JImageBuffer;
+import com.puzzle.view2.image.IDrawOperation;
+import com.puzzle.view2.image.tool.JImageBuffer;
 
 
 

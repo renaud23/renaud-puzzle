@@ -1,4 +1,4 @@
-package com.puzzle.view2.tools;
+package com.puzzle.view2.image.tool;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

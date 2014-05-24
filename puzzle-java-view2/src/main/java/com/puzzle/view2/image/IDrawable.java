@@ -1,6 +1,6 @@
-package com.puzzle.view2.draw;
+package com.puzzle.view2.image;
 
-import com.puzzle.view2.layer.Vue;
+
 
 
 /**
@@ -11,5 +11,5 @@ import com.puzzle.view2.layer.Vue;
 public interface IDrawable {
 	public boolean isChange();
 	public void setChange();
-	public void draw(Vue vue);
+	public void draw();
 }

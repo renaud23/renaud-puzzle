@@ -3,8 +3,8 @@ package com.puzzle.view2.layer;
 import java.awt.Image;
 
 import com.puzzle.view2.DrawOperationAware;
-import com.puzzle.view2.draw.IDrawOperation;
-import com.puzzle.view2.draw.IDrawable;
+import com.puzzle.view2.image.IDrawOperation;
+import com.puzzle.view2.image.IDrawable;
 
 public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	
@@ -191,7 +191,7 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	}
 
 	@Override
-	public void draw(Vue vue) {
+	public void draw() {
 		double scale =  this.largeurScreen / vue.getLargeur();
 	
 		

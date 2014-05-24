@@ -14,9 +14,9 @@ import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
 import com.puzzle.view2.controller.IController;
-import com.puzzle.view2.draw.IDrawOperation;
-import com.puzzle.view2.draw.IDrawable;
-import com.puzzle.view2.tools.ImageProvider;
+import com.puzzle.view2.image.IDrawOperation;
+import com.puzzle.view2.image.IDrawable;
+import com.puzzle.view2.image.ImageProvider;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
@@ -123,16 +123,16 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	}
 
 	@Override
-	public void draw(Vue vue) {
+	public void draw() {
 		// filtrage des pieces dans la zone.
-		IRect rect = new Rect(vue.getX(),bckLayer.getVue().getY(),vue.getLargeur(),vue.getHauteur());
+		IRect rect = new Rect(bckLayer.getVue().getX(),bckLayer.getVue().getY(),bckLayer.getVue().getLargeur(),bckLayer.getVue().getHauteur());
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
 		
 		for(Piece piece : pieces){
 			Image img = ImageProvider.getInstance().getImage(piece);
 			if(img != null){
-				this.drawPiece(piece,img,vue);
+				this.drawPiece(piece,img);
 			}else{
 				System.out.println(piece.getId()+" loading...");
 			}
@@ -142,17 +142,17 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	
 	
 	
-	private void drawPiece(Piece p,Image img,Vue vue){
-		double scale = bckLayer.getLargeurScreen() / vue.getLargeur();
+	private void drawPiece(Piece p,Image img){
+		double scale = bckLayer.getLargeurScreen() / bckLayer.getVue().getLargeur();
 		
 
 		double cx = p.getCentre().getX();
-		cx -= vue.getX();
+		cx -= bckLayer.getVue().getX();
 		cx *= scale;
 		
 		double cy = p.getCentre().getY();
-		cy -= vue.getY() - vue.getHauteur()  ;
-		cy = vue.getHauteur()  - cy;
+		cy -= bckLayer.getVue().getY() - bckLayer.getVue().getHauteur()  ;
+		cy = bckLayer.getVue().getHauteur()  - cy;
 		cy *= scale;
 		
 		double x = cx;
