@@ -270,12 +270,12 @@ public class JImageBuffer implements IImageBuffer{
 		gr.dispose();
 	}
 	
-	public void drawPart(Image image,int dx1,int dy1,int dx2,int dy2,
-			int sx1,int sy1,int sx2,int sy2){
-		Graphics2D gr = this.image.createGraphics();
-		gr.drawImage(image, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
-		gr.dispose();
-	}
+//	public void drawPart(Image image,int dx1,int dy1,int dx2,int dy2,
+//			int sx1,int sy1,int sx2,int sy2){
+//		Graphics2D gr = this.image.createGraphics();
+//		gr.drawImage(image, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
+//		gr.dispose();
+//	}
 	
 	public void drawLine(Color color,double x1,double y1,double x2,double y2){
 		Graphics2D gr = this.image.createGraphics();

@@ -164,8 +164,8 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 				cx, cy, -p.getAngle(), scale, 1.0f);//
 		
 		
-		this.op.drawRect(Color.yellow, (int)x, (int)y, (int)2, (int)2);
-		this.op.drawRect(Color.white, (int)cx, (int)cy, (int)2, (int)2);
+//		this.op.drawRect(Color.yellow, (int)x, (int)y, (int)2, (int)2);
+//		this.op.drawRect(Color.white, (int)cx, (int)cy, (int)2, (int)2);
 		
 	}
 }

@@ -66,6 +66,7 @@ public class XmlLoader implements PuzzleLoader{
 					
 					Piece p = new Piece(id, puzzleX, puzzleY, largeur, hauteur);
 					p.setAngle(angle);
+					p.setPuzzle(this.puzzle);
 					this.pieces.add(p);
 				}// for
 			}// for
