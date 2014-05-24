@@ -77,7 +77,6 @@ public class JImageBuffer implements IDrawOperation{
 	}
 	
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
-		
 		Graphics2D gr = this.image.createGraphics();
 
 		/** Dï¿½sactivation de l'anti-aliasing */
@@ -108,6 +107,8 @@ public class JImageBuffer implements IDrawOperation{
 		gr.dispose();
 
 	}
+	
+	
 
 	public void drawImage(Image image,
 			double x,double y,
@@ -141,7 +142,6 @@ public class JImageBuffer implements IDrawOperation{
 
 		gr.drawImage(image,t,null);
 		gr.dispose();
-
 	}
 	
 	
@@ -213,7 +213,6 @@ public class JImageBuffer implements IDrawOperation{
 	}
 
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
-		
 		Graphics2D gr = this.image.createGraphics();
 
 		/** Dï¿½sactivation de l'anti-aliasing */

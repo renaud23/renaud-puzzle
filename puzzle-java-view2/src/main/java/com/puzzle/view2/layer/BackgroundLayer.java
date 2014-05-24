@@ -192,15 +192,22 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 
 	@Override
 	public void draw(Vue vue) {
-		double largeur = vue.getLargeur() * this.ratioLargeur;
-		double hauteur = vue.getHauteur() * this.ratioHauteur;
-		double x = (vue.getX()+this.largeurTapis / 2.0) * this.ratioLargeur;
-		double y = (this.hauteurTapis / 2.0 - this.vue.getY()) * this.ratioHauteur;
+		double scale =  this.largeurScreen / vue.getLargeur();
+	
 		
-		this.drawOperation.drawPart(
-				this.backgroundImage, 
-				0, 0, (int)this.largeurScreen, (int)this.hauteurScreen, 
-				(int)Math.round(x), (int)Math.round(y), (int)Math.round(x+largeur), (int)Math.round(y+hauteur));
+		double x = this.largeurTapis / 2.0 + vue.getX();
+		x *= scale;
+		double y = this.hauteurTapis / 2.0 - vue.getY();
+		y *= scale;
+		
+		
+		
+		
+
+		this.drawOperation.drawImage(this.backgroundImage,
+				-x, -y, 
+				0, 0, 0, 
+				(largeurTapis/backgroundImage.getWidth(null))*scale, 1.0f);
 	}
 	
 	

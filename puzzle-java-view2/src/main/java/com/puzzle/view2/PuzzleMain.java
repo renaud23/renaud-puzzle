@@ -52,7 +52,7 @@ public class PuzzleMain {
 		RootController controller = new RootController();
 		
 		// layer
-		BackgroundLayer backgroundLayer = new BackgroundLayer(vue,backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 0.1);
+		BackgroundLayer backgroundLayer = new BackgroundLayer(vue,backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 1.0);
 //		backgroundLayer.setxVue(-tapisLargeur/2.0);
 //		backgroundLayer.setyVue(tapisHauteur/2.0);
 	
