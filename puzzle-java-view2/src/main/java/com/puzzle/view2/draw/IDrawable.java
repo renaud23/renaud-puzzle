@@ -1,5 +1,7 @@
 package com.puzzle.view2.draw;
 
+import com.puzzle.view2.layer.Vue;
+
 
 /**
  * une entité qui peut dessiner grâce à idraweroperation.
@@ -9,5 +11,5 @@ package com.puzzle.view2.draw;
 public interface IDrawable {
 	public boolean isChange();
 	public void setChange();
-	public void draw();
+	public void draw(Vue vue);
 }

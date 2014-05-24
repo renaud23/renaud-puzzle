@@ -15,11 +15,10 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	private IController focused;
 	private List<IController> controllers = new ArrayList<>();
 	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
 		
 	}
 
@@ -29,18 +28,22 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			cdt.mousePressed(e);
-		}
+
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				cdt.mousePressed(e);
+			}
+		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			cdt.mouseReleased(e);
-		}
+		
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				cdt.mouseReleased(e);
+			}
+		
 	}
 
 	@Override
@@ -57,51 +60,57 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			if(cdt != this.focused){
-				cdt.mouseEntered(e);
-				if(this.focused != null) this.focused.mouseExited(e);
-				this.focused = cdt;
+		
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				if(cdt != this.focused){
+					cdt.mouseEntered(e);
+					if(this.focused != null) this.focused.mouseExited(e);
+					this.focused = cdt;
+				}
+				cdt.mouseDragged(e);
+			}else{
+				if(this.focused != null){
+					this.focused.mouseExited(e);
+					this.focused = null;
+				}
 			}
-			cdt.mouseDragged(e);
-		}else{
-			if(this.focused != null){
-				this.focused.mouseExited(e);
-				this.focused = null;
-			}
-		}
+		
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
 		
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			if(cdt != this.focused){
-				cdt.mouseEntered(e);
-				if(this.focused != null) this.focused.mouseExited(e);
-				this.focused = cdt;
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				if(cdt != this.focused){
+					cdt.mouseEntered(e);
+					if(this.focused != null) this.focused.mouseExited(e);
+					this.focused = cdt;
+				}
+				cdt.mouseMoved(e);
+			}else{
+				if(this.focused != null){
+					this.focused.mouseExited(e);
+					this.focused = null;
+				}
 			}
-			cdt.mouseMoved(e);
-		}else{
-			if(this.focused != null){
-				this.focused.mouseExited(e);
-				this.focused = null;
-			}
-		}
+		
 	}
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
+		
 		IController cdt = this.getCandidat(e.getX(), e.getY());
 		if(cdt != null){
 			cdt.mouseWheelMoved(e);
 		}
 		
 	}
+	
+	
+	
+	// tools
 	
 	
 	private IController getCandidat(int x,int y){
@@ -144,9 +153,6 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	
 	
 	
-	
-	
-
 
 	public int getMouseX() {
 		return mouseX;

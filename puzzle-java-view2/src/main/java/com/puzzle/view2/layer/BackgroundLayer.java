@@ -15,25 +15,23 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	private double hauteurScreen;
 	private double largeurTapis;
 	private double hauteurTapis;
-	private double largeurVue;
-	private double hauteurVue;
-	
+
 	private double ratioLargeur;// rapport image / tapis
 	private double ratioHauteur;
 	
-	private double xVue;// coordonnées sur le tapis de jeu
-	private double yVue;
+	private Vue vue;
 	
 	private double scale;
 	
 	/**
 	 * pas de variation du zoom
 	 */
-	private double zoomVar = 0.01;
+	private double zoomVar = 0.1;
+	
 		
 	
 
-	public BackgroundLayer(Image backgroundImage, double largeurScreen,
+	public BackgroundLayer(Vue vue,Image backgroundImage, double largeurScreen,
 			double hauteurScreen, double largeurTapis, double hauteurTapis,
 			double scale) {
 		this.backgroundImage = backgroundImage;
@@ -42,6 +40,7 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 		this.largeurTapis = largeurTapis;
 		this.hauteurTapis = hauteurTapis;
 		this.scale = scale;
+		this.vue = vue;
 		
 		this.ratioLargeur = backgroundImage.getWidth(null) / largeurTapis;
 		this.ratioHauteur = backgroundImage.getHeight(null) / hauteurTapis;
@@ -50,80 +49,66 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	}
 	
 	
+	
+	
 	public void moveTo(double x,double y){
-		this.xVue = x;
-		this.yVue = y;
+		this.vue.setX(x);
+		this.vue.setY(y);
 		
 		this.validate();
 	}
 	
 	public void zoomIn(){
-		double a = zoomVar /(scale*scale+scale*zoomVar);
-		double vx = this.largeurScreen * a / 2.0;
-		double vy = this.hauteurScreen * a / 2.0;
-		this.xVue += vx;
-		this.yVue -= vy;
+			double v = 1.0+zoomVar;
+			
+			double f = (v-1)/v/scale;
+			double vx = this.largeurScreen * f / 2.0;
+			double vy = this.hauteurScreen * f / 2.0;
+			
+			this.vue.addX(vx);
+			this.vue.addY(-vy);
+			
+			this.scale *= v;
+			this.validate();
 		
-		this.scale += zoomVar;
-		this.validate();
 		
 	}
 	
 	public void zoomOut(){
-		double a = zoomVar /(scale*scale+scale*zoomVar);
-		double vx = this.largeurScreen * a / 2.0;
-		double vy = this.hauteurScreen * a / 2.0;
-		this.xVue -= vx;
-		this.yVue += vy;
-		
-		this.scale -= zoomVar;
-		this.validate();
-		
-	}
-
-	@Override
-	public boolean isChange() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setChange() {
-		// TODO Auto-generated method stub
+			double v = 1.0-zoomVar;
+			
+			double f = (v-1)/v/scale;
+			double vx = this.largeurScreen * f / 2.0;
+			double vy = this.hauteurScreen * f / 2.0;
+			
+			this.vue.addX(vx);
+			this.vue.addY(-vy);
+			
+			this.scale *= v;
+			this.validate();
 		
 	}
 
-	@Override
-	public void draw() {
-		double largeur = this.largeurVue * this.ratioLargeur;
-		double hauteur = this.hauteurVue * this.ratioHauteur;
-		double x = (this.xVue+this.largeurTapis / 2.0) * ratioLargeur;
-		double y = (this.hauteurTapis / 2.0 - this.yVue) * this.ratioHauteur;
-
-		this.drawOperation.drawPart(
-				this.backgroundImage, 
-				0, 0, (int)this.largeurScreen, (int)this.hauteurScreen, 
-				(int)x, (int)y, (int)(x+largeur), (int)(y+hauteur));
-	}
 	
 	
-	public void validate(){
+	
+	private void validate(){
 		double ll = this.largeurTapis / 2.0;
 		double hl = this.hauteurTapis / 2.0;
 		
-		this.hauteurVue = this.hauteurScreen / scale;
-		this.largeurVue = this.largeurScreen / scale;
+		this.vue.setHauteur(this.hauteurScreen / scale);
+		this.vue.setLargeur(this.largeurScreen / scale);
 		
-		if(this.xVue  < -ll) this.xVue = -ll;
-		else if((this.xVue + this.largeurVue) > ll) this.xVue = ll - this.largeurVue;
-		if(this.hauteurVue > this.hauteurTapis){
+		if(this.vue.getX()  < -ll) this.vue.setX(-ll);
+		else if((this.vue.getX() + this.vue.getLargeur()) > ll) this.vue.setX(ll - this.vue.getLargeur());
+		if(this.vue.getHauteur() > this.hauteurTapis){
 			scale = hauteurScreen / this.hauteurTapis;
 			this.validate();
 		}
 		
-		if(this.yVue > hl) this.yVue = hl;
-		else if((this.yVue - this.hauteurVue) < -hl) this.yVue = -hl + this.hauteurVue;
-		if(this.largeurVue > this.largeurTapis){
+		if(this.vue.getY() > hl) this.vue.setY(hl); 
+		else if((this.vue.getY() - this.vue.getHauteur()) < -hl) this.vue.setY(-hl + this.vue.getHauteur());
+		if(this.vue.getLargeur() > this.largeurTapis){
 			scale = largeurScreen / this.largeurTapis;
 			this.validate();
 		}
@@ -137,25 +122,19 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 		return largeurScreen;
 	}
 
-	public void setLargeurScreen(double largeurScreen) {
-		this.largeurScreen = largeurScreen;
-	}
+
 
 	public double getHauteurScreen() {
 		return hauteurScreen;
 	}
 
-	public void setHauteurScreen(double hauteurScreen) {
-		this.hauteurScreen = hauteurScreen;
-	}
+
 
 	public double getLargeurTapis() {
 		return largeurTapis;
 	}
 
-	public void setLargeurTapis(double largeurTapis) {
-		this.largeurTapis = largeurTapis;
-	}
+
 
 	public double getHauteurTapis() {
 		return hauteurTapis;
@@ -165,37 +144,19 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 		this.hauteurTapis = hauteurTapis;
 	}
 
-	public double getLargeurVue() {
-		return largeurVue;
+
+	public Vue getVue() {
+		return vue;
 	}
 
-	public void setLargeurVue(double largeurVue) {
-		this.largeurVue = largeurVue;
+
+
+
+	public void setVue(Vue vue) {
+		this.vue = vue;
 	}
 
-	public double getHauteurVue() {
-		return hauteurVue;
-	}
 
-	public void setHauteurVue(double hauteurVue) {
-		this.hauteurVue = hauteurVue;
-	}
-	
-	public double getxVue() {
-		return xVue;
-	}
-
-	public void setxVue(double xVue) {
-		this.xVue = xVue;
-	}
-
-	public double getyVue() {
-		return yVue;
-	}
-
-	public void setyVue(double yVue) {
-		this.yVue = yVue;
-	}
 
 
 	public double getScale() {
@@ -206,6 +167,10 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 		this.scale = scale;
 	}
 
+	
+	/*
+	 * draw
+	 */
 
 
 	@Override
@@ -213,6 +178,30 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 		this.drawOperation = op;	
 	}
 	
+	@Override
+	public boolean isChange() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setChange() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw(Vue vue) {
+		double largeur = vue.getLargeur() * this.ratioLargeur;
+		double hauteur = vue.getHauteur() * this.ratioHauteur;
+		double x = (vue.getX()+this.largeurTapis / 2.0) * this.ratioLargeur;
+		double y = (this.hauteurTapis / 2.0 - this.vue.getY()) * this.ratioHauteur;
+		
+		this.drawOperation.drawPart(
+				this.backgroundImage, 
+				0, 0, (int)this.largeurScreen, (int)this.hauteurScreen, 
+				(int)Math.round(x), (int)Math.round(y), (int)Math.round(x+largeur), (int)Math.round(y+hauteur));
+	}
 	
 	
 	

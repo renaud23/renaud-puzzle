@@ -11,6 +11,7 @@ import com.puzzle.view2.controller.ControllerAdaptater;
 import com.puzzle.view2.draw.IDrawOperation;
 import com.puzzle.view2.draw.IDrawable;
 import com.puzzle.view2.layer.BackgroundLayer;
+import com.puzzle.view2.layer.Vue;
 
 
 
@@ -66,15 +67,15 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Vue vue) {
 		
 		
 		int xi = x;
-		xi += (int)((background.getLargeurTapis() / 2.0 + background.getxVue()) * scale); 
+		xi += (int)((background.getLargeurTapis() / 2.0 + vue.getX()) * scale); 
 		int yi = y;
-		yi += (int)((background.getHauteurTapis() / 2.0 - background.getyVue()) * scale);
-		int l = (int) (background.getLargeurVue() * scale);
-		int h = (int) (background.getHauteurVue() * scale);
+		yi += (int)((background.getHauteurTapis() / 2.0 - vue.getY()) * scale);
+		int l = (int) (vue.getLargeur() * scale);
+		int h = (int) (vue.getHauteur() * scale);
 		
 		
 		//
@@ -139,11 +140,12 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		double x = e.getX() - this.x;
 		x /= scale;
 		x -= background.getLargeurTapis() /2.0;
-		x -= background.getLargeurVue() / 2.0;
+		x -= background.getVue().getLargeur() / 2.0;
 		double y = e.getY() - this.y;
 		y /= scale;
 		y = background.getHauteurTapis() / 2.0 - y;
-		y += background.getHauteurVue() / 2.0;
+		y += background.getVue().getHauteur() / 2.0;
+	
 		
 		this.background.moveTo(x, y);
 	}

@@ -2,18 +2,31 @@ package com.puzzle.view2;
 
 import java.awt.Image;
 import java.io.File;
+import java.util.List;
+import java.util.Random;
+
+import com.puzzle.io.PuzzleIOException;
+import com.puzzle.io.XmlLoader;
+import com.puzzle.model.Angle;
+import com.puzzle.model.Piece;
+import com.puzzle.model.Puzzle;
+import com.puzzle.model.Tapis;
 import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.HudLayer;
 import com.puzzle.view2.layer.TapisLayer;
+import com.puzzle.view2.layer.Vue;
 import com.puzzle.view2.tools.ImageLoadException;
+import com.puzzle.view2.tools.ImageProvider;
 import com.puzzle.view2.tools.SimpleImageLoader;
 import com.puzzle.view2.widget.MiniMap;
 
 public class PuzzleMain {
 
-	public static void main(String[] args) throws ImageLoadException {
+	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
+		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/floflo_20";
+		ImageProvider.getInstance().setPath(rootPuzzlePath);
 		
 		
 		int screenLargeur = 800;
@@ -25,43 +38,82 @@ public class PuzzleMain {
 		Image backgroundImage = new SimpleImageLoader().getImage(pathResources+File.separator+"background"+File.separator+"default-background.jpg"); 
 		
 		
+		Tapis tapis = new Tapis(tapisLargeur, tapisHauteur);
+		PuzzleMain.load(rootPuzzlePath,tapis);
 		
 		
 		
 		
 		
 		
-		
-		
-		Fenetre f = new Fenetre(screenLargeur, screenHauteur);
-		BackgroundLayer gameSpace = new BackgroundLayer(backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 0.1);
-		gameSpace.setxVue(-tapisLargeur/2.0);
-		gameSpace.setyVue(tapisHauteur/2.0);
-		
-		
+		Vue vue = new Vue();
+		Fenetre f = new Fenetre(vue,screenLargeur, screenHauteur);
 		
 		RootController controller = new RootController();
-		TapisLayer tapisLayer = new TapisLayer(gameSpace, screenLargeur, screenHauteur);
 		
+		// layer
+		BackgroundLayer backgroundLayer = new BackgroundLayer(vue,backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 0.1);
+//		backgroundLayer.setxVue(-tapisLargeur/2.0);
+//		backgroundLayer.setyVue(tapisHauteur/2.0);
+	
+		TapisLayer tapisLayer = new TapisLayer(tapis,backgroundLayer, screenLargeur, screenHauteur);
 		
-		
+	
 		HudLayer hud = new HudLayer();
-		MiniMap map = new MiniMap(gameSpace, backgroundImage, 10, 10, 0.006);
+		MiniMap map = new MiniMap(backgroundLayer, backgroundImage, 10, 10, 0.006);
 		
 		// injection des controllers au root
 		controller.addController(tapisLayer);
 		controller.addController(map);
 		
-		// injection des drawables
+		// injection des drawables au hud
 		hud.addWidget(map);
 		
 		// ajout des layers à la fenetre
-		f.addDrawable(gameSpace);
+		f.addDrawable(backgroundLayer);
+		f.addDrawable(tapisLayer);
 		f.addDrawable(hud);
 		
 		f.getOffscreen().addMouseListener(controller);
 		f.getOffscreen().addMouseMotionListener(controller);
 		f.getOffscreen().addMouseWheelListener(controller);
+
+	}
+	
+	
+	
+	public static void load(String rootPuzzlePath, Tapis tapis) throws PuzzleIOException{
+		File file = new File(rootPuzzlePath+File.separator+"puzzle.xml");
+		XmlLoader ld = new XmlLoader(file);
+		
+		
+		ld.loadDescriptor();
+		List<Piece> pieces = ld.getPieces();
+		Puzzle puzzle = ld.getPuzzle();
+		puzzle.setPath(rootPuzzlePath);
+		
+		// placement aletoire des pieces
+		Random rnd = new Random();
+		int tx = (int) (tapis.getLargeur() - 200);
+		int ty = (int) (tapis.getHauteur() - 200);
+		int i = 0;
+		for(Piece p : pieces){
+//			RectGridPiece grid = new RectGridPiece(p);
+//			p.setRect(grid);
+//			p.setX(rnd.nextInt(tx)-tx/2);
+//			p.setY(rnd.nextInt(ty)-ty/2);
+			p.setX(400 * i);
+			p.setY(0);
+			p.setAngle(new Angle());
+			
+			// liage des pieces au puzzle
+			p.setPuzzle(puzzle);
+			puzzle.put(p.getId(), p);
+			
+			i++;
+		}
+		
+		tapis.poser(puzzle);
 	}
 
 }

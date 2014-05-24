@@ -31,10 +31,10 @@ public class HudLayer implements IDrawable,DrawOperationAware{
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Vue vue) {
 		for(Widget w : this.widgets){
 			if(w instanceof DrawOperationAware)((DrawOperationAware)w).setDrawOperation(op);
-			if(w instanceof IDrawable)((IDrawable)w).draw();
+			if(w instanceof IDrawable)((IDrawable)w).draw(vue);
 		}
 	}
 	

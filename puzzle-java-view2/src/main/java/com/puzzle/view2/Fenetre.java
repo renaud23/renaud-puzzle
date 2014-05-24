@@ -11,9 +11,14 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.swing.JFrame;
+
+import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.draw.IDrawOperation;
 import com.puzzle.view2.draw.IDrawable;
+import com.puzzle.view2.layer.BackgroundLayer;
+import com.puzzle.view2.layer.Vue;
 
 
 
@@ -33,15 +38,15 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	private List<IDrawable> drawables = new ArrayList<>();
 	
 
-
+	private Vue vue;
 	private Timer timer;	
 	
-	public Fenetre(int largeur,int hauteur){
+	public Fenetre(Vue vue,int largeur,int hauteur){
 		this.frame = new JFrame("JPuzzle");
 		this.frame.setLayout(new FlowLayout());
 		this.largeur = largeur;
 		this.hauteur = hauteur;
-		
+		this.vue = vue;
 		
 		
 	
@@ -90,10 +95,13 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	public JFrame getFrame() {
 		return frame;
 	}
+	
+	public Vue getVue() {
+		return vue;
+	}
 
 
-	
-	
+
 	public Component getOffscreen(){
 		return this.offscreen;
 	}
@@ -108,7 +116,14 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 		return this.offscreen;
 	}
 	
-	
+
+
+
+
+
+
+
+
 	private void start(){
 		
 		final Fenetre f = this;
@@ -116,16 +131,20 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
+				Vue vue = f.getVue().clone();
 				f.getDrawOperation().clean();
 				for(IDrawable drw : f){
-					if(drw instanceof DrawOperationAware) ((DrawOperationAware)drw).setDrawOperation(f.getDrawOperation());
-					drw.draw();
+					if(drw instanceof DrawOperationAware) 
+						((DrawOperationAware)drw).setDrawOperation(f.getDrawOperation());
+					drw.draw(vue);
 				}
 				f.repaint();
+			
+				
 			}
 		};
 		
-		this.timer.schedule(task, 0, 10);
+		this.timer.schedule(task, 0, 5);
 	}
 
 	
@@ -143,6 +162,12 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	public void addDrawable(IDrawable d){
 		this.drawables.add(d);
 	}
+
+	
+	
+
+
+
 
 	@Override
 	public Iterator<IDrawable> iterator() {

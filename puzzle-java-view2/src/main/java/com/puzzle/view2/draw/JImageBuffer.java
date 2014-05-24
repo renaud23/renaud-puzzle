@@ -81,7 +81,7 @@ public class JImageBuffer implements IDrawOperation{
 		Graphics2D gr = this.image.createGraphics();
 
 		/** Dï¿½sactivation de l'anti-aliasing */
-		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
 		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
@@ -102,7 +102,7 @@ public class JImageBuffer implements IDrawOperation{
 
 		t.translate(x, y);
 		t.scale(scale, scale);
-		gr.rotate(theta, xRotation*scale, yRotation*scale);
+		gr.rotate(theta, xRotation, yRotation);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();
