@@ -11,7 +11,6 @@ import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.view2.image.tool.ImageLoadException;
-import com.puzzle.view2.image.tool.ImageLoader;
 import com.puzzle.view2.image.tool.SimpleImageLoader;
 
 public class ImageProvider {
@@ -65,7 +64,7 @@ public class ImageProvider {
 		if(weak != null && weak.get() != null){
 			img = weak.get();
 		}else{
-			ImageLoader.getInstance().loadImage(p);
+			ImagePieceLoader.getInstance().loadImage(p);
 			img = imageWaiting;
 		}
 
