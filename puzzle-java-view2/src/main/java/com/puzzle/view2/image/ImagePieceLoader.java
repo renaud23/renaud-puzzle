@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
 import com.puzzle.model.Piece;
 import com.puzzle.view2.image.tool.ImageLoadException;
 import com.puzzle.view2.image.tool.SimpleImageLoader;

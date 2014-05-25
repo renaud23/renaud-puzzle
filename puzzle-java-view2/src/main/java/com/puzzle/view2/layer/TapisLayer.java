@@ -1,32 +1,37 @@
 package com.puzzle.view2.layer;
 
-import java.awt.Color;
+
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
-import com.puzzle.view2.controller.IController;
+import com.puzzle.view2.controller.Converter;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
+import com.puzzle.view2.later.state.IState;
+import com.puzzle.view2.later.state.MainVideState;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
-public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOperationAware{
+public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOperationAware,Observer{
 	private int largeur;
 	private int hauteur;
 	
 	private BackgroundLayer bckLayer;
 	private int mouseX;
 	private int mouseY;
+	
+	private IState state;
 	
 	private boolean rightButtonDown;
 	private Tapis tapis;
@@ -41,6 +46,9 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		this.tapis = tapis;
 		
 		this.rectangle = new Rectangle(largeur, hauteur);
+		this.state = new MainVideState(tapis, bckLayeur);
+		
+		this.tapis.addObserver(this);
 	}
 	
 	
@@ -53,50 +61,39 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		
-		if(e.getButton() == MouseEvent.BUTTON3) this.rightButtonDown = true;
-		
+		this.state.mousePressed(e);
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.rightButtonDown = false;
-		
+		this.state.mouseReleased(e);
 	}
-	
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(this.rightButtonDown){
-			int vx = this.mouseX - e.getX();
-			int vy = this.mouseY - e.getY();
-			double vex = vx / bckLayer.getScale();
-			double vey = vy / bckLayer.getScale();
-			double ex = bckLayer.getVue().getX() + Math.round(vex);
-			double ey = bckLayer.getVue().getY() - Math.round(vey);
-			
-			bckLayer.moveTo(Math.round(ex), Math.round(ey));
-		
-			this.mouseY = e.getY();
-			this.mouseX = e.getX();
-		}
-		
+		this.state.mouseDragged(e);
 	}
-	
 	
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(e.getWheelRotation()>0){
-			bckLayer.zoomOut();
-		}else{
-			bckLayer.zoomIn();
-		}
+		this.state.mouseWheelMoved(e);
 	}
 
 
+	
+	
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof Tapis){
+			Tapis tapis = (Tapis) o;
+			
+			System.out.println("oooo");
+		}
 
+		
+		
+	}
 
 
 
@@ -145,7 +142,6 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	private void drawPiece(Piece p,Image img){
 		double scale = bckLayer.getLargeurScreen() / bckLayer.getVue().getLargeur();
 		
-
 		double cx = p.getCentre().getX();
 		cx -= bckLayer.getVue().getX();
 		cx *= scale;
@@ -154,6 +150,8 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		cy -= bckLayer.getVue().getY() - bckLayer.getVue().getHauteur()  ;
 		cy = bckLayer.getVue().getHauteur()  - cy;
 		cy *= scale;
+		
+		
 		
 		double x = cx;
 		x -= p.getLargeur()  / 2.0 * scale;
@@ -168,4 +166,8 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 //		this.op.drawRect(Color.white, (int)cx, (int)cy, (int)2, (int)2);
 		
 	}
+
+
+
+	
 }
