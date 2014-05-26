@@ -80,11 +80,17 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 			double f = (v-1)/v/scale;
 			double vx = this.largeurScreen * f / 2.0;
 			double vy = this.hauteurScreen * f / 2.0;
-			
-			this.vue.addX(vx);
-			this.vue.addY(-vy);
-			
+		
 			this.scale *= v;
+			
+			double nh = this.hauteurScreen / scale;
+			double nl = this.largeurScreen / scale;
+			
+			if( nh < hauteurTapis && nl < largeurTapis){
+				this.vue.addX(vx);
+				this.vue.addY(-vy);
+			}
+			
 			this.validate();
 		
 	}

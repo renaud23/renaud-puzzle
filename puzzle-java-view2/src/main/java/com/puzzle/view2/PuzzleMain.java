@@ -25,7 +25,7 @@ public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
-		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/floflo_20";
+		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/Carcassone_3150";
 		ImageProvider.getInstance().setPath(rootPuzzlePath);
 		
 		
@@ -53,7 +53,7 @@ public class PuzzleMain {
 		RootController controller = new RootController();
 		
 		// layer
-		BackgroundLayer backgroundLayer = new BackgroundLayer(vue,backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 1.0);
+		BackgroundLayer backgroundLayer = new BackgroundLayer(vue,backgroundImage, screenLargeur, screenHauteur, tapisLargeur, tapisHauteur, 0.1);
 //		backgroundLayer.setxVue(-tapisLargeur/2.0);
 //		backgroundLayer.setyVue(tapisHauteur/2.0);
 	
@@ -75,9 +75,9 @@ public class PuzzleMain {
 		f.addDrawable(tapisLayer);
 		f.addDrawable(hud);
 		
-		f.getOffscreen().addMouseListener(controller);
-		f.getOffscreen().addMouseMotionListener(controller);
-		f.getOffscreen().addMouseWheelListener(controller);
+		f.getComponent().addMouseListener(controller);
+		f.getComponent().addMouseMotionListener(controller);
+		f.getComponent().addMouseWheelListener(controller);
 
 	}
 	

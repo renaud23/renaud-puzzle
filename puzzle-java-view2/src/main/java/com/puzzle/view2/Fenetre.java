@@ -4,7 +4,9 @@ package com.puzzle.view2;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +19,8 @@ import javax.swing.JFrame;
 import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
+import com.puzzle.view2.image.tool.CanvasHwdBuffer;
+import com.puzzle.view2.image.tool.HwdBuffer;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.Vue;
 
@@ -32,42 +36,51 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	
 	private AWTImageBufferDecorator offscreen;
 	
+	private CanvasHwdBuffer buffer;
+	private BufferStrategy strategy;
+	
 	private int largeur;
 	private int hauteur;
 	
-	private List<IDrawable> drawables = new ArrayList<>();
+	private List<IDrawable> drawables = new ArrayList<IDrawable>();
 
 	private Timer timer;	
 	
 	public Fenetre(int largeur,int hauteur){
 		this.frame = new JFrame("JPuzzle");
-		this.frame.setLayout(new FlowLayout());
+		this.frame.setIgnoreRepaint(true);
+		this.frame.setVisible(true);
+		this.frame.setPreferredSize(new Dimension(largeur,hauteur));
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-		
 	
+		this.buffer = new CanvasHwdBuffer(largeur,hauteur);
+		this.frame.add((Component) this.buffer);
 		
-		this.offscreen = new AWTImageBufferDecorator(largeur,hauteur);
-		this.offscreen.setPreferredSize(new Dimension(this.largeur,this.hauteur));
-		this.offscreen.validate();
 
-		this.frame.add(this.offscreen);
+		this.buffer.createStrategy();
+		this.frame.pack();
+		this.frame.validate();
+
+	     
 
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.pack();
-		
-		this.frame.validate();
-		
-		this.frame.setVisible(true);
+
 		this.frame.setResizable(false);
 		
 		// la boucle de jeu
 		this.timer = new Timer();
 		this.start();
 		
-		this.frame.repaint();
 		
+		
+		
+		
+		
+	 
+
+	      
 		
 	}
 	
@@ -89,16 +102,11 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 
 
 
-	public JFrame getFrame() {
-		return frame;
-	}
+	
 
 
 
 
-	public Component getOffscreen(){
-		return this.offscreen;
-	}
 	
 	public void repaint(){
 		this.frame.repaint();
@@ -106,8 +114,17 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 
 
 
+	public BufferStrategy getStrategy() {
+		return this.buffer.getBufferStrategy();
+	}
+
+	public Component getComponent(){
+		return this.buffer;
+	}
+
+
 	public IDrawOperation getDrawOperation(){
-		return this.offscreen;
+		return this.buffer;
 	}
 	
 
@@ -132,13 +149,13 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 						((DrawOperationAware)drw).setDrawOperation(f.getDrawOperation());
 					drw.draw();
 				}
-				f.repaint();
-			
+//				f.repaint();
+				f.getStrategy().show();
 				
 			}
 		};
 		
-		this.timer.schedule(task, 0, 5);
+		this.timer.schedule(task, 0, 10);
 	}
 
 	

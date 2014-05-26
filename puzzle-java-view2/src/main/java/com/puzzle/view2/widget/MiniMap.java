@@ -5,13 +5,11 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.layer.BackgroundLayer;
-import com.puzzle.view2.layer.Vue;
 
 
 
@@ -80,7 +78,11 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		
 		//
 		if(over){
-			this.op.drawPart(this.backgroundImage, x, y, x+largeur, y+hauteur, 0, 0, this.backgroundImage.getWidth(null), this.backgroundImage.getHeight(null));
+			this.op.drawImage(this.backgroundImage, x, y, 0, 0, 0, 
+					(double)largeur/this.backgroundImage.getWidth(null),
+					(double)hauteur/this.backgroundImage.getHeight(null), 
+					1.0f);
+			
 			this.op.fillRect(zoomColor, x, y, xi - x, hauteur, alphaZoom);
 			this.op.fillRect(zoomColor, xi + l, y, largeur - xi - l + x, hauteur, alphaZoom);
 			this.op.fillRect(zoomColor, xi, y, l, yi - y, alphaZoom);
@@ -124,7 +126,7 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		over = true;
-		alphaZoom = 0.6f;
+		alphaZoom = 0.4f;
 	}
 
 	@Override

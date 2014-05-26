@@ -37,7 +37,7 @@ public class AWTImageBufferDecorator extends JPanel implements IDrawOperation{
 	public AWTImageBufferDecorator(int largeur,int hauteur) {
 		this.backBuffer = new JImageBuffer(Color.red, largeur, hauteur);
 		this.backBuffer.clean();
-		this.setPreferredSize(new Dimension(largeur, hauteur));
+		this.setPreferredSize(new Dimension(largeur, hauteur)); 
 	}
 
 	public void sizing(int largeur,int hauteur) {

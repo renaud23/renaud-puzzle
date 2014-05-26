@@ -10,7 +10,7 @@ import com.puzzle.view2.widget.Widget;
 
 public class HudLayer implements IDrawable,DrawOperationAware{
 	
-	private List<Widget> widgets = new ArrayList<>();
+	private List<Widget> widgets = new ArrayList<Widget>();
 	private IDrawOperation op;
 
 	@Override

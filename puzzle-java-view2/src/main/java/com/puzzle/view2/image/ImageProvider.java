@@ -16,8 +16,8 @@ import com.puzzle.view2.image.tool.SimpleImageLoader;
 public class ImageProvider {
 	private static ImageProvider instance;
 	
-	private final Map<CompositePiece, Image> imagesComposite = new HashMap<>();
-	private final Map<Piece, SoftReference<Image>> imagesPiece = new HashMap<>();
+	private final Map<CompositePiece, Image> imagesComposite = new HashMap<CompositePiece, Image>();
+	private final Map<Piece, SoftReference<Image>> imagesPiece = new HashMap<Piece, SoftReference<Image>>();
 	
 	private String path;
 	private Image imageWaiting;
