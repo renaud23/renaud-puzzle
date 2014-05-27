@@ -9,8 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
+import sun.awt.im.CompositionArea;
 import com.puzzle.model.Piece;
+import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
@@ -19,6 +20,7 @@ import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.later.state.IState;
+import com.puzzle.view2.later.state.MainPleineState;
 import com.puzzle.view2.later.state.MainVideState;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
@@ -27,9 +29,12 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	private int largeur;
 	private int hauteur;
 	
-	private BackgroundLayer bckLayer;
+	
 	private int mouseX;
 	private int mouseY;
+	
+	private BackgroundLayer bckLayer;
+
 	
 	private IState state;
 	
@@ -61,6 +66,8 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
 		this.state.mousePressed(e);
 	}
 	
@@ -71,6 +78,8 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
 		this.state.mouseDragged(e);
 	}
 	
@@ -79,20 +88,33 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		this.state.mouseWheelMoved(e);
 	}
 
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		this.state.mouseMoved(e);
+	}
 
-	
-	
-	
+
+
+
+
+
+
+
+
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof Tapis){
 			Tapis tapis = (Tapis) o;
 			
-			System.out.println("oooo");
+			if(arg ==  State.MainDroitePleine){
+				MainVideState mvs = (MainVideState) this.state;
+				this.state = new MainPleineState(this.tapis,this.bckLayer, mvs.getAttrParam().getContenu(),mvs.getAttrParam().getAncre(),this.mouseX,this.mouseY);
+			}else if(arg ==  State.MainDroiteVide){
+				this.state = new MainVideState(this.tapis,this.bckLayer);
+			}
 		}
-
-		
-		
 	}
 
 
@@ -134,6 +156,10 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 				System.out.println(piece.getId()+" loading...");
 			}
 		}
+		
+		// sélection
+		if(this.state instanceof DrawOperationAware) ((DrawOperationAware)this.state).setDrawOperation(op);
+		if(this.state instanceof IDrawable) ((IDrawable)this.state).draw();
 	}
 	
 	

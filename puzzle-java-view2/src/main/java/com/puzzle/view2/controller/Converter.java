@@ -12,7 +12,7 @@ public class Converter {
 	public Converter(BackgroundLayer layer) {
 		this.layer = layer;
 		this.ml = layer.getLargeurTapis() / 2.0;
-		this.ml = layer.getHauteurTapis() / 2.0;
+		this.mh = layer.getHauteurTapis() / 2.0;
 	}
 
 
@@ -21,20 +21,11 @@ public class Converter {
 		double scale = layer.getLargeurScreen();
 		scale /= layer.getVue().getLargeur();
 		
-		
-		
 		double cx = x;
 		cx /= scale;
-		cx -= this.ml;
 		cx += this.layer.getVue().getX();
-//		double cy = y;
-//		cy /= scale;
-//		cy -= mh - this.layer.getVue().getY() - cy;
-		double cy = mh;
-		cy -= this.layer.getVue().getY();
-		double tmp = y;
-		tmp /= scale;
-		cy -= tmp;
+		double cy = layer.getVue().getY();
+		cy -= y / scale;
 		
 		point.setX(cx);
 		point.setY(cy);

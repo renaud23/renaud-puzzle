@@ -9,13 +9,14 @@ import com.puzzle.command.param.AttrapperMainDroiteParam;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.controller.ControllerAdaptater;
+import com.puzzle.view2.controller.Converter;
 import com.puzzle.view2.layer.BackgroundLayer;
 
 public class MainVideState extends ControllerAdaptater implements IState{
 	
 	private boolean rightButtonDown;
 	private Tapis tapis;
-	
+	private Converter converter;
 	
 	private BackgroundLayer bckLayer;
 	private Point clickPoint;
@@ -32,6 +33,7 @@ public class MainVideState extends ControllerAdaptater implements IState{
 		this.tapis = tapis;
 		this.bckLayer = bckLayer;
 		
+		this.converter = new Converter(bckLayer);
 		this.attrParam = new AttrapperMainDroiteParam();
 		this.clickPoint = new Point();
 	}
@@ -52,7 +54,6 @@ public class MainVideState extends ControllerAdaptater implements IState{
 			this.mouseY = e.getY();
 			this.mouseX = e.getX();
 		}
-		
 	}
 	
 	@Override
@@ -63,13 +64,7 @@ public class MainVideState extends ControllerAdaptater implements IState{
 		if(e.getButton() == MouseEvent.BUTTON3) this.rightButtonDown = true;
 		else if(e.getButton() == MouseEvent.BUTTON1){
 			CommandeArgument<AttrapperMainDroiteParam> cmd = new AttrapperMainDroite(this.tapis);
-			
-			
-			
-			
-			
-			
-			
+			this.clickPoint = this.converter.screenToModel(this.mouseX, this.mouseY);
 			this.attrParam.setPosition(this.clickPoint);
 			cmd.setArgument(this.attrParam);
 			
@@ -90,5 +85,10 @@ public class MainVideState extends ControllerAdaptater implements IState{
 		}else{
 			bckLayer.zoomIn();
 		}
+	}
+
+
+	public AttrapperMainDroiteParam getAttrParam() {
+		return attrParam;
 	}
 }

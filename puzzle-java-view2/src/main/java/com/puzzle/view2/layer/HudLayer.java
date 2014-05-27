@@ -1,17 +1,24 @@
 package com.puzzle.view2.layer;
 
+
+
+
 import java.util.ArrayList;
 import java.util.List;
-
+import com.puzzle.model.CompositePiece;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.widget.Widget;
 
+
+
+
 public class HudLayer implements IDrawable,DrawOperationAware{
 	
 	private List<Widget> widgets = new ArrayList<Widget>();
 	private IDrawOperation op;
+	
 
 	@Override
 	public void setDrawOperation(IDrawOperation op) {
@@ -50,5 +57,9 @@ public class HudLayer implements IDrawable,DrawOperationAware{
 	public void removeWidget(Widget w){
 		this.widgets.remove(w);
 	}
+
+	
+	
+	
 
 }

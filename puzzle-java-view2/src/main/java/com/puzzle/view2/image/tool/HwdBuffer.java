@@ -35,7 +35,7 @@ public class HwdBuffer implements IDrawOperation{
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scale,float alpha){
 		Graphics2D gr = (Graphics2D) this.strategy.getDrawGraphics();
 
-		/** Dï¿½sactivation de l'anti-aliasing */
+		/** Desactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -44,9 +44,7 @@ public class HwdBuffer implements IDrawOperation{
 		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
 
-
-		 gr.setComposite(AlphaComposite.getInstance(
-	                AlphaComposite.SRC_OVER,alpha )) ;
+		gr.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha )) ;
 
 		//
 		AffineTransform t = new AffineTransform();
@@ -64,7 +62,7 @@ public class HwdBuffer implements IDrawOperation{
 	public void drawImage(Image image,double x,double y,double xRotation,double yRotation,double theta,double scaleX,double scaleY,float alpha){
 		Graphics2D gr = (Graphics2D) this.strategy.getDrawGraphics();
 
-		/** Dï¿½sactivation de l'anti-aliasing */
+		/** Desactivation de l'anti-aliasing */
 		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		/** Demande de rendu rapide */
@@ -72,9 +70,7 @@ public class HwdBuffer implements IDrawOperation{
 		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
 		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
-
-
-		 gr.setComposite(AlphaComposite.getInstance(
+		gr.setComposite(AlphaComposite.getInstance(
 	                AlphaComposite.SRC_OVER,alpha )) ;
 	
 		//

@@ -12,6 +12,7 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.Puzzle;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.controller.RootController;
+import com.puzzle.view2.grid.RectGridPiece;
 import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.image.tool.ImageLoadException;
 import com.puzzle.view2.image.tool.SimpleImageLoader;
@@ -99,8 +100,8 @@ public class PuzzleMain {
 		int ty = (int) (tapis.getHauteur() - 200);
 		int i = 0;
 		for(Piece p : pieces){
-//			RectGridPiece grid = new RectGridPiece(p);
-//			p.setRect(grid);
+			RectGridPiece grid = new RectGridPiece(p);
+			p.setRect(grid);
 			p.setX(rnd.nextInt(tx)-tx/2);
 			p.setY(rnd.nextInt(ty)-ty/2);
 //			p.setX(400 * i);

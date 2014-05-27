@@ -20,7 +20,7 @@ public class ImagePieceLoader implements Runnable{
 	
 	private Stack<TacheChargement> taches = new Stack<ImagePieceLoader.TacheChargement>();
 	private List<Piece> piecesenCour = new ArrayList<Piece>();
-	private int sizeMax = 80;
+	private int sizeMax = 40;
 	
 	
 	public static ImagePieceLoader getInstance(){

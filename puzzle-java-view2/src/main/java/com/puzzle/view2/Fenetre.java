@@ -3,8 +3,6 @@ package com.puzzle.view2;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
@@ -13,16 +11,10 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.JFrame;
-
-import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.tool.CanvasHwdBuffer;
-import com.puzzle.view2.image.tool.HwdBuffer;
-import com.puzzle.view2.layer.BackgroundLayer;
-import com.puzzle.view2.layer.Vue;
 
 
 
@@ -37,7 +29,6 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	private AWTImageBufferDecorator offscreen;
 	
 	private CanvasHwdBuffer buffer;
-	private BufferStrategy strategy;
 	
 	private int largeur;
 	private int hauteur;
@@ -54,11 +45,9 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		
-	
 		this.buffer = new CanvasHwdBuffer(largeur,hauteur);
 		this.frame.add((Component) this.buffer);
 		
-
 		this.buffer.createStrategy();
 		this.frame.pack();
 		this.frame.validate();
@@ -72,16 +61,6 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 		// la boucle de jeu
 		this.timer = new Timer();
 		this.start();
-		
-		
-		
-		
-		
-		
-	 
-
-	      
-		
 	}
 	
 
@@ -149,7 +128,6 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 						((DrawOperationAware)drw).setDrawOperation(f.getDrawOperation());
 					drw.draw();
 				}
-//				f.repaint();
 				f.getStrategy().show();
 				
 			}
