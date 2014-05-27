@@ -99,6 +99,18 @@ public abstract class ControllerAdaptater implements IController{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void controlPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void controlReleased() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

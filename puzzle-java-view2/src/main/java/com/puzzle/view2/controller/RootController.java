@@ -1,5 +1,7 @@
 package com.puzzle.view2.controller;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -8,7 +10,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RootController implements MouseListener,MouseMotionListener,MouseWheelListener{
+public class RootController implements MouseListener,MouseMotionListener,MouseWheelListener,KeyListener{
 	
 	private int mouseX;
 	private int mouseY;
@@ -28,21 +30,23 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-
-			IController cdt = this.getCandidat(e.getX(), e.getY());
-			if(cdt != null){
-				cdt.mousePressed(e);
-			}
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		IController cdt = this.getCandidat(e.getX(), e.getY());
+		if(cdt != null){
+			cdt.mousePressed(e);
+		}
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
-			IController cdt = this.getCandidat(e.getX(), e.getY());
-			if(cdt != null){
-				cdt.mouseReleased(e);
-			}
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		IController cdt = this.getCandidat(e.getX(), e.getY());
+		if(cdt != null){
+			cdt.mouseReleased(e);
+		}
 		
 	}
 
@@ -60,41 +64,43 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
-			IController cdt = this.getCandidat(e.getX(), e.getY());
-			if(cdt != null){
-				if(cdt != this.focused){
-					cdt.mouseEntered(e);
-					if(this.focused != null) this.focused.mouseExited(e);
-					this.focused = cdt;
-				}
-				cdt.mouseDragged(e);
-			}else{
-				if(this.focused != null){
-					this.focused.mouseExited(e);
-					this.focused = null;
-				}
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		IController cdt = this.getCandidat(e.getX(), e.getY());
+		if(cdt != null){
+			if(cdt != this.focused){
+				cdt.mouseEntered(e);
+				if(this.focused != null) this.focused.mouseExited(e);
+				this.focused = cdt;
 			}
+			cdt.mouseDragged(e);
+		}else{
+			if(this.focused != null){
+				this.focused.mouseExited(e);
+				this.focused = null;
+			}
+		}
 		
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		
-			IController cdt = this.getCandidat(e.getX(), e.getY());
-			if(cdt != null){
-				if(cdt != this.focused){
-					cdt.mouseEntered(e);
-					if(this.focused != null) this.focused.mouseExited(e);
-					this.focused = cdt;
-				}
-				cdt.mouseMoved(e);
-			}else{
-				if(this.focused != null){
-					this.focused.mouseExited(e);
-					this.focused = null;
-				}
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		IController cdt = this.getCandidat(e.getX(), e.getY());
+		if(cdt != null){
+			if(cdt != this.focused){
+				cdt.mouseEntered(e);
+				if(this.focused != null) this.focused.mouseExited(e);
+				this.focused = cdt;
 			}
+			cdt.mouseMoved(e);
+		}else{
+			if(this.focused != null){
+				this.focused.mouseExited(e);
+				this.focused = null;
+			}
+		}
 		
 	}
 
@@ -160,6 +166,41 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 
 	public int getMouseY() {
 		return mouseY;
+	}
+
+
+
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+			IController c = this.getCandidat(this.mouseX, this.mouseY);
+			if(c!=null) c.controlPressed();
+		}
+		
+	}
+
+
+
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+			IController c = this.getCandidat(this.mouseX, this.mouseY);
+			if(c!=null) c.controlReleased();
+		}
 	}
 
 }
