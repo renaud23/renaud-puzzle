@@ -126,8 +126,6 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof Tapis){
-			Tapis tapis = (Tapis) o;
-			
 			if(arg ==  State.MainDroitePleine){
 				MainVideState mvs = (MainVideState) this.state;
 				this.state = new MainPleineState(this.tapis,this.bckLayer, mvs.getAttrParam().getContenu(),mvs.getAttrParam().getAncre(),this.mouseX,this.mouseY);
@@ -136,7 +134,7 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 			}if(arg == State.gaucheToDroite){
 				this.state = new MainPleineState(this.tapis,this.bckLayer, MainDroite.getInstance().getContenu(),new Point(),this.mouseX,this.mouseY);
 			}else if(arg == State.droiteToGauche){
-				this.state = new MainVideState(tapis, bckLayer);
+				this.state = new MainVideState(this.tapis, this.bckLayer);
 			}
 		}
 	}

@@ -60,7 +60,7 @@ public class PuzzleMain {
 	
 		HudLayer hud = new HudLayer();
 		MiniMap map = new MiniMap(backgroundLayer, backgroundImage, 10, 10, 0.006);
-		Pocket pocket = new Pocket(tapis, hud, 10, (int)(screenHauteur - 10 - screenHauteur * 0.2),(int)( screenHauteur * 0.2), screenLargeur - 20);
+		Pocket pocket = new Pocket(tapis, hud, controller, 10, screenHauteur - 10 - 100,screenLargeur - 2*10,100);
 		
 		// injection des controllers au root
 		controller.addController(tapisLayer);
@@ -73,6 +73,7 @@ public class PuzzleMain {
 		f.addDrawable(backgroundLayer);
 		f.addDrawable(tapisLayer);
 		f.addDrawable(hud);
+		f.addDrawable(pocket);
 		
 		f.getComponent().addMouseListener(controller);
 		f.getComponent().addMouseMotionListener(controller);
@@ -106,6 +107,7 @@ public class PuzzleMain {
 //			p.setX(0);
 //			p.setY(0);
 			p.setAngle(new Angle());
+//			p.setAngle(0.0);
 			
 			// liage des pieces au puzzle
 			p.setPuzzle(puzzle);
