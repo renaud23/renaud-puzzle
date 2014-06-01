@@ -5,8 +5,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import com.puzzle.command.CommandeArgument;
+import com.puzzle.command.PasserDansMainGauche;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
+import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -18,6 +20,10 @@ import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.layer.BackgroundLayer;
+import com.puzzle.view2.layer.Vue;
+
+
+
 
 public class MainPleineState extends ControllerAdaptater implements IState,IDrawable,DrawOperationAware{
 	
@@ -110,6 +116,38 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	}
 
 
+	@Override
+	public void controlPressed() {
+		ChangerDeMainParam param = new ChangerDeMainParam();
+		CommandeArgument<ChangerDeMainParam> cmd = new PasserDansMainGauche(this.tapis);
+		cmd.setArgument(param);
+		cmd.execute();
+	}
+
+
+
+	@Override
+	public void controlReleased() {
+		// TODO Auto-generated method stub
+		super.controlReleased();
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.puzzle.view2.image.IDrawable#isChange()
+	 */
 
 	public boolean isChange() {
 		// TODO Auto-generated method stub
@@ -121,9 +159,9 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		
 	}
 
-	public void draw() {
+	public void draw(Vue vue) {
 		if(this.selection instanceof Piece){
-			this.drawPiece();
+			this.drawPiece(vue);
 		}else{
 			
 		}
@@ -138,12 +176,12 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	 */
 	
 
-	private void drawPiece(){
+	private void drawPiece(Vue vue){
 		Piece p = (Piece)this.selection;
 		Image img = ImageProvider.getInstance().getImage(p);
 		
 		if(img != null){
-			double scale = bckLayer.getLargeurScreen() / bckLayer.getVue().getLargeur();
+			double scale = bckLayer.getLargeurScreen() / vue.getLargeur();
 			
 			double cx = (double)img.getWidth(null) / 2.0 * scale;
 			double cy = (double)img.getHeight(null) / 2.0 * scale;

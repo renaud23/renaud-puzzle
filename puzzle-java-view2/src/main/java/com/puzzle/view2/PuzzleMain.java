@@ -18,6 +18,7 @@ import com.puzzle.view2.image.tool.ImageLoadException;
 import com.puzzle.view2.image.tool.SimpleImageLoader;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.HudLayer;
+import com.puzzle.view2.layer.Pocket;
 import com.puzzle.view2.layer.TapisLayer;
 import com.puzzle.view2.layer.Vue;
 import com.puzzle.view2.widget.MiniMap;
@@ -26,7 +27,7 @@ public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
-		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/Carcassone_3150";
+		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/renaudEtMimie";
 		ImageProvider.getInstance().setPath(rootPuzzlePath);
 		
 		
@@ -44,12 +45,8 @@ public class PuzzleMain {
 		PuzzleMain.load(rootPuzzlePath,tapis);
 		
 		
-		
-		
-		
-		
 		Vue vue = new Vue();
-		Fenetre f = new Fenetre(screenLargeur, screenHauteur);
+		Fenetre f = new Fenetre(vue,screenLargeur, screenHauteur);
 		
 		RootController controller = new RootController();
 		
@@ -63,6 +60,7 @@ public class PuzzleMain {
 	
 		HudLayer hud = new HudLayer();
 		MiniMap map = new MiniMap(backgroundLayer, backgroundImage, 10, 10, 0.006);
+		Pocket pocket = new Pocket(tapis, hud, 10, (int)(screenHauteur - 10 - screenHauteur * 0.2),(int)( screenHauteur * 0.2), screenLargeur - 20);
 		
 		// injection des controllers au root
 		controller.addController(tapisLayer);
@@ -79,6 +77,7 @@ public class PuzzleMain {
 		f.getComponent().addMouseListener(controller);
 		f.getComponent().addMouseMotionListener(controller);
 		f.getComponent().addMouseWheelListener(controller);
+		f.getComponent().addKeyListener(controller);
 
 	}
 	
@@ -104,7 +103,7 @@ public class PuzzleMain {
 			p.setRect(grid);
 			p.setX(rnd.nextInt(tx)-tx/2);
 			p.setY(rnd.nextInt(ty)-ty/2);
-//			p.setX(400 * i);
+//			p.setX(0);
 //			p.setY(0);
 			p.setAngle(new Angle());
 			

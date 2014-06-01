@@ -16,7 +16,7 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	private int mouseY;
 	private IController focused;
 	private List<IController> controllers = new ArrayList<IController>();
-	
+	private boolean locked;
 	
 
 	@Override
@@ -30,54 +30,61 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			cdt.mousePressed(e);
+		if(!this.locked){
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				cdt.mousePressed(e);
+			}
 		}
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			cdt.mouseReleased(e);
+		if(!this.locked){
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				cdt.mouseReleased(e);
+			}
 		}
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(!this.locked){
+			
+		}
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(!this.locked){
+			
+		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			if(cdt != this.focused){
-				cdt.mouseEntered(e);
-				if(this.focused != null) this.focused.mouseExited(e);
-				this.focused = cdt;
-			}
-			cdt.mouseDragged(e);
-		}else{
-			if(this.focused != null){
-				this.focused.mouseExited(e);
-				this.focused = null;
+		if(!this.locked){
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				if(cdt != this.focused){
+					cdt.mouseEntered(e);
+					if(this.focused != null) this.focused.mouseExited(e);
+					this.focused = cdt;
+				}
+				cdt.mouseDragged(e);
+			}else{
+				if(this.focused != null){
+					this.focused.mouseExited(e);
+					this.focused = null;
+				}
 			}
 		}
 		
@@ -85,20 +92,22 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			if(cdt != this.focused){
-				cdt.mouseEntered(e);
-				if(this.focused != null) this.focused.mouseExited(e);
-				this.focused = cdt;
-			}
-			cdt.mouseMoved(e);
-		}else{
-			if(this.focused != null){
-				this.focused.mouseExited(e);
-				this.focused = null;
+		if(!this.locked){
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				if(cdt != this.focused){
+					cdt.mouseEntered(e);
+					if(this.focused != null) this.focused.mouseExited(e);
+					this.focused = cdt;
+				}
+				cdt.mouseMoved(e);
+			}else{
+				if(this.focused != null){
+					this.focused.mouseExited(e);
+					this.focused = null;
+				}
 			}
 		}
 		
@@ -106,15 +115,51 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		
-		IController cdt = this.getCandidat(e.getX(), e.getY());
-		if(cdt != null){
-			cdt.mouseWheelMoved(e);
+		if(!this.locked){
+			IController cdt = this.getCandidat(e.getX(), e.getY());
+			if(cdt != null){
+				cdt.mouseWheelMoved(e);
+			}
 		}
 		
 	}
 	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(!this.locked){
+			if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+				IController c = this.getCandidat(this.mouseX, this.mouseY);
+				if(c!=null) c.controlPressed();
+			}
+		}
+	}
+
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(!this.locked){
+			if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+				IController c = this.getCandidat(this.mouseX, this.mouseY);
+				if(c!=null) c.controlReleased();
+			}
+		}
+	}
 	
+	public void lock(){
+		this.locked = true;
+	}
+	
+	public void unlock(){
+		this.locked = false;
+	}
 	
 	// tools
 	
@@ -157,9 +202,6 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 		if(this.focused == c)this.focused = null;
 	}
 	
-	
-	
-
 	public int getMouseX() {
 		return mouseX;
 	}
@@ -169,38 +211,6 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	}
 
 
-
-
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
-			IController c = this.getCandidat(this.mouseX, this.mouseY);
-			if(c!=null) c.controlPressed();
-		}
-		
-	}
-
-
-
-
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_CONTROL){
-			IController c = this.getCandidat(this.mouseX, this.mouseY);
-			if(c!=null) c.controlReleased();
-		}
-	}
+	
 
 }

@@ -11,10 +11,14 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.swing.JFrame;
+
+import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.tool.CanvasHwdBuffer;
+import com.puzzle.view2.layer.Vue;
 
 
 
@@ -37,7 +41,9 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 
 	private Timer timer;	
 	
-	public Fenetre(int largeur,int hauteur){
+	private Vue vue;
+	
+	public Fenetre(Vue vue,int largeur,int hauteur){
 		this.frame = new JFrame("JPuzzle");
 		this.frame.setIgnoreRepaint(true);
 		this.frame.setVisible(true);
@@ -51,7 +57,7 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 		this.buffer.createStrategy();
 		this.frame.pack();
 		this.frame.validate();
-
+		this.vue = vue;
 	     
 
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,12 +127,12 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				
+				Vue vue = f.getVue().clone();
 				f.getDrawOperation().clean();
 				for(IDrawable drw : f){
 					if(drw instanceof DrawOperationAware) 
 						((DrawOperationAware)drw).setDrawOperation(f.getDrawOperation());
-					drw.draw();
+					drw.draw(vue);
 				}
 				f.getStrategy().show();
 				
@@ -155,6 +161,12 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 	
 	
 
+
+
+
+	public Vue getVue() {
+		return vue;
+	}
 
 
 

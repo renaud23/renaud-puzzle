@@ -9,8 +9,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import sun.awt.im.CompositionArea;
+
+import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
+import com.puzzle.model.Point;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
@@ -94,10 +98,26 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		this.mouseY = e.getY();
 		this.state.mouseMoved(e);
 	}
+	
+	@Override
+	public void controlPressed() {
+		this.state.controlPressed();
+	}
+
+	@Override
+	public void controlReleased() {
+		this.state.controlReleased();
+	}
 
 
 
 
+	
+	
+	
+	
+	
+	
 
 
 
@@ -113,6 +133,10 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 				this.state = new MainPleineState(this.tapis,this.bckLayer, mvs.getAttrParam().getContenu(),mvs.getAttrParam().getAncre(),this.mouseX,this.mouseY);
 			}else if(arg ==  State.MainDroiteVide){
 				this.state = new MainVideState(this.tapis,this.bckLayer);
+			}if(arg == State.gaucheToDroite){
+				this.state = new MainPleineState(this.tapis,this.bckLayer, MainDroite.getInstance().getContenu(),new Point(),this.mouseX,this.mouseY);
+			}else if(arg == State.droiteToGauche){
+				this.state = new MainVideState(tapis, bckLayer);
 			}
 		}
 	}
@@ -142,39 +166,39 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Vue vue) {
 		// filtrage des pieces dans la zone.
-		IRect rect = new Rect(bckLayer.getVue().getX(),bckLayer.getVue().getY(),bckLayer.getVue().getLargeur(),bckLayer.getVue().getHauteur());
+		IRect rect = new Rect(vue.getX(),vue.getY(),vue.getLargeur(),vue.getHauteur());
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
 		
 		for(Piece piece : pieces){
 			Image img = ImageProvider.getInstance().getImage(piece);
 			if(img != null){
-				this.drawPiece(piece,img);
+				this.drawPiece(vue,piece,img);
 			}else{
-				System.out.println(piece.getId()+" loading...");
+				
 			}
 		}
 		
 		// sélection
 		if(this.state instanceof DrawOperationAware) ((DrawOperationAware)this.state).setDrawOperation(op);
-		if(this.state instanceof IDrawable) ((IDrawable)this.state).draw();
+		if(this.state instanceof IDrawable) ((IDrawable)this.state).draw(vue);
 	}
 	
 	
 	
 	
-	private void drawPiece(Piece p,Image img){
-		double scale = bckLayer.getLargeurScreen() / bckLayer.getVue().getLargeur();
+	private void drawPiece(Vue vue,Piece p,Image img){
+		double scale = bckLayer.getLargeurScreen() / vue.getLargeur();
 		
 		double cx = p.getCentre().getX();
-		cx -= bckLayer.getVue().getX();
+		cx -= vue.getX();
 		cx *= scale;
 		
 		double cy = p.getCentre().getY();
-		cy -= bckLayer.getVue().getY() - bckLayer.getVue().getHauteur()  ;
-		cy = bckLayer.getVue().getHauteur()  - cy;
+		cy -= vue.getY() - vue.getHauteur()  ;
+		cy = vue.getHauteur()  - cy;
 		cy *= scale;
 		
 		

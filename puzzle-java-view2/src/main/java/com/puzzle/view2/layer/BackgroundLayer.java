@@ -197,7 +197,7 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Vue vue) {
 		double scale =  this.largeurScreen / vue.getLargeur();
 	
 		

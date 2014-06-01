@@ -5,6 +5,7 @@ package com.puzzle.view2.layer;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.image.IDrawOperation;
@@ -38,10 +39,10 @@ public class HudLayer implements IDrawable,DrawOperationAware{
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Vue vue) {
 		for(Widget w : this.widgets){
 			if(w instanceof DrawOperationAware)((DrawOperationAware)w).setDrawOperation(op);
-			if(w instanceof IDrawable)((IDrawable)w).draw();
+			if(w instanceof IDrawable)((IDrawable)w).draw(vue);
 		}
 	}
 	
