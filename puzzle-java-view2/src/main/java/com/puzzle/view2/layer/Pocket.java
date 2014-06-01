@@ -12,6 +12,9 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import com.puzzle.command.Commande;
+import com.puzzle.command.PasserDansMainDroite;
+import com.puzzle.model.MainDroite;
 import com.puzzle.model.MainGauche;
 import com.puzzle.model.Piece;
 import com.puzzle.model.State;
@@ -35,14 +38,17 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 	private int y;
 	private int largeur;
 	private int hauteur;
+	private int eccart;
 	
 	private int maxSize;
 	private int size;
-	private int eccart;
 	
 	private IDrawOperation op;
 	private double scale;
+	private double scaleFocused;
 	private boolean first = true;
+	
+	private PieceInPocket focused;
 	
 	
 	public Pocket(Tapis tapis,HudLayer hud, RootController controller,int x, int y, int largeur, int hauteur) {
@@ -77,6 +83,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 				if(first){
 					first = false;
 					this.scale = this.hauteur / (Math.max(p.getHauteur(),p.getLargeur()) * 1.5);
+					this.scaleFocused = this.scale * 2.0;
 				}
 				
 				int x = this.x;
@@ -142,27 +149,67 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 		for(PieceInPocket pip : pips){
 			Image img = ImageProvider.getInstance().getImage(pip.getPiece());
 			if(img != null){
-				double x = pip.getX();
-				double y = pip.getY();
-				double cx = pip.getX() + img.getWidth(null) * this.scale / 2.0;
-				double cy = pip.getY() + img.getHeight(null)  * this.scale / 2.0;
+				if(pip != this.focused){
+					double x = pip.getX();
+					double y = pip.getY();
+					double cx = pip.getX() + img.getWidth(null) * this.scale / 2.0;
+					double cy = pip.getY() + img.getHeight(null)  * this.scale / 2.0;
+			
+//					this.op.fillRect(Color.yellow, this.coins[0].getX(), this.coins[0].getY(), 2, 2, 1.0f);
+//					this.op.fillRect(Color.yellow, this.coins[1].getX(), this.coins[1].getY(), 2, 2, 1.0f);
+//					this.op.fillRect(Color.yellow, this.coins[2].getX(), this.coins[2].getY(), 2, 2, 1.0f);
+//					this.op.fillRect(Color.yellow, this.coins[3].getX(), this.coins[3].getY(), 2, 2, 1.0f);
+					this.op.drawImage(img, 
+							x, y, 
+							cx, cy, -pip.getPiece().getAngle(), 
+							this.scale, 1.0f);
+				}
+			
+			}
+		}
 		
+		if(this.focused != null){
+			Image img = ImageProvider.getInstance().getImage(this.focused.getPiece());
+			if(img != null){
 				
-//				this.op.fillRect(Color.yellow, this.coins[0].getX(), this.coins[0].getY(), 2, 2, 1.0f);
-//				this.op.fillRect(Color.yellow, this.coins[1].getX(), this.coins[1].getY(), 2, 2, 1.0f);
-//				this.op.fillRect(Color.yellow, this.coins[2].getX(), this.coins[2].getY(), 2, 2, 1.0f);
-//				this.op.fillRect(Color.yellow, this.coins[3].getX(), this.coins[3].getY(), 2, 2, 1.0f);
-
+				double cx = this.focused.getX() + img.getWidth(null) * this.scale / 2.0;
+				double cy = this.focused.getY() + img.getHeight(null)  * this.scale / 2.0;
+				double x = cx - this.focused.getPiece().getLargeur() * this.scaleFocused / 2.0;
+				double y = cy - this.focused.getPiece().getHauteur() * this.scaleFocused / 2.0;;
+			
+				
 				
 				this.op.drawImage(img, 
 						x, y, 
-						cx, cy, -pip.getPiece().getAngle(), 
-						this.scale, 1.0f);
+						cx, cy, -this.focused.getPiece().getAngle(), 
+						this.scaleFocused, 1.0f);
 			}
-			
-			
 		}
 		
+	}
+
+	public void pick(PieceInPocket pip){
+		if(MainDroite.getInstance().isEmpty()){
+			MainGauche.getInstance().focused(pip.getPiece());
+			Commande cmd = new PasserDansMainDroite(this.tapis);
+			cmd.execute();
+			
+			
+			this.widgets.remove(pip.getPiece());
+			this.hud.removeWidget(pip);
+			this.controller.removeController(pip);
+			this.focused = null;
+			this.validate();
+		}
+	}
+
+	public PieceInPocket getFocused() {
+		return focused;
+	}
+
+
+	public void setFocused(PieceInPocket focused) {
+		this.focused = focused;
 	}
 	
 	

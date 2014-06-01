@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
+import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.view2.DrawOperationAware;
@@ -40,6 +41,7 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 		this.x = x;
 		this.y = y;
 		this.scale = scale;
+		this.pocket = pocket;
 		
 		this.init();
 	}
@@ -76,7 +78,7 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 	 * 
 	 */
 	
-	private void init(){
+	public void init(){
 		this.coins = new Point[4];
 		double cx = this.x + this.piece.getLargeur() * this.scale / 2.0;
 		double cy = this.y + this.piece.getHauteur()  * this.scale / 2.0;
@@ -117,13 +119,15 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+		if(MainDroite.getInstance().isEmpty()) 
+			this.pocket.setFocused(this);
 	}
 
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+		if(this.pocket.getFocused() == this)
+			this.pocket.setFocused(null);
 	}
 
 
@@ -135,7 +139,7 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+		this.pocket.pick(this);
 	}
 
 

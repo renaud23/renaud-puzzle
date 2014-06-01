@@ -20,6 +20,7 @@ import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
 import com.puzzle.view2.controller.Converter;
+import com.puzzle.view2.controller.IMousePositionAware;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
@@ -29,7 +30,7 @@ import com.puzzle.view2.later.state.MainVideState;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
-public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOperationAware,Observer{
+public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOperationAware,Observer,IMousePositionAware{
 	private int largeur;
 	private int hauteur;
 	
@@ -59,14 +60,6 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		
 		this.tapis.addObserver(this);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -213,6 +206,18 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 //		this.op.drawRect(Color.yellow, (int)x, (int)y, (int)2, (int)2);
 //		this.op.drawRect(Color.white, (int)cx, (int)cy, (int)2, (int)2);
 		
+	}
+
+	@Override
+	public void setMouseX(int x) {
+		this.mouseX = x;
+		this.state.setMouseX(x);
+	}
+
+	@Override
+	public void setMouseY(int y) {
+		this.mouseY = y;
+		this.state.setMouseY(y);
 	}
 
 

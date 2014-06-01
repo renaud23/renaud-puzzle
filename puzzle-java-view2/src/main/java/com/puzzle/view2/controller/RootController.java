@@ -25,9 +25,6 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	}
 
 	
-	
-	
-	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(!this.locked){
@@ -169,6 +166,10 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 		int zRef = Integer.MIN_VALUE;
 		IController candidat = null;
 		for(IController ctr : this.controllers){
+			if(ctr instanceof IMousePositionAware){
+				((IMousePositionAware)ctr).setMouseX(x);
+				((IMousePositionAware)ctr).setMouseY(y);
+			}
 			if(ctr.contains(x, y)){
 				if(ctr.getZIndex() > zRef){
 					zRef = ctr.getZIndex();
@@ -198,7 +199,7 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 	}
 	
 	public void removeController(IController c){
-		this.removeController(c);
+		this.controllers.remove(c);
 		if(this.focused == c)this.focused = null;
 	}
 	

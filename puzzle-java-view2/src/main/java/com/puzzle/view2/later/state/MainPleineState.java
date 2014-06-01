@@ -202,6 +202,18 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	public void setDrawOperation(IDrawOperation op) {
 		this.op = op;
 	}
+
+
+
+	@Override
+	public void setMouseX(int x) {
+		this.mouseX = x;
+	}
+
+	@Override
+	public void setMouseY(int y) {
+		this.mouseY = y;
+	}
 	
 	
 }

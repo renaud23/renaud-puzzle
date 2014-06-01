@@ -87,7 +87,17 @@ public class MainVideState extends ControllerAdaptater implements IState{
 		}
 	}
 
+	@Override
+	public void setMouseX(int x) {
+//		this.mouseX = x;
+	}
 
+
+	@Override
+	public void setMouseY(int y) {
+//		this.mouseY = y;
+	}
+	
 	public AttrapperMainDroiteParam getAttrParam() {
 		return attrParam;
 	}
