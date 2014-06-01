@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.puzzle.command.Commande;
 import com.puzzle.command.PasserDansMainDroite;
@@ -20,15 +22,15 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
+import com.puzzle.view2.Fenetre;
 import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.widget.PieceInPocket;
-import com.puzzle.view2.widget.Widget;
 
 public class Pocket implements Observer,IDrawable,DrawOperationAware{
-	private Map<Piece, PieceInPocket> widgets;
+	private List<PieceInPocket> widgets;
 	
 	private Tapis tapis;
 	private HudLayer hud;
@@ -46,9 +48,12 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 	private IDrawOperation op;
 	private double scale;
 	private double scaleFocused;
+	private double scaleMax;
 	private boolean first = true;
 	
 	private PieceInPocket focused;
+	
+	private Timer thScale;
 	
 	
 	public Pocket(Tapis tapis,HudLayer hud, RootController controller,int x, int y, int largeur, int hauteur) {
@@ -65,7 +70,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 		this.maxSize = MainGauche.getInstance().getSize();
 		this.size = 0;
 		
-		this.widgets = new HashMap<>();
+		this.widgets = new ArrayList<>();
 		this.eccart  = (this.largeur - this.hauteur) / maxSize;
 		
 	}
@@ -75,15 +80,14 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 		if(arg instanceof State){
 			State state = (State) arg;
 			if(state == State.gaucheToDroite){
-				
-				
 				this.size--;
 			}else if(state == State.droiteToGauche){
 				Piece p = MainGauche.getInstance().getLastIn();
 				if(first){
 					first = false;
 					this.scale = this.hauteur / (Math.max(p.getHauteur(),p.getLargeur()) * 1.5);
-					this.scaleFocused = this.scale * 2.0;
+					this.scaleFocused = this.scale;
+					this.scaleMax = this.scale * 2.0;
 				}
 				
 				int x = this.x;
@@ -92,7 +96,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 				
 				PieceInPocket pip = new PieceInPocket(this,p,x,y,scale);
 				
-				this.widgets.put(p, pip);
+				this.widgets.add(pip);
 				this.hud.addWidget(pip);
 				this.controller.addController(pip);
 				
@@ -104,7 +108,16 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 	
 	
 	private void validate(){
+		int i=0;
 		
+		for(PieceInPocket pip : this.widgets){
+			int x = this.x;
+			x += i * this.eccart;
+			pip.setX(x);
+			
+			pip.init();
+			i++;
+		}
 	}
 
 
@@ -134,8 +147,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 
 	@Override
 	public void draw(Vue vue) {
-		List<PieceInPocket> pips = new ArrayList<>(this.widgets.values());
-		Collections.sort(pips,new Comparator<PieceInPocket>() {
+		Collections.sort(this.widgets,new Comparator<PieceInPocket>() {
 
 			@Override
 			public int compare(PieceInPocket a, PieceInPocket b) {
@@ -146,7 +158,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 			}
 		});
 	
-		for(PieceInPocket pip : pips){
+		for(PieceInPocket pip : this.widgets){
 			Image img = ImageProvider.getInstance().getImage(pip.getPiece());
 			if(img != null){
 				if(pip != this.focused){
@@ -177,8 +189,6 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 				double x = cx - this.focused.getPiece().getLargeur() * this.scaleFocused / 2.0;
 				double y = cy - this.focused.getPiece().getHauteur() * this.scaleFocused / 2.0;;
 			
-				
-				
 				this.op.drawImage(img, 
 						x, y, 
 						cx, cy, -this.focused.getPiece().getAngle(), 
@@ -195,13 +205,46 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 			cmd.execute();
 			
 			
-			this.widgets.remove(pip.getPiece());
+			this.widgets.remove(pip);
 			this.hud.removeWidget(pip);
 			this.controller.removeController(pip);
 			this.focused = null;
 			this.validate();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void startScaling(){
+		this.scaleFocused = this.scale;
+		this.thScale = new Timer();
+		
+		final Pocket p = this;
+		final Timer t = this.thScale;
+		this.thScale.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				double ns = p.getScaleFocused() * 1.05;
+				if(ns > p.getScaleMax()){ 
+					ns = p.getScaleMax();
+					this.cancel();
+				}
+				p.setScaleFocused(ns);
+			}
+		}, 0, 10);
+	}
+	
+	
+	
+	
 
 	public PieceInPocket getFocused() {
 		return focused;
@@ -210,7 +253,28 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 
 	public void setFocused(PieceInPocket focused) {
 		this.focused = focused;
+		if(focused != null)this.startScaling();
+		
 	}
+
+
+	public double getScaleFocused() {
+		return scaleFocused;
+	}
+
+
+	public void setScaleFocused(double scaleFocused) {
+		this.scaleFocused = scaleFocused;
+	}
+
+
+	public double getScaleMax() {
+		return scaleMax;
+	}
+	
+	
+	
+	
 	
 	
 }

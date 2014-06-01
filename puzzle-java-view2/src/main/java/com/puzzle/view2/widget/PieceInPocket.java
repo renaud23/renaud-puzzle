@@ -1,21 +1,14 @@
 package com.puzzle.view2.widget;
 
-import java.awt.Color;
-import java.awt.Image;
+
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
-import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
-import com.puzzle.view2.controller.IController;
-import com.puzzle.view2.image.IDrawOperation;
-import com.puzzle.view2.image.IDrawable;
-import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.layer.Pocket;
-import com.puzzle.view2.layer.Vue;
+
 
 public class PieceInPocket extends ControllerAdaptater implements Widget{
 	private Piece piece;
@@ -24,9 +17,6 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 	private int y;
 	
 	private double scale;
-	
-	
-	
 	
 	private Point coins[];
 	private Point tmp = new Point();
@@ -44,32 +34,6 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 		this.pocket = pocket;
 		
 		this.init();
-	}
-
-
-
-	
-	public void draw(Vue vue) {
-		Image img = ImageProvider.getInstance().getImage(piece);
-		if(img != null){
-			double x = this.x;
-			double y = this.y;
-			double cx = this.x + img.getWidth(null) * this.scale / 2.0;
-			double cy = this.y + img.getHeight(null)  * this.scale / 2.0;
-	
-			
-//			this.op.fillRect(Color.yellow, this.coins[0].getX(), this.coins[0].getY(), 2, 2, 1.0f);
-//			this.op.fillRect(Color.yellow, this.coins[1].getX(), this.coins[1].getY(), 2, 2, 1.0f);
-//			this.op.fillRect(Color.yellow, this.coins[2].getX(), this.coins[2].getY(), 2, 2, 1.0f);
-//			this.op.fillRect(Color.yellow, this.coins[3].getX(), this.coins[3].getY(), 2, 2, 1.0f);
-//
-//			
-//			this.op.drawImage(img, 
-//					x, y, 
-//					cx, cy, -this.piece.getAngle(), 
-//					this.scale, 1.0f);
-		}
-		
 	}
 
 
@@ -156,6 +120,14 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 
 	public int getY() {
 		return y;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	
