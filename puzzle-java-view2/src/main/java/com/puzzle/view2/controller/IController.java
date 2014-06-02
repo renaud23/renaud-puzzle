@@ -27,4 +27,6 @@ public interface IController extends Comparable<IController>{
 	
 	public void controlPressed();
 	public void controlReleased();
+	public void shiftPressed();
+	public void shiftReleased();
 }

@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
-
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;

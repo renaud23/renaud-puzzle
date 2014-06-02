@@ -134,6 +134,9 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 			if(e.getKeyCode() == KeyEvent.VK_CONTROL){
 				IController c = this.getCandidat(this.mouseX, this.mouseY);
 				if(c!=null) c.controlPressed();
+			}else if(e.getKeyCode() == KeyEvent.VK_SHIFT){
+				IController c = this.getCandidat(this.mouseX, this.mouseY);
+				if(c!=null) c.shiftPressed();
 			}
 		}
 	}
@@ -146,9 +149,16 @@ public class RootController implements MouseListener,MouseMotionListener,MouseWh
 			if(e.getKeyCode() == KeyEvent.VK_CONTROL){
 				IController c = this.getCandidat(this.mouseX, this.mouseY);
 				if(c!=null) c.controlReleased();
+			}else if(e.getKeyCode() == KeyEvent.VK_SHIFT){
+				IController c = this.getCandidat(this.mouseX, this.mouseY);
+				if(c!=null) c.shiftReleased();
 			}
 		}
 	}
+	
+	
+	
+	
 	
 	public void lock(){
 		this.locked = true;

@@ -102,8 +102,15 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		this.state.controlReleased();
 	}
 
+	@Override
+	public void shiftPressed() {
+		this.state.shiftPressed();
+	}
 
-
+	@Override
+	public void shiftReleased() {
+		this.state.shiftReleased();
+	}
 
 	
 	
@@ -111,11 +118,10 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	
 	
 	
-
-
-
-
-
+	
+	
+	
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof Tapis){

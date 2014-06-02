@@ -27,6 +27,8 @@ import com.puzzle.view2.layer.Vue;
 
 public class MainPleineState extends ControllerAdaptater implements IState,IDrawable,DrawOperationAware{
 	
+	
+
 	private Tapis tapis;
 	private BackgroundLayer bckLayer;
 	private ComponentPiece selection;
@@ -40,6 +42,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	private Converter converter;
 	
 	private boolean rightButtonDown;
+	private boolean shiftDown;
 	
 	
 	public MainPleineState(Tapis tapis,BackgroundLayer bckLayer, ComponentPiece selection, Point ancre,int x,int y) {
@@ -57,8 +60,10 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		this.mouseX = e.getX();
-		this.mouseY = e.getY();
+		if(!this.shiftDown){
+			this.mouseX = e.getX();
+			this.mouseY = e.getY();
+		}
 	}
 
 
@@ -75,7 +80,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(e.getButton() == MouseEvent.BUTTON1){
+		if(e.getButton() == MouseEvent.BUTTON1 && !this.shiftDown){
 			Point p = this.converter.screenToModel(e.getX(), e.getY());
 			
 			CommandeArgument<Point> cmd = new PoserMainDroite(tapis);
@@ -100,7 +105,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(this.rightButtonDown){
+		if(this.rightButtonDown && ! this.shiftDown){
 			int vx = this.mouseX - e.getX();
 			int vy = this.mouseY - e.getY();
 			double vex = vx / bckLayer.getScale();
@@ -132,11 +137,28 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		super.controlReleased();
 	}
 
+	@Override
+	public void setMouseX(int x) {
+//		this.mouseX = x;
+	}
 
+	@Override
+	public void setMouseY(int y) {
+//		this.mouseY = y;
+	}
 	
 	
-	
-	
+	@Override
+	public void shiftPressed() {
+		this.shiftDown = true;
+	}
+
+
+
+	@Override
+	public void shiftReleased() {
+		this.shiftDown = false;
+	}
 	
 	
 	
@@ -205,15 +227,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 
 
 
-	@Override
-	public void setMouseX(int x) {
-		this.mouseX = x;
-	}
-
-	@Override
-	public void setMouseY(int y) {
-		this.mouseY = y;
-	}
+	
 	
 	
 }

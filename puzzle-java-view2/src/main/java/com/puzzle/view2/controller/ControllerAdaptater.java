@@ -111,6 +111,18 @@ public abstract class ControllerAdaptater implements IController{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void shiftPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shiftReleased() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
