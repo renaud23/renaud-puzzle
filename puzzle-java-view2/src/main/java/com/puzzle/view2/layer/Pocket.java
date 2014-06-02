@@ -1,5 +1,6 @@
 package com.puzzle.view2.layer;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,8 +71,8 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 		this.maxSize = MainGauche.getInstance().getSize();
 		this.size = 0;
 		
-		this.widgets = new ArrayList<>();
-		this.eccart  = (this.largeur - this.hauteur) / maxSize;
+		this.widgets = new ArrayList<PieceInPocket>();
+		this.eccart  = (this.largeur ) / maxSize;
 		
 	}
 
@@ -85,7 +86,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 				Piece p = MainGauche.getInstance().getLastIn();
 				if(first){
 					first = false;
-					this.scale = this.hauteur / (Math.max(p.getHauteur(),p.getLargeur()) * 1.5);
+					this.scale = this.hauteur / (Math.min(p.getHauteur(),p.getLargeur()) );
 					this.scaleFocused = this.scale;
 					this.scaleMax = this.scale * 2.0;
 				}
@@ -95,8 +96,9 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 				int y = this.y;
 				
 				PieceInPocket pip = new PieceInPocket(this,p,x,y,scale);
-				
-				this.widgets.add(pip);
+				synchronized (this.widgets) {
+					this.widgets.add(pip);
+				}
 				this.hud.addWidget(pip);
 				this.controller.addController(pip);
 				
@@ -147,54 +149,59 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 
 	@Override
 	public void draw(Vue vue) {
-		Collections.sort(this.widgets,new Comparator<PieceInPocket>() {
-
-			@Override
-			public int compare(PieceInPocket a, PieceInPocket b) {
-				int val = 0;
-				if(a.getZIndex() > b.getZIndex()) val = 1;
-				else if(a.getZIndex() < b.getZIndex()) val = -1;
-				return val;
-			}
-		});
+		synchronized (this.widgets) {
+			Collections.sort(this.widgets,new Comparator<PieceInPocket>() {
 	
-		for(PieceInPocket pip : this.widgets){
-			Image img = ImageProvider.getInstance().getImage(pip.getPiece());
-			if(img != null){
-				if(pip != this.focused){
-					double x = pip.getX();
-					double y = pip.getY();
-					double cx = pip.getX() + img.getWidth(null) * this.scale / 2.0;
-					double cy = pip.getY() + img.getHeight(null)  * this.scale / 2.0;
+				@Override
+				public int compare(PieceInPocket a, PieceInPocket b) {
+					int val = 0;
+					if(a.getZIndex() > b.getZIndex()) val = 1;
+					else if(a.getZIndex() < b.getZIndex()) val = -1;
+					return val;
+				}
+			});
+		
 			
-//					this.op.fillRect(Color.yellow, this.coins[0].getX(), this.coins[0].getY(), 2, 2, 1.0f);
-//					this.op.fillRect(Color.yellow, this.coins[1].getX(), this.coins[1].getY(), 2, 2, 1.0f);
-//					this.op.fillRect(Color.yellow, this.coins[2].getX(), this.coins[2].getY(), 2, 2, 1.0f);
-//					this.op.fillRect(Color.yellow, this.coins[3].getX(), this.coins[3].getY(), 2, 2, 1.0f);
+//			this.op.drawRect(Color.yellow, x, y, largeur, hauteur);
+			
+			for(PieceInPocket pip : this.widgets){
+				Image img = ImageProvider.getInstance().getImage(pip.getPiece());
+				if(img != null){
+					if(pip != this.focused){
+						double x = pip.getX();
+						double y = pip.getY();
+						double cx = pip.getX() + img.getWidth(null) * this.scale / 2.0;
+						double cy = pip.getY() + img.getHeight(null)  * this.scale / 2.0;
+				
+	//					this.op.fillRect(Color.yellow, this.coins[0].getX(), this.coins[0].getY(), 2, 2, 1.0f);
+	//					this.op.fillRect(Color.yellow, this.coins[1].getX(), this.coins[1].getY(), 2, 2, 1.0f);
+	//					this.op.fillRect(Color.yellow, this.coins[2].getX(), this.coins[2].getY(), 2, 2, 1.0f);
+	//					this.op.fillRect(Color.yellow, this.coins[3].getX(), this.coins[3].getY(), 2, 2, 1.0f);
+						this.op.drawImage(img, 
+								x, y, 
+								cx, cy, -pip.getPiece().getAngle(), 
+								this.scale, 1.0f);
+					}
+				
+				}
+			}
+			
+			if(this.focused != null){
+				Image img = ImageProvider.getInstance().getImage(this.focused.getPiece());
+				if(img != null){
+					
+					double cx = this.focused.getX() + img.getWidth(null) * this.scale / 2.0;
+					double cy = this.focused.getY() + img.getHeight(null)  * this.scale / 2.0;
+					double x = cx - this.focused.getPiece().getLargeur() * this.scaleFocused / 2.0;
+					double y = cy - this.focused.getPiece().getHauteur() * this.scaleFocused / 2.0;;
+				
 					this.op.drawImage(img, 
 							x, y, 
-							cx, cy, -pip.getPiece().getAngle(), 
-							this.scale, 1.0f);
+							cx, cy, -this.focused.getPiece().getAngle(), 
+							this.scaleFocused, 1.0f);
 				}
-			
 			}
-		}
-		
-		if(this.focused != null){
-			Image img = ImageProvider.getInstance().getImage(this.focused.getPiece());
-			if(img != null){
-				
-				double cx = this.focused.getX() + img.getWidth(null) * this.scale / 2.0;
-				double cy = this.focused.getY() + img.getHeight(null)  * this.scale / 2.0;
-				double x = cx - this.focused.getPiece().getLargeur() * this.scaleFocused / 2.0;
-				double y = cy - this.focused.getPiece().getHauteur() * this.scaleFocused / 2.0;;
-			
-				this.op.drawImage(img, 
-						x, y, 
-						cx, cy, -this.focused.getPiece().getAngle(), 
-						this.scaleFocused, 1.0f);
-			}
-		}
+		}//synchronised
 		
 	}
 

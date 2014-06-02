@@ -11,10 +11,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.JFrame;
-
-import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.tool.CanvasHwdBuffer;

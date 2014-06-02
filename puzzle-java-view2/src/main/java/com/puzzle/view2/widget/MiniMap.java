@@ -41,8 +41,8 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		this.background = background;
 		this.backgroundImage = backgroundImage;
 		
-		this.largeur = (int) (background.getLargeurTapis() * scale);
-		this.hauteur = (int) (background.getHauteurTapis() * scale);
+		this.largeur = (int) Math.round(background.getLargeurTapis() * scale);
+		this.hauteur = (int) Math.round(background.getHauteurTapis() * scale);
 		
 		this.rectangle = new Rectangle(x,y,largeur,hauteur);
 	}
@@ -71,11 +71,11 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		
 		
 		int xi = x;
-		xi += (int)((background.getLargeurTapis() / 2.0 + vue.getX()) * scale); 
+		xi += (int)Math.round((background.getLargeurTapis() / 2.0 + vue.getX()) * scale); 
 		int yi = y;
-		yi += (int)((background.getHauteurTapis() / 2.0 - vue.getY()) * scale);
-		int l = (int) (vue.getLargeur() * scale);
-		int h = (int) (vue.getHauteur() * scale);
+		yi += (int)Math.round((background.getHauteurTapis() / 2.0 - vue.getY()) * scale);
+		int l = (int) Math.round(vue.getLargeur() * scale);
+		int h = (int) Math.round(vue.getHauteur() * scale);
 		
 		
 		//

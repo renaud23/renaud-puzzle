@@ -3,6 +3,10 @@ package com.puzzle.view2.widget;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+
+import com.puzzle.command.CommandeArgument;
+import com.puzzle.command.tournerMainDroite;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -94,7 +98,20 @@ public class PieceInPocket extends ControllerAdaptater implements Widget{
 			this.pocket.setFocused(null);
 	}
 
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		boolean up = e.getWheelRotation() < 0;
+		
 
+		if(up){
+			this.piece.tournerDroite();
+		}else{
+			this.piece.tournerGauche();
+		}
+
+	}
+	
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		

@@ -60,7 +60,9 @@ public class PuzzleMain {
 	
 		HudLayer hud = new HudLayer();
 		MiniMap map = new MiniMap(backgroundLayer, backgroundImage, 10, 10, 0.006);
-		Pocket pocket = new Pocket(tapis, hud, controller, 10, screenHauteur - 10 - 100,screenLargeur - 2*10,100);
+		Pocket pocket = new Pocket(tapis, hud, controller, 
+				(int) (screenLargeur *0.05), (int) (screenHauteur - screenLargeur *0.1 - screenHauteur *0.1),
+				(int) (screenLargeur - screenLargeur *0.1),(int) (screenHauteur *0.1));
 		
 		// injection des controllers au root
 		controller.addController(tapisLayer);
