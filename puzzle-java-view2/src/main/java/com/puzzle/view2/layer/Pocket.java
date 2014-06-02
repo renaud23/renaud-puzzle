@@ -246,7 +246,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 				}
 				p.setScaleFocused(ns);
 			}
-		}, 0, 10);
+		}, 0, 20);
 	}
 	
 	
