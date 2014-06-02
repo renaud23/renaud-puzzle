@@ -26,7 +26,7 @@ public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
-		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/renaudEtMimie";
+		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/floflo_20";
 		ImageProvider.getInstance().setPath(rootPuzzlePath);
 		
 		

@@ -3,12 +3,15 @@ package com.puzzle.view2.later.state;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.List;
 
 import com.puzzle.command.CommandeArgument;
+import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PasserDansMainGauche;
 import com.puzzle.command.PoserMainDroite;
 import com.puzzle.command.tournerMainDroite;
 import com.puzzle.command.param.ChangerDeMainParam;
+import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -39,10 +42,15 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	private int mouseX;
 	private int mouseY;
 	
+	private int selectionX;
+	private int selectionY;
+	
 	private Converter converter;
 	
 	private boolean rightButtonDown;
 	private boolean shiftDown;
+	
+	private List<Piece> candidats;
 	
 	
 	public MainPleineState(Tapis tapis,BackgroundLayer bckLayer, ComponentPiece selection, Point ancre,int x,int y) {
@@ -52,6 +60,8 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		this.ancre = ancre;
 		this.mouseX = x;
 		this.mouseY = y;
+		this.selectionX = x;
+		this.selectionY = y;
 		
 		this.converter = new Converter(bckLayer);
 	}
@@ -60,10 +70,27 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		if(!this.shiftDown){
-			this.mouseX = e.getX();
-			this.mouseY = e.getY();
+		
+		this.mouseX = e.getX();
+		this.mouseY = e.getY();
+		
+		this.selectionX = e.getX();
+		this.selectionY = e.getY();
+		
+		if(this.shiftDown){
+			Point p = converter.screenToModel(e.getX(),e.getY());
+			
+			IsClipsParam param = new IsClipsParam();
+			
+			param.setCentre(p);
+			CommandeArgument<IsClipsParam> cmd = new IsClipsable(this.tapis);
+			cmd.setArgument(param);
+			cmd.execute();
+			
+			if(param.getCandidats().size() > 0) this.candidats = param.getCandidats();
+			else this.candidats = null;
 		}
+		
 	}
 
 
@@ -80,12 +107,19 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(e.getButton() == MouseEvent.BUTTON1 && !this.shiftDown){
-			Point p = this.converter.screenToModel(e.getX(), e.getY());
-			
-			CommandeArgument<Point> cmd = new PoserMainDroite(tapis);
-			cmd.setArgument(p);
-			cmd.execute();
+		if(e.getButton() == MouseEvent.BUTTON1){
+			if(!this.shiftDown){
+				Point p = this.converter.screenToModel(e.getX(), e.getY());
+				
+				CommandeArgument<Point> cmd = new PoserMainDroite(tapis);
+				cmd.setArgument(p);
+				cmd.execute();
+			}else{
+				
+				
+				
+				
+			}
 		}else if(e.getButton() == MouseEvent.BUTTON3){
 			this.rightButtonDown = true;
 		}
@@ -139,12 +173,12 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 
 	@Override
 	public void setMouseX(int x) {
-//		this.mouseX = x;
+		if(!this.shiftDown) this.selectionX = x;
 	}
 
 	@Override
 	public void setMouseY(int y) {
-//		this.mouseY = y;
+		if(!this.shiftDown) this.selectionY = y;
 	}
 	
 	
@@ -158,6 +192,8 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	@Override
 	public void shiftReleased() {
 		this.shiftDown = false;
+		this.selectionX = this.mouseX;
+		this.selectionY = this.mouseY;
 	}
 	
 	
@@ -184,8 +220,17 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	public void draw(Vue vue) {
 		if(this.selection instanceof Piece){
 			this.drawPiece(vue);
+			
+			
 		}else{
 			
+		}
+		
+		
+		if(this.candidats != null){
+			for(Piece p : this.candidats){
+				System.out.println(p.getId());
+			}
 		}
 	}
 
@@ -208,15 +253,17 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 			double cx = (double)img.getWidth(null) / 2.0 * scale;
 			double cy = (double)img.getHeight(null) / 2.0 * scale;
 			
-			double x = this.mouseX;
-			double y = this.mouseY;
+			double x = this.selectionX;
+			double y = this.selectionY;
 			x += this.ancre.getX() * scale;
 			y -= this.ancre.getY() * scale;
 			x -= cx;
 			y -= cy;
 			
-			this.op.drawImage(img, x, y, this.mouseX, this.mouseY, -p.getAngle(), scale, 1.0f);
+			this.op.drawImage(img, x, y, this.selectionX, this.selectionY, -p.getAngle(), scale, 1.0f);
 		}
+		
+		
 	}
 
 

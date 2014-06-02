@@ -3,6 +3,7 @@ package com.puzzle.view2;
 
 
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -106,6 +107,14 @@ public class AWTImageBufferDecorator extends JPanel implements IDrawOperation{
 			double yRotation, double theta, double scaleX, double scaleY,
 			float alpha) {
 		this.backBuffer.drawImage(image, x, y, xRotation, yRotation, theta, scaleX, scaleY, alpha);
+		
+	}
+
+	@Override
+	public void drawImage(Image image, double x, double y, double xRotation,
+			double yRotation, double theta, double scale, float alpha,
+			Composite composite) {
+		this.backBuffer.drawImage(image, x, y, xRotation, yRotation, theta, scale, alpha, composite);
 		
 	}
 	
