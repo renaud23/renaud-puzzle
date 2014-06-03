@@ -2,6 +2,7 @@ package com.puzzle.view2.controller;
 
 import com.puzzle.model.Point;
 import com.puzzle.view2.layer.BackgroundLayer;
+import com.puzzle.view2.layer.Vue;
 
 public class Converter {
 	private BackgroundLayer layer;
@@ -34,23 +35,20 @@ public class Converter {
 	}
 	
 	
-	public java.awt.Point modelToScreen(double x,double y){
-//		double scale = layer.getLargeurScreen();
-//		scale /= layer.getVue().getLargeur();
-//		
-//		double cx = x;
-//		cx -= layer.getVue().getX();
-//		cx *= scale;
-//		
-//		double cy = y;
-//		cy -= layer.getVue().getY() - layer.getVue().getHauteur()  ;
-//		cy = layer.getVue().getHauteur()  - cy;
-//		cy *= scale;
-//		
-//		
-//		point.setX(cx);
-//		point.setY(cy);
+	public Point modelToScreen(Vue vue,double x,double y){
+		double scale = layer.getLargeurScreen();
+		scale /= layer.getVue().getLargeur();
 		
-		return null;
+		double xi = x;
+		xi -= vue.getX();
+		xi *= scale;
+		
+		double yi = vue.getY();
+		yi -= y;
+		yi *= scale;
+		
+		Point p = new Point(xi,yi);
+		
+		return p;
 	}
 }

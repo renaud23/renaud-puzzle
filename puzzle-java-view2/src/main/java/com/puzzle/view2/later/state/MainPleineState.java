@@ -1,5 +1,7 @@
 package com.puzzle.view2.later.state;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -22,6 +24,8 @@ import com.puzzle.view2.controller.Converter;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
+import com.puzzle.view2.image.tool.BlendComposite;
+import com.puzzle.view2.image.tool.MonComposite;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.Vue;
 
@@ -30,7 +34,7 @@ import com.puzzle.view2.layer.Vue;
 
 public class MainPleineState extends ControllerAdaptater implements IState,IDrawable,DrawOperationAware{
 	
-	
+	private final static MonComposite composite = new MonComposite(Color.yellow);
 
 	private Tapis tapis;
 	private BackgroundLayer bckLayer;
@@ -194,6 +198,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		this.shiftDown = false;
 		this.selectionX = this.mouseX;
 		this.selectionY = this.mouseY;
+		this.candidats = null;
 	}
 	
 	
@@ -228,10 +233,22 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		
 		
 		if(this.candidats != null){
-			for(Piece p : this.candidats){
-				System.out.println(p.getId());
-			}
-		}
+			double scale = bckLayer.getLargeurScreen() / vue.getLargeur();
+			for(Piece pi : this.candidats){
+				Image img = ImageProvider.getInstance().getImage(pi);
+				
+				if(img != null){
+					Point p = this.converter.modelToScreen(vue, pi.getCentre().getX(), pi.getCentre().getY());
+					double xi = p.getX();
+					xi -= pi.getLargeur() * scale / 2.0;
+					double yi = p.getY();
+					yi -= pi.getHauteur() * scale / 2.0;
+				
+					this.op.drawImage(img, xi, yi, p.getX(), p.getY(), -pi.getAngle(), scale, 1.0f,AlphaComposite.Xor);
+					
+				}// if
+			}// for
+		}// if
 	}
 
 	

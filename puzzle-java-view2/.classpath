@@ -22,9 +22,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/puzzle-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/tasManager"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/puzzle-io-xml"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

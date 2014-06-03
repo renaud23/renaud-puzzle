@@ -13,6 +13,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferStrategy;
 
+import sun.java2d.SunGraphics2D;
+
 import com.puzzle.view2.image.IDrawOperation;
 
 public class CanvasHwdBuffer extends Canvas implements IDrawOperation{
@@ -147,17 +149,17 @@ public class CanvasHwdBuffer extends Canvas implements IDrawOperation{
 		Graphics2D gr = (Graphics2D) this.strategy.getDrawGraphics();
 
 		/** D�sactivation de l'anti-aliasing */
-		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-		/** Demande de rendu rapide */
-		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
-		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+//		gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//		gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+//		/** Demande de rendu rapide */
+//		gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+//		gr.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+//		gr.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+//		gr.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
 
 
 		gr.setComposite(composite) ;
-		 
+
 		
 		//
 		AffineTransform t = new AffineTransform();
@@ -165,7 +167,7 @@ public class CanvasHwdBuffer extends Canvas implements IDrawOperation{
 
 		t.translate(x, y);
 		t.scale(scale, scale);
-		gr.rotate(theta, xRotation*scale, yRotation*scale);
+		gr.rotate(theta, xRotation, yRotation);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();

@@ -144,8 +144,8 @@ public class HwdBuffer implements IDrawOperation{
 		t.setToIdentity();
 
 		t.translate(x, y);
-		t.scale(scale, scale);
-		gr.rotate(theta, xRotation*scale, yRotation*scale);
+		t.scale(scale,scale);
+		gr.rotate(theta, xRotation, yRotation);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();

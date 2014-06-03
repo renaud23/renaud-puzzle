@@ -140,7 +140,7 @@ public class JImageBuffer implements IDrawOperation{
 
 		t.translate(x, y);
 		t.scale(scale, scale);
-		gr.rotate(theta, xRotation*scale, yRotation*scale);
+		gr.rotate(theta, xRotation, yRotation);
 
 		gr.drawImage(image,t,null);
 		gr.dispose();

@@ -1,20 +1,13 @@
 package com.puzzle.view2.layer;
 
-import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com.puzzle.command.Commande;
 import com.puzzle.command.PasserDansMainDroite;
 import com.puzzle.model.MainDroite;
@@ -23,12 +16,16 @@ import com.puzzle.model.Piece;
 import com.puzzle.model.State;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
-import com.puzzle.view2.Fenetre;
 import com.puzzle.view2.controller.RootController;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.widget.PieceInPocket;
+
+
+
+
+
 
 public class Pocket implements Observer,IDrawable,DrawOperationAware{
 	private List<PieceInPocket> widgets;
@@ -150,19 +147,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 	@Override
 	public void draw(Vue vue) {
 		synchronized (this.widgets) {
-			Collections.sort(this.widgets,new Comparator<PieceInPocket>() {
-	
-				@Override
-				public int compare(PieceInPocket a, PieceInPocket b) {
-					int val = 0;
-					if(a.getZIndex() > b.getZIndex()) val = 1;
-					else if(a.getZIndex() < b.getZIndex()) val = -1;
-					return val;
-				}
-			});
-		
-			
-//			this.op.drawRect(Color.yellow, x, y, largeur, hauteur);
+			Collections.sort(this.widgets);
 			
 			for(PieceInPocket pip : this.widgets){
 				Image img = ImageProvider.getInstance().getImage(pip.getPiece());
@@ -234,7 +219,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 		this.thScale = new Timer();
 		
 		final Pocket p = this;
-		final Timer t = this.thScale;
+		
 		this.thScale.schedule(new TimerTask() {
 			
 			@Override
