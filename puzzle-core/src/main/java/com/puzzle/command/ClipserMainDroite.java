@@ -26,7 +26,7 @@ public class ClipserMainDroite implements CommandeArgument<ClipserParam>{
 			
 			MainDroite.getInstance().libere();
 			this.tapis.change();
-			this.tapis.notifyObservers(State.MainDroiteVide);
+			this.tapis.notifyObservers(State.clips);
 		}
 	}
 

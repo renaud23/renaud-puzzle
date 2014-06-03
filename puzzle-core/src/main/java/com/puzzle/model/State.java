@@ -7,5 +7,6 @@ public enum State {
 	droiteToGauche, 
 	gaucheToDroite, 
 	nouveauPuzzle,
-	retirerPuzzle;
+	retirerPuzzle,
+	clips;
 }

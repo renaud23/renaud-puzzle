@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.List;
-
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PasserDansMainGauche;
@@ -24,7 +23,6 @@ import com.puzzle.view2.controller.Converter;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
-import com.puzzle.view2.image.tool.BlendComposite;
 import com.puzzle.view2.image.tool.MonComposite;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.Vue;
@@ -55,6 +53,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	private boolean shiftDown;
 	
 	private List<Piece> candidats;
+	private IsClipsParam param = new IsClipsParam();
 	
 	
 	public MainPleineState(Tapis tapis,BackgroundLayer bckLayer, ComponentPiece selection, Point ancre,int x,int y) {
@@ -84,7 +83,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		if(this.shiftDown){
 			Point p = converter.screenToModel(e.getX(),e.getY());
 			
-			IsClipsParam param = new IsClipsParam();
+			
 			
 			param.setCentre(p);
 			CommandeArgument<IsClipsParam> cmd = new IsClipsable(this.tapis);
@@ -119,7 +118,9 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 				cmd.setArgument(p);
 				cmd.execute();
 			}else{
-				
+				if(!this.param.getCandidats().isEmpty()){
+					System.out.println(this.param.getCentre());
+				}
 				
 				
 				
@@ -225,8 +226,6 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	public void draw(Vue vue) {
 		if(this.selection instanceof Piece){
 			this.drawPiece(vue);
-			
-			
 		}else{
 			
 		}

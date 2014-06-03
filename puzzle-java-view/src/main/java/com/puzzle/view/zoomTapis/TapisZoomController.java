@@ -182,6 +182,8 @@ public class TapisZoomController implements IController,Observer{
 				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainPleine));
 			}else if(state == State.MainDroiteVide){
 				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainVide));
+			}else if(state == State.clips){
+				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainVide));
 			}else if(state == State.gaucheToDroite){
 				this.component.setCursor(PuzzleCursor.getInstance().get(CursorType.mainPleine));
 			}else if(state == State.droiteToGauche){
