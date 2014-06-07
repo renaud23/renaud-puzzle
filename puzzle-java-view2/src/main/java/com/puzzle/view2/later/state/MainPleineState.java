@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.List;
+import java.util.Observer;
+
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.IsClipsable;
 import com.puzzle.command.PasserDansMainGauche;
@@ -25,6 +27,7 @@ import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.image.tool.MonComposite;
 import com.puzzle.view2.layer.BackgroundLayer;
+import com.puzzle.view2.layer.TapisLayer.TapisLayerEvent;
 import com.puzzle.view2.layer.Vue;
 
 
@@ -38,6 +41,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	private BackgroundLayer bckLayer;
 	private ComponentPiece selection;
 	private Point ancre;
+	private Observer observer;
 
 	private IDrawOperation op;
 	
@@ -56,6 +60,8 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 	private IsClipsParam param = new IsClipsParam();
 	
 	
+	
+
 	public MainPleineState(Tapis tapis,BackgroundLayer bckLayer, ComponentPiece selection, Point ancre,int x,int y) {
 		this.tapis = tapis;
 		this.bckLayer = bckLayer;
@@ -69,7 +75,10 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		this.converter = new Converter(bckLayer);
 	}
 	
-	
+	public MainPleineState(Tapis tapis,BackgroundLayer bckLayer, ComponentPiece selection, Point ancre,int x,int y,Observer observer) {
+		this(tapis,bckLayer,selection,ancre,x,y);
+		this.observer = observer;
+	}
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -119,11 +128,8 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 				cmd.execute();
 			}else{
 				if(!this.param.getCandidats().isEmpty()){
-					System.out.println(this.param.getCentre());
+					this.observer.update(null, TapisLayerEvent.startClips);
 				}
-				
-				
-				
 			}
 		}else if(e.getButton() == MouseEvent.BUTTON3){
 			this.rightButtonDown = true;
@@ -282,7 +288,9 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		
 	}
 
-
+	public IsClipsParam getIsClipsParam() {
+		return param;
+	}
 
 	public void setDrawOperation(IDrawOperation op) {
 		this.op = op;
@@ -290,7 +298,6 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 
 
 
-	
 	
 	
 }

@@ -10,6 +10,8 @@ import com.puzzle.model.Point;
 
 public class IsClipsParam {
 	
+	
+	
 	private Point centre;
 	private List<Piece> candidats;
 	private ComponentPiece component;

@@ -24,6 +24,7 @@ import com.puzzle.view2.controller.IMousePositionAware;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
+import com.puzzle.view2.later.state.ClipsState;
 import com.puzzle.view2.later.state.IState;
 import com.puzzle.view2.later.state.MainPleineState;
 import com.puzzle.view2.later.state.MainVideState;
@@ -118,24 +119,33 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	
 	
 	
-	
+	private static int c;
 	
 	
 	
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) {c++;
+//		System.out.println(arg.toString());
 		if(o instanceof Tapis){
 			if(arg ==  State.MainDroitePleine){
 				MainVideState mvs = (MainVideState) this.state;
-				this.state = new MainPleineState(this.tapis,this.bckLayer, mvs.getAttrParam().getContenu(),mvs.getAttrParam().getAncre(),this.mouseX,this.mouseY);
+				this.state = new MainPleineState(this.tapis,this.bckLayer, mvs.getAttrParam().getContenu(),mvs.getAttrParam().getAncre(),this.mouseX,this.mouseY,this);
 			}else if(arg ==  State.MainDroiteVide){
 				this.state = new MainVideState(this.tapis,this.bckLayer);
 			}if(arg == State.gaucheToDroite){
-				this.state = new MainPleineState(this.tapis,this.bckLayer, MainDroite.getInstance().getContenu(),new Point(),this.mouseX,this.mouseY);
+				this.state = new MainPleineState(this.tapis,this.bckLayer, MainDroite.getInstance().getContenu(),new Point(),this.mouseX,this.mouseY,this);
 			}else if(arg == State.droiteToGauche){
 				this.state = new MainVideState(this.tapis, this.bckLayer);
+			}else if(arg == State.clips){
+				this.state = new MainVideState(this.tapis, this.bckLayer);
 			}
+		}else if(arg == TapisLayerEvent.startClips){
+			if(this.state instanceof MainPleineState)
+				this.state = new ClipsState(this.tapis, this.bckLayer,((MainPleineState)this.state).getIsClipsParam(),this.mouseX,this.mouseY,this);
+		}else if(arg == TapisLayerEvent.endClips){
+			this.state = new MainVideState(this.tapis,this.bckLayer);
 		}
+//	System.out.println(arg+" "+c+" "+this.state.getClass());
 	}
 
 
@@ -179,7 +189,7 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		}
 		
 		// sélection
-		if(this.state instanceof DrawOperationAware) ((DrawOperationAware)this.state).setDrawOperation(op);
+		if(this.state instanceof DrawOperationAware) ((DrawOperationAware)this.state).setDrawOperation(this.op);
 		if(this.state instanceof IDrawable) ((IDrawable)this.state).draw(vue);
 	}
 	
@@ -208,10 +218,6 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		this.op.drawImage(img, x, y, 
 				cx, cy, -p.getAngle(), scale, 1.0f);//
 		
-		
-//		this.op.drawRect(Color.yellow, (int)x, (int)y, (int)2, (int)2);
-//		this.op.drawRect(Color.white, (int)cx, (int)cy, (int)2, (int)2);
-		
 	}
 
 	@Override
@@ -228,5 +234,7 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 
 
 
-	
+	public enum TapisLayerEvent{
+		startClips,endClips;
+	}
 }

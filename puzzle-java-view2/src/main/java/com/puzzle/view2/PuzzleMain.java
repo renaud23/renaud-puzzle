@@ -26,15 +26,15 @@ public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
-		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/floflo_20";
+		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/k_15";
 		ImageProvider.getInstance().setPath(rootPuzzlePath);
 		
 		
 		int screenLargeur = 800;
 		int screenHauteur = 600;
 		
-		double tapisLargeur = 36000.0;
-		double tapisHauteur = 12000.0;
+		double tapisLargeur = 36000.0 * 0.5;
+		double tapisHauteur = 12000.0 * 0.5;
 		
 		Image backgroundImage = new SimpleImageLoader().getImage(pathResources+File.separator+"background"+File.separator+"default-background.jpg"); 
 		Image redCrossImage = new SimpleImageLoader().getImage(pathResources+File.separator+"red-cross.png"); 
