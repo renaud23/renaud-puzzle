@@ -16,6 +16,7 @@ import com.puzzle.command.tournerMainDroite;
 import com.puzzle.command.param.ChangerDeMainParam;
 import com.puzzle.command.param.IsClipsParam;
 import com.puzzle.model.ComponentPiece;
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
@@ -233,7 +234,7 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 		if(this.selection instanceof Piece){
 			this.drawPiece(vue);
 		}else{
-			
+			this.drawComposite(vue);
 		}
 		
 		
@@ -284,9 +285,46 @@ public class MainPleineState extends ControllerAdaptater implements IState,IDraw
 			
 			this.op.drawImage(img, x, y, this.selectionX, this.selectionY, -p.getAngle(), scale, 1.0f);
 		}
+	}
+	
+	
+	
+	private void drawComposite(Vue vue){
+		CompositePiece cmp = (CompositePiece) this.selection;
+		Image img = ImageProvider.getInstance().getImage(cmp);
 		
+		if(img == null)img = ImageProvider.getInstance().getImageWaiting();
+		
+		double scale = bckLayer.getLargeurScreen() / vue.getLargeur();
+		double scaleImage = scale * cmp.getLargeur() / (double)img.getWidth(null);
+
+		double cx = (double)cmp.getLargeur() / 2.0 * scale;
+		double cy = (double)cmp.getHauteur() / 2.0 * scale;
+		
+		double x = this.selectionX;
+		double y = this.selectionY;
+		x += this.ancre.getX() * scale;
+		y -= this.ancre.getY() * scale;
+		x -= cx;
+		y -= cy;
+		
+		this.op.drawImage(img, x, y, this.selectionX, this.selectionY, -cmp.getAngle(), scaleImage, 1.0f);
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public IsClipsParam getIsClipsParam() {
 		return param;

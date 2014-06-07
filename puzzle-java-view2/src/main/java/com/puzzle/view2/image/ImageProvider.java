@@ -2,16 +2,16 @@ package com.puzzle.view2.image;
 
 import java.awt.Image;
 import java.io.File;
+import java.lang.Thread.State;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
-import com.puzzle.view2.image.tool.ImageLoadException;
-import com.puzzle.view2.image.tool.SimpleImageLoader;
 
 public class ImageProvider {
 	private static ImageProvider instance;
@@ -21,6 +21,8 @@ public class ImageProvider {
 	
 	private String path;
 	private Image imageWaiting;
+	
+	private Thread compositeGenerator;
 	
 	
 	private ImageProvider(){
@@ -42,18 +44,25 @@ public class ImageProvider {
 			this.imagesPiece.put(p,weak);
 			
 		}else if(cmp instanceof CompositePiece){
-			
+			this.imagesComposite.put((CompositePiece) cmp, image);
 		}
 	}
 	
 	public Image getImage(ComponentPiece cmp){
-		
+		Image image = null;
 		if(cmp instanceof Piece){
-			return this.getPiece((Piece)cmp);
+			image =  this.getPiece((Piece)cmp);
 		}else if(cmp instanceof CompositePiece){
 			
+			image = this.imagesComposite.get(cmp);
+			if(image == null && (this.compositeGenerator == null || this.compositeGenerator.getState().equals(Thread.State.TERMINATED))){
+				this.compositeGenerator = new Thread(new CompositeBufferTask((CompositePiece) cmp, 2048));
+				this.compositeGenerator.start();
+				
+			}
+		
 		}
-		return null;
+		return image;
 	}
 	
 	
@@ -65,14 +74,20 @@ public class ImageProvider {
 			img = weak.get();
 		}else{
 			ImagePieceLoader.getInstance().loadImage(p);
-			img = imageWaiting;
+//			img = imageWaiting;
 		}
 
 		return img;
 	}
 
 	
+	public Set<CompositePiece> getDrawableComposite(){
+		return this.imagesComposite.keySet();
+	}
 	
+	public void removeCompositeImage(CompositePiece cmp){
+		if(this.imagesComposite.containsKey(cmp)) this.imagesComposite.remove(cmp);
+	}
 	
 	public Image getImageWaiting() {
 		return imageWaiting;

@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
@@ -12,6 +13,7 @@ import java.util.Observer;
 
 import sun.awt.im.CompositionArea;
 
+import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
 import com.puzzle.model.Point;
@@ -48,6 +50,7 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	private Tapis tapis;
 	
 	private IDrawOperation op;
+	private Converter converter;
 	
 	
 	public TapisLayer(Tapis tapis,BackgroundLayer bckLayeur, int largeur, int hauteur) {
@@ -60,6 +63,8 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		this.state = new MainVideState(tapis, bckLayeur);
 		
 		this.tapis.addObserver(this);
+		
+		this.converter = new Converter(this.bckLayer);
 	}
 	
 	@Override
@@ -117,15 +122,12 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 	
 	
 	
-	
-	
-	private static int c;
-	
+
 	
 	
 	@Override
-	public void update(Observable o, Object arg) {c++;
-//		System.out.println(arg.toString());
+	public void update(Observable o, Object arg) {
+
 		if(o instanceof Tapis){
 			if(arg ==  State.MainDroitePleine){
 				MainVideState mvs = (MainVideState) this.state;
@@ -145,7 +147,7 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		}else if(arg == TapisLayerEvent.endClips){
 			this.state = new MainVideState(this.tapis,this.bckLayer);
 		}
-//	System.out.println(arg+" "+c+" "+this.state.getClass());
+
 	}
 
 
@@ -179,12 +181,21 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		List<Piece> pieces = this.tapis.chercherPiece(rect);
 		Collections.sort(pieces);
 		
+		
+		List<CompositePiece> alreadyDraw = new ArrayList<CompositePiece>();
 		for(Piece piece : pieces){
-			Image img = ImageProvider.getInstance().getImage(piece);
-			if(img != null){
-				this.drawPiece(vue,piece,img);
+			if(piece.getComposite() == null){
+				Image img = ImageProvider.getInstance().getImage(piece);
+				if(img != null){
+					this.drawPiece(vue,piece,img);
+				}else{
+					this.drawPiece(vue,piece,ImageProvider.getInstance().getImageWaiting());
+				}
 			}else{
-				
+				if(!alreadyDraw.contains(piece.getComposite())){
+					this.drawComposite(vue, piece.getComposite());
+					alreadyDraw.add(piece.getComposite());
+				}
 			}
 		}
 		
@@ -208,8 +219,6 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		cy = vue.getHauteur()  - cy;
 		cy *= scale;
 		
-		
-		
 		double x = cx;
 		x -= p.getLargeur()  / 2.0 * scale;
 		double y = cy;
@@ -218,6 +227,26 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		this.op.drawImage(img, x, y, 
 				cx, cy, -p.getAngle(), scale, 1.0f);//
 		
+	}
+	
+	private void drawComposite(Vue vue,CompositePiece cmp){
+		Image img = ImageProvider.getInstance().getImage(cmp);
+		Point centre = this.converter.modelToScreen(vue, cmp.getCentre().getX(), cmp.getCentre().getY());
+		
+		if(img == null)img = ImageProvider.getInstance().getImageWaiting();
+		
+		double scale = bckLayer.getLargeurScreen() / vue.getLargeur();
+		double scaleImage = scale * cmp.getLargeur() / (double)img.getWidth(null);
+
+		double cx = (double)cmp.getLargeur() / 2.0 * scale;
+		double cy = (double)cmp.getHauteur() / 2.0 * scale;
+		
+		double xi = centre.getX();
+		double yi = centre.getY();
+		xi -= cx;
+		yi -= cy;
+		
+		this.op.drawImage(img, xi, yi, centre.getX(), centre.getY(), -cmp.getAngle(), scaleImage, 1.0f);
 	}
 
 	@Override

@@ -6,10 +6,14 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import com.puzzle.model.CompositePiece;
+import com.puzzle.model.Point;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
+import com.puzzle.view2.controller.Converter;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
+import com.puzzle.view2.image.ImageProvider;
 import com.puzzle.view2.layer.BackgroundLayer;
 import com.puzzle.view2.layer.Vue;
 
@@ -32,6 +36,7 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 	private boolean over;
 	private float alphaZoom = 0.0f;
 	private Color zoomColor = Color.black;
+	private Converter converter;
 	
 
 	public MiniMap(BackgroundLayer background, Image backgroundImage,int x, int y,double scale) {
@@ -45,6 +50,7 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		this.hauteur = (int) Math.round(background.getHauteurTapis() * scale);
 		
 		this.rectangle = new Rectangle(x,y,largeur,hauteur);
+		this.converter = new Converter(background);
 	}
 
 	
@@ -85,6 +91,13 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 					(double)hauteur/this.backgroundImage.getHeight(null), 
 					1.0f);
 			
+			for(CompositePiece cmp : ImageProvider.getInstance().getDrawableComposite()){
+				drawComposite(vue, cmp);
+			}
+			
+			
+			
+			
 			this.op.fillRect(zoomColor, x, y, xi - x, hauteur, alphaZoom);
 			this.op.fillRect(zoomColor, xi + l, y, largeur - xi - l + x, hauteur, alphaZoom);
 			this.op.fillRect(zoomColor, xi, y, l, yi - y, alphaZoom);
@@ -98,10 +111,33 @@ public class MiniMap extends ControllerAdaptater implements IDrawable,DrawOperat
 		//
 		
 		
-		
 	}
 
-	
+	private void drawComposite(Vue vue,CompositePiece cmp){
+		Image img = ImageProvider.getInstance().getImage(cmp);
+		
+		
+		if(img == null)img = ImageProvider.getInstance().getImageWaiting();
+		
+		double scale = this.largeur / background.getLargeurTapis();
+		double scaleImage = scale * cmp.getLargeur() / (double)img.getWidth(null);
+
+		double mx = (double)cmp.getLargeur() / 2.0 * scale;
+		double my = (double)cmp.getHauteur() / 2.0 * scale;
+		
+		double xi = cmp.getCentre().getX() + background.getLargeurTapis() / 2.0;
+		xi *= scale;
+		xi += x;
+		double yi = background.getHauteurTapis() / 2.0 - cmp.getCentre().getY();
+		yi *= scale;
+		yi += y;
+		double cx = xi;
+		double cy = yi;
+		xi -= mx;
+		yi -= my;
+		
+		this.op.drawImage(img, xi, yi, cx, cy, -cmp.getAngle(), scaleImage, 1.0f);
+	}
 
 	
 
