@@ -1,11 +1,7 @@
 package com.puzzle.view2.later.state;
 
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.util.Observer;
 
+import java.util.Observer;
 import com.puzzle.command.ClipserMainDroite;
 import com.puzzle.command.CommandeArgument;
 import com.puzzle.command.param.ClipserParam;
@@ -14,12 +10,10 @@ import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
-import com.puzzle.model.Point;
 import com.puzzle.model.Tapis;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.controller.ControllerAdaptater;
 import com.puzzle.view2.controller.Converter;
-import com.puzzle.view2.controller.IController;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
@@ -40,7 +34,7 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 	
 	private IDrawOperation op;
 	private Converter converter;
-	
+	private IAnimation animation;
 	
 
 	
@@ -53,8 +47,8 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 		this.y = y;
 		this.observer = observer;
 		this.converter = new Converter(this.bckLayer);
-	
-		this.clips();
+		
+		this.animation = new clipsAnimation(param.getComponent(),x,y,bckLayer.getScale());
 	}
 	
 	
@@ -72,8 +66,6 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 		
 		if(cmp instanceof CompositePiece) ImageProvider.getInstance().removeCompositeImage((CompositePiece) cmp);
 		if(candidat.getComposite() != null) ImageProvider.getInstance().removeCompositeImage(candidat.getComposite());
-		
-		
 		
 	}
 	
@@ -95,6 +87,7 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 	@Override
 	public void setDrawOperation(IDrawOperation op) {
 		this.op = op;
+		this.animation.setDrawOperation(op);
 	}
 
 	@Override
@@ -111,12 +104,9 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 
 	@Override
 	public void draw(Vue vue) {
-		ComponentPiece cmp = this.param.getComponent();
 		
-		this.clips();
-		
-//		this.op.fillRect(Color.black, x, y, 20, 20,1.0f);
-		
+		if(!this.animation.isFinish()) this.animation.play();
+		else this.clips();
 	}
 
 	

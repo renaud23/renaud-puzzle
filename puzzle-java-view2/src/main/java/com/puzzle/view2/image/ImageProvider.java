@@ -73,7 +73,6 @@ public class ImageProvider {
 			img = weak.get();
 		}else{
 			ImagePieceLoader.getInstance().loadImage(p);
-//			img = imageWaiting;
 		}
 
 		return img;

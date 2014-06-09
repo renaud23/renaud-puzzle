@@ -7,6 +7,7 @@ public class Vue implements Cloneable{
 	private double y;
 	private double largeur;
 	private double hauteur;
+	private double scale;
 	
 	
 	
@@ -48,7 +49,20 @@ public class Vue implements Cloneable{
 		this.hauteur = hauteur;
 	}
 	
-	
+	public double getScale() {
+		return scale;
+	}
+
+
+
+
+	public void setScale(double scale) {
+		this.scale = scale;
+	}
+
+
+
+
 	public void addX(double x){
 		this.x += x;
 	}

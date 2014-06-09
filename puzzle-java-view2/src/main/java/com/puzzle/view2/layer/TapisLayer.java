@@ -10,9 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import sun.awt.im.CompositionArea;
-
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
@@ -224,8 +221,7 @@ public class TapisLayer extends ControllerAdaptater implements IDrawable,DrawOpe
 		double y = cy;
 		y -= p.getHauteur()  / 2.0 * scale;
 		
-		this.op.drawImage(img, x, y, 
-				cx, cy, -p.getAngle(), scale, 1.0f);//
+		this.op.drawImage(img, x, y, cx, cy, -p.getAngle(), scale, 1.0f);//
 		
 	}
 	

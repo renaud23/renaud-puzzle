@@ -15,9 +15,6 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 	private double hauteurScreen;
 	private double largeurTapis;
 	private double hauteurTapis;
-
-	private double ratioLargeur;// rapport image / tapis
-	private double ratioHauteur;
 	
 	private Vue vue;
 	
@@ -41,9 +38,7 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 		this.hauteurTapis = hauteurTapis;
 		this.scale = scale;
 		this.vue = vue;
-		
-		this.ratioLargeur = backgroundImage.getWidth(null) / largeurTapis;
-		this.ratioHauteur = backgroundImage.getHeight(null) / hauteurTapis;
+
 		
 		this.validate();
 	}
@@ -92,7 +87,6 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 			}
 			
 			this.validate();
-		
 	}
 
 	
@@ -118,6 +112,8 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 			scale = largeurScreen / this.largeurTapis;
 			this.validate();
 		}
+		
+		this.vue.setScale(this.scale);
 	}
 
 
@@ -205,10 +201,7 @@ public class BackgroundLayer implements IDrawable,DrawOperationAware{
 		x *= scale;
 		double y = this.hauteurTapis / 2.0 - vue.getY();
 		y *= scale;
-		
-		
-		
-		
+			
 
 		this.drawOperation.drawImage(this.backgroundImage,
 				-x, -y, 
