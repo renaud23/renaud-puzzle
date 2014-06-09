@@ -1,10 +1,7 @@
 package com.puzzle.view2.image;
 
 import java.awt.Image;
-import java.io.File;
-import java.lang.Thread.State;
 import java.lang.ref.SoftReference;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +9,7 @@ import java.util.Set;
 import com.puzzle.model.ComponentPiece;
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.Piece;
+import com.puzzle.model.Puzzle;
 
 public class ImageProvider {
 	private static ImageProvider instance;
@@ -19,7 +17,8 @@ public class ImageProvider {
 	private final Map<CompositePiece, Image> imagesComposite = new HashMap<CompositePiece, Image>();
 	private final Map<Piece, SoftReference<Image>> imagesPiece = new HashMap<Piece, SoftReference<Image>>();
 	
-	private String path;
+//	private String path;
+	private Map<Puzzle, String> paths = new HashMap<>(); 
 	private Image imageWaiting;
 	
 	private Thread compositeGenerator;
@@ -80,6 +79,13 @@ public class ImageProvider {
 		return img;
 	}
 
+	public void addPath(Puzzle puzzle,String path){
+		this.paths.put(puzzle, path);
+	}
+	
+	public String getPath(Piece p){
+		return this.paths.get(p.getPuzzle());
+	}
 	
 	public Set<CompositePiece> getDrawableComposite(){
 		return this.imagesComposite.keySet();
@@ -97,11 +103,11 @@ public class ImageProvider {
 		this.imageWaiting = imageWaiting;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
+//	public String getPath() {
+//		return path;
+//	}
+//
+//	public void setPath(String path) {
+//		this.path = path;
+//	}
 }

@@ -73,6 +73,8 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 		if(cmp instanceof CompositePiece) ImageProvider.getInstance().removeCompositeImage((CompositePiece) cmp);
 		if(candidat.getComposite() != null) ImageProvider.getInstance().removeCompositeImage(candidat.getComposite());
 		
+		
+		
 	}
 	
 	
@@ -111,10 +113,10 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 	public void draw(Vue vue) {
 		ComponentPiece cmp = this.param.getComponent();
 		
-		
-		
-		this.op.fillRect(Color.black, x, y, 20, 20,1.0f);
 		this.clips();
+		
+//		this.op.fillRect(Color.black, x, y, 20, 20,1.0f);
+		
 	}
 
 	

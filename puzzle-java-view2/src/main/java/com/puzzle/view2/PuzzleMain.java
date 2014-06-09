@@ -26,22 +26,24 @@ public class PuzzleMain {
 
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
-		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/floflo_20";
-		ImageProvider.getInstance().setPath(rootPuzzlePath);
+//		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/k_160";
+		String rootPuzzlePath2 = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/floflo_20";
+
 		
 		
 		int screenLargeur = 800;
 		int screenHauteur = 600;
 		
-		double tapisLargeur = 36000.0 * 0.5;
-		double tapisHauteur = 12000.0 * 0.5;
+		double tapisLargeur = 36000.0 * 1.0;
+		double tapisHauteur = 12000.0 * 1.0;
 		
 		Image backgroundImage = new SimpleImageLoader().getImage(pathResources+File.separator+"background"+File.separator+"default-background.jpg"); 
 		Image redCrossImage = new SimpleImageLoader().getImage(pathResources+File.separator+"red-cross.png"); 
 		ImageProvider.getInstance().setImageWaiting(redCrossImage);
 		
 		Tapis tapis = new Tapis(tapisLargeur, tapisHauteur);
-		PuzzleMain.load(rootPuzzlePath,tapis);
+//		PuzzleMain.load(rootPuzzlePath,tapis);
+		PuzzleMain.load(rootPuzzlePath2,tapis);
 		
 		
 		Vue vue = new Vue();
@@ -97,26 +99,53 @@ public class PuzzleMain {
 		
 		// placement aletoire des pieces
 		Random rnd = new Random();
-		int tx = (int) (tapis.getLargeur() - 200);
-		int ty = (int) (tapis.getHauteur() - 200);
-		int i = 0;
+		
+		double rangeX = 0.05;
+		double rangeY = 0.1;
+		int tx = (int) (tapis.getLargeur() - tapis.getLargeur() * rangeX * 2);
+		int ty = (int) (tapis.getHauteur() - tapis.getHauteur() * rangeY * 2);
+		 
+		
+		int centerX = tx/2-rnd.nextInt(tx);
+		int centerY = ty/2-rnd.nextInt(ty);
+		int rayon = (int) Math.min(tapis.getLargeur() * rangeX, tapis.getHauteur() * rangeY);
+		
+		
+//		for(Piece p : pieces){
+//			RectGridPiece grid = new RectGridPiece(p);
+//			p.setRect(grid);
+//			
+//			int x = 0; 
+//			int y = 0;
+//			
+//			x = centerX + rayon - rnd.nextInt(2*rayon);
+//			y = centerY + rayon - rnd.nextInt(2*rayon);
+//			
+//			p.setX(x);
+//			p.setY(y);
+//			p.setAngle(new Angle());
+//
+//			// liage des pieces au puzzle
+//			p.setPuzzle(puzzle);
+//			puzzle.put(p.getId(), p);
+//		}
+		
 		for(Piece p : pieces){
 			RectGridPiece grid = new RectGridPiece(p);
 			p.setRect(grid);
 			p.setX(rnd.nextInt(tx)-tx/2);
 			p.setY(rnd.nextInt(ty)-ty/2);
-//			p.setX(0);
-//			p.setY(0);
+
 			p.setAngle(new Angle());
-//			p.setAngle(0.0);
+
 			
 			// liage des pieces au puzzle
 			p.setPuzzle(puzzle);
 			puzzle.put(p.getId(), p);
 			
-			i++;
+
 		}
-		
+		ImageProvider.getInstance().addPath(puzzle, rootPuzzlePath);
 		tapis.poser(puzzle);
 	}
 
