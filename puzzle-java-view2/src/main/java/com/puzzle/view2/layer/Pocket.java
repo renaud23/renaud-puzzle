@@ -68,7 +68,7 @@ public class Pocket implements Observer,IDrawable,DrawOperationAware{
 		this.maxSize = MainGauche.getInstance().getSize();
 		this.size = 0;
 		
-		this.widgets = new ArrayList<PieceInPocket>();
+		this.widgets = Collections.synchronizedList(new ArrayList<PieceInPocket>());
 		this.eccart  = (this.largeur ) / maxSize;
 		
 	}

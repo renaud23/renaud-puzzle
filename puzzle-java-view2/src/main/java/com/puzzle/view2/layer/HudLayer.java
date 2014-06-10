@@ -5,8 +5,6 @@ package com.puzzle.view2.layer;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.puzzle.model.CompositePiece;
 import com.puzzle.view2.DrawOperationAware;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
