@@ -29,7 +29,7 @@ public class clipsAnimation implements IAnimation{
 		this.y = y;
 		this.scale = scale;
 		
-		this.duree = 800l;
+		this.duree = 100l;
 		this.current = System.currentTimeMillis();
 		this.angle = -component.getAngle();
 	}

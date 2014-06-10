@@ -104,7 +104,7 @@ public class ClipsState extends ControllerAdaptater implements IState,IDrawable,
 
 	@Override
 	public void draw(Vue vue) {
-		
+		this.animation.setDrawOperation(op);
 		if(!this.animation.isFinish()) this.animation.play();
 		else this.clips();
 	}
