@@ -1,4 +1,4 @@
-package com.puzzle.view2.later.state;
+package com.puzzle.view2.layer.state;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

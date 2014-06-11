@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.puzzle.model.CompositePiece;
 import com.puzzle.model.MainDroite;
 import com.puzzle.model.Piece;
@@ -23,10 +24,10 @@ import com.puzzle.view2.controller.IMousePositionAware;
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.ImageProvider;
-import com.puzzle.view2.later.state.ClipsState;
-import com.puzzle.view2.later.state.IState;
-import com.puzzle.view2.later.state.MainPleineState;
-import com.puzzle.view2.later.state.MainVideState;
+import com.puzzle.view2.layer.state.ClipsState;
+import com.puzzle.view2.layer.state.IState;
+import com.puzzle.view2.layer.state.MainPleineState;
+import com.puzzle.view2.layer.state.MainVideState;
 import com.renaud.manager.IRect;
 import com.renaud.manager.Rect;
 
