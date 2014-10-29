@@ -3,7 +3,10 @@ package com.puzzle.view2;
 import java.awt.Image;
 import java.io.File;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
+
 import com.puzzle.io.PuzzleIOException;
 import com.puzzle.io.XmlLoader;
 import com.puzzle.model.Angle;
@@ -20,6 +23,8 @@ import com.puzzle.view2.layer.HudLayer;
 import com.puzzle.view2.layer.Pocket;
 import com.puzzle.view2.layer.TapisLayer;
 import com.puzzle.view2.layer.Vue;
+import com.puzzle.view2.menu.MenuController;
+import com.puzzle.view2.menu.MenuView;
 import com.puzzle.view2.widget.MiniMap;
 
 public class PuzzleMain {
@@ -27,15 +32,16 @@ public class PuzzleMain {
 	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
 		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
 //		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/k_160";
-		String rootPuzzlePath2 = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/k_160";
+//		String rootPuzzlePath2 = "D:/projet_java/personnel/git/renaud-puzzle/puzzle-pieces/puzzle/mug_117";
+		String puzzlePiecePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle";
 
 		
 		
-		int screenLargeur = 800;
-		int screenHauteur = 600;
+		int screenLargeur = 1024;
+		int screenHauteur = 768;
 		
-		double tapisLargeur = 36000.0 * 1.0;
-		double tapisHauteur = 12000.0 * 1.0;
+		double tapisLargeur = 36000.0 * 0.8;
+		double tapisHauteur = 12000.0 * 0.8;
 		
 		Image backgroundImage = new SimpleImageLoader().getImage(pathResources+File.separator+"background"+File.separator+"default-background.jpg"); 
 		Image redCrossImage = new SimpleImageLoader().getImage(pathResources+File.separator+"red-cross.png"); 
@@ -43,7 +49,7 @@ public class PuzzleMain {
 		
 		Tapis tapis = new Tapis(tapisLargeur, tapisHauteur);
 //		PuzzleMain.load(rootPuzzlePath,tapis);
-		PuzzleMain.load(rootPuzzlePath2,tapis);
+//		PuzzleMain.load(rootPuzzlePath2,tapis);
 		
 		
 		Vue vue = new Vue();
@@ -82,7 +88,13 @@ public class PuzzleMain {
 		f.getComponent().addMouseMotionListener(controller);
 		f.getComponent().addMouseWheelListener(controller);
 		f.getComponent().addKeyListener(controller);
-
+		
+		// le menu
+		MenuController mc = new MenuController(tapis,puzzlePiecePath);
+		MenuView mv = new MenuView(f.getFrame(),mc);
+		mc.addObserver(mv);
+		
+		mc.load();
 	}
 	
 	
@@ -145,8 +157,11 @@ public class PuzzleMain {
 			
 
 		}
-		ImageProvider.getInstance().addPath(puzzle, rootPuzzlePath);
+
 		tapis.poser(puzzle);
 	}
+
+
+
 
 }

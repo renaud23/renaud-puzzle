@@ -40,7 +40,7 @@ public class ImagePieceLoader implements Runnable{
 				TacheChargement t = this.taches.pop();
 				try {
 					SimpleImageLoader ld = new SimpleImageLoader();
-					String rootPath = ImageProvider.getInstance().getPath(t.getPiece());
+					String rootPath = t.getPiece().getPuzzle().getPath();
 					String path = rootPath+File.separator+"images"+File.separator+t.getPiece().getId()+".png";
 					Image img = ld.getImage(path);
 					ImageProvider.getInstance().PutImage(t.getPiece(), img);

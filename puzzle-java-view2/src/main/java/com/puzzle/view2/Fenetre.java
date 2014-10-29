@@ -9,13 +9,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
-import java.util.Spliterator;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Consumer;
-
 import javax.swing.JFrame;
-
 import com.puzzle.view2.image.IDrawOperation;
 import com.puzzle.view2.image.IDrawable;
 import com.puzzle.view2.image.tool.CanvasHwdBuffer;
@@ -165,6 +161,12 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 
 
 
+	public JFrame getFrame() {
+		return frame;
+	}
+
+
+
 	public Vue getVue() {
 		return vue;
 	}
@@ -178,17 +180,5 @@ public class Fenetre extends Observable implements Iterable<IDrawable>{
 
 
 
-	@Override
-	public void forEach(Consumer<? super IDrawable> arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
-
-
-	@Override
-	public Spliterator<IDrawable> spliterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

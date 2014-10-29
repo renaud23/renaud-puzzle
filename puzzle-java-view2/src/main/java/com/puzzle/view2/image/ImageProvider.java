@@ -2,7 +2,9 @@ package com.puzzle.view2.image;
 
 import java.awt.Image;
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,8 +19,6 @@ public class ImageProvider {
 	private final Map<CompositePiece, Image> imagesComposite = new HashMap<CompositePiece, Image>();
 	private final Map<Piece, SoftReference<Image>> imagesPiece = new HashMap<Piece, SoftReference<Image>>();
 	
-//	private String path;
-	private Map<Puzzle, String> paths = new HashMap<>(); 
 	private Image imageWaiting;
 	
 	private Thread compositeGenerator;
@@ -77,13 +77,17 @@ public class ImageProvider {
 
 		return img;
 	}
-
-	public void addPath(Puzzle puzzle,String path){
-		this.paths.put(puzzle, path);
-	}
 	
-	public String getPath(Piece p){
-		return this.paths.get(p.getPuzzle());
+	public void clean(Puzzle puzz){
+		List<CompositePiece> out = new ArrayList<CompositePiece>();
+		for(CompositePiece cmp : this.imagesComposite.keySet()){
+			Piece pi = (Piece) cmp.getPieces().get(0);
+			if(pi.getPuzzle().getId() == puzz.getId()){
+				out.add(cmp);
+			}
+		}
+		
+		for(CompositePiece cmp : out)this.imagesComposite.remove(cmp);
 	}
 	
 	public Set<CompositePiece> getDrawableComposite(){

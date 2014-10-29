@@ -81,8 +81,7 @@ public class clipsAnimation implements IAnimation{
 		this.current = c;
 		this.ellapsed += interval;
 		
-		this.angle += 0.5;
-		this.scale *= 1.01;
+		
 		
 		
 		if(this.ellapsed >= this.duree) finished = true;

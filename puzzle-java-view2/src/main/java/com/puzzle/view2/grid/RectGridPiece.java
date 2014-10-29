@@ -19,7 +19,9 @@ public class RectGridPiece implements MyRect{
 	
 	public RectGridPiece(Piece p){
 		this.p = p;
-		this.rp = (RectPiece) p.getRect();
+		if(p.getRect() instanceof RectGridPiece){
+			this.rp = ((RectGridPiece)p.getRect()).rp;
+		}else this.rp = (RectPiece) p.getRect();
 		
 //		
 	}
