@@ -29,11 +29,11 @@ import com.puzzle.view2.widget.MiniMap;
 
 public class PuzzleMain {
 
-	public static void main(String[] args) throws ImageLoadException, PuzzleIOException {
-		String pathResources = "E:/git/renaud-puzzle/puzzle-java-view2/src/main/resources";
+	public static void main(String[] args) {
+		String pathResources = "D:/git_repository/renaud-puzzle/puzzle-java-view2/src/main/resources";
 //		String rootPuzzlePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle/k_160";
 //		String rootPuzzlePath2 = "D:/projet_java/personnel/git/renaud-puzzle/puzzle-pieces/puzzle/mug_117";
-		String puzzlePiecePath = "E:/git/renaud-puzzle/puzzle-pieces/puzzle";
+		String puzzlePiecePath = "D:/git_repository/renaud-puzzle/puzzle-pieces/puzzle";
 
 		
 		
@@ -43,8 +43,22 @@ public class PuzzleMain {
 		double tapisLargeur = 36000.0 * 0.8;
 		double tapisHauteur = 12000.0 * 0.8;
 		
-		Image backgroundImage = new SimpleImageLoader().getImage(pathResources+File.separator+"background"+File.separator+"default-background.jpg"); 
-		Image redCrossImage = new SimpleImageLoader().getImage(pathResources+File.separator+"red-cross.png"); 
+		Image backgroundImage = null;
+		try {
+			backgroundImage = new SimpleImageLoader().getImage(pathResources+File.separator+"background"+File.separator+"default-background.jpg");
+		}
+		catch (ImageLoadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		Image redCrossImage = null;
+		try {
+			redCrossImage = new SimpleImageLoader().getImage(pathResources+File.separator+"red-cross.png");
+		}
+		catch (ImageLoadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		ImageProvider.getInstance().setImageWaiting(redCrossImage);
 		
 		Tapis tapis = new Tapis(tapisLargeur, tapisHauteur);
@@ -78,7 +92,7 @@ public class PuzzleMain {
 		// injection des drawables au hud
 		hud.addWidget(map);
 		
-		// ajout des layers à la fenetre
+		// ajout des layers ï¿½ la fenetre
 		f.addDrawable(backgroundLayer);
 		f.addDrawable(tapisLayer);
 		f.addDrawable(hud);
